@@ -154,7 +154,7 @@ def sweep():
     pan = occ_by_name('Head pan rotor')
     tilt = occ_by_name('Head tilt rotor', pan)
     py, tz, sz = mm('pan_y'), mm('tilt_z'), mm('scan_z')
-    near_prefix = ('Head joint fixed', 'Shell', 'Lidar', 'Top deck')
+    near_prefix = ('Head joint fixed', 'Shell', 'Lidar', 'Frame')
     fixed_bodies = []
     for occ, c, b in items():
         top = occ.fullPathName.split('+')[0]
@@ -169,7 +169,7 @@ def sweep():
             adsk.doEvents()
             mov = [b for b in pan.bRepBodies] + [b for o in pan.childOccurrences for b in o.bRepBodies] + \
                   [b for o in tilt.childOccurrences for b in o.bRepBodies] + [b for b in tilt.bRepBodies]
-            mov = [b for b in mov if b.isSolid]
+            mov = [b for b in mov if b.isSolid and not b.parentComponent.name.startswith(SKIP)]
             # lowest point of the tilt rotor (head + fork) and of the pan rotor above the deck
             hz = min(b.boundingBox.minPoint.z for b in tilt.bRepBodies) * 10
             col = OC.create()
@@ -193,7 +193,7 @@ def sweep():
 
 def scan_plane():
     """Bodies crossing the lidar beam (scan_z +- 3 mm) and the bearing sector each blocks."""
-    lx, ly, sz = 0.0, mm('lidar_y'), mm('scan_z')
+    lx, ly, sz = mm('lidar_x'), mm('lidar_y'), mm('scan_z')
     out = []
     for occ, c, b in items():
         top = occ.fullPathName.split('+')[0]
@@ -234,3 +234,31 @@ def main(parts=('mass', 'bed', 'interf', 'sweep')):
         put_json('checks-interf.json', R['interference'])
     log('checks done', len(its))
     done()
+
+
+def quick(prefixes, tag):
+    """Per-stage check: interference of the named top-level components against every body whose box
+    touches them, plus print-bed fit of their printed parts. Uploads checks-quick-<tag>.json."""
+    t0 = time.time()
+    its = [(o, c, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness',))
+           and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
+    mine = [(o, c, b) for (o, c, b) in its if o.fullPathName.split('+')[0].startswith(prefixes)]
+    if not mine:
+        raise Exception('quick check: nothing matches %r' % (prefixes,))
+    lo = [min(b.boundingBox.minPoint.asArray()[i] for _, _, b in mine) - 0.1 for i in range(3)]
+    hi = [max(b.boundingBox.maxPoint.asArray()[i] for _, _, b in mine) + 0.1 for i in range(3)]
+    mine_ids = set(b.entityToken for _, _, b in mine)
+    near = []
+    for o, c, b in its:
+        if b.entityToken in mine_ids:
+            continue
+        bb = b.boundingBox
+        if all(bb.minPoint.asArray()[i] <= hi[i] and bb.maxPoint.asArray()[i] >= lo[i] for i in range(3)):
+            near.append(b)
+    hits = [h for h in interference([b for _, _, b in mine] + near)
+            if any(h[k].split(' / ')[0].split('+')[0].startswith(prefixes) for k in ('a', 'b'))]
+    R = {'stage': tag, 'prefixes': list(prefixes), 'bodies': len(mine), 'near': len(near), 'unhealthy': health(),
+         'interference': hits, 'bed': [r for r in bedfit(mine) if not r['fits']], 'printed_checked': len(bedfit(mine)),
+         'seconds': round(time.time() - t0)}
+    put_json('checks-quick-%s.json' % tag, R)
+    log('quick check', tag, 'hits', len(hits), 'bed misses', len(R['bed']), 'unhealthy', len(R['unhealthy']))

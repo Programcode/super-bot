@@ -41,3 +41,15 @@ def vis(prefixes, on=True, only=False):
 def snap(name, w=1100, h=850):
     """Quick-look image via the bridge. v2lib's guard has already checked the active document."""
     save('look-' + name, w, h)
+
+
+def save_t(name, w=1600, h=1200):
+    """Viewport image with a transparent background (no grid/background); composited on the VPS."""
+    vp = app.activeViewport
+    path = os.path.join(tempfile.gettempdir(), name + '.png')
+    o = adsk.core.SaveImageFileOptions.create(path)
+    o.width, o.height = w, h
+    o.isAntiAliased = True
+    o.isBackgroundTransparent = True
+    vp.saveAsImageFileWithOptions(o)
+    put(name + '.png', open(path, 'rb').read())

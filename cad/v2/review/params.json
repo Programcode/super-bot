@@ -1,0 +1,608 @@
+[
+ {
+  "name": "body_w",
+  "expr": "200 mm",
+  "value": 200.0,
+  "comment": "Body box width X (shell outside)"
+ },
+ {
+  "name": "body_d",
+  "expr": "200 mm",
+  "value": 200.0,
+  "comment": "Body box depth Y"
+ },
+ {
+  "name": "body_top",
+  "expr": "body_z0 + body_h",
+  "value": 278.0,
+  "comment": "Body box top Z (T)"
+ },
+ {
+  "name": "pwall",
+  "expr": "2.4 mm",
+  "value": 2.4,
+  "comment": "Printed shell wall (6 perimeters at 0.4)"
+ },
+ {
+  "name": "corner_r",
+  "expr": "14 mm",
+  "value": 14.0,
+  "comment": "Vertical corner radius of the body"
+ },
+ {
+  "name": "top_r",
+  "expr": "12 mm",
+  "value": 12.0,
+  "comment": "Radius of the rounded top edges"
+ },
+ {
+  "name": "shell_x",
+  "expr": "body_w / 2",
+  "value": 100.0,
+  "comment": "Body outer half-width"
+ },
+ {
+  "name": "shell_y",
+  "expr": "body_d / 2",
+  "value": 100.0,
+  "comment": "Body outer half-depth"
+ },
+ {
+  "name": "plate_z",
+  "expr": "30 mm",
+  "value": 30.0,
+  "comment": "Ground clearance under the chassis plate"
+ },
+ {
+  "name": "plate_t",
+  "expr": "6 mm",
+  "value": 6.0,
+  "comment": "Chassis plate thickness (6 mm birch ply)"
+ },
+ {
+  "name": "plate_top",
+  "expr": "plate_z + plate_t",
+  "value": 36.0,
+  "comment": "Top of the chassis plate"
+ },
+ {
+  "name": "plate_w",
+  "expr": "body_w - 2 * pwall - 1 mm",
+  "value": 194.2,
+  "comment": "Chassis plate X"
+ },
+ {
+  "name": "plate_d",
+  "expr": "body_d - 2 * pwall - 1 mm",
+  "value": 194.2,
+  "comment": "Chassis plate Y"
+ },
+ {
+  "name": "wheel_d",
+  "expr": "100 mm",
+  "value": 100.0,
+  "comment": "Mecanum wheel OD (SRC)"
+ },
+ {
+  "name": "wheel_w",
+  "expr": "50 mm",
+  "value": 50.0,
+  "comment": "Mecanum wheel width (SRC Studica/Nexus 100 mm)"
+ },
+ {
+  "name": "wheel_y",
+  "expr": "shell_y - pwall - gb_d / 2 - 3 mm",
+  "value": 76.1,
+  "comment": "Wheel centre |Y| (half wheelbase); motors just inside the front/rear walls"
+ },
+ {
+  "name": "wheel_xc",
+  "expr": "shell_x + wheel_gap + wheel_w / 2",
+  "value": 128.0,
+  "comment": "Wheel centre |X| (half track)"
+ },
+ {
+  "name": "mount_wall",
+  "expr": "5 mm",
+  "value": 5.0,
+  "comment": "Printed motor mount wall"
+ },
+ {
+  "name": "gb_face",
+  "expr": "shell_x - pwall - 0.5 mm - mount_wall",
+  "value": 92.1,
+  "comment": "Gearbox face |X|"
+ },
+ {
+  "name": "axle_z",
+  "expr": "wheel_d / 2",
+  "value": 50.0,
+  "comment": "Wheel axle height"
+ },
+ {
+  "name": "shaft_off",
+  "expr": "7 mm",
+  "value": 7.0,
+  "comment": "Output shaft offset from the motor axis (SRC drawing)"
+ },
+ {
+  "name": "motor_z",
+  "expr": "axle_z + shaft_off",
+  "value": 57.0,
+  "comment": "Motor axis height (shaft below the axis)"
+ },
+ {
+  "name": "gb_d",
+  "expr": "37 mm",
+  "value": 37.0,
+  "comment": "JGB37 gearbox diameter (SRC)"
+ },
+ {
+  "name": "gb_len",
+  "expr": "22 mm",
+  "value": 22.0,
+  "comment": "JGB37 gearbox length, 19:1 (SRC)"
+ },
+ {
+  "name": "can_d",
+  "expr": "33 mm",
+  "value": 33.0,
+  "comment": "JGB37 motor can diameter (SRC)"
+ },
+ {
+  "name": "can_len",
+  "expr": "22.7 mm",
+  "value": 22.7,
+  "comment": "JGB37 motor can length (SRC)"
+ },
+ {
+  "name": "cap_len",
+  "expr": "3.5 mm",
+  "value": 3.5,
+  "comment": "JGB37 rear cap (SRC)"
+ },
+ {
+  "name": "enc_len",
+  "expr": "12 mm",
+  "value": 12.0,
+  "comment": "Hall encoder length (EST, measure)"
+ },
+ {
+  "name": "collar_len",
+  "expr": "6 mm",
+  "value": 6.0,
+  "comment": "Gearbox pilot boss (SRC 12 x 6)"
+ },
+ {
+  "name": "shaft_len",
+  "expr": "15.5 mm",
+  "value": 15.5,
+  "comment": "6 mm D-shaft length (SRC)"
+ },
+ {
+  "name": "cell_d",
+  "expr": "18.6 mm",
+  "value": 18.6,
+  "comment": "18650 cell diameter"
+ },
+ {
+  "name": "cell_l",
+  "expr": "65.2 mm",
+  "value": 65.2,
+  "comment": "18650 cell length (flat top, unprotected)"
+ },
+ {
+  "name": "pack_x",
+  "expr": "2 * cell_d + 1 mm",
+  "value": 38.2,
+  "comment": "Pack width X (2 cells)"
+ },
+ {
+  "name": "pack_y",
+  "expr": "2 * cell_l + 4 mm",
+  "value": 134.4,
+  "comment": "Pack length Y (2 cells end to end + nickel)"
+ },
+ {
+  "name": "sled_wall",
+  "expr": "2.4 mm",
+  "value": 2.4,
+  "comment": "Battery sled wall"
+ },
+ {
+  "name": "tof_r",
+  "expr": "80 mm",
+  "value": 80.0,
+  "comment": "Cliff sensor distance from the centre (under the plate)"
+ },
+ {
+  "name": "top_deck_z",
+  "expr": "body_top - 14 mm",
+  "value": 264.0,
+  "comment": "Top deck underside"
+ },
+ {
+  "name": "top_deck_top",
+  "expr": "top_deck_z + ply_t",
+  "value": 268.0,
+  "comment": "Top deck top"
+ },
+ {
+  "name": "spine_y",
+  "expr": "44 mm",
+  "value": 44.0,
+  "comment": "Spine front face Y"
+ },
+ {
+  "name": "pan_y",
+  "expr": "20 mm",
+  "value": 20.0,
+  "comment": "Head pan axis Y (forward of centre; the pan gear clears the spine)"
+ },
+ {
+  "name": "lidar_y",
+  "expr": "-58 mm",
+  "value": -58.0,
+  "comment": "Lidar centre Y (rear)"
+ },
+ {
+  "name": "pan_servo_x",
+  "expr": "36 mm",
+  "value": 36.0,
+  "comment": "Pan servo shaft X (1:1 gear pair, 36 mm centre distance)"
+ },
+ {
+  "name": "pi_xc",
+  "expr": "-5 mm",
+  "value": -5.0,
+  "comment": "Pi 5 PCB centre X (USB/Ethernet edge faces +X, ~40 mm plug room)"
+ },
+ {
+  "name": "pi_z0",
+  "expr": "plate_top + 104 mm",
+  "value": 140.0,
+  "comment": "Pi 5 PCB bottom (HDMI/USB-C) edge Z"
+ },
+ {
+  "name": "pi_so",
+  "expr": "6 mm",
+  "value": 6.0,
+  "comment": "Pi standoffs off the spine"
+ },
+ {
+  "name": "pi_y0",
+  "expr": "spine_y + pi_so",
+  "value": 50.0,
+  "comment": "Pi PCB back face Y"
+ },
+ {
+  "name": "hat_so",
+  "expr": "16 mm",
+  "value": 16.0,
+  "comment": "AI HAT+ 2 spacer height (SRC)"
+ },
+ {
+  "name": "cpx_z",
+  "expr": "pi_z0 + 92 mm",
+  "value": 232.0,
+  "comment": "CPX centre Z"
+ },
+ {
+  "name": "shaft_od",
+  "expr": "25 mm",
+  "value": 25.0,
+  "comment": "Pan shaft: 25 x 1 mm aluminium tube (fits 6805 bearings)"
+ },
+ {
+  "name": "seam_gap",
+  "expr": "0.4 mm",
+  "value": 0.4,
+  "comment": "Gap between shell pieces"
+ },
+ {
+  "name": "pod_w",
+  "expr": "70 mm",
+  "value": 70.0,
+  "comment": "Lidar pod width X"
+ },
+ {
+  "name": "pod_d",
+  "expr": "64 mm",
+  "value": 64.0,
+  "comment": "Lidar pod depth Y"
+ },
+ {
+  "name": "mag_d",
+  "expr": "6 mm",
+  "value": 6.0,
+  "comment": "Magnet diameter (6 x 3 mm N52 disc)"
+ },
+ {
+  "name": "mag_t",
+  "expr": "3 mm",
+  "value": 3.0,
+  "comment": "Magnet thickness"
+ },
+ {
+  "name": "scan_h",
+  "expr": "27 mm",
+  "value": 27.0,
+  "comment": "LD19 scan plane above its mounting ears (EST from the datasheet figure)"
+ },
+ {
+  "name": "plinth_h",
+  "expr": "12 mm",
+  "value": 12.0,
+  "comment": "Plinth height above the body top"
+ },
+ {
+  "name": "scan_z",
+  "expr": "body_top + plinth_h + knuckle_h / 2",
+  "value": 301.0,
+  "comment": "Lidar scan plane Z"
+ },
+ {
+  "name": "turret_z",
+  "expr": "body_top + plinth_h + knuckle_h",
+  "value": 312.0,
+  "comment": "Turret bottom Z"
+ },
+ {
+  "name": "tilt_z",
+  "expr": "turret_z + 13 mm",
+  "value": 325.0,
+  "comment": "Tilt axis Z"
+ },
+ {
+  "name": "turret_hw",
+  "expr": "30 mm",
+  "value": 30.0,
+  "comment": "Turret half-width X"
+ },
+ {
+  "name": "turret_hd",
+  "expr": "25 mm",
+  "value": 25.0,
+  "comment": "Turret half-depth Y"
+ },
+ {
+  "name": "head_w",
+  "expr": "190 mm",
+  "value": 190.0,
+  "comment": "Head width (photo match; the original brief asked for smaller)"
+ },
+ {
+  "name": "head_h",
+  "expr": "76 mm",
+  "value": 76.0,
+  "comment": "Head height"
+ },
+ {
+  "name": "head_d",
+  "expr": "64 mm",
+  "value": 64.0,
+  "comment": "Head depth"
+ },
+ {
+  "name": "head_z0",
+  "expr": "tilt_z + 28 mm",
+  "value": 353.0,
+  "comment": "Head bottom Z (clears the turret at any tilt)"
+ },
+ {
+  "name": "head_zc",
+  "expr": "head_z0 + head_h / 2",
+  "value": 391.0,
+  "comment": "Head centre Z"
+ },
+ {
+  "name": "gear_z",
+  "expr": "top_deck_z - 32 mm",
+  "value": 232.0,
+  "comment": "Pan gear pair bottom Z (under the top deck)"
+ },
+ {
+  "name": "shaft_z0",
+  "expr": "gear_z - 4 mm",
+  "value": 228.0,
+  "comment": "Pan shaft bottom Z"
+ },
+ {
+  "name": "cam_x",
+  "expr": "60 mm",
+  "value": 60.0,
+  "comment": "Camera Module 3 centre X"
+ },
+ {
+  "name": "tft_x",
+  "expr": "10 mm",
+  "value": 10.0,
+  "comment": "TFT centre X"
+ },
+ {
+  "name": "body_h",
+  "expr": "1.25 * body_w",
+  "value": 250.0,
+  "comment": "Body box height (1.25 x width, as in the target photo)"
+ },
+ {
+  "name": "body_z0",
+  "expr": "28 mm",
+  "value": 28.0,
+  "comment": "Body box bottom Z"
+ },
+ {
+  "name": "wheel_gap",
+  "expr": "3 mm",
+  "value": 3.0,
+  "comment": "Body side to wheel inner face"
+ },
+ {
+  "name": "pack_z",
+  "expr": "3 * cell_d + 2 mm",
+  "value": 57.8,
+  "comment": "Pack height Z (3 cells)"
+ },
+ {
+  "name": "sled_y0",
+  "expr": "-( shell_y - pwall )",
+  "value": -97.6,
+  "comment": "Sled rear face (the door screws on here)"
+ },
+ {
+  "name": "pack_y0",
+  "expr": "sled_y0 + sled_wall + 0.5 mm",
+  "value": -94.7,
+  "comment": "Pack rear end Y"
+ },
+ {
+  "name": "pack_y1",
+  "expr": "pack_y0 + pack_y",
+  "value": 39.7,
+  "comment": "Pack front end Y"
+ },
+ {
+  "name": "sled_y1",
+  "expr": "pack_y1 + sled_wall + 0.3 mm",
+  "value": 42.4,
+  "comment": "Sled front face Y (XT60 male sticks out here)"
+ },
+ {
+  "name": "sled_hw",
+  "expr": "pack_x / 2 + sled_wall + 0.5 mm",
+  "value": 22.0,
+  "comment": "Sled half-width"
+ },
+ {
+  "name": "tun_hw",
+  "expr": "sled_hw + 4.5 mm",
+  "value": 26.5,
+  "comment": "Battery tunnel half-width (notches in the spine and rear plate)"
+ },
+ {
+  "name": "ply_t",
+  "expr": "4 mm",
+  "value": 4.0,
+  "comment": "Frame ply thickness (4 mm birch ply)"
+ },
+ {
+  "name": "rear_y",
+  "expr": "-51 mm",
+  "value": -51.0,
+  "comment": "Rear plate front face Y"
+ },
+ {
+  "name": "cheek_x",
+  "expr": "76 mm",
+  "value": 76.0,
+  "comment": "Side cheek inner face |X|"
+ },
+ {
+  "name": "in_x",
+  "expr": "shell_x - pwall - 1 mm",
+  "value": 96.6,
+  "comment": "Frame half-width (inside the shell)"
+ },
+ {
+  "name": "notch_z",
+  "expr": "plate_top + 44 mm",
+  "value": 80.0,
+  "comment": "Spine notch top (XT60 + sled front pass under)"
+ },
+ {
+  "name": "rnotch_z",
+  "expr": "body_z0 + 96 mm",
+  "value": 124.0,
+  "comment": "Rear plate notch top (pack + BMS + fuse pass under)"
+ },
+ {
+  "name": "wall_top",
+  "expr": "body_top - top_r - 2 mm",
+  "value": 264.0,
+  "comment": "Seam between the walls and the top halves"
+ },
+ {
+  "name": "wall_seam_y",
+  "expr": "shell_y - corner_r",
+  "value": 86.0,
+  "comment": "Seam between the front/rear walls and the side walls"
+ },
+ {
+  "name": "door_hw",
+  "expr": "tun_hw - 2 mm",
+  "value": 24.5,
+  "comment": "Battery door half-width"
+ },
+ {
+  "name": "door_top",
+  "expr": "body_z0 + 100 mm",
+  "value": 128.0,
+  "comment": "Battery door top"
+ },
+ {
+  "name": "plinth_s",
+  "expr": "64 mm",
+  "value": 64.0,
+  "comment": "Head plinth size (square)"
+ },
+ {
+  "name": "bar_z",
+  "expr": "body_top - 40 mm",
+  "value": 238.0,
+  "comment": "LED bar centre Z"
+ },
+ {
+  "name": "bar_w",
+  "expr": "140 mm",
+  "value": 140.0,
+  "comment": "LED bar slot length"
+ },
+ {
+  "name": "drv_z",
+  "expr": "plate_top + 46 mm",
+  "value": 82.0,
+  "comment": "Driver board bottom Z (above the front motors)"
+ },
+ {
+  "name": "knuckle_h",
+  "expr": "22 mm",
+  "value": 22.0,
+  "comment": "Knuckle between plinth and turret (the lidar plane passes here)"
+ },
+ {
+  "name": "mic_x",
+  "expr": "-68 mm",
+  "value": -68.0,
+  "comment": "Mic ear centre X"
+ },
+ {
+  "name": "ld_z",
+  "expr": "scan_z - scan_h",
+  "value": 274.0,
+  "comment": "LD19 ear underside Z"
+ },
+ {
+  "name": "pod_top",
+  "expr": "scan_z - 8 mm",
+  "value": 293.0,
+  "comment": "Pod rim Z (5 mm under the LD19 window band)"
+ },
+ {
+  "name": "lidar_x",
+  "expr": "-50 mm",
+  "value": -50.0,
+  "comment": "Lidar centre X (rear left, as in the target photo)"
+ },
+ {
+  "name": "top_seam_y",
+  "expr": "( pan_y - plinth_s / 2 + lidar_y + pod_d / 2 ) / 2",
+  "value": -19.0,
+  "comment": "Seam between the front and rear top halves"
+ },
+ {
+  "name": "frame_z1",
+  "expr": "plate_top + 46 mm",
+  "value": 82.0,
+  "comment": "Bottom of the cheeks and rear plate (clear of the motor mounts)"
+ }
+]

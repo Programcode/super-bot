@@ -1,0 +1,66 @@
+{
+ "back": {
+  "bodies": 29,
+  "near": 54,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 2,
+  "unhealthy": []
+ },
+ "battery": {
+  "bodies": 38,
+  "near": 80,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 9,
+  "unhealthy": []
+ },
+ "drive": {
+  "bodies": 85,
+  "near": 79,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 8,
+  "unhealthy": []
+ },
+ "frame": {
+  "bodies": 21,
+  "near": 226,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 16,
+  "unhealthy": []
+ },
+ "front": {
+  "bodies": 81,
+  "near": 63,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 5,
+  "unhealthy": []
+ },
+ "head": {
+  "bodies": 54,
+  "near": 38,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 17,
+  "unhealthy": []
+ },
+ "lidar": {
+  "bodies": 5,
+  "near": 2,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 1,
+  "unhealthy": []
+ },
+ "shell": {
+  "bodies": 57,
+  "near": 216,
+  "interference": [],
+  "bed_misses": [],
+  "printed": 57,
+  "unhealthy": []
+ }
+}

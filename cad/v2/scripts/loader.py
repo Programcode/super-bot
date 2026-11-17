@@ -7,6 +7,10 @@ JOBS = [('s2_level0.py', "main(('cliff',))")]
 TAG = 'job'
 
 
+def _put(name, text):
+    urllib.request.urlopen(urllib.request.Request(U + name, data=text.encode(), method='PUT'), timeout=30).read()
+
+
 def run(_context: str):
     out = []
     t0 = time.time()
@@ -18,13 +22,13 @@ def run(_context: str):
             exec(call, g)
             out.append('%s %s ok (%.0fs)\n%s' % (stage, call, time.time() - t0, '\n'.join(g['LOG'][-40:])))
         status = 'OK'
-        doc = adsk.core.Application.get().activeDocument
-        if doc.name.startswith('Super bot - v2') and not TAG.startswith('shot'):
-            doc.save('auto-save after ' + TAG + ': ' + ', '.join(j[0] + ' ' + j[1] for j in JOBS))
-            out.append('saved version %s' % (doc.dataFile.versionNumber if doc.dataFile else '?'))
     except Exception:
         out.append(traceback.format_exc())
         status = 'FAIL'
     msg = status + '\n' + '\n'.join(out)
-    urllib.request.urlopen(urllib.request.Request(U + 'run-' + TAG + '.txt', data=msg.encode(), method='PUT'), timeout=30).read()
+    _put('run-' + TAG + '.txt', msg)          # log first, so a slow save can't hide it
+    doc = adsk.core.Application.get().activeDocument
+    if status == 'OK' and doc.name.startswith('Super bot - v2') and not TAG.startswith('shot'):
+        doc.save('auto-save after ' + TAG + ': ' + ', '.join(j[0] + ' ' + j[1] for j in JOBS))
+        _put('saved-' + TAG + '.txt', 'saved (version %s before save)' % (doc.dataFile.versionNumber if doc.dataFile else '?'))
     print(msg)

@@ -2,6 +2,19 @@
 
 Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full log with reasons is on the Grok Bot page (snapshot in [super-bot-page.md](super-bot-page.md)). Append a row whenever something is decided.
 
+## 17-18 Nov 2026: Super bot v2 layout (Fusion "Super bot - v2", `cad/v2/`)
+
+| Decision | Notes |
+| --- | --- |
+| First v2 build (300 x 300 x 340 open frame with corner tie rods) scrapped | Adam, 17 Nov: "not at all what I want ... a giant empty 3D printer looking box". Rebuilt to match `docs/concepts/v2-target-photo.png`. Scripts kept in `cad/v2/scripts/old-frame-build/`. |
+| Body 200 x 200 x 250 (height = 1.25 x width), rounded smoked PETG shell in 7 printed pieces | Per Adam via Pip: compact and dense, a bit taller than wide, like the photo. Overall 306 x 252 with the wheels; head top at 429 mm. |
+| Wheels outside the body at the corners; motors inside | As in the photo. Wheel = 40 % of body height. |
+| Battery: 3S4P as a 2 x 3 x 2 cell block on a sled that slides out the back; charge jack on the battery door (pack side of the loop key); blind-mate XT60 | Proposal (Claude). The wheels outside the sides leave no side exit. |
+| Boards flat on a vertical spine behind the front wall (driver board + ESP32, Pi 5 stack, CPX, LED bar); side cheeks and a rear plate close the frame; no corner rods | Proposal (Claude), matching the photo's "boards stacked behind the front wall". Front channel is the cooling chimney. |
+| LED bar: 8 WS2812B (from a 60/m strip) behind a smoked diffuser slot, driven by the CPX | Pip/Adam asked for the photo's bar. New small part. |
+| Short chunky gimbal on a 64 mm square plinth, head 190 x 76 x 64 capsule | Photo match. The head is bigger than the original "much smaller than v1" ask: open for Adam (`head_w` knob). |
+| Lidar LD19 in a pod at the rear left, sunk so the scan plane passes under the turret | Head clear of the plane at all pan/tilt. The 30 mm knuckle blocks about 19 deg (mask in software); a taller pod would fix it but changes the look: open for Adam. |
+
 ## 17 Nov 2026: PCB tool
 
 | Decision | Notes |

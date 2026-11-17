@@ -1,0 +1,2136 @@
+{
+ "bodies": 388,
+ "timeline": 1421,
+ "unhealthy": [],
+ "params": [
+  {
+   "name": "body_w",
+   "expr": "200 mm",
+   "mm": 200.0,
+   "comment": "Body box width X (shell outside)"
+  },
+  {
+   "name": "body_d",
+   "expr": "200 mm",
+   "mm": 200.0,
+   "comment": "Body box depth Y"
+  },
+  {
+   "name": "body_top",
+   "expr": "body_z0 + body_h",
+   "mm": 278.0,
+   "comment": "Body box top Z (T)"
+  },
+  {
+   "name": "pwall",
+   "expr": "2.4 mm",
+   "mm": 2.4,
+   "comment": "Printed shell wall (6 perimeters at 0.4)"
+  },
+  {
+   "name": "corner_r",
+   "expr": "14 mm",
+   "mm": 14.0,
+   "comment": "Vertical corner radius of the body"
+  },
+  {
+   "name": "top_r",
+   "expr": "12 mm",
+   "mm": 12.0,
+   "comment": "Radius of the rounded top edges"
+  },
+  {
+   "name": "shell_x",
+   "expr": "body_w / 2",
+   "mm": 100.0,
+   "comment": "Body outer half-width"
+  },
+  {
+   "name": "shell_y",
+   "expr": "body_d / 2",
+   "mm": 100.0,
+   "comment": "Body outer half-depth"
+  },
+  {
+   "name": "plate_z",
+   "expr": "30 mm",
+   "mm": 30.0,
+   "comment": "Ground clearance under the chassis plate"
+  },
+  {
+   "name": "plate_t",
+   "expr": "6 mm",
+   "mm": 6.0,
+   "comment": "Chassis plate thickness (6 mm birch ply)"
+  },
+  {
+   "name": "plate_top",
+   "expr": "plate_z + plate_t",
+   "mm": 36.0,
+   "comment": "Top of the chassis plate"
+  },
+  {
+   "name": "plate_w",
+   "expr": "body_w - 2 * pwall - 1 mm",
+   "mm": 194.2,
+   "comment": "Chassis plate X"
+  },
+  {
+   "name": "plate_d",
+   "expr": "body_d - 2 * pwall - 1 mm",
+   "mm": 194.2,
+   "comment": "Chassis plate Y"
+  },
+  {
+   "name": "wheel_d",
+   "expr": "100 mm",
+   "mm": 100.0,
+   "comment": "Mecanum wheel OD (SRC)"
+  },
+  {
+   "name": "wheel_w",
+   "expr": "50 mm",
+   "mm": 50.0,
+   "comment": "Mecanum wheel width (SRC Studica/Nexus 100 mm)"
+  },
+  {
+   "name": "wheel_y",
+   "expr": "shell_y - pwall - gb_d / 2 - 3 mm",
+   "mm": 76.1,
+   "comment": "Wheel centre |Y| (half wheelbase); motors just inside the front/rear walls"
+  },
+  {
+   "name": "wheel_proud",
+   "expr": "4 mm",
+   "mm": 4.0,
+   "comment": "Wheel outer face sticks out past the shell side"
+  },
+  {
+   "name": "wheel_x_out",
+   "expr": "shell_x + wheel_proud",
+   "mm": 104.0,
+   "comment": "Wheel outer face |X|"
+  },
+  {
+   "name": "wheel_xc",
+   "expr": "shell_x + wheel_gap + wheel_w / 2",
+   "mm": 128.0,
+   "comment": "Wheel centre |X| (half track)"
+  },
+  {
+   "name": "well_gap",
+   "expr": "3 mm",
+   "mm": 3.0,
+   "comment": "Wheel inner face to motor-mount wall gap"
+  },
+  {
+   "name": "mount_wall",
+   "expr": "5 mm",
+   "mm": 5.0,
+   "comment": "Printed motor mount wall"
+  },
+  {
+   "name": "notch_x",
+   "expr": "wheel_x_out - wheel_w - well_gap",
+   "mm": 51.0,
+   "comment": "Plate wheel notch starts at |X|"
+  },
+  {
+   "name": "notch_y",
+   "expr": "wheel_y - wheel_d / 2 - 5 mm",
+   "mm": 21.1,
+   "comment": "Plate wheel notch starts at |Y|"
+  },
+  {
+   "name": "gb_face",
+   "expr": "shell_x - pwall - 0.5 mm - mount_wall",
+   "mm": 92.1,
+   "comment": "Gearbox face |X|"
+  },
+  {
+   "name": "axle_z",
+   "expr": "wheel_d / 2",
+   "mm": 50.0,
+   "comment": "Wheel axle height"
+  },
+  {
+   "name": "shaft_off",
+   "expr": "7 mm",
+   "mm": 7.0,
+   "comment": "Output shaft offset from the motor axis (SRC drawing)"
+  },
+  {
+   "name": "motor_z",
+   "expr": "axle_z + shaft_off",
+   "mm": 57.0,
+   "comment": "Motor axis height (shaft below the axis)"
+  },
+  {
+   "name": "gb_d",
+   "expr": "37 mm",
+   "mm": 37.0,
+   "comment": "JGB37 gearbox diameter (SRC)"
+  },
+  {
+   "name": "gb_len",
+   "expr": "22 mm",
+   "mm": 22.0,
+   "comment": "JGB37 gearbox length, 19:1 (SRC)"
+  },
+  {
+   "name": "can_d",
+   "expr": "33 mm",
+   "mm": 33.0,
+   "comment": "JGB37 motor can diameter (SRC)"
+  },
+  {
+   "name": "can_len",
+   "expr": "22.7 mm",
+   "mm": 22.7,
+   "comment": "JGB37 motor can length (SRC)"
+  },
+  {
+   "name": "cap_len",
+   "expr": "3.5 mm",
+   "mm": 3.5,
+   "comment": "JGB37 rear cap (SRC)"
+  },
+  {
+   "name": "enc_len",
+   "expr": "12 mm",
+   "mm": 12.0,
+   "comment": "Hall encoder length (EST, measure)"
+  },
+  {
+   "name": "collar_len",
+   "expr": "6 mm",
+   "mm": 6.0,
+   "comment": "Gearbox pilot boss (SRC 12 x 6)"
+  },
+  {
+   "name": "shaft_len",
+   "expr": "15.5 mm",
+   "mm": 15.5,
+   "comment": "6 mm D-shaft length (SRC)"
+  },
+  {
+   "name": "fender_z",
+   "expr": "wheel_d + 12 mm",
+   "mm": 112.0,
+   "comment": "Underside of the corner fenders = L1 deck underside"
+  },
+  {
+   "name": "cell_d",
+   "expr": "18.6 mm",
+   "mm": 18.6,
+   "comment": "18650 cell diameter"
+  },
+  {
+   "name": "cell_l",
+   "expr": "65.2 mm",
+   "mm": 65.2,
+   "comment": "18650 cell length (flat top, unprotected)"
+  },
+  {
+   "name": "pack_x",
+   "expr": "2 * cell_d + 1 mm",
+   "mm": 38.2,
+   "comment": "Pack width X (2 cells)"
+  },
+  {
+   "name": "pack_y",
+   "expr": "2 * cell_l + 4 mm",
+   "mm": 134.4,
+   "comment": "Pack length Y (2 cells end to end + nickel)"
+  },
+  {
+   "name": "pack_h",
+   "expr": "2 * cell_d + 2.5 mm",
+   "mm": 39.7,
+   "comment": "3S4P block Z: 2 layers + wrap"
+  },
+  {
+   "name": "pack_xc",
+   "expr": "0 mm",
+   "mm": 0.0,
+   "comment": "Pack centre X"
+  },
+  {
+   "name": "sled_floor",
+   "expr": "2 mm",
+   "mm": 2.0,
+   "comment": "Battery sled floor"
+  },
+  {
+   "name": "sled_wall",
+   "expr": "2.4 mm",
+   "mm": 2.4,
+   "comment": "Battery sled wall"
+  },
+  {
+   "name": "sled_h",
+   "expr": "24 mm",
+   "mm": 24.0,
+   "comment": "Battery sled wall height"
+  },
+  {
+   "name": "bulk_x",
+   "expr": "-( pack_x / 2 + 34 mm )",
+   "mm": -53.1,
+   "comment": "XT60 bulkhead face X (sled blind-mates here)"
+  },
+  {
+   "name": "l1_z",
+   "expr": "fender_z",
+   "mm": 112.0,
+   "comment": "L1 deck underside"
+  },
+  {
+   "name": "deck_t",
+   "expr": "4 mm",
+   "mm": 4.0,
+   "comment": "Deck thickness (4 mm birch ply)"
+  },
+  {
+   "name": "l1_top",
+   "expr": "l1_z + deck_t",
+   "mm": 116.0,
+   "comment": "L1 deck top"
+  },
+  {
+   "name": "post_x",
+   "expr": "95 mm",
+   "mm": 95.0,
+   "comment": "L0 post |X|"
+  },
+  {
+   "name": "post_y",
+   "expr": "58 mm",
+   "mm": 58.0,
+   "comment": "L0 post |Y|"
+  },
+  {
+   "name": "drvb_y",
+   "expr": "59 mm",
+   "mm": 59.0,
+   "comment": "Motor-driver board centre Y (front bay)"
+  },
+  {
+   "name": "tof_r",
+   "expr": "80 mm",
+   "mm": 80.0,
+   "comment": "Cliff sensor distance from the centre (under the plate)"
+  },
+  {
+   "name": "deck_half",
+   "expr": "shell_x - pwall - 3.6 mm",
+   "mm": 94.0,
+   "comment": "L1 deck half-size"
+  },
+  {
+   "name": "top_deck_z",
+   "expr": "body_top - 14 mm",
+   "mm": 264.0,
+   "comment": "Top deck underside"
+  },
+  {
+   "name": "top_deck_top",
+   "expr": "top_deck_z + ply_t",
+   "mm": 268.0,
+   "comment": "Top deck top"
+  },
+  {
+   "name": "top_half",
+   "expr": "shell_x - 10 mm",
+   "mm": 90.0,
+   "comment": "Top deck half-size"
+  },
+  {
+   "name": "rod_xy",
+   "expr": "128 mm",
+   "mm": 128.0,
+   "comment": "Corner tie rod |X| = |Y|"
+  },
+  {
+   "name": "spine_y",
+   "expr": "44 mm",
+   "mm": 44.0,
+   "comment": "Spine front face Y"
+  },
+  {
+   "name": "spine_half",
+   "expr": "118 mm",
+   "mm": 118.0,
+   "comment": "Spine half-width"
+  },
+  {
+   "name": "pan_y",
+   "expr": "20 mm",
+   "mm": 20.0,
+   "comment": "Head pan axis Y (forward of centre; the pan gear clears the spine)"
+  },
+  {
+   "name": "lidar_y",
+   "expr": "-58 mm",
+   "mm": -58.0,
+   "comment": "Lidar centre Y (rear)"
+  },
+  {
+   "name": "vent_y0",
+   "expr": "spine_y + 6 mm",
+   "mm": 50.0,
+   "comment": "Chimney vent slots start Y"
+  },
+  {
+   "name": "vent_y1",
+   "expr": "shell_y - top_r - 8 mm",
+   "mm": 80.0,
+   "comment": "Chimney vent slots end Y"
+  },
+  {
+   "name": "pan_servo_x",
+   "expr": "36 mm",
+   "mm": 36.0,
+   "comment": "Pan servo shaft X (1:1 gear pair, 36 mm centre distance)"
+  },
+  {
+   "name": "pi_xc",
+   "expr": "-5 mm",
+   "mm": -5.0,
+   "comment": "Pi 5 PCB centre X (USB/Ethernet edge faces +X, ~40 mm plug room)"
+  },
+  {
+   "name": "pi_z0",
+   "expr": "plate_top + 104 mm",
+   "mm": 140.0,
+   "comment": "Pi 5 PCB bottom (HDMI/USB-C) edge Z"
+  },
+  {
+   "name": "pi_so",
+   "expr": "6 mm",
+   "mm": 6.0,
+   "comment": "Pi standoffs off the spine"
+  },
+  {
+   "name": "pi_y0",
+   "expr": "spine_y + pi_so",
+   "mm": 50.0,
+   "comment": "Pi PCB back face Y"
+  },
+  {
+   "name": "hat_so",
+   "expr": "16 mm",
+   "mm": 16.0,
+   "comment": "AI HAT+ 2 spacer height (SRC)"
+  },
+  {
+   "name": "esp_z",
+   "expr": "128 mm",
+   "mm": 128.0,
+   "comment": "ESP32 cradles bottom Z"
+  },
+  {
+   "name": "cpx_z",
+   "expr": "pi_z0 + 92 mm",
+   "mm": 232.0,
+   "comment": "CPX centre Z"
+  },
+  {
+   "name": "cpx_y",
+   "expr": "shell_y - pwall - 6 mm",
+   "mm": 91.6,
+   "comment": "CPX PCB front face Y"
+  },
+  {
+   "name": "key_x",
+   "expr": "60 mm",
+   "mm": 60.0,
+   "comment": "XT60 loop key X on the upper back"
+  },
+  {
+   "name": "key_z",
+   "expr": "body_top - 52 mm",
+   "mm": 226.0,
+   "comment": "XT60 loop key Z"
+  },
+  {
+   "name": "shaft_od",
+   "expr": "25 mm",
+   "mm": 25.0,
+   "comment": "Pan shaft: 25 x 1 mm aluminium tube (fits 6805 bearings)"
+  },
+  {
+   "name": "seam_gap",
+   "expr": "0.4 mm",
+   "mm": 0.4,
+   "comment": "Gap between shell pieces"
+  },
+  {
+   "name": "seam_a",
+   "expr": "shell_x - corner_r",
+   "mm": 86.0,
+   "comment": "Seam line: corners and top centre start here"
+  },
+  {
+   "name": "skirt_x",
+   "expr": "wheel_x_out - wheel_w - 4 mm",
+   "mm": 50.0,
+   "comment": "Front/rear skirt half-width (clears the wheels)"
+  },
+  {
+   "name": "skirt_y",
+   "expr": "wheel_y - wheel_d / 2 - 4 mm",
+   "mm": 22.1,
+   "comment": "Side skirt half-width (clears the wheels)"
+  },
+  {
+   "name": "plinth_d",
+   "expr": "64 mm",
+   "mm": 64.0,
+   "comment": "Head joint plinth diameter (holds 2x 6805)"
+  },
+  {
+   "name": "pod_w",
+   "expr": "70 mm",
+   "mm": 70.0,
+   "comment": "Lidar pod width X"
+  },
+  {
+   "name": "pod_d",
+   "expr": "64 mm",
+   "mm": 64.0,
+   "comment": "Lidar pod depth Y"
+  },
+  {
+   "name": "mag_d",
+   "expr": "6 mm",
+   "mm": 6.0,
+   "comment": "Magnet diameter (6 x 3 mm N52 disc)"
+  },
+  {
+   "name": "mag_t",
+   "expr": "3 mm",
+   "mm": 3.0,
+   "comment": "Magnet thickness"
+  },
+  {
+   "name": "scan_h",
+   "expr": "27 mm",
+   "mm": 27.0,
+   "comment": "LD19 scan plane above its mounting ears (EST from the datasheet figure)"
+  },
+  {
+   "name": "plinth_h",
+   "expr": "12 mm",
+   "mm": 12.0,
+   "comment": "Plinth height above the body top"
+  },
+  {
+   "name": "stem_gap",
+   "expr": "12 mm",
+   "mm": 12.0,
+   "comment": "Exposed stem between plinth and turret (the lidar plane passes here)"
+  },
+  {
+   "name": "scan_z",
+   "expr": "body_top + plinth_h + knuckle_h / 2",
+   "mm": 301.0,
+   "comment": "Lidar scan plane Z"
+  },
+  {
+   "name": "turret_z",
+   "expr": "body_top + plinth_h + knuckle_h",
+   "mm": 312.0,
+   "comment": "Turret bottom Z"
+  },
+  {
+   "name": "tilt_z",
+   "expr": "turret_z + 13 mm",
+   "mm": 325.0,
+   "comment": "Tilt axis Z"
+  },
+  {
+   "name": "turret_hw",
+   "expr": "30 mm",
+   "mm": 30.0,
+   "comment": "Turret half-width X"
+  },
+  {
+   "name": "turret_hd",
+   "expr": "25 mm",
+   "mm": 25.0,
+   "comment": "Turret half-depth Y"
+  },
+  {
+   "name": "head_w",
+   "expr": "190 mm",
+   "mm": 190.0,
+   "comment": "Head width (photo match; the original brief asked for smaller)"
+  },
+  {
+   "name": "head_h",
+   "expr": "76 mm",
+   "mm": 76.0,
+   "comment": "Head height"
+  },
+  {
+   "name": "head_d",
+   "expr": "64 mm",
+   "mm": 64.0,
+   "comment": "Head depth"
+  },
+  {
+   "name": "head_z0",
+   "expr": "tilt_z + 28 mm",
+   "mm": 353.0,
+   "comment": "Head bottom Z (clears the turret at any tilt)"
+  },
+  {
+   "name": "head_zc",
+   "expr": "head_z0 + head_h / 2",
+   "mm": 391.0,
+   "comment": "Head centre Z"
+  },
+  {
+   "name": "gear_z",
+   "expr": "top_deck_z - 32 mm",
+   "mm": 232.0,
+   "comment": "Pan gear pair bottom Z (under the top deck)"
+  },
+  {
+   "name": "shaft_z0",
+   "expr": "gear_z - 4 mm",
+   "mm": 228.0,
+   "comment": "Pan shaft bottom Z"
+  },
+  {
+   "name": "cam_x",
+   "expr": "60 mm",
+   "mm": 60.0,
+   "comment": "Camera Module 3 centre X"
+  },
+  {
+   "name": "tft_x",
+   "expr": "10 mm",
+   "mm": 10.0,
+   "comment": "TFT centre X"
+  },
+  {
+   "name": "body_h",
+   "expr": "1.25 * body_w",
+   "mm": 250.0,
+   "comment": "Body box height (1.25 x width, as in the target photo)"
+  },
+  {
+   "name": "body_z0",
+   "expr": "28 mm",
+   "mm": 28.0,
+   "comment": "Body box bottom Z"
+  },
+  {
+   "name": "wheel_gap",
+   "expr": "3 mm",
+   "mm": 3.0,
+   "comment": "Body side to wheel inner face"
+  },
+  {
+   "name": "pack_z",
+   "expr": "3 * cell_d + 2 mm",
+   "mm": 57.8,
+   "comment": "Pack height Z (3 cells)"
+  },
+  {
+   "name": "sled_y0",
+   "expr": "-( shell_y - pwall )",
+   "mm": -97.6,
+   "comment": "Sled rear face (the door screws on here)"
+  },
+  {
+   "name": "pack_y0",
+   "expr": "sled_y0 + sled_wall + 0.5 mm",
+   "mm": -94.7,
+   "comment": "Pack rear end Y"
+  },
+  {
+   "name": "pack_y1",
+   "expr": "pack_y0 + pack_y",
+   "mm": 39.7,
+   "comment": "Pack front end Y"
+  },
+  {
+   "name": "sled_y1",
+   "expr": "pack_y1 + sled_wall + 0.3 mm",
+   "mm": 42.4,
+   "comment": "Sled front face Y (XT60 male sticks out here)"
+  },
+  {
+   "name": "sled_hw",
+   "expr": "pack_x / 2 + sled_wall + 0.5 mm",
+   "mm": 22.0,
+   "comment": "Sled half-width"
+  },
+  {
+   "name": "tun_hw",
+   "expr": "sled_hw + 4.5 mm",
+   "mm": 26.5,
+   "comment": "Battery tunnel half-width (notches in the spine and rear plate)"
+  },
+  {
+   "name": "ply_t",
+   "expr": "4 mm",
+   "mm": 4.0,
+   "comment": "Frame ply thickness (4 mm birch ply)"
+  },
+  {
+   "name": "rear_y",
+   "expr": "-51 mm",
+   "mm": -51.0,
+   "comment": "Rear plate front face Y"
+  },
+  {
+   "name": "cheek_x",
+   "expr": "76 mm",
+   "mm": 76.0,
+   "comment": "Side cheek inner face |X|"
+  },
+  {
+   "name": "in_x",
+   "expr": "shell_x - pwall - 1 mm",
+   "mm": 96.6,
+   "comment": "Frame half-width (inside the shell)"
+  },
+  {
+   "name": "notch_z",
+   "expr": "plate_top + 44 mm",
+   "mm": 80.0,
+   "comment": "Spine notch top (XT60 + sled front pass under)"
+  },
+  {
+   "name": "rnotch_z",
+   "expr": "body_z0 + 96 mm",
+   "mm": 124.0,
+   "comment": "Rear plate notch top (pack + BMS + fuse pass under)"
+  },
+  {
+   "name": "wall_top",
+   "expr": "body_top - top_r - 2 mm",
+   "mm": 264.0,
+   "comment": "Seam between the walls and the top halves"
+  },
+  {
+   "name": "wall_seam_y",
+   "expr": "shell_y - corner_r",
+   "mm": 86.0,
+   "comment": "Seam between the front/rear walls and the side walls"
+  },
+  {
+   "name": "door_hw",
+   "expr": "tun_hw - 2 mm",
+   "mm": 24.5,
+   "comment": "Battery door half-width"
+  },
+  {
+   "name": "door_top",
+   "expr": "body_z0 + 100 mm",
+   "mm": 128.0,
+   "comment": "Battery door top"
+  },
+  {
+   "name": "plinth_s",
+   "expr": "64 mm",
+   "mm": 64.0,
+   "comment": "Head plinth size (square)"
+  },
+  {
+   "name": "bar_z",
+   "expr": "body_top - 40 mm",
+   "mm": 238.0,
+   "comment": "LED bar centre Z"
+  },
+  {
+   "name": "bar_w",
+   "expr": "140 mm",
+   "mm": 140.0,
+   "comment": "LED bar slot length"
+  },
+  {
+   "name": "drv_z",
+   "expr": "plate_top + 46 mm",
+   "mm": 82.0,
+   "comment": "Driver board bottom Z (above the front motors)"
+  },
+  {
+   "name": "knuckle_h",
+   "expr": "22 mm",
+   "mm": 22.0,
+   "comment": "Knuckle between plinth and turret (the lidar plane passes here)"
+  },
+  {
+   "name": "mic_x",
+   "expr": "-68 mm",
+   "mm": -68.0,
+   "comment": "Mic ear centre X"
+  },
+  {
+   "name": "ld_z",
+   "expr": "scan_z - scan_h",
+   "mm": 274.0,
+   "comment": "LD19 ear underside Z"
+  },
+  {
+   "name": "pod_top",
+   "expr": "scan_z - 8 mm",
+   "mm": 293.0,
+   "comment": "Pod rim Z (5 mm under the LD19 window band)"
+  },
+  {
+   "name": "lidar_x",
+   "expr": "-50 mm",
+   "mm": -50.0,
+   "comment": "Lidar centre X (rear left, as in the target photo)"
+  },
+  {
+   "name": "top_seam_y",
+   "expr": "( pan_y - plinth_s / 2 + lidar_y + pod_d / 2 ) / 2",
+   "mm": -19.0,
+   "comment": "Seam between the front and rear top halves"
+  },
+  {
+   "name": "frame_z1",
+   "expr": "plate_top + 46 mm",
+   "mm": 82.0,
+   "comment": "Bottom of the cheeks and rear plate (clear of the motor mounts)"
+  }
+ ],
+ "mass_g": 5026.4,
+ "cog_mm": [
+  -1.2,
+  -1.5,
+  127.1
+ ],
+ "mass_rows": [
+  [
+   "Shell (printed smoked PETG):1",
+   828.6,
+   [
+    1.2,
+    -0.2,
+    169.6
+   ]
+  ],
+  [
+   "Battery 3S4P 18650 ",
+   602.0,
+   [
+    0.0,
+    -27.3,
+    68.4
+   ]
+  ],
+  [
+   "Drive FR:1",
+   470.3,
+   [
+    105.7,
+    75.8,
+    52.3
+   ]
+  ],
+  [
+   "Drive FL:1",
+   470.3,
+   [
+    -105.7,
+    75.8,
+    52.3
+   ]
+  ],
+  [
+   "Drive RR:1",
+   470.3,
+   [
+    105.7,
+    -75.8,
+    52.3
+   ]
+  ],
+  [
+   "Drive RL:1",
+   470.3,
+   [
+    -105.7,
+    -75.8,
+    52.3
+   ]
+  ],
+  [
+   "Frame (4 mm ply):1",
+   325.8,
+   [
+    0.0,
+    -2.3,
+    182.8
+   ]
+  ],
+  [
+   "Head pan rotor:1",
+   320.1,
+   [
+    1.9,
+    21.3,
+    365.2
+   ]
+  ],
+  [
+   "Head joint fixed (plinth, pan servo, gears):1",
+   204.9,
+   [
+    7.6,
+    20.0,
+    260.7
+   ]
+  ],
+  [
+   "Chassis plate:1",
+   115.6,
+   [
+    0.0,
+    0.0,
+    33.0
+   ]
+  ],
+  [
+   "Raspberry Pi 5 8GB ",
+   71.0,
+   [
+    -3.9,
+    57.3,
+    168.5
+   ]
+  ],
+  [
+   "Battery sled (printed):1",
+   68.4,
+   [
+    -0.0,
+    -19.0,
+    51.3
+   ]
+  ],
+  [
+   "Lidar pod (printed):1",
+   52.8,
+   [
+    -50.0,
+    -58.4,
+    276.8
+   ]
+  ],
+  [
+   "Lidar LDROBOT LD19:1",
+   47.0,
+   [
+    -50.0,
+    -58.0,
+    290.4
+   ]
+  ],
+  [
+   "Raspberry Pi AI HAT",
+   45.0,
+   [
+    -21.2,
+    73.4,
+    172.5
+   ]
+  ],
+  [
+   "Audio MAX98357A ",
+   42.5,
+   [
+    -43.0,
+    -80.2,
+    205.5
+   ]
+  ],
+  [
+   "Power distribution board ",
+   40.0,
+   [
+    -87.3,
+    -6.4,
+    149.6
+   ]
+  ],
+  [
+   "Main power XT60 loop key:1",
+   33.2,
+   [
+    50.0,
+    -99.8,
+    240.3
+   ]
+  ],
+  [
+   "Circuit Playground Express ",
+   26.8,
+   [
+    -1.3,
+    83.4,
+    237.5
+   ]
+  ],
+  [
+   "Motor driver board 4x DRV8874:1",
+   25.0,
+   [
+    -45.0,
+    57.0,
+    100.3
+   ]
+  ],
+  [
+   "ESP32-S3-DevKitC-1 A:1",
+   18.0,
+   [
+    48.7,
+    50.2,
+    102.0
+   ]
+  ],
+  [
+   "Power connectors:1",
+   16.0,
+   [
+    0.0,
+    12.3,
+    67.1
+   ]
+  ],
+  [
+   "Cliff sensors 4x VL53L0X:1",
+   14.7,
+   [
+    0.0,
+    0.0,
+    28.7
+   ]
+  ],
+  [
+   "ESP32-S3-DevKitC-1 B spare:1",
+   8.0,
+   [
+    82.6,
+    -8.0,
+    142.7
+   ]
+  ],
+  [
+   "Pi 5 V 5.5 A buck (Pololu D36V50F5):1",
+   7.0,
+   [
+    -25.5,
+    32.9,
+    154.0
+   ]
+  ],
+  [
+   "Front ultrasonic spot (optional HC-SR04P):1",
+   6.9,
+   [
+    -0.0,
+    86.7,
+    49.1
+   ]
+  ],
+  [
+   "Servo 6 V buck (Pololu D36V28F6):1",
+   3.3,
+   [
+    85.6,
+    -30.0,
+    194.8
+   ]
+  ],
+  [
+   "BNO085 IMU (Adafruit 4754):1",
+   2.5,
+   [
+    0.0,
+    35.0,
+    129.4
+   ]
+  ],
+  [
+   "Wiring harness (paths):1",
+   0.0,
+   null
+  ]
+ ],
+ "bed": [
+  {
+   "part": "Battery sled (printed):1 / battery sled (printed)",
+   "dims": [
+    44.0,
+    84.0,
+    140.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Battery sled (printed):1 / sled rail (printed)",
+   "dims": [
+    4.0,
+    8.0,
+    120.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Battery sled (printed):1 / sled rail (printed) (1)",
+   "dims": [
+    4.0,
+    8.0,
+    120.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Battery sled (printed):1 / XT60 bulkhead (printed)",
+   "dims": [
+    10.0,
+    30.0,
+    34.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Front ultrasonic spot (optional HC-SR04P):1 / HC-SR04P holder (printed)",
+   "dims": [
+    14.0,
+    38.0,
+    40.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "ESP32-S3-DevKitC-1 A:1 / printed cradle",
+   "dims": [
+    9.0,
+    29.4,
+    66.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "ESP32-S3-DevKitC-1 B spare:1 / printed cradle (empty, for a second ESP32-S3 later)",
+   "dims": [
+    9.0,
+    29.4,
+    66.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / top half front",
+   "dims": [
+    13.8,
+    118.8,
+    200.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / top half rear",
+   "dims": [
+    13.8,
+    80.8,
+    200.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / front wall",
+   "dims": [
+    13.8,
+    200.0,
+    235.8
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / rear wall",
+   "dims": [
+    13.8,
+    200.0,
+    235.8
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / side wall right",
+   "dims": [
+    7.4,
+    171.6,
+    235.8
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / side wall left",
+   "dims": [
+    7.4,
+    171.6,
+    235.8
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / battery door",
+   "dims": [
+    2.4,
+    48.6,
+    99.8
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top F",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top F",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top F",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top F (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top F (1)",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top F (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top F (2)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top F (2)",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top F (2)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top F (3)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top F (3)",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top F (3)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top B",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top B",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top B",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) top B (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) top B (1)",
+   "dims": [
+    3.4,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) top B (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) front",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) front",
+   "dims": [
+    11.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) front",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) front",
+   "dims": [
+    9.0,
+    9.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) front (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) front (1)",
+   "dims": [
+    11.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) front (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) front (1)",
+   "dims": [
+    9.0,
+    9.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) rear",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) rear",
+   "dims": [
+    11.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) rear",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) rear",
+   "dims": [
+    6.6,
+    9.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) rear (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) rear (1)",
+   "dims": [
+    11.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) rear (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) rear (1)",
+   "dims": [
+    6.6,
+    9.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) right",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) right",
+   "dims": [
+    9.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) right",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) right",
+   "dims": [
+    9.0,
+    10.0,
+    16.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) right (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) right (1)",
+   "dims": [
+    9.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) right (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) right (1)",
+   "dims": [
+    9.0,
+    10.0,
+    16.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) left",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) left",
+   "dims": [
+    9.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) left",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) left",
+   "dims": [
+    9.0,
+    10.0,
+    16.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (panel) left (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet block (printed) left (1)",
+   "dims": [
+    9.8,
+    12.0,
+    12.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / magnet 6x3 (frame) left (1)",
+   "dims": [
+    3.0,
+    6.0,
+    6.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Shell (printed smoked PETG):1 / panel clip (printed) left (1)",
+   "dims": [
+    9.0,
+    10.0,
+    16.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Lidar pod (printed):1 / lidar pod (printed, smoked)",
+   "dims": [
+    25.0,
+    64.0,
+    70.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Circuit Playground Express + LED bar:1 / LED bar carrier (printed)",
+   "dims": [
+    12.0,
+    35.0,
+    144.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Circuit Playground Express + LED bar:1 / LED bar diffuser (printed, frosted white)",
+   "dims": [
+    2.4,
+    11.6,
+    139.6
+   ],
+   "fits": true
+  },
+  {
+   "part": "Circuit Playground Express + LED bar:1 / LED bar bezel (printed)",
+   "dims": [
+    1.6,
+    20.0,
+    152.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Audio MAX98357A + speaker:1 / speaker bracket (printed)",
+   "dims": [
+    21.6,
+    50.0,
+    52.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Main power XT60 loop key:1 / loop key bracket (printed)",
+   "dims": [
+    14.0,
+    34.0,
+    40.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Cliff sensors 4x VL53L0X:1 / VL53L0X front pocket (printed)",
+   "dims": [
+    3.0,
+    24.0,
+    31.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Cliff sensors 4x VL53L0X:1 / VL53L0X rear pocket (printed)",
+   "dims": [
+    3.0,
+    24.0,
+    31.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Cliff sensors 4x VL53L0X:1 / VL53L0X right pocket (printed)",
+   "dims": [
+    3.0,
+    24.0,
+    31.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Cliff sensors 4x VL53L0X:1 / VL53L0X left pocket (printed)",
+   "dims": [
+    3.0,
+    24.0,
+    31.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive FR:1+Motor mount FR (printed):1 / motor mount (printed)",
+   "dims": [
+    29.0,
+    42.4,
+    43.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive FR:1+Motor mount FR (printed):1 / motor saddle (printed)",
+   "dims": [
+    12.7,
+    14.0,
+    29.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive FL:1+Motor mount FL (printed):1 / motor mount (printed)",
+   "dims": [
+    29.0,
+    42.4,
+    43.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive FL:1+Motor mount FL (printed):1 / motor saddle (printed)",
+   "dims": [
+    12.7,
+    14.0,
+    29.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive RR:1+Motor mount RR (printed):1 / motor mount (printed)",
+   "dims": [
+    29.0,
+    42.4,
+    43.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive RR:1+Motor mount RR (printed):1 / motor saddle (printed)",
+   "dims": [
+    12.7,
+    14.0,
+    29.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive RL:1+Motor mount RL (printed):1 / motor mount (printed)",
+   "dims": [
+    29.0,
+    42.4,
+    43.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Drive RL:1+Motor mount RL (printed):1 / motor saddle (printed)",
+   "dims": [
+    12.7,
+    14.0,
+    29.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / cheek pillar (printed)",
+   "dims": [
+    10.0,
+    20.0,
+    46.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / cheek pillar (printed) (1)",
+   "dims": [
+    10.0,
+    20.0,
+    46.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (1)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (2)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (3)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (4)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (5)",
+   "dims": [
+    10.0,
+    10.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (6)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (7)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (8)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (9)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (10)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (11)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (12)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Frame (4 mm ply):1 / frame bracket (printed) (13)",
+   "dims": [
+    10.0,
+    10.0,
+    10.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head joint fixed (plinth, pan servo, gears):1 / plinth (printed)",
+   "dims": [
+    22.0,
+    64.0,
+    64.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head joint fixed (plinth, pan servo, gears):1 / lower bearing housing (printed)",
+   "dims": [
+    22.0,
+    48.0,
+    48.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head joint fixed (plinth, pan servo, gears):1 / pan servo shelf (printed)",
+   "dims": [
+    20.5,
+    36.0,
+    58.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head joint fixed (plinth, pan servo, gears):1 / pan servo gear 36T m1 (printed)",
+   "dims": [
+    6.0,
+    38.0,
+    38.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / tilt hub right",
+   "dims": [
+    11.0,
+    18.0,
+    18.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / tilt hub left (servo spline inside)",
+   "dims": [
+    11.0,
+    18.0,
+    18.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / tilt fork (printed)",
+   "dims": [
+    30.0,
+    38.0,
+    75.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / head shell back (printed)",
+   "dims": [
+    38.0,
+    76.0,
+    190.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / eye ring bezel (printed)",
+   "dims": [
+    2.0,
+    30.0,
+    30.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / TFT bezel (printed)",
+   "dims": [
+    2.0,
+    36.0,
+    38.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / mic ear bezel (printed)",
+   "dims": [
+    1.6,
+    14.0,
+    14.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / head shell front (printed)",
+   "dims": [
+    26.0,
+    76.0,
+    190.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / head frame (printed)",
+   "dims": [
+    2.5,
+    40.0,
+    100.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1+Head tilt rotor:1 / head frame (printed) (1)",
+   "dims": [
+    2.5,
+    14.0,
+    60.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1 / pan shaft gear 36T m1 (printed)",
+   "dims": [
+    6.0,
+    37.9,
+    37.9
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1 / knuckle sleeve (printed)",
+   "dims": [
+    21.4,
+    30.0,
+    30.0
+   ],
+   "fits": true
+  },
+  {
+   "part": "Head pan rotor:1 / turret (printed)",
+   "dims": [
+    26.0,
+    50.0,
+    60.0
+   ],
+   "fits": true
+  }
+ ],
+ "scan_plane": [
+  {
+   "body": "Wiring harness (paths):1 / camera ribbon 500 mm (Pi 5 DISP0 to Camera Module 3), path",
+   "bearing_deg_from_front": [
+    20.1,
+    40.6
+   ],
+   "width_deg": 20.5,
+   "dist_mm": 119.0
+  },
+  {
+   "body": "Head pan rotor:1 / pan shaft 25x1 alu tube",
+   "bearing_deg_from_front": [
+    22.5,
+    43.7
+   ],
+   "width_deg": 21.1,
+   "dist_mm": 92.6
+  },
+  {
+   "body": "Head pan rotor:1 / knuckle sleeve (printed)",
+   "bearing_deg_from_front": [
+    20.6,
+    45.9
+   ],
+   "width_deg": 25.3,
+   "dist_mm": 92.6
+  }
+ ]
+}
