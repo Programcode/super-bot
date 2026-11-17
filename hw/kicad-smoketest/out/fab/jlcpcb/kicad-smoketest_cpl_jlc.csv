@@ -1,0 +1,4 @@
+Designator,Val,Package,Mid X,Mid Y,Rotation,Layer
+"D1","Red","LED_0603_1608Metric",116.0000,-105.0000,180.0000,top
+"J1","PWR 3V3-5V","PinHeader_1x02_P2.54mm_Vertical",104.0000,-106.2300,0.0000,top
+"R1","1k","R_0603_1608Metric",111.0000,-105.0000,0.0000,top
