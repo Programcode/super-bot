@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 8:35 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 17 Nov 2026, 8:35 PM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 9:56 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 17 Nov 2026, 9:56 PM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -104,6 +104,44 @@ Logged as pending in [`docs/decisions.md`](decisions.md). Not decided yet.
 | Rear HC-SR04 | Whether to keep or drop the rear ultrasonic. |
 | Shell material | Whether to use something tougher than the v1 acrylic panels. |
 | Neck length and v2 | A shorter, stiffer neck and the taller, narrower WALL-E torso are the direction, but the redesign has not started and waits on Adam. |
+
+## PCB / electronics design
+
+Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set up and smoke-tested on the VPS the same evening.
+
+**Fusion Electronics test: PARTLY, leaning NO.** A Claude Opus 5.5 T3 thread tried to build a tiny LED board in Fusion Electronics through the Fusion MCP. Fusion's electronics API (`adsk.electron`) is read-only: it can't add parts, nets, traces or outlines, or create an electronics document. The only way to write is through hidden, undocumented text commands (`Electron.run`, `Electron.runScript`, `Electron.mfgexport`). Those act only on the active document, so an agent would have to take over the Fusion UI. On the first real attempt, creating an empty electronics document switched focus, and Fusion crashed when the v2 thread's screenshot hit it. It also has no JLCPCB CAM job and no headless mode, and every step depends on Adam's Mac.
+
+- [Fusion Electronics test: RESULT.md](https://github.com/Programcode/super-bot/blob/main/hw/fusion-electronics-test/RESULT.md)
+- [KiCad setup: docs/kicad-setup.md](kicad-setup.md)
+- [KiCad smoke test: hw/kicad-smoketest](../hw/kicad-smoketest/)
+
+**KiCad runs headless on the VPS.** It runs right next to Claude, with no GUI, no shared Fusion session and no need for the Mac to be awake, and it can't crash the Mac. It still renders the schematic, both board sides and 3D views as images, so the AI can check its work. KiCad 10.0.8 is also on Adam's Mac for opening and looking at the files.
+
+| Part of the setup | Details |
+| --- | --- |
+| KiCad 10.0.8 | From the kicad-10.0 PPA, with the official symbol, footprint and 3D libraries. `kicad-cli` and pcbnew Python both work headless. |
+| KiCad MCP server | mixelpixx/KiCAD-MCP-Server 2.9.0 (MIT, the most used and most active KiCad MCP). Registered user-wide for Claude Code on the VPS as `kicad`, so every new T3 thread gets about 250 tools: schematic, placement, routing, autoroute, ERC/DRC, exports and part search. It edits boards headless through pcbnew, unlike Konnect, which needs the KiCad GUI. |
+| Autorouter | Freerouting 2.5.0 on Java 25, called by the MCP's `autoroute` tool. |
+| JLC parts catalog | A local copy of the in-stock JLCPCB catalog (522k parts) with Basic vs. Extended, stock and price, searchable through the MCP. easyeda2kicad pulls a symbol, footprint and 3D model by LCSC number into a global `LCSC` library. |
+| Fab and assembly outputs | KiBot 1.9.1 with its JLCPCB preset: a Gerber + drill zip, a BOM with LCSC numbers, and a CPL. PCBWay takes the same Gerbers. |
+| Helpers on the VPS | `kicad-check` (ERC + DRC with schematic parity), `kicad-render` (schematic, front/back and 3D PNGs, STEP), `kicad-jlc` (JLCPCB files). |
+
+### Smoke test
+
+[`hw/kicad-smoketest/`](../hw/kicad-smoketest/), commit `c96ce9b`. Built entirely through the KiCad MCP.
+
+| Metric | Value |
+| --- | --- |
+| Board | 20×15 mm, header → 1k → red LED |
+| ERC errors | 0 |
+| DRC violations | 0 (0 unconnected, 0 schematic mismatches) |
+| Autoroute | 4.6 s, 5 tracks, 0 vias |
+
+- Parts: R1 1k 0603 (C21190, Basic), D1 red 0603 LED (C2286, Basic), J1 1×2 2.54 mm header (C124375, Extended and through-hole, so hand-solder it).
+- Exported: JLCPCB Gerber + drill zip, BOM, CPL, STEP, a schematic PDF, ERC/DRC reports, and 3D top/bottom/iso plus front/back PNG renders.
+- Nothing was ordered.
+
+**Next: the real robot PCBs.** Once v2 CAD is done and good, an Opus 5.5 thread at extra-high effort designs the robot PCB(s) in KiCad, ready to order and assemble at JLCPCB or PCBWay, with full ERC/DRC checks. It's an experiment. How custom it gets (full custom vs. a carrier board) is still open.
 
 ## Brain architecture
 
@@ -216,7 +254,7 @@ The Active Cooler is compatible with the AI HAT+ 2 (HAT stacks on top). Train YO
 
 ## Wiring
 
-Now: short pre-cut jumpers, UNO next to the breadboard, red 5 V / black ground. Target: I2C / Qwiic daisy chain, modular ESP32-S3s over USB serial / UART, breadboard to perfboard to custom PCB, real connectors, one shared power bus (motor current never from the MCU 5 V pin).
+Now: short pre-cut jumpers, UNO next to the breadboard, red 5 V / black ground. Target: I2C / Qwiic daisy chain, modular ESP32-S3s over USB serial / UART, breadboard to perfboard to a custom PCB designed in KiCad (see [PCB / electronics design](#pcb--electronics-design)), real connectors, one shared power bus (motor current never from the MCU 5 V pin).
 
 ## Decision log
 
@@ -233,6 +271,7 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | Concept K v1 is done, frozen, and backed up | Fusion design "Super bot - concept K blockout v1": 406×406 mm footprint, head top 699 mm (`neck_len` 480), about 5.5 kg, centre of gravity 99 mm, no collisions, all printed parts fit a 256 mm bed. Backup: Fusion copy "Super bot - concept K v1 (backup)" and git tag `concept-k-v1`. Files in `cad/concept-k-v1/`. |
 | v2 direction is a taller, narrower WALL-E torso, but the redesign has not started | About 30×30 cm stacked torso, 100 mm wheels, chunky short neck. The redesign, including neck length, waits on Adam. Still open: the rear HC-SR04 and the shell material. Logged in [`docs/decisions.md`](decisions.md). |
 | Accepted v1 review items: cliffs, INA226, mic and speaker, HC-SR04 level shifting, one ESP32-S3 to start, 15 A fuse, DC-rated main switch, separate servo supply, a Pi Camera Module 3 instead of the C270, and the Pi 5 set to 5 A with the buck next to the Pi | Adam, 17 Nov, from the review in `cad/concept-k-v1/review/REVIEW.md`, and logged in [`docs/decisions.md`](decisions.md) (commit `9b6bc6e`). |
+| Custom PCBs are designed in KiCad, not Fusion Electronics | The Fusion Electronics test came back PARTLY, leaning NO: its electronics API is read-only, the hidden write commands only act on the active document, and the test crashed Fusion. See [`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md). KiCad 10.0.8 was set up headless on the VPS with the `kicad` MCP, Freerouting, the JLC parts catalog and KiBot JLCPCB outputs. The smoke test passed with ERC 0 and DRC 0 (commit `c96ce9b`, [`docs/kicad-setup.md`](kicad-setup.md)). KiCad is also on the Mac for viewing. |
 | Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers | Decided 17 Nov. Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The speed check (REVIEW.md section 5, commit `9b6bc6e`) estimates about 2.0–2.2 m/s forward on a hard floor (2.8 m/s no-load), about 1.4–1.7 m/s sideways, 0–2 m/s in about 1.4 s at 5.5 kg, a climb of about 14°, stall about 2.3 A per motor (DRV8874 OK), normal draw 0.3–1 A, and a stall cutoff after about 0.5 s via DRV8874 current sense. |
 
 **16 Nov 2026:** mind gives behaviors and plans, not single steps; layer split mind / controller (~30 fps) / ESP32 reflexes (~1 kHz, always win); skills are not limited to safe primitives; the in-house Qwen bench compared reasoning levels only (low 10/10), not models.
@@ -243,6 +282,7 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 - Remaining concept K review items (open, 17 Nov; logged in [`docs/decisions.md`](decisions.md)): whether to keep or drop the rear HC-SR04, the shell material (tougher than acrylic?), and the neck length / v2 torso redesign.
 - Start the v2 CAD redesign, including the neck (open, 17 Nov). Direction, not started: a taller, narrower WALL-E style torso about 30×30 cm with parts stacked in levels, 100 mm wheels, and a chunky short neck. v1 stays frozen as a backup until Adam says to redesign.
+- Design the robot PCB(s) in KiCad, after v2 (next, 17 Nov). Once v2 CAD is done and good, an Opus 5.5 thread at extra-high effort designs the robot PCB(s) in KiCad on the VPS, ready to order and assemble at JLCPCB or PCBWay (Gerbers, BOM, CPL), with full ERC/DRC checks. It's an experiment. Still open: full custom vs. a carrier board. The thread must message Pip through the webhook when it's done.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -258,4 +298,4 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)).
+Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)) and the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`).
