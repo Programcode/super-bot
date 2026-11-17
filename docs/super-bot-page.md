@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 9:56 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 17 Nov 2026, 9:56 PM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 9:58 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 17 Nov 2026, 9:58 PM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -45,7 +45,7 @@ The page lists three early renders from 15 Nov (core bot, with arm, docked). The
 
 ## CAD / concept K
 
-v1 frozen 17 Nov 2026. v2 is not started and waits on Adam.
+v1 frozen 17 Nov 2026. v2 is in progress: started 8:42 PM, 17 Nov.
 
 **Repo, Fusion, and how Claude talks to Pip.** The project lives in the private repo [github.com/Programcode/super-bot](https://github.com/Programcode/super-bot), set up as a T3 project on the VPS. Autodesk Fusion runs on Adam's Mac. The VPS reaches the official Fusion MCP at `127.0.0.1:27182` through the SSH tunnel `fusion-mcp-tunnel.service`. Claude Code can message Pip through a webhook routine, using `scripts/ask-pip.sh`.
 
@@ -93,7 +93,24 @@ From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md)
 
 Eight labelled callout diagrams are in [`cad/concept-k-v1/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/concept-k-v1/review/callouts): wheel corner, battery/power, Pi stack, ESP32/IMU, CPX/front sensors, lidar backpack, neck base, and head.
 
-**v2 direction, not started.** A taller, narrower WALL-E style torso, about 30×30 cm, with parts stacked in levels, 100 mm wheels, and a chunky short neck. This waits on Adam. v1 stays frozen as a backup. The condensed decision log is in [`docs/decisions.md`](decisions.md).
+**v2 is in progress.** The T3 thread "Super bot: v2 tall WALL-E torso in Fusion" started at 8:42 PM on 17 Nov. It writes to [`cad/v2/`](../cad/v2/), and its layout plan and checklist are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md). Fusion crashed at about 9:19 PM because of the Fusion Electronics test. The recovered "Super bot - v2" document kept stages 1–4, and the thread now saves after every stage. v1 stays frozen as a backup. The condensed decision log is in [`docs/decisions.md`](decisions.md).
+
+### v2 layout plan
+
+From [`cad/v2/TASKS.md`](../cad/v2/TASKS.md). This is the thread's working plan, not a finished design. mm, +Y is the front.
+
+| Part | Plan |
+| --- | --- |
+| Torso | 300×300 mm shell, top at 340 mm, rounded corners. 100 mm mecanum wheels at the corners in open wheel wells; 6 mm ply chassis plate with 30 mm ground clearance. |
+| Battery | 3S4P block on a printed sled, centred low, sliding out the right side; the lower right skirt is the battery door. BMS and 15 A fuse on the sled, XT60 to the robot. |
+| Level 0 (plate) | Sled, 4 motors, DRV8874 driver board in the front bay, 4 VL53L0X cliff sensors, an optional front HC-SR04P holder, charge jack at the rear. |
+| Level 1 deck | At about 112 mm: power board + INA226, servo buck, BNO085 at the centre, MAX98357A and speaker. |
+| Spine | Vertical plate. Front face: ESP32-S3 + spare slot, Pi 5 + Active Cooler + AI HAT+ 2 standing vertical, CPX ring + mic near the top. Back face: 5 V 5 A buck right behind the Pi. |
+| Cooling | Air in through the skirt slots and wheel wells, up a front chimney, out through vents in front of the head joint. |
+| Shell | One rounded 2.4 mm shell cut into pieces that fit the 256 mm bed: top, 4 upper walls, 4 corner posts, 4 lower skirts. Clips at the bottom, magnets at the top, so panels come off easily. |
+| Head joint and head | Printed plinth on the top deck with bearings and a 1:1 pan gear, a short exposed hollow stem, and a turret with the tilt servo. Small capsule head with the Camera Module 3 and a 1.3" TFT. |
+| Lidar | LD19 on a vented pod at the top rear. Its scan plane passes the stem gap below the turret, so the head is clear at all angles; the stem shades about 13°, masked in software. |
+| Power | XT60 loop key on the upper back. Charge jack on the rear skirt for a future dock. |
 
 ### Still open from the v1 review
 
@@ -103,7 +120,7 @@ Logged as pending in [`docs/decisions.md`](decisions.md). Not decided yet.
 | --- | --- |
 | Rear HC-SR04 | Whether to keep or drop the rear ultrasonic. |
 | Shell material | Whether to use something tougher than the v1 acrylic panels. |
-| Neck length and v2 | A shorter, stiffer neck and the taller, narrower WALL-E torso are the direction, but the redesign has not started and waits on Adam. |
+| Neck length and v2 | Being handled in v2, which is in progress: a short exposed stem on the taller torso instead of a long neck (see [v2 layout plan](#v2-layout-plan)). |
 
 ## PCB / electronics design
 
@@ -271,6 +288,7 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | Concept K v1 is done, frozen, and backed up | Fusion design "Super bot - concept K blockout v1": 406×406 mm footprint, head top 699 mm (`neck_len` 480), about 5.5 kg, centre of gravity 99 mm, no collisions, all printed parts fit a 256 mm bed. Backup: Fusion copy "Super bot - concept K v1 (backup)" and git tag `concept-k-v1`. Files in `cad/concept-k-v1/`. |
 | v2 direction is a taller, narrower WALL-E torso, but the redesign has not started | About 30×30 cm stacked torso, 100 mm wheels, chunky short neck. The redesign, including neck length, waits on Adam. Still open: the rear HC-SR04 and the shell material. Logged in [`docs/decisions.md`](decisions.md). |
 | Accepted v1 review items: cliffs, INA226, mic and speaker, HC-SR04 level shifting, one ESP32-S3 to start, 15 A fuse, DC-rated main switch, separate servo supply, a Pi Camera Module 3 instead of the C270, and the Pi 5 set to 5 A with the buck next to the Pi | Adam, 17 Nov, from the review in `cad/concept-k-v1/review/REVIEW.md`, and logged in [`docs/decisions.md`](decisions.md) (commit `9b6bc6e`). |
+| v2 CAD started | 8:42 PM. The T3 thread "Super bot: v2 tall WALL-E torso in Fusion" builds a ~300×300 mm stacked torso with 100 mm wheels and a short exposed stem instead of a long neck. Output goes to `cad/v2/`, with the plan in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md). Fusion crashed at about 9:19 PM because of the electronics test; the recovered "Super bot - v2" kept stages 1–4, and the thread now saves after every stage. |
 | Custom PCBs are designed in KiCad, not Fusion Electronics | The Fusion Electronics test came back PARTLY, leaning NO: its electronics API is read-only, the hidden write commands only act on the active document, and the test crashed Fusion. See [`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md). KiCad 10.0.8 was set up headless on the VPS with the `kicad` MCP, Freerouting, the JLC parts catalog and KiBot JLCPCB outputs. The smoke test passed with ERC 0 and DRC 0 (commit `c96ce9b`, [`docs/kicad-setup.md`](kicad-setup.md)). KiCad is also on the Mac for viewing. |
 | Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers | Decided 17 Nov. Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The speed check (REVIEW.md section 5, commit `9b6bc6e`) estimates about 2.0–2.2 m/s forward on a hard floor (2.8 m/s no-load), about 1.4–1.7 m/s sideways, 0–2 m/s in about 1.4 s at 5.5 kg, a climb of about 14°, stall about 2.3 A per motor (DRV8874 OK), normal draw 0.3–1 A, and a stall cutoff after about 0.5 s via DRV8874 current sense. |
 
@@ -280,8 +298,8 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Open questions and next steps
 
-- Remaining concept K review items (open, 17 Nov; logged in [`docs/decisions.md`](decisions.md)): whether to keep or drop the rear HC-SR04, the shell material (tougher than acrylic?), and the neck length / v2 torso redesign.
-- Start the v2 CAD redesign, including the neck (open, 17 Nov). Direction, not started: a taller, narrower WALL-E style torso about 30×30 cm with parts stacked in levels, 100 mm wheels, and a chunky short neck. v1 stays frozen as a backup until Adam says to redesign.
+- Remaining concept K review items (open, 17 Nov; logged in [`docs/decisions.md`](decisions.md)): whether to keep or drop the rear HC-SR04, and the shell material (tougher than acrylic?). The neck length is now part of v2, which is in progress.
+- Finish the v2 CAD redesign, then review it (in progress since 8:42 PM, 17 Nov), in the T3 thread "Super bot: v2 tall WALL-E torso in Fusion" (`cad/v2/`, plan in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md)). The recovered file kept stages 1–4 after the 9:19 PM crash; the thread saves after every stage. When it messages Pip: read the thread and the renders, then give Adam an honest review. v1 stays frozen as a backup.
 - Design the robot PCB(s) in KiCad, after v2 (next, 17 Nov). Once v2 CAD is done and good, an Opus 5.5 thread at extra-high effort designs the robot PCB(s) in KiCad on the VPS, ready to order and assemble at JLCPCB or PCBWay (Gerbers, BOM, CPL), with full ERC/DRC checks. It's an experiment. Still open: full custom vs. a carrier board. The thread must message Pip through the webhook when it's done.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
