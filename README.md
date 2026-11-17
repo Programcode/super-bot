@@ -7,11 +7,13 @@ Super bot (temporary working name) is Adam's passion-project home robot: an indo
 > (opens for Adam's signed-in account; canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`).
 > A markdown snapshot lives in [`docs/super-bot-page.md`](docs/super-bot-page.md). Pip re-syncs it whenever the page changes.
 
+![Concept K, the current pick (AI concept render, not a real build)](docs/concepts/K-walle-head.jpg)
+
 ## Current status (17 Nov 2026)
 
 - **Roadmap layer:** 1 of 6, "Brain on a desk" (laptop + webcam, local YOLO, Qwen mind, Whisper + Piper).
 - **Body design:** exploring. AI concept renders are in [`docs/concepts/`](docs/concepts/). Current pick is concept K (WALL-E-style head on a neck, smoked translucent shell).
-- **CAD:** starting in Autodesk Fusion, driven by Claude Code on the VPS. See [`cad/`](cad/) and the Fusion section of [`CLAUDE.md`](CLAUDE.md).
+- **CAD:** starting in Autodesk Fusion. Fusion runs on Adam's Mac; Claude Code on the VPS drives it through Fusion's official MCP server over an SSH tunnel. See [`cad/`](cad/) and the Fusion section of [`CLAUDE.md`](CLAUDE.md).
 - **Hardware:** parts plan agreed, mostly not bought yet. Adam owns a Pi 5 8 GB, an ELEGOO UNO kit, and a Circuit Playground Express. No ESP32-S3s yet.
 - **Brain:** architecture drafted (mind / controller / reflexes). A full brain plan from Claude Fable is pending review.
 

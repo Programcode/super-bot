@@ -6,7 +6,7 @@ Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full l
 
 | Decision | Notes |
 | --- | --- |
-| All coding and CAD run through Claude Code on the VPS via T3 Code | Autodesk Fusion is installed on the VPS. Not on Adam's Mac. |
+| All coding and CAD run through Claude Code on the VPS via T3 Code | Fusion itself runs on Adam's Mac; the VPS reaches its official MCP server through an SSH tunnel (see CLAUDE.md). |
 | Private `super-bot` repo as the T3 project, page synced into `docs/` | Pip re-syncs the page snapshot when it changes. |
 | No Roomba look | Smooth pucks and toy blobs were rejected. |
 | Apple-style dense enclosed shell | Seamless, no visible screws, hidden wiring, tucked wheels, integrated lidar, glowing status ring. The open 3-deck standoff layout was rejected as ugly. |

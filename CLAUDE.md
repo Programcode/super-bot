@@ -57,7 +57,21 @@ Super bot (temporary name) is Adam's passion-project home robot: an indoor mecan
 
 ## Fusion (CAD)
 
-_Being verified on the VPS. This section is updated with what is actually installed and how Claude Code connects to it._
+Verified 17 Nov 2026 by a setup thread on the VPS (read-only check):
+
+- **Fusion is not installed on the VPS.** It runs on Adam's Mac (free personal license). There is no Wine, VM, display, or Fusion process on the VPS.
+- **Claude Code reaches it over MCP anyway.** `claude mcp list` shows `fusion: http://127.0.0.1:27182/mcp (HTTP) - Connected`, defined in the user config (`~/.claude.json`), so every project can use it.
+- **How:** port 27182 on the VPS is an SSH port-forward to the Mac, run by the systemd user unit `~/.config/systemd/user/fusion-mcp-tunnel.service` (`ssh -N -L 127.0.0.1:27182:127.0.0.1:27182 adam-macbook`, over Tailscale). On the Mac it lands on Fusion's official MCP server (Preferences > General > API > "Fusion MCP Server").
+- **Tools exposed:** `fusion_mcp_read`, `fusion_mcp_execute`, `fusion_mcp_update`, `fusion_mcp_electronics_read`.
+
+For it to work, all of these must be true: the Mac is awake and on Tailscale, Fusion is open on the Mac with the MCP server enabled, and the tunnel service is up (`systemctl --user status fusion-mcp-tunnel`). If a call fails, check those in that order and tell Adam (or Pip) what is down instead of retrying in a loop.
+
+Working rules for CAD:
+
+- Start each session with a `fusion_mcp_read` to see what is open. Do not modify or close designs you did not create without asking.
+- Prefer reproducible Fusion API scripts saved in `cad/scripts/` over one-off clicks, so a design can be rebuilt.
+- Export STEP/STL to `cad/exports/` and screenshots to `cad/renders/`, and commit them with the script that made them.
+- Change one thing at a time and show a render after each meaningful change.
 
 ## Talking to Pip
 
