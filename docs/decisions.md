@@ -2,6 +2,14 @@
 
 Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full log with reasons is on the Grok Bot page (snapshot in [super-bot-page.md](super-bot-page.md)). Append a row whenever something is decided.
 
+## 17 Nov 2026: concept K v1 design
+
+| Decision | Notes |
+| --- | --- |
+| No e-stop button on the body | Adam, 17 Nov. Removed from the design. The main rocker switch on the battery door cuts power; ESP32 reflexes and the verbal "stop" stay. |
+| Battery: 3S4P 18650 pack with BMS (about 130 Wh) | Adam, 17 Nov. Replaces the unspecified 3S pack. Lies flat in one layer, centred low in the base, on a sled that slides out the rear. About 0.6 kg in total. |
+| Concept K v1 layout drafted in Fusion (proposal, for review) | `cad/concept-k-v1/`. Laser-cut smoked acrylic panels plus printed smoked PETG corner fenders, two internal levels, 25 mm aluminium neck tube with pan/tilt. MG90S servos, 6805 bearings and the 5 V buck are placeholders until Adam OKs them. |
+
 ## 17 Nov 2026: body, parts, and tooling
 
 | Decision | Notes |
