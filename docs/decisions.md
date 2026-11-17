@@ -14,6 +14,17 @@ Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full l
 | LED bar: 8 WS2812B (from a 60/m strip) behind a smoked diffuser slot, driven by the CPX | Pip/Adam asked for the photo's bar. New small part. |
 | Short chunky gimbal on a 64 mm square plinth, head 190 x 76 x 64 capsule | Photo match. The head is bigger than the original "much smaller than v1" ask: open for Adam (`head_w` knob). |
 | Lidar LD19 in a pod at the rear left, sunk so the scan plane passes under the turret | Head clear of the plane at all pan/tilt. The 30 mm knuckle blocks about 19 deg (mask in software); a taller pod would fix it but changes the look: open for Adam. |
+| **v2 accepted as the current design** | Pip, 18 Nov, after the side-by-side with the photo (`cad/v2/review/v2-vs-target-photo.png`), the renders and `cad/v2/README.md`. Result: 0 interferences at rest and across a 15-pose pan/tilt sweep, every part mounted, all 114 printed parts fit a 256 mm bed, 5.04 kg, CoG z 128 mm, head at least 6.3 mm above the lidar plane. Fusion "Super bot - v2" saved; commits 3994b36, 318a829. The module layout (driver perfboard, cradles, PDB, bucks, amp) stays until the main PCB outline is final. |
+
+**Open, waiting on Adam** (don't change until he decides):
+
+| Open decision | Options |
+| --- | --- |
+| Head width 190 mm (photo match) vs the original "much smaller than v1" brief | Keep 190 x 76 x 64, or shrink with `head_w` / `head_h` / `head_d`. |
+| Lidar blind sector of about 19 deg from the gimbal knuckle | Mask it in software (current design), or a taller pod that puts the scan plane above the head (removes it, changes the look). |
+| Lidar pod lower than in the photo | Follows from the scan plane having to pass under the turret; changes only together with the decision above. |
+| Charge path diode | The charge jack is live with the loop key out (pack side, 5 A fuse). Add a Schottky or ideal-diode module and a recessed jack / shrouded dock contacts. |
+| Bumpers | Part of the safety plan but not modelled yet (the walls could float on microswitches). |
 
 ## 17 Nov 2026: PCB tool
 
