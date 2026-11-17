@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 16 Nov 2026, 5:39 PM (Europe/Budapest)". Body, parts, and CAD decisions from 17 Nov are in [`decisions.md`](decisions.md) and supersede the older hardware rows below (for example BTS7960 drivers instead of TB6612FNG, a cheap LD06/LD19 lidar instead of RPLIDAR C1).
+> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 8:27 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 17 Nov 2026, 8:27 PM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -42,6 +42,55 @@ Approved 15 Nov 2026. Each layer works and is fun on its own.
 ## Concept renders
 
 The page lists three early renders from 15 Nov (core bot, with arm, docked). The newer 17 Nov concept renders are in [`concepts/`](concepts/).
+
+## CAD / concept K
+
+v1 frozen 17 Nov 2026. v2 is not started and waits on Adam.
+
+**Repo, Fusion, and how Claude talks to Pip.** The project lives in the private repo [github.com/Programcode/super-bot](https://github.com/Programcode/super-bot), set up as a T3 project on the VPS. Autodesk Fusion runs on Adam's Mac. The VPS reaches the official Fusion MCP at `127.0.0.1:27182` through the SSH tunnel `fusion-mcp-tunnel.service`. Claude Code can message Pip through a webhook routine, using `scripts/ask-pip.sh`.
+
+**Concept K v1 is done and frozen.** The Fusion design is named "Super bot - concept K blockout v1". It is backed up as the Fusion copy "Super bot - concept K v1 (backup)" and as the git tag `concept-k-v1`. Files are in [`cad/concept-k-v1/`](../cad/concept-k-v1/): STEP, f3d, STL, DXF, images, and a README.
+
+| Metric | Value |
+| --- | --- |
+| Footprint | 406×406 mm |
+| Head top | 699 mm (`neck_len` 480) |
+| Mass | About 5.5 kg, centre of gravity 99 mm |
+| Fit | No part collisions; all printed parts fit a 256 mm bed |
+
+**Decisions, 17 Nov 2026:**
+
+| Decision | Notes |
+| --- | --- |
+| No e-stop button | Not on the body. ESP32 reflexes and the verbal "stop" stay. |
+| 3S4P 18650 battery, about 130 Wh, on a slide-out sled | Replaces earlier rough 4 h driving / 10 h idle figures. The concept K v1 README estimates about 3 h of continuous driving, about 8 h idle, and about 6 h on a typical mix. |
+| MG90S pan/tilt servos are OK | Adam wants the head to look around on its own, independently of the body. |
+| 4× Pololu DRV8874 drivers, replacing 4× BTS7960 | Accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person. Motor stall is about 2.3 A; the BTS7960 is rated 43 A. |
+| 15 A main fuse | On the main power path. Accepted 17 Nov. |
+| DC-rated main switch | Replaces the AC-rated KCD1 switch. Accepted 17 Nov. |
+| Separate servo supply | The servos get their own 5–6 V buck. Accepted 17 Nov. |
+| Cliff sensors on all 4 sides | Accepted 17 Nov. |
+| INA226 battery monitor | Accepted 17 Nov. |
+| Mic and speaker | INMP441 + MAX98357A + speaker. Accepted 17 Nov. |
+| HC-SR04 level shifting | Accepted 17 Nov. |
+| Start with one ESP32-S3 | Instead of two from the start. Later boards can still be added for an arm or a face. Accepted 17 Nov. |
+| Pi Camera Module 3, instead of the C270 | Accepted 17 Nov. |
+
+**v2 direction, not started.** A taller, narrower WALL-E style torso, about 30×30 cm, with parts stacked in levels, wheel size as in the AI concept image, and a chunky short neck. This waits on Adam. v1 stays frozen as a backup.
+
+### Still open from the v1 review
+
+From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md), commit `75e04c2`. Not decided yet.
+
+| Open item | Detail |
+| --- | --- |
+| Rear HC-SR04 | Whether to keep or drop the rear ultrasonic. |
+| Shell material | Whether to use something tougher than the v1 acrylic panels. |
+| Neck and v2 layout | A shorter, stiffer neck and the taller, narrower WALL-E torso are the direction, but the redesign has not started and waits on Adam. |
+| Hardware motor cut | A CPX or ESP32 watchdog on the driver enables. Not yet decided. |
+| Pi 5 current and buck placement | Set the Pi 5 to 5 A (`usb_max_current_enable`) and put the buck next to the Pi. Not yet decided. |
+| Charge port | A charge port was in the review, but not yet decided. |
+| A 20 A BMS is enough | Not yet decided. |
 
 ## Brain architecture
 
@@ -127,11 +176,13 @@ Reasoning-effort test of one model (qwen/qwen3.8-27b on Cerebras), not a bake-of
 
 Low is the current default. Total spend ~$0.19. Bench files were in `/workspace/qwen-bench/` on the Grok Bot box.
 
-## Hardware (as on the page, 15–16 Nov)
+## Hardware
+
+Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17 Nov are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled. Drive is 4× JGB37 motors with 4× Pololu DRV8874 drivers, accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person; this replaces the BTS7960s used in the v1 model. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3.
 
 **Owned now:** laptop (brain now), an existing Pi that is busy with other work, ELEGOO UNO R3 Advanced Starter Kit (servo, 28BYJ-48 stepper + ULN2003, HC-SR04, IR receiver, power module, GY-521 IMU, MAX7219, LCD1602, PIR, RC522, and more), Circuit Playground Express. Code in PlatformIO.
 
-**To buy (page version, partly superseded 17 Nov):** USB webcam, MG90S servos + pan-tilt, PCA9685, 5 V 3 A supply, INMP441 + MAX98357A + speaker, ESP32-S3 DevKitC-1 N16R8, mecanum chassis with 4 encoder motors and drivers, 18650 cells and charger, XIAO ESP32S3 Sense later. Euro prices incomplete.
+**To buy (updated 17 Nov):** Pi Camera Module 3 (instead of the C270; layer 1 on the desk can still use a phone or a cheap USB cam), MG90S servos + pan-tilt, PCA9685, a separate 5–6 V servo supply, INMP441 + MAX98357A + speaker, one ESP32-S3 DevKitC-1 N16R8 to start, mecanum chassis with 4× JGB37 encoder motors and 4× Pololu DRV8874, 3S4P 18650 pack with BMS (about 130 Wh; README runtime about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix), 15 A main fuse, DC-rated main switch, cliff sensors, INA226, XIAO ESP32S3 Sense later. Euro prices incomplete. Older ballpark for cells was about $30 for 3 cells and a charger.
 
 **Dream upgrades:** lidar, robot arm, face display, self-docking charger, VL53L0X ToF, BNO085 IMU. Depth camera skipped.
 
@@ -156,10 +207,30 @@ Now: short pre-cut jumpers, UNO next to the breadboard, red 5 V / black ground. 
 
 ## Decision log
 
-See [`decisions.md`](decisions.md) for the condensed log, including the 17 Nov body and parts decisions that the page did not yet have at sync time.
+Condensed from the page. The shorter running log is also in [`decisions.md`](decisions.md).
+
+**17 Nov 2026**
+
+| Decision | Why |
+| --- | --- |
+| Private super-bot repo, T3 project, Fusion MCP tunnel, and a Claude-to-Pip webhook | github.com/Programcode/super-bot is the T3 project on the VPS. Fusion runs on Adam's Mac; the VPS reaches the official Fusion MCP at 127.0.0.1:27182 through `fusion-mcp-tunnel.service`. Claude Code messages Pip through a webhook routine, using `scripts/ask-pip.sh`. |
+| No e-stop button on the body | The physical button is out of the design. ESP32 reflexes and the verbal "stop" stay. |
+| Battery is a 3S4P 18650 pack, about 130 Wh, on a slide-out sled | Adam doubled the earlier 3S idea, then agreed 3S4P is enough rather than going larger. The pack sits flat and slides out the back. README runtime: about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix (replaces earlier rough 4 h / 10 h figures). |
+| MG90S pan/tilt servos are OK | Adam wants the head to look around on its own, independently of the body. |
+| Concept K v1 is done, frozen, and backed up | Fusion design "Super bot - concept K blockout v1": 406×406 mm footprint, head top 699 mm (`neck_len` 480), about 5.5 kg, centre of gravity 99 mm, no collisions, all printed parts fit a 256 mm bed. Backup: Fusion copy "Super bot - concept K v1 (backup)" and git tag `concept-k-v1`. Files in `cad/concept-k-v1/`. |
+| v2 direction is a taller, narrower WALL-E torso, but the redesign has not started | About 30×30 cm stacked torso, wheel size as in the AI concept image, chunky short neck. The redesign, including the neck, waits on Adam. Still open from the v1 review: the rear HC-SR04 and the shell material. |
+| Accepted v1 review items: cliffs, INA226, mic and speaker, HC-SR04 level shifting, one ESP32-S3 to start, 15 A fuse, DC-rated main switch, separate servo supply, and a Pi Camera Module 3 instead of the C270 | Adam, 17 Nov, from the review in `cad/concept-k-v1/review/REVIEW.md` (commit `75e04c2`). |
+| 4× Pololu DRV8874 drivers, replacing 4× BTS7960 | Accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person. |
+
+**16 Nov 2026:** mind gives behaviors and plans, not single steps; layer split mind / controller (~30 fps) / ESP32 reflexes (~1 kHz, always win); skills are not limited to safe primitives; the in-house Qwen bench compared reasoning levels only (low 10/10), not models.
+
+**14–15 Nov 2026:** passion project; six-layer roadmap; mind Qwen3.8-27B on Cerebras via OpenRouter, at least low reasoning; memory keeper GLM-5.3-Flash; local YOLO; audio stack; skip a depth camera; PlatformIO; working name Super bot. See [`decisions.md`](decisions.md) for the full condensed log of earlier days, including the 17 Nov body and parts picks (4× JGB37, 4× BTS7960, Pi 5, cheap LD06/LD19 lidar, and the rest).
 
 ## Open questions and next steps
 
+- Check that DRV8874 drivers are still fast enough to chase a person (open, 17 Nov). 4× Pololu DRV8874 are accepted in place of 4× BTS7960, but only pending this check. Motor stall is about 2.3 A.
+- Remaining concept K review items (open, 17 Nov; `cad/concept-k-v1/review/REVIEW.md`, commit `75e04c2`): whether to keep or drop the rear HC-SR04, the shell material (tougher than acrylic?), a hardware motor cut (CPX or ESP32 watchdog on the driver enables), Pi 5 5 A mode and buck placement, a charge port, and whether a 20 A BMS is enough.
+- Start the v2 CAD redesign, including the neck (open, 17 Nov). Direction, not started: a taller, narrower WALL-E style torso about 30×30 cm with parts stacked in levels, wheel size as in the AI concept image, and a chunky short neck. v1 stays frozen as a backup until Adam says to redesign.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -172,3 +243,7 @@ See [`decisions.md`](decisions.md) for the condensed log, including the 17 Nov b
 - Recheck live prices before later-layer purchases.
 - Finish layer 1: a talking, seeing head on the desk.
 - A final official name, if "Super bot" should not stick.
+
+## Sources
+
+Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` at commit `75e04c2`).
