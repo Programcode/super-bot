@@ -1,0 +1,10 @@
+# Super bot - electronics test: board (EAGLE command script, run in Fusion via Electron.runScript)
+# 20 x 15 mm two-layer board, parts placed by name, then the autorouter.
+GRID MM 0.5;
+LAYER 20;
+WIRE 0.1 (0 0) (20 0) (20 15) (0 15) (0 0);
+MOVE JP1 (3.5 7.5);
+ROTATE =R90 JP1;
+MOVE R1 (10 7.5);
+MOVE D1 (15.5 7.5);
+AUTO ;

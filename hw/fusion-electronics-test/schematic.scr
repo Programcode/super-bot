@@ -1,0 +1,12 @@
+# Super bot - electronics test: schematic (EAGLE command script, run in Fusion via Electron.runScript)
+# Circuit: JP1 pin1 (VIN) -> R1 1k -> D1 red LED -> JP1 pin2 (GND)
+# Pin coordinates come from the shipped Resistor/LED/Connector .lbr files (symbol pins, R0 placement).
+GRID MM 2.54;
+ADD RCHIP-0603(1608-METRIC)@Resistor R1 R0 (20.32 20.32);
+ADD CHIP-FLAT-R_0603-0.55MM@LED D1 R0 (40.64 20.32);
+ADD PINHD-1X2@Connector JP1 R0 (0 0);
+VALUE R1 1k;
+VALUE D1 RED;
+NET VIN (-5.08 2.54) (-10.16 2.54) (-10.16 20.32) (15.24 20.32);
+NET LED_A (25.4 20.32) (38.1 20.32);
+NET GND (43.18 20.32) (48.26 20.32) (48.26 -7.62) (-12.7 -7.62) (-12.7 0) (-5.08 0);
