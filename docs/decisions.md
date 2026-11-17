@@ -2,6 +2,27 @@
 
 Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full log with reasons is on the Grok Bot page (snapshot in [super-bot-page.md](super-bot-page.md)). Append a row whenever something is decided.
 
+## 17 Nov 2026: review decisions (apply to v2; v1 stays frozen)
+
+| Decision | Notes |
+| --- | --- |
+| v1 frozen and backed up | Fusion copy "Super bot - concept K v1 (backup)", git tag `concept-k-v1`. v2 will be a taller, narrower 30×30 cm WALL-E-style torso with stacked levels. |
+| Placeholders approved: 2× MG90S pan/tilt, 6805 bearings + 25 mm collar, Pololu D36V50F5 5 V buck | The head and camera must look around independently of the body. |
+| Drive: 4× JGB37-520, 12 V, **530 rpm** (19:1), with **100 mm** mecanum wheels | About 2 m/s top speed on hard floors. Speed is a benchmark/fun goal, not for chasing people; the robot mostly drives slowly. Details in `cad/concept-k-v1/review/REVIEW.md`. |
+| Motor drivers: DRV8874 class instead of 4× BTS7960 | The BTS7960 heatsinks are overkill. The 530 rpm motor stalls at about 2.3 A, within the DRV8874's 4.4 A limit. |
+| Safety plan without an e-stop: software speed and acceleration limits plus bumpers | Enforced as ESP32 reflexes, alongside the cliff sensors, the fuse and the DC switch below. |
+| Cliff sensors on all 4 sides | 4× VL53L0X-class ToF, because mecanum drives sideways and backwards. |
+| INA226 battery monitor | Voltage and current for the battery time-left model and limp mode. |
+| Audio: INMP441 mic + MAX98357A amp + speaker | For wake word, speech-to-text and text-to-speech. |
+| HC-SR04 level shifting (or the HC-SR04P) | The ESP32 is 3.3 V only. |
+| Start with one ESP32-S3 | A second one can come later if needed. |
+| 15 A main fuse after the BMS | |
+| DC-rated main switch instead of the KCD1 | Placed where you can reach it. |
+| Separate 5–6 V supply for the servos | Keeps servo spikes off the Pi's 5 V rail. |
+| Pi 5 set to 5 A (no USB-PD), buck placed next to the Pi | `usb_max_current_enable=1` or `PSU_MAX_CURRENT=5000`. |
+| Camera: Raspberry Pi Camera Module 3 replaces the C270 | About €27, 25 × 24 mm. Needs a long Pi 5 (22-pin) camera ribbon through the neck that survives pan/tilt. |
+| Pending | Rear HC-SR04 removal, shell material, neck design (all part of the v2 torso work). |
+
 ## 17 Nov 2026: concept K v1 design
 
 | Decision | Notes |

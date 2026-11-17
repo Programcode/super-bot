@@ -2,6 +2,28 @@
 
 v1 is frozen. The Fusion design "Super bot - concept K blockout v1" stays as it is. An exact copy is saved as **"Super bot - concept K v1 (backup)"** (both are in Default Project), and the repo is tagged `concept-k-v1`. Nothing here changes v1; this is the map of what's in it and what I'd change.
 
+## Adam's decisions (17 Nov 2026)
+
+These apply to **v2**; the v1 model stays as it is. They are also recorded in [docs/decisions.md](../../../docs/decisions.md).
+
+**Accepted:**
+- Cliff sensors on all 4 sides.
+- INA226 battery monitor.
+- Mic (INMP441) + MAX98357A amp + speaker.
+- HC-SR04 level shifting (or the HC-SR04P).
+- Start with 1 ESP32-S3.
+- 15 A main fuse.
+- DC-rated main switch instead of the KCD1.
+- Separate 5–6 V servo supply.
+- Pi 5 set to 5 A, with the buck converter next to it.
+- Pi Camera Module 3 instead of the C270.
+- DRV8874-class motor drivers.
+- Drive: JGB37-520 12 V **530 rpm** with **100 mm** mecanum wheels. See [section 5](#5-speed-check-530-rpm-motors-with-100-mm-wheels).
+- Safety without an e-stop: software speed and acceleration limits, plus bumpers.
+- The placeholder parts (MG90S servos, 6805 bearings + collar, Pololu buck) are approved.
+
+**Pending:** removing the rear HC-SR04, the shell material, and the neck. All of these come with the v2 torso (30 × 30 cm, taller, stacked levels).
+
 ## 1. Pictures
 
 Every orange number matches a row in the parts table below.
@@ -76,6 +98,17 @@ Types:
 | 46 | 6805 bearings ×2 | Ball bearings, 25 × 37 × 7 mm | Let the neck spin smoothly and take side loads | Inside the pan hub | Placeholder (OK'd) |
 | 47 | Neck clamp collar | 25 mm shaft collar | Rests the neck's weight on the top bearing, not on the servo | On the tube, inside the hub | Placeholder (OK'd) |
 | 48 | Camera foam pad | 2.5 mm EVA foam | Clamps the C270 gently | Behind the camera | Bought (cut) |
+
+### Close-up callouts
+
+One picture per area, with leader lines from each label to the actual part. Shells are shown see-through where they would hide the inside. Labels marked "decision:" point to the changes Adam accepted for v2.
+
+| | |
+| --- | --- |
+| ![Wheel corner](callouts/wheel-corner.png) | ![Battery and power](callouts/battery-power.png) |
+| ![Pi stack](callouts/pi-stack.png) | ![ESP32 and IMU](callouts/esp32-imu.png) |
+| ![CPX ring and front sensors](callouts/cpx-ring.png) | ![Lidar backpack](callouts/lidar-backpack.png) |
+| ![Neck base](callouts/neck-base.png) | ![Head](callouts/head.png) |
 
 **Not modelled yet:** wires, the screws, a fuse, a charging port, and the audio parts the brain plan needs (mic, amplifier, speaker). They come up again in the review.
 
@@ -152,7 +185,7 @@ None of this is hard to fix. Most of it is cheaper and lighter than what's in v1
 
 ### What's overkill
 
-**1. Four BTS7960 drivers. Yes, this is overkill.**
+**1. Four BTS7960 drivers. Yes, this is overkill.** **[Accepted: DRV8874 class for v2]**
 
 The motors need very little:
 - A 12 V JGB37-520 typically draws about **0.12 A** with no load and **1 A or less** when working.
@@ -170,7 +203,7 @@ How the options compare:
 
 My recommendation is **four DRV8874 carriers** (about $12 each from Pololu), or a dual-channel board rated at least 2.5 A continuous per channel and 16 V+. That saves about 260 g and four big boards, and lets the deck drop by about 10–15 mm. The motors (top at 65.5 mm) then set the deck height, not the drivers.
 
-**2. Two ESP32-S3s.** One ESP32-S3 has enough hardware for v1:
+**2. Two ESP32-S3s.** **[Accepted: start with one]** One ESP32-S3 has enough hardware for v1:
 - four hardware pulse counters for the four encoders;
 - plenty of PWM outputs;
 - I²C for the IMU and ToF;
@@ -186,43 +219,43 @@ A second board doubles the firmware, the USB cables and the ways it can go wrong
 
 ### What should be added (most important first)
 
-1. **A main fuse.** Nothing currently protects the wiring if something shorts, and a 3S4P pack can deliver far more current than any wire in the robot can carry. Put a **15 A blade fuse** right after the BMS, and use 1.5 mm² (16 AWG) wire for the main 12 V run.
-2. **A real DC power switch, somewhere you can reach.**
+1. **[Accepted] A main fuse.** Nothing currently protects the wiring if something shorts, and a 3S4P pack can deliver far more current than any wire in the robot can carry. Put a **15 A blade fuse** right after the BMS, and use 1.5 mm² (16 AWG) wire for the main 12 V run.
+2. **[Accepted] A real DC power switch, somewhere you can reach.**
    - The KCD1 rocker is a mains-AC part. Breaking 12 V DC with motors attached makes it arc and wear out.
    - It also sits low on the rear door, which is the hardest place to reach in a hurry.
    - Use a DC-rated switch of 15 A or more (or a removable XT60 "loop key"), on the top or upper back.
-3. **A hardware way to stop the motors.** With the e-stop gone (Adam's call, and that's fine), make sure stopping doesn't depend on software alone. Wire the driver enable lines so the CPX watchdog, or a hardware watchdog on the ESP32, can cut them. Add a simple remote kill later.
-4. **A separate supply for the servos.**
+3. **[Decided differently] A hardware way to stop the motors.** Adam chose software speed and acceleration limits plus bumpers, with no e-stop (see section 5). Wiring the driver enable lines to a watchdog still costs almost nothing. With the e-stop gone (Adam's call, and that's fine), make sure stopping doesn't depend on software alone. Wire the driver enable lines so the CPX watchdog, or a hardware watchdog on the ESP32, can cut them. Add a simple remote kill later.
+4. **[Accepted] A separate supply for the servos.**
    - An MG90S stalls at about **0.75–0.86 A**, and cheap clones can spike higher ([Sky Star datasheet](https://www.tinytronics.nl/product_files/000263_Data%20Sheet%20of%20MG90S%20Analog%20Servo%20Motor.pdf)).
    - Two servos jerking on the same 5 V rail as the Pi 5 will cause brownouts and random reboots.
    - Add a small 5–6 V buck (around 2.5 A) just for the servos.
-5. **Make the Pi 5 accept the buck converter's power.**
+5. **[Accepted] Make the Pi 5 accept the buck converter's power.**
    - A plain buck can't do USB-PD. The Pi 5 then limits all its USB ports to **600 mA in total**, and the C270, the lidar adapter and two ESP32s are close to that already.
    - The fix is `usb_max_current_enable=1` in `config.txt`, or `PSU_MAX_CURRENT=5000` in the EEPROM. Only do this with a supply and wiring that really hold 5 V at 5 A ([Raspberry Pi docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)).
    - Also **move the buck next to the Pi**. Right now it's at the front, about 250 mm from the Pi, and that's a long way to carry 5 A at 5 V.
-6. **Cliff sensors on all four sides.** Mecanum wheels drive sideways and backwards, but there's only one cliff sensor, at the front. Three more VL53L0X boards cost very little and close the gap at the stairs.
-7. **A charging port.** At the moment you charge by pulling the sled out and using a balance charger. Add a charge input through the BMS (a 12.6 V CC/CV charger). The dock will need it anyway.
-8. **Battery monitoring.** An INA226 current/voltage sensor gives the "battery time left" model and the low-battery limp mode in the plan something to read.
-9. **Audio.** The brain plan uses wake word, speech-to-text and text-to-speech, but there's no microphone or speaker in the design. INMP441 + MAX98357A + a small speaker fit easily in the empty front of the deck.
-10. **Level shifting for the HC-SR04s.** Their echo pin outputs 5 V, and ESP32 pins are 3.3 V only. Use a resistor divider, or the 3.3 V-friendly HC-SR04P version.
+6. **[Accepted] Cliff sensors on all four sides.** Mecanum wheels drive sideways and backwards, but there's only one cliff sensor, at the front. Three more VL53L0X boards cost very little and close the gap at the stairs.
+7. **[Open] A charging port.** At the moment you charge by pulling the sled out and using a balance charger. Add a charge input through the BMS (a 12.6 V CC/CV charger). The dock will need it anyway.
+8. **[Accepted] Battery monitoring.** An INA226 current/voltage sensor gives the "battery time left" model and the low-battery limp mode in the plan something to read.
+9. **[Accepted] Audio.** The brain plan uses wake word, speech-to-text and text-to-speech, but there's no microphone or speaker in the design. INMP441 + MAX98357A + a small speaker fit easily in the empty front of the deck.
+10. **[Accepted] Level shifting for the HC-SR04s.** Their echo pin outputs 5 V, and ESP32 pins are 3.3 V only. Use a resistor divider, or the 3.3 V-friendly HC-SR04P version.
 
 ### What should change
 
-- **Neck height.** At 48 cm of 25 mm tube, the head will sway and shake when the robot drives or stops, which blurs the camera. It also blocks about 9° of the lidar's view. The 22 cm option looks more like K and will work better. Pip is handling that decision with Adam; I'd pick the short neck.
-- **Shell material.**
+- **[Pending, v2 torso] Neck height.** At 48 cm of 25 mm tube, the head will sway and shake when the robot drives or stops, which blurs the camera. It also blocks about 9° of the lidar's view. The 22 cm option looks more like K and will work better. Pip is handling that decision with Adam; I'd pick the short neck.
+- **[Pending] Shell material.**
   - 3 mm acrylic is about 1 kg of the robot's 5.5 kg, and acrylic cracks when hit, around screw holes and at sharp corners.
   - Polycarbonate is much tougher but doesn't laser-cut cleanly; PETG sheet is in between.
   - At the least, keep acrylic away from bumper zones.
   - The 406 mm top also needs a bigger laser than most makerspaces have.
 - **Ground clearance and wheels.** 20 mm under the plate and 80 mm mecanum wheels will struggle on rugs and door thresholds. Mecanum wheels with hard rollers also slip on carpet. That's fine for hard floors; know it before you blame the code.
-- **Head camera.** The C270 is 73 mm wide, and that's what makes the head so wide. A Raspberry Pi Camera Module (about 25 × 24 mm, ribbon cable) would allow a much smaller, nicer head and free a USB port. It's a parts change, so it's Adam's and Pip's call.
+- **[Accepted: Pi Camera Module 3] Head camera.** The C270 is 73 mm wide, and that's what makes the head so wide. A Raspberry Pi Camera Module (about 25 × 24 mm, ribbon cable) would allow a much smaller, nicer head and free a USB port. It's a parts change, so it's Adam's and Pip's call.
 - **Wiring.** v1 has cable paths but no harness. In real robots the wiring is often the messiest, least reliable part. Pick connector families early (for example XT30 for power, JST-XH for signals), and add a small power distribution board.
 
 ### What should be removed
 
 - The four BTS7960s (replace with DRV8874s, see above).
 - The KCD1 rocker (replace with a DC-rated switch).
-- Probably the rear HC-SR04: the lidar already sees behind. Keep the front one, because ultrasound sees glass and lidar doesn't.
+- **[Pending]** Probably the rear HC-SR04: the lidar already sees behind. Keep the front one, because ultrasound sees glass and lidar doesn't.
 - Optionally, the second ESP32 for the first build.
 
 ### Risks
@@ -252,5 +285,64 @@ v2 is the 30 × 30 cm, taller, stacked WALL-E torso.
 7. **Measure the bought parts first**, then lock the dimensions marked as estimated.
 8. **Keep what worked:** real-part modelling, the interference and clearance checks, the slide-out battery, and print-bed-sized parts.
 
+## 5. Speed check: 530 rpm motors with 100 mm wheels
+
+Adam's choice for v2 is 4× JGB37-520, 12 V, **530 rpm** (19:1 gearbox), with **100 mm** mecanum wheels. Speed is a benchmark goal, not for chasing people. The robot will mostly drive slowly.
+
+**For comparison, v1 as modelled.** The 24 mm gearbox is the 56:1–90:1 family, which gives 107–178 rpm depending on the base motor. On 80 mm wheels that's only **0.45–0.75 m/s**: walking pace at best.
+
+**Inputs:**
+- **Motor (12 V, 530 rpm, 19:1):**
+  - 530 rpm with no load.
+  - About 407 rpm at its most efficient working point, where it delivers 2.2 kg·cm at 1 A or less.
+  - Stall torque 3.1 kg·cm, stall current about 2.3 A.
+  - Sources: [Voltaat](https://www.voltaat.com/products/12v-high-torque-metal-dc-geared-motor-with-encoder-530-rpm-3-1-kg-cm), [Mikroelectron](https://mikroelectron.com/product/me-9371).
+- **Battery:** the 3S pack is 12.6 V full, 11.1 V nominal and about 10.5 V nearly empty. Motor speed scales with voltage.
+- **Robot:** about 5.5 kg (the v1 mass; v2 will differ a little). Wheel radius 50 mm, one wheel turn = 314 mm.
+- **Rolling resistance** of mecanum on a hard floor is estimated at about 5 % of the weight, about 2.7 N.
+
+**Top speed:**
+
+| Condition | Wheel rpm | Speed |
+| --- | --- | --- |
+| No load, 12 V (the catalogue number) | 530 | 2.8 m/s |
+| No load, full battery 12.6 V | about 557 | 2.9 m/s |
+| No load, nominal 11.1 V | about 490 | 2.6 m/s |
+| **Real driving, nominal battery** (motor model minus rolling resistance and gear losses) | about 380–420 | **about 2.0–2.2 m/s** |
+| Real driving, full battery | | about 2.3 m/s |
+| Sideways (strafing), estimate | | about 1.4–1.7 m/s (rollers slip more) |
+
+So the real top speed is **about 2 m/s (7 km/h)** on a hard floor: a brisk walk. A jogger at 2.5–3 m/s would pull away. That fits the plan now that speed is only a benchmark. Carpet and rugs will cut it noticeably.
+
+**Torque and acceleration on 5.5 kg:**
+- **Pushing force at a standstill** (stall torque at 11.1 V): 4 wheels × 0.28 N·m ÷ 0.05 m ≈ **22 N**.
+- **Starting acceleration:** (22 − 2.7) ÷ 5.5 ≈ **3.6 m/s²**. At the motors' rated torque it's about 2.4 m/s².
+- **0 to 2 m/s in about 1.4 s.** Force drops as a DC motor speeds up, so it creeps toward its top speed.
+- **Wheels won't spin on a hard floor.** Rubber rollers grip at roughly 0.5 g, about 4.9 m/s², which is more than the motors can push.
+- **Ramps:** it can climb about **14°** at rated torque.
+- **Against 80 mm wheels on the same motor:** 100 mm wheels are 25 % faster, with 20 % less pushing force. Plenty for a 5.5 kg indoor robot.
+
+**Stall current and the DRV8874:**
+- One motor stalls at about **2.3 A** at 12 V (about 2.1 A at 11.1 V, about 2.4 A on a full pack). Four stalled at once is about 9–10 A, under the 15 A main fuse.
+- Normal driving is **0.3–1 A per motor**.
+- The DRV8874 carrier handles **2.1 A continuously** and limits current at **4.4 A** by default (6 A chip peak), with thermal shutdown ([Pololu](https://www.pololu.com/product/4035)).
+- **So it covers this motor.** Normal driving is well inside its range, and a stall stays under the current limit. Only a stall lasting many seconds would heat it until it shuts itself off.
+- Better still, let the ESP32 read the DRV8874's current-sense pin (about 1.1 V per amp) and cut a motor that has been stalled for more than about 0.5 s. That's a reflex the plan already lists.
+- If v2 ever moves to a bigger motor (stall above about 4 A), the DRV8874 is no longer enough.
+
+**Small knock-on changes for v2:**
+- The 19:1 gearbox is 22 mm long instead of 24 mm.
+- 100 mm mecanum wheels are wider and taller than the 80 mm ones; check the exact width of the wheel you buy before sizing the wheel wells.
+- Typical Hall encoders give 11 pulses per motor turn. That's 11 × 19 = 209 per wheel turn, or about 836 with all four edges counted: about **0.4 mm of travel per count** on a 100 mm wheel (estimate), which is fine for odometry.
+
+**Safety plan (Adam's decision: no e-stop):**
+- **Software speed and acceleration limits, enforced by the ESP32 as reflexes**, so the Pi or the cloud mind can't override them:
+  - Normal indoor mode: about 0.5 m/s and 1 m/s².
+  - "Benchmark mode" for the fast runs: switched on deliberately, in a cleared space only.
+  - Gentle braking ramps, because a tall v2 torso and a head on a neck will sway when the robot stops hard. A v1-shaped robot only tips at about 14 m/s², but a taller v2 tips sooner, and the camera shakes well before that.
+- **Bumpers:** contact switches on all four sides go straight to the ESP32. A press stops the motors at once, before any software layer knows about it.
+- **The rest of the reflex set:** 4 cliff sensors, the ultrasonic for glass, the 200 ms no-command stop, stall cut-off from current sensing, the 15 A fuse and a reachable DC-rated main switch.
+
+
 ---
-*Pictures are Fusion viewport captures from the backup copy, made by `scripts/diag.py` and labelled by `scripts/annotate.py`. The current figures come from the linked datasheets and seller listings; check them against the exact motors and servos you buy.*
+*Pictures are Fusion viewport captures from the backup copy, made by `scripts/diag.py` and `scripts/callouts.py`, and labelled by `scripts/annotate.py` and `scripts/callout_annotate.py`. The current figures come from the linked datasheets and seller listings; check them against the exact motors and servos you buy.*
