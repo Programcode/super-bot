@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 8:27 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 17 Nov 2026, 8:27 PM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 8:35 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 17 Nov 2026, 8:35 PM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -65,7 +65,8 @@ v1 frozen 17 Nov 2026. v2 is not started and waits on Adam.
 | No e-stop button | Not on the body. ESP32 reflexes and the verbal "stop" stay. |
 | 3S4P 18650 battery, about 130 Wh, on a slide-out sled | Replaces earlier rough 4 h driving / 10 h idle figures. The concept K v1 README estimates about 3 h of continuous driving, about 8 h idle, and about 6 h on a typical mix. |
 | MG90S pan/tilt servos are OK | Adam wants the head to look around on its own, independently of the body. |
-| 4× Pololu DRV8874 drivers, replacing 4× BTS7960 | Accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person. Motor stall is about 2.3 A; the BTS7960 is rated 43 A. |
+| Drive: 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels | Decided 17 Nov. Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. |
+| 4× Pololu DRV8874 drivers, replacing 4× BTS7960 | Accepted 17 Nov. The speed check (REVIEW.md section 5, commit `9b6bc6e`) confirms DRV8874 is OK: stall is about 2.3 A per motor. |
 | 15 A main fuse | On the main power path. Accepted 17 Nov. |
 | DC-rated main switch | Replaces the AC-rated KCD1 switch. Accepted 17 Nov. |
 | Separate servo supply | The servos get their own 5–6 V buck. Accepted 17 Nov. |
@@ -75,22 +76,34 @@ v1 frozen 17 Nov 2026. v2 is not started and waits on Adam.
 | HC-SR04 level shifting | Accepted 17 Nov. |
 | Start with one ESP32-S3 | Instead of two from the start. Later boards can still be added for an arm or a face. Accepted 17 Nov. |
 | Pi Camera Module 3, instead of the C270 | Accepted 17 Nov. |
+| Pi 5 set to 5 A, buck next to the Pi | `usb_max_current_enable` / 5 A mode, no USB-PD. Logged in [`docs/decisions.md`](decisions.md). |
 
-**v2 direction, not started.** A taller, narrower WALL-E style torso, about 30×30 cm, with parts stacked in levels, wheel size as in the AI concept image, and a chunky short neck. This waits on Adam. v1 stays frozen as a backup.
+### Speed check
+
+From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md) section 5, commit `9b6bc6e`. Estimates for the 530 rpm motors and 100 mm wheels at about 5.5 kg.
+
+| Figure | Estimate |
+| --- | --- |
+| Forward, hard floor | About 2.0–2.2 m/s (2.8 m/s no-load) |
+| Sideways | About 1.4–1.7 m/s |
+| 0–2 m/s | About 1.4 s at 5.5 kg |
+| Climb | About 14° |
+| Current | Stall about 2.3 A per motor (DRV8874 OK); normal draw 0.3–1 A |
+| Stall cutoff | After about 0.5 s, via DRV8874 current sense |
+
+Eight labelled callout diagrams are in [`cad/concept-k-v1/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/concept-k-v1/review/callouts): wheel corner, battery/power, Pi stack, ESP32/IMU, CPX/front sensors, lidar backpack, neck base, and head.
+
+**v2 direction, not started.** A taller, narrower WALL-E style torso, about 30×30 cm, with parts stacked in levels, 100 mm wheels, and a chunky short neck. This waits on Adam. v1 stays frozen as a backup. The condensed decision log is in [`docs/decisions.md`](decisions.md).
 
 ### Still open from the v1 review
 
-From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md), commit `75e04c2`. Not decided yet.
+Logged as pending in [`docs/decisions.md`](decisions.md). Not decided yet.
 
 | Open item | Detail |
 | --- | --- |
 | Rear HC-SR04 | Whether to keep or drop the rear ultrasonic. |
 | Shell material | Whether to use something tougher than the v1 acrylic panels. |
-| Neck and v2 layout | A shorter, stiffer neck and the taller, narrower WALL-E torso are the direction, but the redesign has not started and waits on Adam. |
-| Hardware motor cut | A CPX or ESP32 watchdog on the driver enables. Not yet decided. |
-| Pi 5 current and buck placement | Set the Pi 5 to 5 A (`usb_max_current_enable`) and put the buck next to the Pi. Not yet decided. |
-| Charge port | A charge port was in the review, but not yet decided. |
-| A 20 A BMS is enough | Not yet decided. |
+| Neck length and v2 | A shorter, stiffer neck and the taller, narrower WALL-E torso are the direction, but the redesign has not started and waits on Adam. |
 
 ## Brain architecture
 
@@ -178,11 +191,11 @@ Low is the current default. Total spend ~$0.19. Bench files were in `/workspace/
 
 ## Hardware
 
-Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17 Nov are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled. Drive is 4× JGB37 motors with 4× Pololu DRV8874 drivers, accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person; this replaces the BTS7960s used in the v1 model. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3.
+Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17 Nov are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled. Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers (speed check in REVIEW.md section 5, commit `9b6bc6e`, confirms the drivers are OK). Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3.
 
 **Owned now:** laptop (brain now), an existing Pi that is busy with other work, ELEGOO UNO R3 Advanced Starter Kit (servo, 28BYJ-48 stepper + ULN2003, HC-SR04, IR receiver, power module, GY-521 IMU, MAX7219, LCD1602, PIR, RC522, and more), Circuit Playground Express. Code in PlatformIO.
 
-**To buy (updated 17 Nov):** Pi Camera Module 3 (instead of the C270; layer 1 on the desk can still use a phone or a cheap USB cam), MG90S servos + pan-tilt, PCA9685, a separate 5–6 V servo supply, INMP441 + MAX98357A + speaker, one ESP32-S3 DevKitC-1 N16R8 to start, mecanum chassis with 4× JGB37 encoder motors and 4× Pololu DRV8874, 3S4P 18650 pack with BMS (about 130 Wh; README runtime about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix), 15 A main fuse, DC-rated main switch, cliff sensors, INA226, XIAO ESP32S3 Sense later. Euro prices incomplete. Older ballpark for cells was about $30 for 3 cells and a charger.
+**To buy (updated 17 Nov):** Pi Camera Module 3 (instead of the C270; layer 1 on the desk can still use a phone or a cheap USB cam), MG90S servos + pan-tilt, PCA9685, a separate 5–6 V servo supply, INMP441 + MAX98357A + speaker, one ESP32-S3 DevKitC-1 N16R8 to start, mecanum chassis with 4× JGB37-520 12 V 530 rpm encoder motors, 100 mm wheels, and 4× Pololu DRV8874, 3S4P 18650 pack with BMS (about 130 Wh; README runtime about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix), 15 A main fuse, DC-rated main switch, cliff sensors, INA226, XIAO ESP32S3 Sense later. Euro prices incomplete. Older ballpark for cells was about $30 for 3 cells and a charger.
 
 **Dream upgrades:** lidar, robot arm, face display, self-docking charger, VL53L0X ToF, BNO085 IMU. Depth camera skipped.
 
@@ -218,9 +231,9 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | Battery is a 3S4P 18650 pack, about 130 Wh, on a slide-out sled | Adam doubled the earlier 3S idea, then agreed 3S4P is enough rather than going larger. The pack sits flat and slides out the back. README runtime: about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix (replaces earlier rough 4 h / 10 h figures). |
 | MG90S pan/tilt servos are OK | Adam wants the head to look around on its own, independently of the body. |
 | Concept K v1 is done, frozen, and backed up | Fusion design "Super bot - concept K blockout v1": 406×406 mm footprint, head top 699 mm (`neck_len` 480), about 5.5 kg, centre of gravity 99 mm, no collisions, all printed parts fit a 256 mm bed. Backup: Fusion copy "Super bot - concept K v1 (backup)" and git tag `concept-k-v1`. Files in `cad/concept-k-v1/`. |
-| v2 direction is a taller, narrower WALL-E torso, but the redesign has not started | About 30×30 cm stacked torso, wheel size as in the AI concept image, chunky short neck. The redesign, including the neck, waits on Adam. Still open from the v1 review: the rear HC-SR04 and the shell material. |
-| Accepted v1 review items: cliffs, INA226, mic and speaker, HC-SR04 level shifting, one ESP32-S3 to start, 15 A fuse, DC-rated main switch, separate servo supply, and a Pi Camera Module 3 instead of the C270 | Adam, 17 Nov, from the review in `cad/concept-k-v1/review/REVIEW.md` (commit `75e04c2`). |
-| 4× Pololu DRV8874 drivers, replacing 4× BTS7960 | Accepted 17 Nov, pending a check that the motors can still be fast enough to chase a person. |
+| v2 direction is a taller, narrower WALL-E torso, but the redesign has not started | About 30×30 cm stacked torso, 100 mm wheels, chunky short neck. The redesign, including neck length, waits on Adam. Still open: the rear HC-SR04 and the shell material. Logged in [`docs/decisions.md`](decisions.md). |
+| Accepted v1 review items: cliffs, INA226, mic and speaker, HC-SR04 level shifting, one ESP32-S3 to start, 15 A fuse, DC-rated main switch, separate servo supply, a Pi Camera Module 3 instead of the C270, and the Pi 5 set to 5 A with the buck next to the Pi | Adam, 17 Nov, from the review in `cad/concept-k-v1/review/REVIEW.md`, and logged in [`docs/decisions.md`](decisions.md) (commit `9b6bc6e`). |
+| Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers | Decided 17 Nov. Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The speed check (REVIEW.md section 5, commit `9b6bc6e`) estimates about 2.0–2.2 m/s forward on a hard floor (2.8 m/s no-load), about 1.4–1.7 m/s sideways, 0–2 m/s in about 1.4 s at 5.5 kg, a climb of about 14°, stall about 2.3 A per motor (DRV8874 OK), normal draw 0.3–1 A, and a stall cutoff after about 0.5 s via DRV8874 current sense. |
 
 **16 Nov 2026:** mind gives behaviors and plans, not single steps; layer split mind / controller (~30 fps) / ESP32 reflexes (~1 kHz, always win); skills are not limited to safe primitives; the in-house Qwen bench compared reasoning levels only (low 10/10), not models.
 
@@ -228,9 +241,8 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Open questions and next steps
 
-- Check that DRV8874 drivers are still fast enough to chase a person (open, 17 Nov). 4× Pololu DRV8874 are accepted in place of 4× BTS7960, but only pending this check. Motor stall is about 2.3 A.
-- Remaining concept K review items (open, 17 Nov; `cad/concept-k-v1/review/REVIEW.md`, commit `75e04c2`): whether to keep or drop the rear HC-SR04, the shell material (tougher than acrylic?), a hardware motor cut (CPX or ESP32 watchdog on the driver enables), Pi 5 5 A mode and buck placement, a charge port, and whether a 20 A BMS is enough.
-- Start the v2 CAD redesign, including the neck (open, 17 Nov). Direction, not started: a taller, narrower WALL-E style torso about 30×30 cm with parts stacked in levels, wheel size as in the AI concept image, and a chunky short neck. v1 stays frozen as a backup until Adam says to redesign.
+- Remaining concept K review items (open, 17 Nov; logged in [`docs/decisions.md`](decisions.md)): whether to keep or drop the rear HC-SR04, the shell material (tougher than acrylic?), and the neck length / v2 torso redesign.
+- Start the v2 CAD redesign, including the neck (open, 17 Nov). Direction, not started: a taller, narrower WALL-E style torso about 30×30 cm with parts stacked in levels, 100 mm wheels, and a chunky short neck. v1 stays frozen as a backup until Adam says to redesign.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -246,4 +258,4 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` at commit `75e04c2`).
+Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)).
