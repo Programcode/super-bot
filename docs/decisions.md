@@ -2,6 +2,12 @@
 
 Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full log with reasons is on the Grok Bot page (snapshot in [super-bot-page.md](super-bot-page.md)). Append a row whenever something is decided.
 
+## 17 Nov 2026: PCB tool
+
+| Decision | Notes |
+| --- | --- |
+| PCB tool: KiCad, not Fusion Electronics | Per [hw/fusion-electronics-test/RESULT.md](../hw/fusion-electronics-test/RESULT.md): Fusion's electronics API is read-only, building needs undocumented commands on the active document, and the test crashed the shared Fusion session. Accepted by Pip. |
+
 ## 17 Nov 2026: review decisions (apply to v2; v1 stays frozen)
 
 | Decision | Notes |
