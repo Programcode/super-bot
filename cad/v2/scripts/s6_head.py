@@ -239,7 +239,10 @@ def head(c):
     fyb = '(%s) - pwall - 1 mm - 13.5 mm - 2.5 mm' % front   # behind the camera's FPC connector
     fr = B(c, 'head frame (printed)', '(cam_x + tft_x)/2', fyb, '(%s) - 20 mm' % zc, '100 mm', '2.5 mm', '40 mm', 'PET Plastic', BLACK)
     ft = B(c, 'frame foot', '0 mm', '(%s) + 4 mm' % hy, 'head_z0 + pwall', '60 mm', '14 mm', '2.5 mm', 'PET Plastic', BLACK)
-    join(c, fr, [ft], 'head frame (printed)')
+    # web from the foot up into the plate (left of the ribbon slot), so the plate, TFT and camera are carried by the foot
+    web = B(c, 'frame web', '-15 mm', '((%s) + 4 mm - 7 mm + (%s) + 1.25 mm)/2' % (hy, fyb), 'head_z0 + pwall',
+            '30 mm', '((%s) + 1.25 mm) - ((%s) + 4 mm - 7 mm)' % (fyb, hy), '(%s) - 20 mm + 6 mm - (head_z0 + pwall)' % zc, 'PET Plastic', BLACK)
+    join(c, fr, [ft, web], 'head frame (printed)')
     cm = sub(c, 'Raspberry Pi Camera Module 3')
     cy0 = '(%s) - pwall - 0.6 mm' % front
     lz = '(%s) + 2 mm' % zc
@@ -263,6 +266,11 @@ def head(c):
               '((%s) - 5 mm) - ((%s) + 1.25 mm)' % (ty0, fyb), 'Copper, Alloy', BRASS)
     mi = sub(c, 'Mic INMP441 (I2S)')
     B(mi, 'INMP441 PCB (EST 14x14)', 'mic_x', '(%s) - pwall - 1.8 mm' % front, '(%s) - 7 mm' % zc, '14 mm', '1.6 mm', '14 mm', 'FR4', 'Plastic - Matte (Blue)')
+    # printed mic pocket, part of the front head shell: two side rails and a back bar hold the board on the front wall
+    fs = [b for b in c.bRepBodies if b.name == 'head shell front (printed)'][0]
+    rails = [B(c, 'mic rail', '(mic_x) + %d*8 mm' % k, '(%s) - pwall - 2.6 mm' % front, '(%s) - 9 mm' % zc, '2 mm', '5.2 mm', '18 mm') for k in (-1, 1)]
+    rails.append(B(c, 'mic back bar', 'mic_x', '(%s) - pwall - 4.2 mm' % front, '(%s) - 9 mm' % zc, '18 mm', '2 mm', '3 mm'))
+    combine(c, fs, rails, JOIN)
     g = appearance('SB Eye glow cyan', 'LED - SMD 5050 - 20lm (White)')
     fg = sub(c, 'Face graphic on TFT (display content, not a part)')
     fy_ = '(%s) + 0.08 mm' % ty0

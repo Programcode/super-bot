@@ -29,16 +29,18 @@ def define():
 
 
 def battery():
+    """Cells packed tight (welded and shrink-wrapped in reality): touching each other and the sled floor,
+    nickel strips on the cell ends, BMS and fuse holders on the top cells. pack_x/pack_z keep wrap clearance."""
     c = fresh('Battery 3S4P 18650 + BMS + fuse')
     z0 = 'plate_top + 2 mm'
     for ix in (-1, 1):
         for iz in range(3):
             for iy in range(2):
-                C(c, 'cell', 'y', '%d*(cell_d/2 + 0.25 mm)' % ix, 'pack_y0 + 1.5 mm + cell_l/2 + %d*(cell_l + 1 mm)' % iy,
-                  '(%s) + 0.5 mm + cell_d/2 + %d*(cell_d + 0.4 mm)' % (z0, iz), 'cell_d', 'cell_l', 'Steel', 'Plastic - Matte (Blue)')
-    for ys in ('pack_y0 + 0.6 mm', 'pack_y0 + 2 mm + cell_l + 0.5 mm', 'pack_y1 - 0.6 mm'):
-        B(c, 'nickel strip', '0 mm', ys, '(%s) + 0.5 mm' % z0, 'pack_x - 3 mm', '0.6 mm', 'pack_z - 1 mm', 'Steel', STEEL)
-    top = '(%s) + pack_z' % z0
+                C(c, 'cell', 'y', '%d*cell_d/2' % ix, 'pack_y0 + 1.5 mm + cell_l/2 + %d*(cell_l + 1 mm)' % iy,
+                  '(%s) + cell_d/2 + %d*cell_d' % (z0, iz), 'cell_d', 'cell_l', 'Steel', 'Plastic - Matte (Blue)')
+    for ys in ('pack_y0 + 1.2 mm', 'pack_y0 + 1.5 mm + cell_l + 0.5 mm', 'pack_y0 + 1.5 mm + 2*cell_l + 1.3 mm'):
+        B(c, 'nickel strip', '0 mm', ys, '(%s) + 1 mm' % z0, '2*cell_d - 3 mm', '0.6 mm', '3*cell_d - 2 mm', 'Steel', STEEL)
+    top = '(%s) + 3*cell_d' % z0
     B(c, 'BMS 3S 20A (64x20x3.4, check yours)', '0 mm', '(pack_y0 + pack_y1)/2 - 20 mm', top, '20 mm', '64 mm', '3.4 mm', 'FR4', 'Plastic - Matte (Blue)')
     B(c, 'fuse holder 15A mini blade', '0 mm', 'pack_y1 - 18 mm', top, '14 mm', '30 mm', '11 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
     B(c, 'charge fuse holder 5A', '0 mm', 'pack_y0 + 22 mm', top, '12 mm', '26 mm', '7 mm', 'ABS Plastic', 'Plastic - Matte (Red)')

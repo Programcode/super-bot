@@ -1,0 +1,8 @@
+{
+ "tolerance_mm": 0.3,
+ "bodies": 369,
+ "floating": [],
+ "wheel_rollers_not_checked": 36,
+ "note": "mecanum rollers ride on axles inside the bought wheel that are not modelled",
+ "seconds": 0
+}

@@ -1,6 +1,6 @@
 {
- "bodies": 388,
- "timeline": 1421,
+ "bodies": 387,
+ "timeline": 1430,
  "unhealthy": [],
  "params": [
   {
@@ -100,46 +100,16 @@
    "comment": "Wheel centre |Y| (half wheelbase); motors just inside the front/rear walls"
   },
   {
-   "name": "wheel_proud",
-   "expr": "4 mm",
-   "mm": 4.0,
-   "comment": "Wheel outer face sticks out past the shell side"
-  },
-  {
-   "name": "wheel_x_out",
-   "expr": "shell_x + wheel_proud",
-   "mm": 104.0,
-   "comment": "Wheel outer face |X|"
-  },
-  {
    "name": "wheel_xc",
    "expr": "shell_x + wheel_gap + wheel_w / 2",
    "mm": 128.0,
    "comment": "Wheel centre |X| (half track)"
   },
   {
-   "name": "well_gap",
-   "expr": "3 mm",
-   "mm": 3.0,
-   "comment": "Wheel inner face to motor-mount wall gap"
-  },
-  {
    "name": "mount_wall",
    "expr": "5 mm",
    "mm": 5.0,
    "comment": "Printed motor mount wall"
-  },
-  {
-   "name": "notch_x",
-   "expr": "wheel_x_out - wheel_w - well_gap",
-   "mm": 51.0,
-   "comment": "Plate wheel notch starts at |X|"
-  },
-  {
-   "name": "notch_y",
-   "expr": "wheel_y - wheel_d / 2 - 5 mm",
-   "mm": 21.1,
-   "comment": "Plate wheel notch starts at |Y|"
   },
   {
    "name": "gb_face",
@@ -214,12 +184,6 @@
    "comment": "6 mm D-shaft length (SRC)"
   },
   {
-   "name": "fender_z",
-   "expr": "wheel_d + 12 mm",
-   "mm": 112.0,
-   "comment": "Underside of the corner fenders = L1 deck underside"
-  },
-  {
    "name": "cell_d",
    "expr": "18.6 mm",
    "mm": 18.6,
@@ -244,88 +208,16 @@
    "comment": "Pack length Y (2 cells end to end + nickel)"
   },
   {
-   "name": "pack_h",
-   "expr": "2 * cell_d + 2.5 mm",
-   "mm": 39.7,
-   "comment": "3S4P block Z: 2 layers + wrap"
-  },
-  {
-   "name": "pack_xc",
-   "expr": "0 mm",
-   "mm": 0.0,
-   "comment": "Pack centre X"
-  },
-  {
-   "name": "sled_floor",
-   "expr": "2 mm",
-   "mm": 2.0,
-   "comment": "Battery sled floor"
-  },
-  {
    "name": "sled_wall",
    "expr": "2.4 mm",
    "mm": 2.4,
    "comment": "Battery sled wall"
   },
   {
-   "name": "sled_h",
-   "expr": "24 mm",
-   "mm": 24.0,
-   "comment": "Battery sled wall height"
-  },
-  {
-   "name": "bulk_x",
-   "expr": "-( pack_x / 2 + 34 mm )",
-   "mm": -53.1,
-   "comment": "XT60 bulkhead face X (sled blind-mates here)"
-  },
-  {
-   "name": "l1_z",
-   "expr": "fender_z",
-   "mm": 112.0,
-   "comment": "L1 deck underside"
-  },
-  {
-   "name": "deck_t",
-   "expr": "4 mm",
-   "mm": 4.0,
-   "comment": "Deck thickness (4 mm birch ply)"
-  },
-  {
-   "name": "l1_top",
-   "expr": "l1_z + deck_t",
-   "mm": 116.0,
-   "comment": "L1 deck top"
-  },
-  {
-   "name": "post_x",
-   "expr": "95 mm",
-   "mm": 95.0,
-   "comment": "L0 post |X|"
-  },
-  {
-   "name": "post_y",
-   "expr": "58 mm",
-   "mm": 58.0,
-   "comment": "L0 post |Y|"
-  },
-  {
-   "name": "drvb_y",
-   "expr": "59 mm",
-   "mm": 59.0,
-   "comment": "Motor-driver board centre Y (front bay)"
-  },
-  {
    "name": "tof_r",
    "expr": "80 mm",
    "mm": 80.0,
    "comment": "Cliff sensor distance from the centre (under the plate)"
-  },
-  {
-   "name": "deck_half",
-   "expr": "shell_x - pwall - 3.6 mm",
-   "mm": 94.0,
-   "comment": "L1 deck half-size"
   },
   {
    "name": "top_deck_z",
@@ -340,28 +232,10 @@
    "comment": "Top deck top"
   },
   {
-   "name": "top_half",
-   "expr": "shell_x - 10 mm",
-   "mm": 90.0,
-   "comment": "Top deck half-size"
-  },
-  {
-   "name": "rod_xy",
-   "expr": "128 mm",
-   "mm": 128.0,
-   "comment": "Corner tie rod |X| = |Y|"
-  },
-  {
    "name": "spine_y",
    "expr": "44 mm",
    "mm": 44.0,
    "comment": "Spine front face Y"
-  },
-  {
-   "name": "spine_half",
-   "expr": "118 mm",
-   "mm": 118.0,
-   "comment": "Spine half-width"
   },
   {
    "name": "pan_y",
@@ -374,18 +248,6 @@
    "expr": "-58 mm",
    "mm": -58.0,
    "comment": "Lidar centre Y (rear)"
-  },
-  {
-   "name": "vent_y0",
-   "expr": "spine_y + 6 mm",
-   "mm": 50.0,
-   "comment": "Chimney vent slots start Y"
-  },
-  {
-   "name": "vent_y1",
-   "expr": "shell_y - top_r - 8 mm",
-   "mm": 80.0,
-   "comment": "Chimney vent slots end Y"
   },
   {
    "name": "pan_servo_x",
@@ -424,34 +286,10 @@
    "comment": "AI HAT+ 2 spacer height (SRC)"
   },
   {
-   "name": "esp_z",
-   "expr": "128 mm",
-   "mm": 128.0,
-   "comment": "ESP32 cradles bottom Z"
-  },
-  {
    "name": "cpx_z",
    "expr": "pi_z0 + 92 mm",
    "mm": 232.0,
    "comment": "CPX centre Z"
-  },
-  {
-   "name": "cpx_y",
-   "expr": "shell_y - pwall - 6 mm",
-   "mm": 91.6,
-   "comment": "CPX PCB front face Y"
-  },
-  {
-   "name": "key_x",
-   "expr": "60 mm",
-   "mm": 60.0,
-   "comment": "XT60 loop key X on the upper back"
-  },
-  {
-   "name": "key_z",
-   "expr": "body_top - 52 mm",
-   "mm": 226.0,
-   "comment": "XT60 loop key Z"
   },
   {
    "name": "shaft_od",
@@ -464,30 +302,6 @@
    "expr": "0.4 mm",
    "mm": 0.4,
    "comment": "Gap between shell pieces"
-  },
-  {
-   "name": "seam_a",
-   "expr": "shell_x - corner_r",
-   "mm": 86.0,
-   "comment": "Seam line: corners and top centre start here"
-  },
-  {
-   "name": "skirt_x",
-   "expr": "wheel_x_out - wheel_w - 4 mm",
-   "mm": 50.0,
-   "comment": "Front/rear skirt half-width (clears the wheels)"
-  },
-  {
-   "name": "skirt_y",
-   "expr": "wheel_y - wheel_d / 2 - 4 mm",
-   "mm": 22.1,
-   "comment": "Side skirt half-width (clears the wheels)"
-  },
-  {
-   "name": "plinth_d",
-   "expr": "64 mm",
-   "mm": 64.0,
-   "comment": "Head joint plinth diameter (holds 2x 6805)"
   },
   {
    "name": "pod_w",
@@ -524,12 +338,6 @@
    "expr": "12 mm",
    "mm": 12.0,
    "comment": "Plinth height above the body top"
-  },
-  {
-   "name": "stem_gap",
-   "expr": "12 mm",
-   "mm": 12.0,
-   "comment": "Exposed stem between plinth and turret (the lidar plane passes here)"
   },
   {
    "name": "scan_z",
@@ -802,11 +610,11 @@
    "comment": "Bottom of the cheeks and rear plate (clear of the motor mounts)"
   }
  ],
- "mass_g": 5026.4,
+ "mass_g": 5038.2,
  "cog_mm": [
-  -1.2,
+  -1.3,
   -1.5,
-  127.1
+  127.6
  ],
  "mass_rows": [
   [
@@ -824,7 +632,7 @@
    [
     0.0,
     -27.3,
-    68.4
+    67.4
    ]
   ],
   [
@@ -864,21 +672,21 @@
    ]
   ],
   [
+   "Head pan rotor:1",
+   331.9,
+   [
+    1.1,
+    21.5,
+    365.3
+   ]
+  ],
+  [
    "Frame (4 mm ply):1",
    325.8,
    [
     0.0,
     -2.3,
     182.8
-   ]
-  ],
-  [
-   "Head pan rotor:1",
-   320.1,
-   [
-    1.9,
-    21.3,
-    365.2
    ]
   ],
   [
@@ -2061,18 +1869,9 @@
   {
    "part": "Head pan rotor:1+Head tilt rotor:1 / head frame (printed)",
    "dims": [
-    2.5,
-    40.0,
-    100.0
-   ],
-   "fits": true
-  },
-  {
-   "part": "Head pan rotor:1+Head tilt rotor:1 / head frame (printed) (1)",
-   "dims": [
-    2.5,
-    14.0,
-    60.0
+    16.9,
+    55.6,
+    115.0
    ],
    "fits": true
   },

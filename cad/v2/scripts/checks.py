@@ -262,3 +262,35 @@ def quick(prefixes, tag):
          'seconds': round(time.time() - t0)}
     put_json('checks-quick-%s.json' % tag, R)
     log('quick check', tag, 'hits', len(hits), 'bed misses', len(R['bed']), 'unhealthy', len(R['unhealthy']))
+
+
+def floating(tol=0.3, tag='floating'):
+    """Mount check: flag bodies that touch nothing (min distance > tol mm to every other body).
+    Interference checks can't see an unsupported part; this one can. Uploads checks-floating.json."""
+    t0 = time.time()
+    its = [(o, c, b) for (o, c, b) in items()
+           if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness',)) and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
+    mm_ = app.measureManager
+    bbs = [(o, b, b.boundingBox) for o, c, b in its]
+    pad = (tol + 0.2) / 10.0
+    out = []
+    for i, (o, b, bb) in enumerate(bbs):
+        lo = [bb.minPoint.asArray()[k] - pad for k in range(3)]
+        hi = [bb.maxPoint.asArray()[k] + pad for k in range(3)]
+        ok = False
+        for j, (o2, b2, bb2) in enumerate(bbs):
+            if i == j:
+                continue
+            if not all(bb2.minPoint.asArray()[k] <= hi[k] and bb2.maxPoint.asArray()[k] >= lo[k] for k in range(3)):
+                continue
+            if mm_.measureMinimumDistance(b, b2).value * 10.0 <= tol:
+                ok = True
+                break
+        if not ok:
+            out.append(o.fullPathName + ' / ' + b.name)
+    rollers = [f for f in out if 'Wheel mecanum' in f and '/ roller' in f]
+    out = [f for f in out if f not in rollers]
+    R = {'tolerance_mm': tol, 'bodies': len(bbs), 'floating': out, 'wheel_rollers_not_checked': len(rollers),
+         'note': 'mecanum rollers ride on axles inside the bought wheel that are not modelled', 'seconds': round(time.time() - t0)}
+    put_json('checks-%s.json' % tag, R)
+    log('floating check: %d of %d bodies touch nothing' % (len(out), len(bbs)))

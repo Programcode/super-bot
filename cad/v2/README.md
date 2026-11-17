@@ -21,10 +21,11 @@ Close-up callouts with leader lines, one per area, are in [`review/callouts/`](r
 - **Body box:** 200 W x 200 D x 250 H mm (height = 1.25 x width, as in the photo). Rounded: 14 mm vertical corners, 12 mm top edges.
 - **Overall:** 306 x 252 mm on the ground (wheels outside the body), **429 mm** to the top of the head.
 - **Wheels:** 100 mm, 40 % of the body height. Track 256 mm, wheelbase 152 mm.
-- **Mass:** about **5.0 kg** (5026 g). Bought parts use real masses, printed parts Fusion's PETG density (non-shell printed parts at 75 % for infill), ply its density, plus 220 g of wiring.
-- **Centre of gravity:** x -1.2, y -1.5, **z 127 mm**.
+- **Mass:** about **5.0 kg** (5038 g). Bought parts use real masses, printed parts Fusion's PETG density (non-shell printed parts at 75 % for infill), ply its density, plus 220 g of wiring.
+- **Centre of gravity:** x -1.3, y -1.5, **z 128 mm**.
 - **Tip-over:** static tip angle **31 deg** forward/back, **45 deg** sideways. On a flat floor it tips forward only above about **5.9 m/s^2 (0.6 g)** of braking; the motors can push about 3.9 m/s^2, so it can't tip itself on the flat, but keep the ESP32 limits (1 m/s^2 indoors) because the head sways long before that.
-- **Interference:** **0** between parts at rest (8 grouped checks covering all 388 bodies), and **0** between the moving head and everything else at 15 pan/tilt poses (pan -90/-45/0/45/90 x tilt -35/0/45). `review/checks-quick.json`, `review/checks-sweep.json`.
+- **Mounting:** every body touches the part that holds it (0 of 369 bodies more than 0.3 mm from everything; the mecanum rollers are bought-wheel internals and not counted). `review/checks-floating.json`.
+- **Interference:** **0** between parts at rest (8 grouped checks covering all 387 bodies; the wiring paths and the face graphic are left out because they are routes and display content, not parts), and **0** between the moving head and everything else at 15 pan/tilt poses (pan -90/-45/0/45/90 x tilt -35/0/45). `review/checks-quick.json`, `review/checks-sweep.json`.
 - **Print bed:** all printed parts fit a 256 x 256 x 256 mm bed. The biggest are the front and rear walls, 200 x 236 x 14 mm.
 - **Timeline:** healthy, 101 user parameters.
 
@@ -104,7 +105,7 @@ The scan plane clears the head at every pan and tilt angle. The only thing in th
 
 **Bought:** 4x JGB37-520 12 V 530 rpm with Hall encoder; 4x 100 mm mecanum wheel, 6 mm hub (X set: 2 left + 2 right); 12x 18650 3000 mAh+ cells; 3S 20 A BMS; mini blade fuse holder + 15 A fuse; inline 5 A fuse holder; 5.5 x 2.1 panel jack 5 A; XT60 pair (sled) + XT60E-F panel socket + XT60 male (loop key); XT30 pairs; 4x Pololu DRV8874 carrier (#4035); Pololu D36V50F5 (5 V 5.5 A); Pololu D36V28F6 (6 V); INA226 20 A module; Raspberry Pi 5 8 GB (owned) + Active Cooler; Raspberry Pi AI HAT+ 2; Raspberry Pi Camera Module 3 + 500 mm Pi 5 camera cable; ESP32-S3-DevKitC-1 (1 now, room for a 2nd); BNO085 (Adafruit 4754); 4x VL53L0X (Adafruit 3317); 1.3" 240x240 TFT (Adafruit 4313); Circuit Playground Express (owned); 8 LEDs of WS2812B 60/m strip; INMP441; MAX98357A (Adafruit 3006); 40 mm 4 ohm speaker (Adafruit 3968); LDROBOT LD19; 2x MG90S; 2x 6805 bearings; 2x 6800 bearings; 25 mm thrust collar; 25 x 1 mm aluminium tube (about 90 mm); 28x 6 x 3 mm N52 magnets; M2/M2.5/M3 screws and brass standoffs; 16 AWG silicone wire, JST-XH leads, STEMMA QT cables. Optional: HC-SR04P (holder and knock-outs are in place, not fitted).
 
-**Printed (PETG, `stl/`):** shell walls x4, top halves x2, battery door (smoked); head shell front/back, plinth, turret, pod (smoked or black); motor mounts + saddles x4, battery sled + 2 rails, XT60 bulkhead, cliff-sensor pockets x4, HC-SR04P holder, ESP32 cradles x2, LED bar carrier + bezel + diffuser, speaker bracket, loop-key bracket, frame brackets x14, cheek pillars x2, pan servo shelf, lower bearing housing, 36T gears x2, knuckle sleeve, tilt hubs x2, tilt fork, head frame, eye-ring/TFT/mic bezels, panel clips x8, magnet blocks x14. Identical parts share a name with a `-2`, `-3` suffix. 87 files.
+**Printed (PETG, `stl/`):** shell walls x4, top halves x2, battery door (smoked); head shell front/back, plinth, turret, pod (smoked or black); motor mounts + saddles x4, battery sled + 2 rails, XT60 bulkhead, cliff-sensor pockets x4, HC-SR04P holder, ESP32 cradles x2, LED bar carrier + bezel + diffuser, speaker bracket, loop-key bracket, frame brackets x14, cheek pillars x2, pan servo shelf, lower bearing housing, 36T gears x2, knuckle sleeve, tilt hubs x2, tilt fork, head frame, eye-ring/TFT/mic bezels, panel clips x8, magnet blocks x14. Identical parts share a name with a `-2`, `-3` suffix. 86 files.
 
 **Cut (`dxf/`):** chassis plate (6 mm birch ply), spine, rear plate, 2 side cheeks, top deck (4 mm birch ply, stained dark grey in the renders), TFT window (1 mm clear acrylic). The plate and top deck are about 194 mm, so any hobby laser fits them.
 
@@ -115,13 +116,13 @@ The scan plane clears the head at every pan and tilt angle. The only thing in th
 | Component | Mass (g) | Centre of mass x, y, z (mm) |
 | --- | --- | --- |
 | Shell (printed smoked PETG) | 829 | 1, -0, 170 |
-| Battery 3S4P 18650  | 602 | 0, -27, 68 |
+| Battery 3S4P 18650  | 602 | 0, -27, 67 |
 | Drive FR | 470 | 106, 76, 52 |
 | Drive FL | 470 | -106, 76, 52 |
 | Drive RR | 470 | 106, -76, 52 |
 | Drive RL | 470 | -106, -76, 52 |
+| Head pan rotor | 332 | 1, 22, 365 |
 | Frame (4 mm ply) | 326 | 0, -2, 183 |
-| Head pan rotor | 320 | 2, 21, 365 |
 | Head joint fixed (plinth, pan servo, gears) | 205 | 8, 20, 261 |
 | Chassis plate | 116 | 0, 0, 33 |
 | Raspberry Pi 5 8GB  | 71 | -4, 57, 168 |
@@ -265,12 +266,14 @@ Change them in Fusion under Modify -> Change Parameters, or edit the stage scrip
 12. **Frame stiffness.** The cheeks and rear plate start above the motor mounts and stand on two printed pillars; the spine stands on the plate. Check for wobble with the head on top; add a printed gusset if needed.
 13. **Bumpers** (part of Adam's safety plan) are not modelled yet. The walls could float on microswitches later.
 14. **LED bar** (8 WS2812B on a strip) is a new part, added because the photo has the bar; the CPX drives it.
-15. **Wiring** is modelled as paths (pipes) for the main runs, not every wire.
-16. **Renders** are Fusion viewport captures; the smoked PETG renders darker than the real material and the photo.
+15. **The charge jack is always live.** It sits on the pack side of the loop key (so charging works with the robot off), behind a 5 A fuse but no diode, so the jack and any future dock contacts carry 12.6 V even when the robot is off. Add a reverse-blocking Schottky or an ideal-diode module in the charge path, and use a recessed jack or shrouded dock contacts.
+16. **Wiring** is modelled as paths (pipes) for the main runs, not every wire.
+17. **Renders** are Fusion viewport captures; the smoked PETG renders darker than the real material and the photo.
 
 ## Files
 
 - `super-bot-v2.f3d`, `super-bot-v2.step`: the design.
 - `stl/`: printed parts. `dxf/`: cut parts.
 - `renders/`: viewport images (`v2-photo*.png` is the photo-matching view). `review/`: side-by-side with the photo, callouts, check results (`checks-a.json` mass/bed/scan plane, `checks-quick.json` interference, `checks-sweep.json` pan/tilt sweep, `params.json`).
-- `scripts/`: the Fusion API scripts, run through the Fusion MCP. `loader.py` fetches `v2lib.py` plus one stage from the VPS file bridge, runs it, uploads the log and saves the document. Stages: `s1_drive`, `s2_battery`, `s3_frame`, `s4_electronics`, `s5_shell`, `s6_head`, `s7_lidar`, `s8_wiring`; then `looks.py`, `checks.py` (`quick()` per stage, `main()` for mass/bed/sweep), `shots.py`, `export.py`. `sidebyside.py`, `compose_bg.py` and `callout_annotate.py` run on the VPS. `old-frame-build/` holds the scrapped first layout.
+- `scripts/`: the Fusion API scripts, run through the Fusion MCP. `loader.py` fetches `v2lib.py` plus one stage from the VPS file bridge, runs it, uploads the log and saves the document. Stages: `s1_drive`, `s2_battery`, `s3_frame`, `s4_electronics`, `s5_shell`, `s6_head`, `s7_lidar`, `s8_wiring`; then `looks.py`, `checks.py` (`quick()` per stage, `main()` for mass/bed/sweep), `shots.py`, `export.py`. `sidebyside.py`, `compose_bg.py` and `callout_annotate.py` run on the VPS.
+- **File bridge:** the Fusion scripts fetch `v2lib.py` and the stage files from, and upload logs, images and exports to, a tiny HTTP bridge on the VPS: `python3 -I cad/v2/scripts/bridge_recv.py <upload dir> cad/v2/scripts` (listens on the VPS Tailscale IP, port 8766). `mkrun.py <tag> "<jobs>"` prints a loader body for one job. `old-frame-build/` holds the scrapped first layout.

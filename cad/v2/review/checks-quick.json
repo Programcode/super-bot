@@ -40,11 +40,11 @@
   "unhealthy": []
  },
  "head": {
-  "bodies": 54,
+  "bodies": 53,
   "near": 38,
   "interference": [],
   "bed_misses": [],
-  "printed": 17,
+  "printed": 16,
   "unhealthy": []
  },
  "lidar": {
