@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 17 Nov 2026, 9:58 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 17 Nov 2026, 9:58 PM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 18 Nov 2026, 12:45 AM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 18 Nov 2026, 12:45 AM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -45,9 +45,72 @@ The page lists three early renders from 15 Nov (core bot, with arm, docked). The
 
 ## CAD / concept K
 
-v1 frozen 17 Nov 2026. v2 is in progress: started 8:42 PM, 17 Nov.
+v2 finished and accepted 18 Nov 2026, 12:45 AM (Europe/Budapest). v1 stays frozen as a backup.
 
 **Repo, Fusion, and how Claude talks to Pip.** The project lives in the private repo [github.com/Programcode/super-bot](https://github.com/Programcode/super-bot), set up as a T3 project on the VPS. Autodesk Fusion runs on Adam's Mac. The VPS reaches the official Fusion MCP at `127.0.0.1:27182` through the SSH tunnel `fusion-mcp-tunnel.service`. Claude Code can message Pip through a webhook routine, using `scripts/ask-pip.sh`.
+
+**v2 is done and accepted.** The Fusion design is named "Super bot - v2". Pip accepted it at 12:45 AM on 18 Nov 2026 (Europe/Budapest), after the side-by-side with the target photo (`docs/concepts/v2-target-photo.png`), the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Every part is at real datasheet size. Result: 0 interferences at rest and across a 15-pose pan/tilt sweep, every part mounted, all 114 printed parts fit a 256 mm bed. Files are in [`cad/v2/`](../cad/v2/): STEP, f3d, STL, DXF, renders, review checks, and a README. Git commits `3994b36` and `318a829`. The first v2 build, a 300×300×340 mm open frame with corner tie rods, was scrapped on 17 Nov as a giant empty 3D-printer-looking box; those scripts are in `cad/v2/scripts/old-frame-build/`. v1 stays frozen as the `concept-k-v1` backup.
+
+The live page shows two images: the finished model next to the target photo (same viewpoint), and an isometric render. In the repo those are [`cad/v2/review/v2-vs-target-photo.png`](../cad/v2/review/v2-vs-target-photo.png) and [`cad/v2/renders/v2-iso.png`](../cad/v2/renders/v2-iso.png). The smoked PETG renders darker than the real material and the photo.
+
+| Metric | Value |
+| --- | --- |
+| Body box | 200×200×250 mm, 1.25× taller than wide, rounded smoked PETG |
+| Footprint | 306×252 mm (wheels outside the body at the corners) |
+| Head top | 429 mm |
+| Mass | 5.04 kg, CoG z 128 mm; tips at 31° forward/back, 45° sideways |
+| Fit | 0 interferences at rest and at 15 pan/tilt poses; all 114 printed parts fit a 256 mm bed |
+
+### v2 layout
+
+As built in [`cad/v2/`](../cad/v2/). Coordinates in mm, Z up, +Y is the front, ground at Z 0. Built from user parameters at real datasheet size. Full write-up: [`cad/v2/README.md`](../cad/v2/README.md).
+
+| Part | As built |
+| --- | --- |
+| Body | 200×200×250 mm rounded smoked PETG box (14 mm vertical corners, 12 mm top edges). Height is 1.25× the width, as in the photo. |
+| Wheels | 100 mm mecanum wheels (40% of body height) sticking out at the corners, X configuration. Track 256 mm, wheelbase 152 mm. Four JGB37-520 12 V 530 rpm motors sit inside on printed mounts. Chassis plate: 6 mm birch ply, 194×194 mm, 30 mm ground clearance. |
+| Battery | 3S4P 18650 pack, about 130 Wh, as a 2×3×2 cell block on a printed sled, low and central. It slides out the back between the rear motors. The battery door is a shell piece screwed to the sled and carries the charge jack (5.5×2.1 mm, 5 A, pack side of the loop key). Blind-mate XT60 at the front of the sled, under the spine. |
+| Front chimney | Boards stacked flat behind the front wall on a vertical 4 mm ply spine, bottom to top: the motor-driver board (4× Pololu DRV8874) and the ESP32-S3; the Pi 5 8 GB + Active Cooler + AI HAT+ 2, standing flat with 14.6 mm of air to the front wall; the Circuit Playground Express; and the LED bar. Air comes in through slots above the front motors and leaves through vents in the top deck and the front top half. |
+| Behind the spine | The 5 V 5.5 A Pi buck (Pololu D36V50F5) sits right behind the Pi (Pi set to 5 A mode). The BNO085 sits low near the centre. Two ply side cheeks and a rear plate close the frame (no corner rods). Left cheek: power distribution board with the INA226. Right cheek: a spare ESP32-S3 cradle, the MAX98357A amp, and the servo 6 V buck (Pololu D36V28F6). Rear plate: 40 mm speaker and the XT60 loop key (the main DC switch) on the upper back. |
+| Shell | 2.4 mm smoked translucent PETG in 7 pieces: front and rear walls, two side walls, two top halves, and the battery door. 0.4 mm seams. Each wall has two drop-in tabs at the bottom and two 6×3 mm magnet pairs at the top. All printed parts fit a 256 mm bed; the biggest are the front and rear walls, 200×236×14 mm. |
+| Head | A short chunky gimbal on a 64 mm square plinth, with a hollow 25 mm aluminium shaft, 6805 and 6800 bearings, and MG90S pan/tilt servos. Wide capsule head, 190×76×64 mm: Camera Module 3 behind an eye-ring bezel, a 1.3" TFT face, and the INMP441 mic. The 500 mm Pi 5 camera ribbon runs up the hollow shaft. |
+| Lidar | LD19 in a vented pod at the rear left. The scan plane (z 301 mm) passes under the turret; the head stays at least 6.3 mm above it at every pan and tilt pose. The 30 mm gimbal knuckle blocks about 19° of the scan (see open decisions). |
+| LED bar | 8 WS2812B LEDs in a 140 mm slot near the top of the front, behind a smoked diffuser, driven by the CPX. Added to match the photo. |
+
+### Runtime and speed
+
+From [`cad/v2/README.md`](../cad/v2/README.md). Pack is 12 Ah × 10.8 V = 130 Wh nominal, about 110 Wh usable. Speed is still a benchmark and fun goal; normal indoor driving stays slow, with ESP32 limits of 0.5 m/s and 1 m/s².
+
+| Load | Estimate |
+| --- | --- |
+| Standing, awake | About 13.5 W, about 8 h |
+| Driving indoors (0.5 m/s) | About 29 W, about 3.8 h continuous |
+| Typical mix (20% driving) | About 16.5 W, about 6.5 h |
+| Forward, hard floor | About 2.0–2.2 m/s (2.8 m/s no-load); sideways about 1.4–1.7 m/s |
+| 0–2 m/s / tip-over | About 1.4 s at 5.0 kg. Static tip 31° forward/back, 45° sideways. On a flat floor it tips only above about 5.9 m/s² of braking; the motors can push about 3.9 m/s², so it cannot tip itself on the flat. Keep the indoor accel limit, because the head sways long before that. |
+
+### Open v2 decisions, waiting on Adam
+
+Logged 18 Nov 2026, 12:45 AM (Europe/Budapest). Do not change these until Adam decides.
+
+| Open item | Detail |
+| --- | --- |
+| Head width | The head is 190 mm wide (190×76×64 mm), which matches the target photo but is bigger than the earlier "much smaller than v1" brief (that one was 136×56×50 mm). Keep 190 mm, or shrink it with the `head_w` / `head_h` / `head_d` knobs? |
+| Lidar blind sector | The gimbal knuckle blocks about 19° of the lidar, centred about 33° to the right of forward. Mask that sector in software (current design), or use a taller pod that puts the scan plane above the head (removes the blind sector, but changes the look)? |
+| Lidar pod height | That is why the pod sits lower and smaller than in the photo: the scan plane has to pass under the turret, so the pod rim stays under the LD19 window. This only changes together with the blind-sector decision above. |
+| Charge-path diode (recommended) | The charge jack is always live, even with the loop key out, because it sits on the pack side of the switch, behind a 5 A fuse but no diode. The jack and any future dock contacts would carry 12.6 V with the robot off. Add a reverse-blocking Schottky or an ideal-diode module, and use a recessed jack or shrouded dock contacts. |
+| Bumpers | Part of the safety plan, but not modelled yet. The walls could float on microswitches. |
+
+Other notes, not waiting on a decision: the head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking (a friction washer, or keeping the tilt servo powered, would help); the camera ribbon needs a test-fit of the real 500 mm cable before the turret is printed; a few clearances are tight (front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm); and an optional HC-SR04P holder and knock-outs are in the model but not fitted.
+
+Close-up callout diagrams for v2 are in [`cad/v2/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/v2/review/callouts): wheel corner, battery, front chimney, back and sides, right cheek, gimbal, head, lidar pod, and shell retention. Review checks live in [`cad/v2/review/`](../cad/v2/review/) (`checks-quick.json`, `checks-sweep.json`, `checks-floating.json`, `checks-a.json`).
+
+- [v2 README and files](https://github.com/Programcode/super-bot/tree/main/cad/v2)
+- [v2 callout diagrams](https://github.com/Programcode/super-bot/tree/main/cad/v2/review/callouts)
+
+### Concept K v1 (frozen)
+
+Frozen 17 Nov 2026. Kept as a backup.
 
 **Concept K v1 is done and frozen.** The Fusion design is named "Super bot - concept K blockout v1". It is backed up as the Fusion copy "Super bot - concept K v1 (backup)" and as the git tag `concept-k-v1`. Files are in [`cad/concept-k-v1/`](../cad/concept-k-v1/): STEP, f3d, STL, DXF, images, and a README.
 
@@ -78,7 +141,7 @@ v1 frozen 17 Nov 2026. v2 is in progress: started 8:42 PM, 17 Nov.
 | Pi Camera Module 3, instead of the C270 | Accepted 17 Nov. |
 | Pi 5 set to 5 A, buck next to the Pi | `usb_max_current_enable` / 5 A mode, no USB-PD. Logged in [`docs/decisions.md`](decisions.md). |
 
-### Speed check
+#### Speed check
 
 From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md) section 5, commit `9b6bc6e`. Estimates for the 530 rpm motors and 100 mm wheels at about 5.5 kg.
 
@@ -93,34 +156,7 @@ From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md)
 
 Eight labelled callout diagrams are in [`cad/concept-k-v1/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/concept-k-v1/review/callouts): wheel corner, battery/power, Pi stack, ESP32/IMU, CPX/front sensors, lidar backpack, neck base, and head.
 
-**v2 is in progress.** The T3 thread "Super bot: v2 tall WALL-E torso in Fusion" started at 8:42 PM on 17 Nov. It writes to [`cad/v2/`](../cad/v2/), and its layout plan and checklist are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md). Fusion crashed at about 9:19 PM because of the Fusion Electronics test. The recovered "Super bot - v2" document kept stages 1–4, and the thread now saves after every stage. v1 stays frozen as a backup. The condensed decision log is in [`docs/decisions.md`](decisions.md).
-
-### v2 layout plan
-
-From [`cad/v2/TASKS.md`](../cad/v2/TASKS.md). This is the thread's working plan, not a finished design. mm, +Y is the front.
-
-| Part | Plan |
-| --- | --- |
-| Torso | 300×300 mm shell, top at 340 mm, rounded corners. 100 mm mecanum wheels at the corners in open wheel wells; 6 mm ply chassis plate with 30 mm ground clearance. |
-| Battery | 3S4P block on a printed sled, centred low, sliding out the right side; the lower right skirt is the battery door. BMS and 15 A fuse on the sled, XT60 to the robot. |
-| Level 0 (plate) | Sled, 4 motors, DRV8874 driver board in the front bay, 4 VL53L0X cliff sensors, an optional front HC-SR04P holder, charge jack at the rear. |
-| Level 1 deck | At about 112 mm: power board + INA226, servo buck, BNO085 at the centre, MAX98357A and speaker. |
-| Spine | Vertical plate. Front face: ESP32-S3 + spare slot, Pi 5 + Active Cooler + AI HAT+ 2 standing vertical, CPX ring + mic near the top. Back face: 5 V 5 A buck right behind the Pi. |
-| Cooling | Air in through the skirt slots and wheel wells, up a front chimney, out through vents in front of the head joint. |
-| Shell | One rounded 2.4 mm shell cut into pieces that fit the 256 mm bed: top, 4 upper walls, 4 corner posts, 4 lower skirts. Clips at the bottom, magnets at the top, so panels come off easily. |
-| Head joint and head | Printed plinth on the top deck with bearings and a 1:1 pan gear, a short exposed hollow stem, and a turret with the tilt servo. Small capsule head with the Camera Module 3 and a 1.3" TFT. |
-| Lidar | LD19 on a vented pod at the top rear. Its scan plane passes the stem gap below the turret, so the head is clear at all angles; the stem shades about 13°, masked in software. |
-| Power | XT60 loop key on the upper back. Charge jack on the rear skirt for a future dock. |
-
-### Still open from the v1 review
-
-Logged as pending in [`docs/decisions.md`](decisions.md). Not decided yet.
-
-| Open item | Detail |
-| --- | --- |
-| Rear HC-SR04 | Whether to keep or drop the rear ultrasonic. |
-| Shell material | Whether to use something tougher than the v1 acrylic panels. |
-| Neck length and v2 | Being handled in v2, which is in progress: a short exposed stem on the taller torso instead of a long neck (see [v2 layout plan](#v2-layout-plan)). |
+The v1 review items that were still open (shell material, neck length, and the rear HC-SR04) are settled or absorbed in v2: the shell is smoked PETG, the long neck is gone, and an optional HC-SR04P holder is in the v2 model but not fitted.
 
 ## PCB / electronics design
 
@@ -158,7 +194,7 @@ Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set u
 - Exported: JLCPCB Gerber + drill zip, BOM, CPL, STEP, a schematic PDF, ERC/DRC reports, and 3D top/bottom/iso plus front/back PNG renders.
 - Nothing was ordered.
 
-**Next: the real robot PCBs.** Once v2 CAD is done and good, an Opus 5.5 thread at extra-high effort designs the robot PCB(s) in KiCad, ready to order and assemble at JLCPCB or PCBWay, with full ERC/DRC checks. It's an experiment. How custom it gets (full custom vs. a carrier board) is still open.
+**In progress: the main carrier board.** A T3 thread is designing the custom main carrier board in KiCad (ESP32-S3, 4× DRV8874, INA226, power, e-stop, connectors). Output goes to [`hw/main-board/`](../hw/main-board/). The board outline is provisional until it is fitted to the v2 electronics bay. It's an experiment. Ready-to-order JLCPCB / PCBWay outputs and full ERC/DRC checks are still to come. The thread must message Pip through the webhook when it's done.
 
 ## Brain architecture
 
@@ -246,7 +282,7 @@ Low is the current default. Total spend ~$0.19. Bench files were in `/workspace/
 
 ## Hardware
 
-Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17 Nov are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled. Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers (speed check in REVIEW.md section 5, commit `9b6bc6e`, confirms the drivers are OK). Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3.
+Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17–18 Nov, including the accepted v2, are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled that comes out the back of the v2 body. Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers (the v2 speed figures in CAD / concept K, and the earlier speed check in REVIEW.md section 5, commit `9b6bc6e`, confirm the drivers are OK). Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3. The finished v2 model is a 200×200×250 mm rounded smoked PETG body; details are in [CAD / concept K](#cad--concept-k).
 
 **Owned now:** laptop (brain now), an existing Pi that is busy with other work, ELEGOO UNO R3 Advanced Starter Kit (servo, 28BYJ-48 stepper + ULN2003, HC-SR04, IR receiver, power module, GY-521 IMU, MAX7219, LCD1602, PIR, RC522, and more), Circuit Playground Express. Code in PlatformIO.
 
@@ -277,6 +313,12 @@ Now: short pre-cut jumpers, UNO next to the breadboard, red 5 V / black ground. 
 
 Condensed from the page. The shorter running log is also in [`decisions.md`](decisions.md).
 
+**18 Nov 2026**
+
+| Decision | Why |
+| --- | --- |
+| v2 CAD is done and accepted as the current design | Pip, 18 Nov 2026, 12:45 AM (Europe/Budapest), after the side-by-side with the target photo, the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Body 200×200×250 mm rounded smoked PETG, footprint 306×252 mm, head top 429 mm, 5.04 kg, CoG z 128 mm, tips at 31°. 0 interferences at rest and across a 15-pose pan/tilt sweep; all 114 printed parts fit a 256 mm bed. 7-piece shell with tabs and 6×3 mm magnets. 3S4P pack slides out the back. LED bar at the front, lidar pod at the rear, wide capsule head on a short chunky gimbal, mecanum wheels out at the corners. Fusion document "Super bot - v2"; files in [`cad/v2/`](../cad/v2/); commits `3994b36` and `318a829`. The first 300×300 open-frame build was scrapped. Five open decisions wait on Adam (head width, lidar blind sector / pod height, charge-path diode, bumpers). |
+
 **17 Nov 2026**
 
 | Decision | Why |
@@ -298,9 +340,8 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Open questions and next steps
 
-- Remaining concept K review items (open, 17 Nov; logged in [`docs/decisions.md`](decisions.md)): whether to keep or drop the rear HC-SR04, and the shell material (tougher than acrylic?). The neck length is now part of v2, which is in progress.
-- Finish the v2 CAD redesign, then review it (in progress since 8:42 PM, 17 Nov), in the T3 thread "Super bot: v2 tall WALL-E torso in Fusion" (`cad/v2/`, plan in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md)). The recovered file kept stages 1–4 after the 9:19 PM crash; the thread saves after every stage. When it messages Pip: read the thread and the renders, then give Adam an honest review. v1 stays frozen as a backup.
-- Design the robot PCB(s) in KiCad, after v2 (next, 17 Nov). Once v2 CAD is done and good, an Opus 5.5 thread at extra-high effort designs the robot PCB(s) in KiCad on the VPS, ready to order and assemble at JLCPCB or PCBWay (Gerbers, BOM, CPL), with full ERC/DRC checks. It's an experiment. Still open: full custom vs. a carrier board. The thread must message Pip through the webhook when it's done.
+- Open v2 decisions, waiting on Adam (logged 18 Nov 2026, 12:45 AM, Europe/Budapest): 1) The head is 190 mm wide, which matches the target photo but is bigger than the earlier "much smaller than v1" brief — keep it, or shrink it with the `head_w` / `head_h` / `head_d` knobs? 2) The gimbal knuckle blocks about 19° of the lidar. Mask that sector in software (current design), or use a taller pod that puts the scan plane above the head (removes the blind sector, but changes the look)? 3) That is why the lidar pod sits lower and smaller than in the photo; it only changes together with (2). 4) The charge jack is always live, even with the loop key out. Adding a reverse-blocking Schottky or an ideal-diode module, plus a recessed jack or shrouded dock contacts, is recommended. 5) Bumpers are part of the safety plan but are not modelled yet.
+- Finish the custom main PCB in KiCad, and fit it to the v2 bay (in progress, 18 Nov), in the T3 thread "Super bot: custom PCB in KiCad (JLCPCB-ready)" (output: [`hw/main-board/`](../hw/main-board/)). Main carrier board: ESP32-S3, 4× DRV8874, INA226, power, e-stop, connectors. The board outline is provisional until it is fitted to the v2 electronics bay. When it messages Pip: read the renders, ERC/DRC, the JLCPCB zip and the README, and send it back if it needs fixes.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -316,4 +357,4 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–17 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, and the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)) and the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`).
+Facts on the page come from Adam's decisions on 14–18 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, renders, and review checks; commits `3994b36` and `318a829`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)) and the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`).
