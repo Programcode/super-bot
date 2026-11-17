@@ -7,6 +7,8 @@ PARAMS3 = [
     ('lidar_y', '-125 mm', 'Lidar centre Y on the rear backpack'),
     ('pack_h_ped', '18 mm', 'Lidar backpack height above the top panel'),
     ('door_w', 'pack_x + 8 mm', 'Battery door width'),
+    ('neck_od', '25 mm', 'Neck tube OD (25x1 aluminium tube, cables inside)'),
+    ('neck_id', '23 mm', 'Neck tube ID (C270 USB-A plug passes)'),
 ]
 
 
@@ -48,7 +50,7 @@ def panels():
     B(c, 'battery door opening', '0 mm', '-(shell_y - wall_t/2)', 'plate_z - 1 mm', 'door_w + 1 mm', 'wall_t + 1 mm', '42 mm', op=CUT, bodies=[r])
     for tx in (-1, 1):
         C(c, 'HC-SR04 hole', 'y', '%d*13 mm' % tx, '-(shell_y - wall_t/2)', '74 mm', '16.6 mm', 'wall_t + 1 mm', op=CUT, bodies=[r])
-    B(c, 'I/O service window', '-12 mm', '-(shell_y - wall_t/2)', 'deck_top + 3 mm', '176 mm', 'wall_t + 1 mm', '16 mm', op=CUT, bodies=[r])
+    B(c, 'I/O service window', '7.5 mm', '-(shell_y - wall_t/2)', 'deck_top + 3 mm', '215 mm', 'wall_t + 1 mm', '16 mm', op=CUT, bodies=[r])
     # sides
     for sx in (1, -1):
         B(c, 'side panel', S(sx, 'shell_x - wall_t/2'), '0 mm', 'plate_z', 'wall_t', '2*(notch_y - 3 mm)', H, 'Acrylic', smoked)
@@ -127,6 +129,8 @@ def backpack():
     si.insideThickness = V.createByString('pwall')
     c.features.shellFeatures.add(si)
     C(c, 'cable hole', 'z', '0 mm', 'lidar_y', 'body_top + pack_h_ped - 1 mm', '12 mm', '4 mm', op=CUT, bodies=[b])
+    for (hx, hy) in (('23.4 mm', '20 mm'), ('-23.4 mm', '20 mm'), ('0 mm', '-24 mm')):  # LD19 tab holes (approx, verify)
+        C(c, 'M2.5 LD19', 'z', hx, '(lidar_y) + %s' % hy, 'body_top + pack_h_ped - 1 mm', '2.7 mm', '4 mm', op=CUT, bodies=[b])
     for k in range(4):
         B(c, 'side vent', '0 mm', '(lidar_y) - 15 mm + %d*10 mm' % k, 'body_top + 5 mm', '80 mm', '4 mm', '8 mm', op=CUT, bodies=[b])
     l = fresh('Lidar LDROBOT LD19')

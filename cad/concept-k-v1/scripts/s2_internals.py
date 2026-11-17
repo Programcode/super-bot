@@ -24,6 +24,7 @@ PARAMS2 = [
     ('pi_z', 'deck_top + pi_so', 'Pi 5 PCB underside'),
     ('hat_so', '16 mm', 'AI HAT+ 2 stacking header / spacer height (SRC)'),
     ('cpx_z', '100 mm', 'CPX status ring centre height on the front face'),
+    ('neck_y', '40 mm', 'Neck axis Y (forward of centre, like concept K)'),
 ]
 
 
@@ -99,6 +100,8 @@ def sled():
     combine(p, sw, [swb], JOIN)
     B(p, 'XT60 pair (placeholder)', '-35 mm', '(pack_yc) - pack_y/2 - 8 mm - 41 mm - 14 mm', 'plate_top + sled_floor', '16 mm', '20 mm', '8 mm', 'ABS Plastic', 'Plastic - Matte (Yellow)')
     bk = B(p, 'buck Pololu D36V50F5 5V 5.5A', '0 mm', '110 mm', 'plate_top + 4 mm', '25.4 mm', '25.4 mm', '1.6 mm', 'FR4', GREEN)
+    for (hx, hy) in (('-10.2 mm', '99.8 mm'), ('10.2 mm', '120.2 mm')):
+        C(p, 'M2 standoff 4', 'z', hx, hy, 'plate_top + 2 mm', '4 mm', '4 mm', 'Copper, Alloy', 'Brass - Polished')
     B(p, 'buck inductor', '0 mm', '110 mm', 'plate_top + 5.6 mm', '12 mm', '12 mm', '7.9 mm', 'Steel', BLACK)
     log('sled ok')
 
@@ -133,6 +136,7 @@ def deck():
     # wiring pass-through slots (cable path between decks) and standoff holes
     for (x, y, w, h) in ((100, 75, 30, 10), (-100, 75, 30, 10), (100, -75, 30, 10), (-100, -75, 30, 10), (0, -95, 60, 10), (0, 140, 60, 10)):
         B(c, 'wire slot', '%d mm' % x, '%d mm' % y, 'deck_z - 1 mm', '%d mm' % w, '%d mm' % h, 'deck_t + 2 mm', op=CUT, bodies=[d])
+    B(c, 'pan servo cutout', '0 mm', 'neck_y - 5.4 mm', 'deck_z - 1 mm', '12.8 mm', '23.4 mm', 'deck_t + 2 mm', op=CUT, bodies=[d])
     for sxv in (1, -1):
         for (x, y) in DECK_SO:
             xx = '%d mm' % (sxv * x)
@@ -174,7 +178,7 @@ def pi_stack():
 
 
 def esp32s():
-    for i, xc in enumerate(('22 mm', '57 mm')):
+    for i, xc in enumerate(('60 mm', '95 mm')):  # 55 mm clear of the Pi USB-A for the C270 plug
         tag = 'AB'[i]
         c = fresh('ESP32-S3-DevKitC-1 %s' % tag)
         y = '(-deck_y + 62.74 mm/2)'
@@ -233,8 +237,18 @@ def ultrasonics():
         for tx in (-1, 1):
             C(c, 'transducer', 'y', '%d*13 mm' % tx, S(sy, 'shell_y - 6 mm'), zc, '16 mm', '12 mm', 'Aluminum 6061', ALU)
         B(c, 'crystal + pins', '0 mm', S(sy, 'shell_y - 12 mm - 1.6 mm - 3 mm'), '(%s) - 10 mm' % zc, '10.2 mm', '6 mm', '3 mm', 'Steel', BLACK)
+        # printed holder behind the PCB: clamps it against the panel (transducers sit in the panel holes)
+        hy = S(sy, 'shell_y - 12 mm - 1.6 mm - 3 mm')
+        if sy > 0:
+            h = B(c, 'HC-SR04 holder (printed)', '0 mm', hy, 'plate_top', '45 mm', '6 mm', '(%s) + 10 mm - plate_top' % zc, 'PET Plastic', PETG)
+        else:
+            h = B(c, 'HC-SR04 holder (printed)', '0 mm', hy, '(%s) - 10 mm' % zc, '45 mm', '6 mm', 'deck_z - ((%s) - 10 mm)' % zc, 'PET Plastic', PETG)
+            arm = B(c, 'holder arm', '0 mm', '-(deck_y) - 0.9 mm', 'deck_z - 3 mm', '45 mm', '17.8 mm', '3 mm', 'PET Plastic', PETG)
+            combine(c, h, [arm], JOIN)
+            h.name = 'HC-SR04 holder (printed)'
+        B(c, 'crystal pocket', '0 mm', hy, '(%s) - 10.5 mm' % zc, '12 mm', '7 mm', '4 mm', op=CUT, bodies=[h])
     c = fresh('VL53L0X cliff ToF (Adafruit 3317)')
-    B(c, 'VL53L0X PCB', '0 mm', '175 mm', 'plate_top', '21 mm', '18 mm', '1.6 mm', 'FR4', GLOSSB)
+    B(c, 'VL53L0X PCB', '0 mm', '170 mm', 'plate_top', '21 mm', '18 mm', '1.6 mm', 'FR4', GLOSSB)
     log('ultrasonics ok')
 
 

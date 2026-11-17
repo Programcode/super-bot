@@ -70,17 +70,20 @@ def neck():
         b = C(c, '6805 bearing 25x37x7 %d (placeholder)' % (k + 1), 'z', '0 mm', 'neck_y', zz, 'neck_od + 12 mm', '7 mm', 'Steel', 'Steel - Satin')
         C(c, 'bore', 'z', '0 mm', 'neck_y', zz, 'neck_od', '8 mm', op=CUT, bodies=[b])
     # tube: from the pan coupler (below the bearings) to the tilt yoke
-    t0 = 'body_top - 22 mm'
+    t0 = 'deck_top + 16.5 mm'  # servo tabs on the deck top -> shaft top -> tube bottom
     tb = tube(c, 'neck tube 25x1 aluminium', 'z', {'x': '0 mm', 'y': 'neck_y', 'z': '((%s) + tilt_z - 12 mm)/2' % t0}, 'neck_od', 'neck_id',
               '(tilt_z - 12 mm) - (%s)' % t0)
     finish(tb, 'Aluminum 6061', NECK)
-    B(c, 'cable exit slot', '0 mm', '(neck_y) - neck_od/2', '(%s) + 4 mm' % t0, '8 mm', '4 mm', '14 mm', op=CUT, bodies=[tb])
+    B(c, 'cable exit slot', '0 mm', '(neck_y) - neck_od/2', '(%s) + 4 mm' % t0, '8 mm', '4 mm', '12 mm', op=CUT, bodies=[tb])  # below the hub
+    col = tube(c, 'neck thrust collar 25 mm bore (placeholder)', 'z', {'x': '0 mm', 'y': 'neck_y', 'z': 'body_top - 1.4 mm'}, '30 mm', 'neck_od', '4 mm')
+    finish(col, 'Aluminum 6061', 'Aluminum - Satin')
+    rr = tube(c, 'bearing retaining ring (printed)', 'z', {'x': '0 mm', 'y': 'neck_y', 'z': 'body_top - 23 mm'}, 'neck_od + 14 mm', 'neck_od + 5 mm', '2 mm')
+    finish(rr, 'PET Plastic', BLK)
     cp = C(c, 'pan coupler (printed)', 'z', '0 mm', 'neck_y', '(%s) - 2 mm' % t0, 'neck_od + 6 mm', '4 mm', 'PET Plastic', BLK)
     C(c, 'horn spline', 'z', '0 mm', 'neck_y', '(%s) - 2 mm' % t0, '5.2 mm', '5 mm', op=CUT, bodies=[cp])
     # pan servo standing on the deck in a printed tower
     servo(c, 'pan', '0 mm', 'neck_y', '(%s) - 4 mm' % t0, 'z')
-    tw = B(c, 'pan servo tower (printed)', '0 mm', '(neck_y) - 5.4 mm', 'deck_top', '20 mm', '40 mm', '(%s) - 4 mm - 28.5 mm + 16 mm - deck_top' % t0, 'PET Plastic', BLK)
-    B(c, 'servo pocket', '0 mm', '(neck_y) - 5.4 mm', 'deck_top + 2 mm', '12.6 mm', '23.2 mm', '40 mm', op=CUT, bodies=[tw])
+    # the pan servo drops through a deck cut-out; its tabs screw to the deck top
     # tilt yoke: sleeve on the tube top + servo housing, servo shaft along +X
     sl = C(c, 'tilt yoke sleeve', 'z', '0 mm', 'neck_y', 'tilt_z - 23 mm', 'neck_od + 6 mm', '32 mm', 'PET Plastic', BLK)
     hs = B(c, 'tilt servo housing', '-2 mm', '(neck_y) - 5.4 mm', 'tilt_z - 8.5 mm', '32 mm', '36 mm', '17 mm', 'PET Plastic', BLK)
@@ -152,9 +155,10 @@ def head():
     ft = B(c, 'frame foot', '-2 mm', 'head_yc', 'head_zc - head_h/2 + pwall', '30 mm', '24 mm', '3 mm', 'PET Plastic', BLK)
     combine(c, fr, [ft], JOIN)
     fr.name = 'head frame (printed)'
-    # C270 (no clip)
+    # C270 (no clip), clamped between the front shell and the frame by a foam pad
     cam = sub(c, 'Logitech C270 (clip removed)')
     cy0 = 'head_yc + head_d/2 - pwall - 0.6 mm'
+    B(c, 'C270 foam pad (EVA 2.5 mm)', cx, '(%s) - c270_d - 1.25 mm' % cy0, 'head_zc - 10 mm', '50 mm', '2.5 mm', '20 mm', 'Rubber', 'Rubber - Soft')
     cb = B(cam, 'C270 body', cx, '(%s) - c270_d/2' % cy0, 'head_zc - c270_h/2', 'c270_w', 'c270_d', 'c270_h', 'ABS Plastic', 'Plastic - Glossy (Black)')
     fillet(cam, edges_where(cb, lambda e: is_axis_line(e, 'y')), '10 mm')
     C(cam, 'C270 lens bezel', 'y', cx, '(%s) + 1 mm' % cy0, 'head_zc', '13 mm', '2 mm', 'Aluminum 6061', 'Chrome - Black')

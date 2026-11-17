@@ -16,9 +16,9 @@ More views: [rear 3/4](k-v1-rear.png) (battery door, I/O window), [head close-up
 
 - **Footprint:** 406 × 406 mm (40 × 40 cm plate plus 3 mm acrylic walls). Body top at 140 mm. Head top at **699 mm**.
 - **Mass:** about 5.5 kg. Bought parts use their real masses, printed and cut parts use material density, and the wiring is estimated at 150 g.
-- **Centre of gravity:** x −0.6, y −5.0, **z 99 mm**. It sits below the body top and between the decks. The static tip-over angle is about 56° to the rear and about 61° sideways (wheel contact patch ±182 × ±150 mm).
-- **Interference between parts:** none. The analysis covered all 266 bodies, ignoring overlaps inside a single bought part, such as rollers inside a wheel.
-- **Print bed:** all 39 printed parts fit a 256 × 256 × 256 mm bed.
+- **Centre of gravity:** x −0.4, y −4.9, **z 99 mm**. It sits below the body top and between the decks. The static tip-over angle is about 56° to the rear and about 61° sideways (wheel contact patch ±182 × ±150 mm).
+- **Interference between parts:** none. The analysis covered all 272 bodies, ignoring overlaps inside a single bought part, such as rollers inside a wheel.
+- **Print bed:** all 41 printed parts fit a 256 × 256 × 256 mm bed.
 - **Battery:** 3S4P 18650 (12 cells, 3000 mAh class), about 130 Wh nominal and about 0.6 kg. It lies flat in one layer at the centre of the base, on a sled that slides out the back.
 
 ## How it is built
@@ -29,31 +29,35 @@ More views: [rear 3/4](k-v1-rear.png) (battery door, I/O window), [head close-up
   - The battery sled runs on two printed rails between the rear motors. Its rear face is the battery door, which carries the main rocker switch.
   - Behind the pack sit the BMS and an XT60.
   - Each BTS7960 sits next to its motor on 6 mm standoffs.
-  - The 5 V buck converter is at the front, and the VL53L0X looks down through a Ø10 hole in the plate.
+  - The 5 V buck converter sits at the front on two M2 standoffs.
+  - The VL53L0X is screwed to the plate and looks down through a Ø10 hole in it.
+  - The front HC-SR04 is clamped between the panel (its transducers sit in the panel holes) and a printed holder screwed to the plate. The rear one has a holder that hangs from the deck.
+  - The BMS has no mounting holes, so it goes on the sled floor with foam tape.
 - **Upper deck:** 3 mm clear acrylic on eight M3 × 54 mm standoffs. It carries:
-  - the Pi 5 + Active Cooler + AI HAT+ 2 stack at the rear left, with its USB-C, HDMI, USB-A and Ethernet ports facing the rear panel;
-  - both ESP32-S3 boards in printed cradles at the rear right, with their USB-C ports at the rear panel;
+  - the Pi 5 + Active Cooler + AI HAT+ 2 stack at the rear left. Its USB-C and micro-HDMI face the rear panel's I/O window. USB-A and Ethernet face right, with 56 mm free for the C270 plug;
+  - both ESP32-S3 boards in printed cradles at the rear right, with their USB-C ports at the I/O window;
   - the BNO085 near the centre of rotation;
-  - the pan servo tower.
+  - the pan servo, which drops through a cut-out with its tabs screwed to the deck.
 
   Six slots in the deck are the cable path between the levels.
 - **Shell:**
   - The flat walls and the top are laser-cut 3 mm smoked acrylic.
   - The four corner fenders above the wheels are printed in smoked translucent PETG.
   - Panels stand on printed clips screwed to the plate.
-  - The rear panel has a 176 × 16 mm I/O window for the Pi and ESP32 ports and an opening for the battery door.
+  - The rear panel has a 215 × 16 mm I/O window for the Pi and ESP32 ports and an opening for the battery door. The ports sit about 22 mm inside, and plugs pass through the window.
   - The front and rear panels have holes for the HC-SR04 transducers.
   - The top has a hole for the neck hub, a lidar cable hole, and seven exhaust slots over the Pi.
 - **Status ring:** the Circuit Playground Express sits behind the front panel at mid-height on a printed L-bracket hung from the deck. Its 10 NeoPixels are modelled as emissive LEDs and glow through the smoked acrylic.
 - **Lidar backpack:** a printed, hollow, vented pod at the rear of the top carries the LD19. Its scan plane is at z ≈ 188 mm, clear of the body.
 - **Neck:**
   - A 25 × 1 mm aluminium tube turns in two 6805 bearings inside a printed hub that clamps the top panel.
-  - An MG90S on the deck drives the pan through a printed coupler.
+  - A clamp collar on the upper bearing carries the neck's weight, so the servo spline doesn't. A printed ring holds the lower bearing in.
+  - An MG90S hanging in the deck drives the pan through a printed coupler.
   - At the top, a printed yoke holds a second MG90S for tilt (open-top pocket), and a printed bracket carries the head.
-  - Cables run inside the tube and leave through a slot above the coupler.
+  - Cables run inside the tube and leave through a 12 mm slot between the coupler and the hub, below the bearings.
 - **Head:**
   - The shell is a printed smoked PETG stadium, 136 × 56 × 50 mm, split into front and back halves.
-  - A printed internal frame carries the C270 (clip removed) and the 1.3" TFT on M2.5 standoffs.
+  - A printed internal frame carries the 1.3" TFT on M2.5 standoffs. The C270 (clip removed) is clamped between the front shell and the frame by a 2.5 mm EVA pad.
   - The front has a lens hole with a black eye-ring bezel, and a TFT window with a 1 mm clear insert.
   - The TFT shows the face: two eyes and a smile, modelled as display content, not as parts.
 
@@ -76,6 +80,8 @@ More views: [rear 3/4](k-v1-rear.png) (battery door, I/O window), [head close-up
 | HC-SR04 transducer ↔ panel hole (radial) | 0.3 mm |
 | ESP32 cradle A ↔ B | 5.6 mm |
 | C270 ↔ TFT inside the head | 4.0 mm |
+| Pi USB-A ↔ ESP32-A cradle (C270 plug space) | 56 mm |
+| Neck cable slot | z 103–115 mm, between the coupler (top 99.5) and the bearing ring (116) |
 
 ## Fit issues and open points
 
@@ -87,7 +93,8 @@ More views: [rear 3/4](k-v1-rear.png) (battery door, I/O window), [head close-up
 6. **Cooling is designed in, not simulated.** Air comes in through the I/O window and the open wheel wells and leaves through the top slots over the Pi. The BTS7960s sit only 5 mm under the deck, which is fine at normal currents. Check temperatures on the first long drive.
 7. **The servos carry the head directly.** The tilt MG90S carries about 170 g at about 30 mm. That's within its torque, but there is no slip clutch, so a knock to the head goes straight into the gears.
 8. **Panel retention.** Acrylic panels bond (VHB or acrylic cement) to the printed clips and fenders. Top-panel magnets and the head-half screws are noted but not modelled.
-9. **Estimated dimensions** (marked EST below) should be measured when the parts arrive. If any is off, change the parameter.
+9. **Not checked:** the full pan and tilt sweep (only the rest pose was checked for interference), thermals, and real plug and cable bend space beyond the clearances above.
+10. **Estimated dimensions** (marked EST below) should be measured when the parts arrive. If any is off, change the parameter.
 
 ## What is final and what is a placeholder
 
@@ -95,14 +102,15 @@ More views: [rear 3/4](k-v1-rear.png) (battery door, I/O window), [head close-up
 
 **Placeholders (not in the 17 Nov parts list, or not chosen yet):**
 - 2× MG90S servos for pan and tilt. They are on the page's to-buy list but not in the 17 Nov decisions. **Needs OK.**
-- 2× 6805 bearings (25 × 37 × 7).
+- 2× 6805 bearings (25 × 37 × 7) and the 25 mm neck clamp collar.
 - 5 V buck converter, Pololu D36V50F5. A 3S pack can't power a Pi 5 without one.
 - Main rocker switch (KCD1) and the XT60 pair. A fuse is still to be added.
 - BMS footprint (3S 40A class, 60 × 41 mm; listings disagree).
 - Cable harness: only the path is modelled (deck slots, neck tube, exit slot).
 - Audio, arm and dock: not modelled.
 - Face graphic: display content only.
-- Lidar: the LD19 is modelled. The LD06 is smaller and fits the same backpack with a different hole pattern.
+- Lidar: the LD19 is modelled. Its three backpack holes are approximate: check them against the part. The LD06 is smaller and fits the same backpack with a different hole pattern.
+- VL53L0X hole spacing (EST).
 
 ## Parts and dimensions
 
@@ -243,4 +251,4 @@ The rollers on each wheel are a base feature: they are fixed geometry and don't 
 - `stl/`: one STL per printed part and per shell piece (fenders, panels, top, backpack, head halves, mounts, sled, clips, neck parts). Identical parts share one file, so print **8× `clip`** and **2× `sled-rail`**. Left and right parts are separate files because they are mirrored. Print in PETG: smoked translucent for the fenders, backpack and head shell, black for the rest. The TFT window insert is better cut from 1 mm clear acrylic than printed.
 - `dxf/`: outlines of the laser- or CNC-cut sheets (plate, deck, acrylic panels). Cut **2× `side-panel`**. The STLs of the acrylic panels are there for visual checks only.
 - `k-v1-*.png`: viewport images.
-- `scripts/`: the Fusion API scripts that built the design, run through the Fusion MCP. `sblib.py` holds the helpers. Stages `s1`–`s5` build the model, and `checks.py` runs interference, clearance, mass and bed fit. `fix_*.py` were one-off repairs that are now folded into the stage scripts.
+- `scripts/`: the Fusion API scripts that built the design, run through the Fusion MCP. `sblib.py` holds the helpers. Stages `s1`–`s5` build the model, and `checks.py` runs interference, clearance, mass and bed fit. `fix_*.py` were one-off repairs that are now folded into the stage scripts. To rebuild from an empty design, run `s1` → `s2` → `s3` → `s4` → `s5` in that order (each loads `sblib.py` first), then `looks.tune_looks()`. Scripts with `fresh()` delete and recreate their own components, so a single stage can be re-run, but re-run `s5` after `s1`'s `chassis()` or `s2`'s `deck()`.

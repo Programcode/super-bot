@@ -61,15 +61,18 @@ def main(feet=True):
     pts += [(S(sx, 'plate_w/2 - 4 mm'), '%d mm' % y) for sx in (1, -1) for y in (-60, 60)]
     pts += [(S(sx, 'pack_x/2 + 1 mm + pwall + 3 mm'), '%d mm' % y) for sx in (1, -1) for y in (-150, -80, -10)]
     pts += [('%s mm' % x, '%s mm' % y) for (x, y) in ((-10.2, 99.8), (10.2, 120.2))]
+    pts += [('%d*17 mm' % k, 'shell_y - 16.6 mm') for k in (1, -1)]  # front HC-SR04 holder
     n += holes(pc, plate, pts, '3.4 mm', PZ, PT, 'M3 misc')
     # VL53L0X sensing window (sensor looks down through the plate)
-    cyl(pc, 'VL53L0X window', 'z', {'x': '0 mm', 'y': '175 mm', 'z': 'plate_z + plate_t/2'}, '10 mm', 'plate_t + 2 mm', op=CUT, bodies=[plate])
+    cyl(pc, 'VL53L0X window', 'z', {'x': '0 mm', 'y': '170 mm', 'z': 'plate_z + plate_t/2'}, '10 mm', 'plate_t + 2 mm', op=CUT, bodies=[plate])
+    holes(pc, plate, [('%d*8.25 mm' % k, '170 mm') for k in (1, -1)], '2.7 mm', PZ, PT, 'M2.5 VL53L0X (EST spacing)')
     # upper deck: Pi 5 (58 x 49), BNO085, ESP32 cradles
     dc, deck = _body('Upper deck (acrylic) + standoffs', 'upper deck 3 mm acrylic')
     pts = [('pi_xc - 42.5 mm + 3.5 mm + %s' % dx, 'pi_yc - 28 mm + 3.5 mm + %s' % dy) for dx in ('0 mm', '58 mm') for dy in ('0 mm', '49 mm')]
     pts += [('%d*10.16 mm' % hx, '-20 mm + %d*8.89 mm' % hy) for hx in (1, -1) for hy in (1, -1)]
     n += holes(dc, deck, pts, '2.7 mm', 'deck_z - 1 mm', 'deck_t', 'M2.5')
-    pts = [('%s mm' % x, '(-deck_y + 62.74 mm/2) + %d*22 mm' % k) for x in (22, 57) for k in (1, -1)]
+    pts = [('%s mm' % x, '(-deck_y + 62.74 mm/2) + %d*22 mm' % k) for x in (60, 95) for k in (1, -1)]
+    pts += [('%d*17 mm' % k, '-175 mm') for k in (1, -1)]  # rear HC-SR04 holder arm
     pts += [('0 mm', 'neck_y - 5.4 mm + %d*14 mm' % k) for k in (1, -1)]
     pts += [('%d*12 mm' % k, 'deck_y - 9 mm') for k in (1, -1)]
     n += holes(dc, deck, pts, '3.4 mm', 'deck_z - 1 mm', 'deck_t', 'M3 deck')
