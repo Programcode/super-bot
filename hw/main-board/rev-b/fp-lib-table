@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "sbot")(type "KiCad")(uri "${KIPRJMOD}/lib/sbot.pretty")(options "")(descr "Super bot main board project footprints (easyeda2kicad from LCSC)"))
+)
