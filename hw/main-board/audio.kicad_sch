@@ -1610,7 +1610,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" "Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm_ThermalVias"
+		(property "Footprint" "Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm"
 			(at 45.72 60.96 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1745,7 +1745,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "57a838e2-3319-5fba-88fc-dbe53aaf4e35")
-		(property "Reference" "#PWR0254"
+		(property "Reference" "#PWR0257"
 			(at 43.18 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1794,7 +1794,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0254")
+					(reference "#PWR0257")
 					(unit 1)
 				)
 			)
@@ -1841,7 +1841,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "35dee549-5b7e-5041-a657-f6f3ef605b12")
-		(property "Reference" "#PWR0255"
+		(property "Reference" "#PWR0258"
 			(at 45.72 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1890,7 +1890,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0255")
+					(reference "#PWR0258")
 					(unit 1)
 				)
 			)
@@ -2002,7 +2002,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "89c84746-6f93-53d1-9e2d-f6befc637d8b")
-		(property "Reference" "#PWR0256"
+		(property "Reference" "#PWR0259"
 			(at 48.26 76.2 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2051,7 +2051,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0256")
+					(reference "#PWR0259")
 					(unit 1)
 				)
 			)
@@ -2278,7 +2278,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "5e55627b-1ee3-5c66-a22a-eac15687e5c5")
-		(property "Reference" "#PWR0257"
+		(property "Reference" "#PWR0260"
 			(at 111.76 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2327,7 +2327,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0257")
+					(reference "#PWR0260")
 					(unit 1)
 				)
 			)
@@ -2353,7 +2353,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "32584b3b-9762-5be1-ba4d-0bdb4837c63c")
-		(property "Reference" "#PWR0258"
+		(property "Reference" "#PWR0261"
 			(at 124.46 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2402,7 +2402,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0258")
+					(reference "#PWR0261")
 					(unit 1)
 				)
 			)
@@ -2507,7 +2507,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "5c59bec5-e6f0-5497-ab70-50e1bb916649")
-		(property "Reference" "#PWR0259"
+		(property "Reference" "#PWR0262"
 			(at 142.24 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2556,7 +2556,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0259")
+					(reference "#PWR0262")
 					(unit 1)
 				)
 			)
@@ -2582,7 +2582,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "741f71d5-ff6f-5060-af1d-157fe07fd7c9")
-		(property "Reference" "#PWR0260"
+		(property "Reference" "#PWR0263"
 			(at 154.94 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2631,7 +2631,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0260")
+					(reference "#PWR0263")
 					(unit 1)
 				)
 			)
@@ -2937,7 +2937,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "e5d680bf-815e-5baf-a6a3-9ec2f8c011b4")
-		(property "Reference" "#PWR0261"
+		(property "Reference" "#PWR0264"
 			(at 27.94 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2986,7 +2986,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0261")
+					(reference "#PWR0264")
 					(unit 1)
 				)
 			)
@@ -3012,7 +3012,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "a0e865b4-04ca-521b-b717-b37fb49a1404")
-		(property "Reference" "#PWR0262"
+		(property "Reference" "#PWR0265"
 			(at 27.94 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3061,7 +3061,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0262")
+					(reference "#PWR0265")
 					(unit 1)
 				)
 			)
@@ -3151,7 +3151,7 @@
 		(on_board no)
 		(dnp no)
 		(uuid "5c60372b-d2f6-5212-b4a5-ffdded583fff")
-		(property "Reference" "#PWR0263"
+		(property "Reference" "#PWR0266"
 			(at 27.94 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3200,7 +3200,7 @@
 		(instances
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2"
-					(reference "#PWR0263")
+					(reference "#PWR0266")
 					(unit 1)
 				)
 			)

@@ -2277,6 +2277,129 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole_Pad"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole_Pad"
+				(at 0 4.445 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Mounting Hole with connection"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*Pad*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_0_1"
+				(circle
+					(center 0 1.27)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_1_1"
+				(pin input line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Regulator_Linear:AMS1117-3.3"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -4024,7 +4147,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4042,7 +4165,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4127,7 +4250,7 @@
 					)
 				)
 			)
-			(property "Description" "Amass XT60PW-M male, right-angle PCB, 30 A"
+			(property "Description" "Amass XT60PW-M male, right-angle PCB, 30 A. Pad 2 = +, pad 1 = -"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -4160,7 +4283,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4178,7 +4301,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4324,11 +4447,11 @@
 				)
 			)
 		)
-		(pin "1"
-			(uuid "8f63676c-1ac9-5215-8491-df0cf0b698d0")
-		)
 		(pin "2"
 			(uuid "7e087870-d931-5dbd-a997-9df40b087121")
+		)
+		(pin "1"
+			(uuid "8f63676c-1ac9-5215-8491-df0cf0b698d0")
 		)
 		(pin "3"
 			(uuid "354fef89-130e-5fd8-b4c3-c480540b1d11")
@@ -4354,7 +4477,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "217e0ac4-1c44-5b82-8708-5cf35ad96f96")
+		(uuid "43434a72-11ee-574b-b632-bb5e80243310")
 	)
 	(label "VBAT_IN"
 		(at 33.02 46.99 180)
@@ -4364,7 +4487,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "66758e74-ea9c-5399-bfc7-432eb98aac68")
+		(uuid "ff4d5350-8567-5b9b-8847-df9945680093")
 	)
 	(wire
 		(pts
@@ -4375,7 +4498,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "43434a72-11ee-574b-b632-bb5e80243310")
+		(uuid "217e0ac4-1c44-5b82-8708-5cf35ad96f96")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -4637,6 +4760,17 @@
 				)
 			)
 		)
+		(property "Description" "Series loop for the DC main switch or XT60/XT30 loop key; polarity does not matter"
+			(at 111.76 49.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property "LCSC" "C431092"
 			(at 111.76 49.53 0)
 			(show_name no)
@@ -4659,11 +4793,11 @@
 				)
 			)
 		)
-		(pin "1"
-			(uuid "575cf2f3-5c8c-5d9b-b9c1-8338513a56be")
-		)
 		(pin "2"
 			(uuid "52858d8d-4491-5a21-8cc9-a795e898d030")
+		)
+		(pin "1"
+			(uuid "575cf2f3-5c8c-5d9b-b9c1-8338513a56be")
 		)
 		(pin "3"
 			(uuid "f750a1f4-9269-5253-be2f-5214cb6c86d9")
@@ -4689,7 +4823,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cea5f515-26da-5ce2-9b71-d0558df68386")
+		(uuid "50952070-94b4-56ea-a391-0bfe3424f611")
 	)
 	(label "VBAT_F"
 		(at 101.6 46.99 180)
@@ -4699,7 +4833,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "56cf6ba0-5b18-5ee3-b6be-7bb407e60b39")
+		(uuid "66b45bb3-d125-5792-9f74-482fac0f23d7")
 	)
 	(wire
 		(pts
@@ -4710,7 +4844,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "50952070-94b4-56ea-a391-0bfe3424f611")
+		(uuid "cea5f515-26da-5ce2-9b71-d0558df68386")
 	)
 	(label "VSW"
 		(at 101.6 49.53 180)
@@ -4720,7 +4854,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "66b45bb3-d125-5792-9f74-482fac0f23d7")
+		(uuid "56cf6ba0-5b18-5ee3-b6be-7bb407e60b39")
 	)
 	(symbol
 		(lib_id "sbot:AOD403")
@@ -6899,7 +7033,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "470uF 35V"
+		(property "Value" "470uF 35V 8x10.5"
 			(at 175.26 100.33 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6910,7 +7044,7 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x10.5"
 			(at 179.07 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6932,7 +7066,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C3350"
+		(property "LCSC" "C48935389"
 			(at 179.07 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15668,8 +15802,8 @@
 		(uuid "e6e4d3fe-af49-5000-919e-6d790469f0bc")
 	)
 	(symbol
-		(lib_id "Device:C_Polarized")
-		(at 297.18 287.02 90)
+		(lib_id "Device:C")
+		(at 297.18 285.75 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15677,7 +15811,7 @@
 		(dnp no)
 		(uuid "e8c4fde6-27fe-540f-8dc0-8dfd6cfb9a4a")
 		(property "Reference" "C22"
-			(at 293.37 283.21 90)
+			(at 293.37 281.94 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15687,8 +15821,8 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "470uF 35V"
-			(at 293.37 290.83 90)
+		(property "Value" "22uF 25V X5R"
+			(at 293.37 289.56 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15698,8 +15832,8 @@
 				(justify left top)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
-			(at 297.18 287.02 0)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(at 297.18 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15710,7 +15844,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 297.18 287.02 0)
+			(at 297.18 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15720,8 +15854,8 @@
 				)
 			)
 		)
-		(property "LCSC" "C3350"
-			(at 297.18 287.02 0)
+		(property "LCSC" "C12891"
+			(at 297.18 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15748,8 +15882,8 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 287.02)
-			(xy 290.83 287.02)
+			(xy 293.37 285.75)
+			(xy 290.83 285.75)
 		)
 		(stroke
 			(width 0)
@@ -15759,15 +15893,15 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 290.83 287.02 90)
+		(at 290.83 285.75 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "aa9712c2-e3ca-5a1f-8a78-4b432b448aba")
+		(uuid "2692994f-0bed-5650-b038-3d684fe5ba90")
 		(property "Reference" "#PWR0075"
-			(at 290.83 287.02 0)
+			(at 290.83 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15778,7 +15912,7 @@
 			)
 		)
 		(property "Value" "VSERVO"
-			(at 287.63 287.02 0)
+			(at 287.63 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15788,7 +15922,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 290.83 287.02 0)
+			(at 290.83 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15799,7 +15933,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 290.83 287.02 0)
+			(at 290.83 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15810,7 +15944,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "4d64c69d-53b2-58ac-98dc-c90cc7b240c0")
+			(uuid "4bbd6269-c5ed-5230-82a3-8b9941e4eb9a")
 		)
 		(instances
 			(project "main-board"
@@ -15823,8 +15957,8 @@
 	)
 	(wire
 		(pts
-			(xy 300.99 287.02)
-			(xy 303.53 287.02)
+			(xy 300.99 285.75)
+			(xy 303.53 285.75)
 		)
 		(stroke
 			(width 0)
@@ -15834,15 +15968,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 303.53 287.02 90)
+		(at 303.53 285.75 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "69b21e59-7dd9-50d9-9d0a-8bed090b871e")
+		(uuid "402dfb97-c2e7-5930-9394-1fb848a50d21")
 		(property "Reference" "#PWR0076"
-			(at 303.53 287.02 0)
+			(at 303.53 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15853,7 +15987,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 306.73 287.02 0)
+			(at 306.73 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15863,7 +15997,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 303.53 287.02 0)
+			(at 303.53 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15874,7 +16008,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 303.53 287.02 0)
+			(at 303.53 285.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -15885,7 +16019,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "f90c3996-105b-5e66-a699-08585e91df63")
+			(uuid "d036bc4e-22eb-53de-8f4a-e3df7aa08997")
 		)
 		(instances
 			(project "main-board"
@@ -19364,6 +19498,578 @@
 			(project "main-board"
 				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
 					(reference "#PWR0103")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "Mounting: 4x M3, plated and tied to GND (provisional positions, see README)"
+		(exclude_from_sim no)
+		(at 25.4 302.26 0)
+		(effects
+			(font
+				(size 2 2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+		(uuid "6620856a-7475-5469-8e96-95ab8499aff6")
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 26.67 314.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "8c405ed2-3a78-576c-bd05-5726b16aa023")
+		(property "Reference" "H1"
+			(at 25.4 311.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Value" "M3"
+			(at 25.4 318.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
+			(at 26.67 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 26.67 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3684c48c-ad0e-59fc-b4ec-a7b6dc977966")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "H101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 26.67 317.5)
+			(xy 26.67 320.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c973ffd-cacd-5c63-8c30-b698035a50df")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 26.67 320.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "6ec35d73-8954-5c50-b188-f91ab367be5b")
+		(property "Reference" "#PWR0104"
+			(at 26.67 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 26.67 324.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 26.67 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 26.67 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "498dfe4e-7753-5779-9a99-67a365cb4420")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "#PWR0104")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 34.29 314.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "7d39de8b-7843-52c1-9f18-3c9842a9e5f9")
+		(property "Reference" "H2"
+			(at 33.02 311.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Value" "M3"
+			(at 33.02 318.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
+			(at 34.29 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 34.29 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "83eb253f-b755-5d8a-92e7-3bc8158f431b")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "H102")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 34.29 317.5)
+			(xy 34.29 320.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a407ed28-b95a-5e7b-8a5e-f501b1369f54")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 34.29 320.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "d06bf707-a1c6-5f56-860d-8bd27d01e162")
+		(property "Reference" "#PWR0105"
+			(at 34.29 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 34.29 324.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 34.29 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 34.29 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "78efe2ae-02b1-5e93-ade8-d79d31440a75")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "#PWR0105")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 41.91 314.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "00e9dc4e-6c90-5dfb-852f-1508ef20b46b")
+		(property "Reference" "H3"
+			(at 40.64 311.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Value" "M3"
+			(at 40.64 318.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
+			(at 41.91 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "49f0b32c-fdb3-5542-a403-ffa574f597d4")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "H103")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 41.91 317.5)
+			(xy 41.91 320.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b57d61d-bcbe-56a9-b68c-8f1fb0a20137")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 41.91 320.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "5fb8810e-fb82-5a6d-b719-5b2a5658947e")
+		(property "Reference" "#PWR0106"
+			(at 41.91 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 41.91 324.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 41.91 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "53875d0b-d688-589a-a029-b4d291330ca9")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "#PWR0106")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 48.26 314.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d0b8bc9-58ad-5642-9eba-974a2347b283")
+		(property "Reference" "H4"
+			(at 46.99 311.15 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Value" "M3"
+			(at 46.99 318.77 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
+			(at 48.26 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6be98e1c-6a53-53c7-b48d-4d2a7de25b6c")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "H104")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 48.26 317.5)
+			(xy 48.26 320.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99ded2b9-1967-575c-8ea9-503194d576bd")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 48.26 320.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "f7b27c51-1f5a-5156-9ed4-4b4309b2f2b0")
+		(property "Reference" "#PWR0107"
+			(at 48.26 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 48.26 324.44 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.26 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 320.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2eb74cf2-a301-56e0-a165-021671987b27")
+		)
+		(instances
+			(project "main-board"
+				(path "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4"
+					(reference "#PWR0107")
 					(unit 1)
 				)
 			)

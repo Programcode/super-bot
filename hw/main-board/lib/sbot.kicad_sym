@@ -23,7 +23,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias"
+		(property "Footprint" "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -655,7 +655,7 @@
 				)
 			)
 		)
-		(property "Description" "Amass XT60PW-M male, right-angle PCB, 30 A"
+		(property "Description" "Amass XT60PW-M male, right-angle PCB, 30 A. Pad 2 = +, pad 1 = -"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -688,7 +688,7 @@
 						)
 					)
 				)
-				(number "1"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -706,7 +706,7 @@
 						)
 					)
 				)
-				(number "2"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -824,7 +824,7 @@
 						)
 					)
 				)
-				(number "1"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -842,7 +842,7 @@
 						)
 					)
 				)
-				(number "2"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)

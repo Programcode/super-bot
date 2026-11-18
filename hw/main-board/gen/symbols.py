@@ -10,7 +10,7 @@ I, O, B, P, PI, PO, OC, NC = 'input', 'output', 'bidirectional', 'passive', 'pow
 def build(path):
     syms = []
     syms.append(make_symbol(
-        'DRV8874', ref='U', footprint='Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias',
+        'DRV8874', ref='U', footprint='Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm',
         descr='TI DRV8874 37 V 6 A brushed DC H-bridge, current sense (IPROPI), HTSSOP-16',
         datasheet='https://www.ti.com/lit/ds/symlink/drv8874.pdf',
         pins_left=[('1', 'EN/IN1', I), ('2', 'PH/IN2', I), ('3', '~{SLEEP}', I), ('16', 'PMODE', I),
@@ -23,10 +23,11 @@ def build(path):
         datasheet='https://www.ti.com/lit/ds/symlink/tps56637.pdf',
         pins_left=[('8', 'VIN', PI), ('1', 'EN', I), ('10', 'MODE', I), ('4', 'PG', OC), ('5', 'NC', NC)],
         pins_right=[('7', 'BOOT', P), ('6', 'SW', O), ('2', 'FB', I), ('3', 'AGND', PI), ('9', 'PGND', PI)]))
-    for nm, fp, d in (('XT60PW-M', 'sbot:CONN-TH_XT60PW-M', 'Amass XT60PW-M male, right-angle PCB, 30 A'),
+    # pad 2 is '+' and pad 1 is '-' on the Amass footprints (silkscreen marks in the LCSC footprint)
+    for nm, fp, d in (('XT60PW-M', 'sbot:CONN-TH_XT60PW-M', 'Amass XT60PW-M male, right-angle PCB, 30 A. Pad 2 = +, pad 1 = -'),
                       ('XT30PW-M', 'sbot:CONN-TH_XT30PW-M', 'Amass XT30PW-M male, right-angle PCB, 15 A')):
         syms.append(make_symbol(nm, ref='J', footprint=fp, descr=d,
-                                pins_left=[('1', '+', P), ('2', '-', P)],
+                                pins_left=[('2', '+', P), ('1', '-', P)],
                                 pins_right=[('3', 'MP', P), ('4', 'MP', P)], width=10.16))
     # AOD403: P-MOSFET in DPAK, pad 1 = G, tab 2 = D, 3 = S (AO3401A graphics, renumbered)
     libs = Libs({})

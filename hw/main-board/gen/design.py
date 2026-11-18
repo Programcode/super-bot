@@ -29,7 +29,7 @@ CAP = {  # key: (value text, footprint, LCSC)
     '4u7': ('4.7uF 25V X5R', C0805, 'C1779'),
     '10u50': ('10uF 50V X5R', C1206, 'C13585'),
     '22u25': ('22uF 25V X5R', C1206, 'C12891'),
-    '470u': ('470uF 35V', 'Capacitor_SMD:CP_Elec_10x10.5', 'C3350'),
+    '470u': ('470uF 35V 8x10.5', 'Capacitor_SMD:CP_Elec_8x10.5', 'C48935389'),
     'tant10u': ('10uF 16V tantalum', 'Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A', 'C7171'),
 }
 
@@ -73,6 +73,14 @@ def PH(cx, n, nets, label):
                 fields={'Silk': label})
 
 
+def SH(cx, n, nets, label):
+    lc = {4: 'C160390', 5: 'C160391', 6: 'C160392'}[n]
+    fp = 'Connector_JST:JST_SH_BM%02dB-SRSS-TB_1x%02d-1MP_P1.00mm_Vertical' % (n, n)
+    return Part('Connector_Generic:Conn_01x%02d' % n, cx.ref('J'), label, fp,
+                {str(i + 1): v for i, v in enumerate(nets)}, lcsc=lc, mpn='BM%02dB-SRSS-TB' % n,
+                fields={'Silk': label})
+
+
 def PWRFLAG(cx, net):
     return Part('power:PWR_FLAG', cx.ref('#FLG'), 'PWR_FLAG', '', {'1': net}, in_bom=False)
 
@@ -107,12 +115,12 @@ def power_sheet():
     b = s.block('Battery input: XT60 -> 15 A fuse -> main switch loop -> reverse-polarity P-FET -> shunt -> VBUS', 25, 40, 360,
                 note='3S 18650 pack via BMS, 10.5-12.6 V. Main path copper sized for 15 A (see README).')
     b.parts += [
-        Part('sbot:XT60PW-M', cx.ref('J'), 'BAT IN XT60PW-M', 'sbot:CONN-TH_XT60PW-M', {'1': 'VBAT_IN', '2': 'GND'},
+        Part('sbot:XT60PW-M', cx.ref('J'), 'BAT IN XT60PW-M', 'sbot:CONN-TH_XT60PW-M', {'2': 'VBAT_IN', '1': 'GND'},
              lcsc='C98732', fields={'Silk': 'BATTERY'}),
         Part('Device:Fuse', cx.ref('F'), '15A blade (XF-506P holder)', 'sbot:FUSE-TH_XF-506P', {'1': 'VBAT_IN', '2': 'VBAT_F'},
              lcsc='C492610', mpn='XF-506P', fields={'Silk': '15A'}),
-        Part('sbot:XT30PW-M', cx.ref('J'), 'MAIN SWITCH XT30PW-M', 'sbot:CONN-TH_XT30PW-M', {'1': 'VBAT_F', '2': 'VSW'},
-             lcsc='C431092', fields={'Silk': 'MAIN SW'}),
+        Part('sbot:XT30PW-M', cx.ref('J'), 'MAIN SWITCH XT30PW-M', 'sbot:CONN-TH_XT30PW-M', {'2': 'VBAT_F', '1': 'VSW'},
+             lcsc='C431092', descr='Series loop for the DC main switch or XT60/XT30 loop key; polarity does not matter', fields={'Silk': 'MAIN SW'}),
         Part('sbot:AOD403', cx.ref('Q'), 'AOD403', 'Package_TO_SOT_SMD:TO-252-2', {'2': 'VSW', '3': 'VPROT', '1': 'RP_G'},
              lcsc='C28969', descr='Reverse-polarity protection: body diode conducts first, then gate pulled to GND'),
         R(cx, '10k', 'RP_G', 'GND'),
@@ -142,7 +150,7 @@ def power_sheet():
     b = s.block('Servo rail 5.5 V / 6 A (TPS56637, 5.6 uH), separate from the Pi rail', 215, None, 180,
                 note='Vout = 0.6 V x (1 + 75k/9.1k) = 5.54 V for 2x MG90S.')
     b.parts += BUCK(cx, 'VBUS', 'VSERVO', 'BUCKS_EN', 'BUCKS_PG', '75k', '9.1k', '5.6uH', 'C475914', 'BUCKS')
-    b.parts += [C(cx, '470u', 'VSERVO'), PWRFLAG(cx, 'VSERVO')]
+    b.parts += [C(cx, '22u25', 'VSERVO'), PWRFLAG(cx, 'VSERVO')]   # D-CAP3: keep Cout under ~100 uF (TI table 4)
     b = s.block('Pi 5 power out (USB-C source, 5 V, Rp = 10k -> 3 A advert; set usb_max_current_enable=1)', 25, None, 180)
     b.parts += [
         Part('Connector:USB_C_Receptacle_USB2.0_16P', cx.ref('J'), 'PI 5V OUT', 'Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12',
@@ -161,6 +169,9 @@ def power_sheet():
         R(cx, '1k', '+3V3', 'LED_3V3'), LED(cx, 'red', 'LED_3V3', 'GND'),
         PWRFLAG(cx, 'V3V3_IN'), PWRFLAG(cx, '+5V_USB'),
     ]
+    b = s.block('Mounting: 4x M3, plated and tied to GND (provisional positions, see README)', 25, None, 180)
+    b.parts += [Part('Mechanical:MountingHole_Pad', 'H%d' % i, 'M3', 'MountingHole:MountingHole_3.2mm_M3_Pad_Via',
+                     {'1': 'GND'}, in_bom=False) for i in range(1, 5)]
     return s
 
 
@@ -192,7 +203,7 @@ def safety_sheet():
         R(cx, '100k', 'CPX_KILL', 'GND'),
     ]
     b = s.block('Motor power switch (AOD403 high side) - VMOT only live while MOT_EN is high', 225, 40, 180,
-                note='Vgs = -VBUS x 10k/14.7k (about -8.6 V at 12.6 V). Zener clamps Vgs.')
+                note='Vgs = -VBUS x 10k/14.7k (about -8.6 V at 12.6 V). Zener clamps Vgs. 1 uF Cgs slows turn-on (inrush ~4 A); nSLEEP gives the fast cut.')
     b.parts += [
         Part('sbot:AOD403', cx.ref('Q'), 'AOD403', 'Package_TO_SOT_SMD:TO-252-2', {'3': 'VBUS', '2': 'VMOT', '1': 'MC_G'},
              lcsc='C28969'),
@@ -206,6 +217,7 @@ def safety_sheet():
              descr='Unidirectional TVS: pin/pad 1 = cathode (band) on the positive rail'),
         R(cx, '4.7k', 'VMOT', 'LED_VMOT'), LED(cx, 'red', 'LED_VMOT', 'GND'),
         PWRFLAG(cx, 'VMOT'),
+        C(cx, '1u', 'VBUS', 'MC_G'),      # soft turn-on: tau ~3 ms limits VMOT bulk inrush to ~4 A
     ]
     b = s.block('Shared driver signals: current-limit reference and fault wired-OR', 225, None, 180,
                 note='VREF = 3.3 V x 33k/43k = 2.53 V -> ITRIP = VREF / (1.8k x 455 uA/A) = 3.1 A per motor.')
@@ -225,7 +237,7 @@ def motor_sheet():
     b = s.block('DRV8874 in PWM (IN/IN) mode, IMODE = GND (fixed off-time, auto retry)', 20, 35, 250,
                 note='IPROPI: 455 uA/A into 1.8k -> 0.82 V/A to the ESP32 ADC; also the ITRIP comparator input.')
     b.parts += [
-        Part('sbot:DRV8874', cx.ref('U'), 'DRV8874PWPR', 'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias',
+        Part('sbot:DRV8874', cx.ref('U'), 'DRV8874PWPR', 'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm',
              {'EN/IN1': 'IN1', 'PH/IN2': 'IN2', '~{SLEEP}': 'NSLEEP', 'PMODE': '+3V3', 'IMODE': 'GND', 'VREF': 'VREF',
               '~{FAULT}': 'NFAULT', 'IPROPI': 'IPROPI', 'VM': 'VMOT', 'VCP': 'VCP', 'CPH': 'CPH', 'CPL': 'CPL',
               'OUT1': 'OUT1', 'OUT2': 'OUT2', 'GND': 'GND', 'PGND': 'GND', 'PAD': 'GND'}, lcsc='C1855818'),
@@ -349,18 +361,19 @@ def io_sheet():
         PH(cx, 4, ['+5V', 'GND', 'CPX_RX', 'CPX_KILL'], 'CPX'),
         R(cx, '1k', 'CPX_TX', 'CPX_RX'),
     ]
-    b = s.block('Cliff sensors 4x VL53L0X on I2C1 (front, right, rear, left), XSHUT from the expander', 185, 40, 220)
+    b = s.block('Cliff sensors 4x VL53L0X on I2C1 (front, right, rear, left), JST-SH in Qwiic pin order + XSHUT', 185, 40, 220)
     for i in range(1, 5):
-        b.parts.append(PH(cx, 5, ['+3V3', 'GND', 'I2C1_SCL', 'I2C1_SDA', 'CLIFF%d_XSHUT' % i], 'CLIFF %d' % i))
+        b.parts.append(SH(cx, 5, ['GND', '+3V3', 'I2C1_SDA', 'I2C1_SCL', 'CLIFF%d_XSHUT' % i], 'CLIFF %d' % i))
     b.parts.append(Part('Connector_Generic:Conn_01x04', cx.ref('J'), 'QWIIC ESP', 'Connector_JST:JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vertical',
                         {'1': 'GND', '2': '+3V3', '3': 'I2C1_SDA', '4': 'I2C1_SCL'}, lcsc='C160390', mpn='BM04B-SRSS-TB',
                         fields={'Silk': 'QWIIC ESP'}))
-    b = s.block('Bumpers 4x (switch to GND), 10k pull-up, 1k + 100 nF debounce', 185, None, 220)
+    b = s.block('Bumpers 4x (switch to GND, one 6-pin harness: F, R, B, L, GND, GND), 10k pull-up, 1k + 100 nF debounce', 185, None, 220)
+    b.parts.append(PH(cx, 6, ['BUMP1_RAW', 'BUMP2_RAW', 'BUMP3_RAW', 'BUMP4_RAW', 'GND', 'GND'], 'BUMPERS'))
     for i in range(1, 5):
-        b.parts += [PH(cx, 2, ['BUMP%d_RAW' % i, 'GND'], 'BUMP %d' % i), R(cx, '10k', '+3V3', 'BUMP%d_RAW' % i),
+        b.parts += [R(cx, '10k', '+3V3', 'BUMP%d_RAW' % i),
                     R(cx, '1k', 'BUMP%d_RAW' % i, 'BUMP%d' % i), C(cx, '100n', 'BUMP%d' % i)]
     b = s.block('IMU BNO085 breakout (I2C0 0x4A)', 185, None, 220)
-    b.parts += [PH(cx, 6, ['+3V3', 'GND', 'I2C0_SDA', 'I2C0_SCL', 'IMU_INT', 'IMU_RST'], 'IMU')]
+    b.parts += [SH(cx, 6, ['GND', '+3V3', 'I2C0_SDA', 'I2C0_SCL', 'IMU_INT', 'IMU_RST'], 'IMU')]
     b = s.block('5 V level shifting (74HCT125, VIH 2.0 V): LED bar data, servo signals, ultrasonic trigger', 25, None, 380,
                 note='IO45/IO46 are strapping pins: the 10k pull-downs keep them low at reset.')
     b.parts += [
@@ -391,7 +404,7 @@ def audio_sheet():
     b = s.block('MAX98357A 3.2 W into 4 Ohm, gain 9 dB (GAIN_SLOT open), mono (L+R)/2', 20, 35, 250,
                 note='SD_MODE: Pi GPIO25 high -> 3.3 V x 100k/(470k+100k) = 0.58 V = (L+R)/2; low = shutdown.')
     b.parts += [
-        Part('sbot:MAX98357A', cx.ref('U'), 'MAX98357AETE+T', 'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm_ThermalVias',
+        Part('sbot:MAX98357A', cx.ref('U'), 'MAX98357AETE+T', 'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm',
              {'DIN': 'I2S_DOUT', 'BCLK': 'I2S_BCLK', 'LRCLK': 'I2S_LRCLK', '~{SD_MODE}': 'AMP_SDM', 'VDD': '+5V', 'GND': 'GND',
               'PAD': 'GND', 'OUTP': 'SPK_P', 'OUTN': 'SPK_N'}, lcsc='C910544'),
         R(cx, '470k', 'AMP_SD', 'AMP_SDM'),

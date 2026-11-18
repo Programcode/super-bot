@@ -1,0 +1,24 @@
+# KiBot config: JLCPCB fab + assembly outputs, renders, STEP.
+# Run: kibot -c jlcpcb.kibot.yaml -d out
+kibot:
+  version: 1
+
+preflight:
+  erc: true
+  drc: true
+  fill_zones: true
+
+import:
+  - file: JLCPCB
+    definitions:
+      _KIBOT_MANF_DIR: fab/jlcpcb
+      _KIBOT_POS_ONLY_SMD: false
+      _KIBOT_BOM_ENABLED: true
+
+outputs:
+  - name: sch_pdf
+    type: pdf_sch_print
+    dir: docs
+  - name: step
+    type: export_3d
+    dir: 3d

@@ -26,7 +26,7 @@ def project_file():
     rules.update({'min_clearance': 0.15, 'min_track_width': 0.15, 'min_via_diameter': 0.45,
                   'min_through_hole_diameter': 0.3, 'min_via_annular_width': 0.1, 'min_hole_clearance': 0.25,
                   'min_hole_to_hole': 0.25, 'min_copper_edge_clearance': 0.3, 'min_text_height': 0.8,
-                  'min_silk_clearance': 0.0})
+                  'min_silk_clearance': 0.0, 'min_resolved_spokes': 1})
     base = dict(d['net_settings']['classes'][0])
     base.update({'clearance': 0.15, 'track_width': 0.2, 'via_diameter': 0.6, 'via_drill': 0.3})
     classes = [base]
@@ -36,15 +36,17 @@ def project_file():
         c.update({'name': name, 'track_width': width, 'clearance': clr, 'via_diameter': via, 'via_drill': drill,
                   'priority': prio})
         return c
-    classes += [nc('Power15A', 3.0, 0.3, 1.0, 0.5, 0), nc('Motor3A', 1.0, 0.25, 0.8, 0.4, 1),
-                nc('Power6A', 1.5, 0.25, 0.8, 0.4, 2), nc('Power1A', 0.5, 0.2, 0.6, 0.3, 3)]
+    classes += [nc('HighCurrent', 1.2, 0.15, 0.8, 0.4, 0), nc('Motor', 1.0, 0.15, 0.8, 0.4, 1),
+                nc('Supply', 0.4, 0.15, 0.6, 0.3, 2)]
     d['net_settings']['classes'] = classes
     pats = []
-    for pat, cls in (('/VBAT_IN', 'Power15A'), ('/VBAT_F', 'Power15A'), ('/VSW', 'Power15A'), ('/VPROT', 'Power15A'),
-                     ('VBUS', 'Power15A'), ('VMOT', 'Power15A'), ('GND', 'Power15A'),
-                     ('*/OUT1', 'Motor3A'), ('*/OUT2', 'Motor3A'),
-                     ('+5V', 'Power6A'), ('VSERVO', 'Power6A'), ('*_SW', 'Power6A'),
-                     ('+3V3', 'Power1A'), ('V3V3_IN', 'Power1A'), ('+5V_USB', 'Power1A')):
+    # IPC-2221 widths: see README "Trace widths". Zones carry the 15 A input path; these are the routed minimums.
+    for pat, cls in (('/Power/VBAT_IN', 'HighCurrent'), ('/Power/VBAT_F', 'HighCurrent'), ('/Power/VSW', 'HighCurrent'),
+                     ('/Power/VPROT', 'HighCurrent'), ('VBUS', 'HighCurrent'), ('VMOT', 'HighCurrent'),
+                     ('+5V', 'HighCurrent'), ('VSERVO', 'HighCurrent'), ('/Power/BUCK*_SW', 'Supply'),
+                     ('/Motor*/OUT1', 'Motor'), ('/Motor*/OUT2', 'Motor'), ('/Power/LED_*', 'Default'),
+                     ('GND', 'Supply'), ('+3V3', 'Supply'), ('V3V3_IN', 'Supply'), ('+5V_USB', 'Supply'),
+                     ('/IO/SPK_*', 'Supply'), ('/Audio/SPK_*', 'Supply')):
         pats.append({'netclass': cls, 'pattern': pat})
     d['net_settings']['netclass_patterns'] = pats
     d['net_settings']['netclass_assignments'] = None
