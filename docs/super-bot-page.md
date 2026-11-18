@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 18 Nov 2026, 12:45 AM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 18 Nov 2026, 12:45 AM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 18 Nov 2026, 1:26 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 18 Nov 2026, 1:26 PM (Europe/Budapest)".
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -51,6 +51,8 @@ v2 finished and accepted 18 Nov 2026, 12:45 AM (Europe/Budapest). v1 stays froze
 
 **v2 is done and accepted.** The Fusion design is named "Super bot - v2". Pip accepted it at 12:45 AM on 18 Nov 2026 (Europe/Budapest), after the side-by-side with the target photo (`docs/concepts/v2-target-photo.png`), the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Every part is at real datasheet size. Result: 0 interferences at rest and across a 15-pose pan/tilt sweep, every part mounted, all 114 printed parts fit a 256 mm bed. Files are in [`cad/v2/`](../cad/v2/): STEP, f3d, STL, DXF, renders, review checks, and a README. Git commits `3994b36` and `318a829`. The first v2 build, a 300×300×340 mm open frame with corner tie rods, was scrapped on 17 Nov as a giant empty 3D-printer-looking box; those scripts are in `cad/v2/scripts/old-frame-build/`. v1 stays frozen as the `concept-k-v1` backup.
 
+**v2 revision is paused.** On 18 Nov 2026 Adam decided: keep the 190 mm head; replace the generic LED bar with the Circuit Playground Express as the front light; add a charge diode and an accessible jack; add minimal bumpers if needed. Both lidar options were rendered and checked: option A (low pod) blocks 18.6° and would use a software mask; option B (a mast that puts the lidar above the head) blocks 0°, but at 467 mm up it misses more low stuff. The lidar choice is still Adam's. Work is paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions.
+
 The live page shows two images: the finished model next to the target photo (same viewpoint), and an isometric render. In the repo those are [`cad/v2/review/v2-vs-target-photo.png`](../cad/v2/review/v2-vs-target-photo.png) and [`cad/v2/renders/v2-iso.png`](../cad/v2/renders/v2-iso.png). The smoked PETG renders darker than the real material and the photo.
 
 | Metric | Value |
@@ -89,17 +91,18 @@ From [`cad/v2/README.md`](../cad/v2/README.md). Pack is 12 Ah × 10.8 V = 130 Wh
 | Forward, hard floor | About 2.0–2.2 m/s (2.8 m/s no-load); sideways about 1.4–1.7 m/s |
 | 0–2 m/s / tip-over | About 1.4 s at 5.0 kg. Static tip 31° forward/back, 45° sideways. On a flat floor it tips only above about 5.9 m/s² of braking; the motors can push about 3.9 m/s², so it cannot tip itself on the flat. Keep the indoor accel limit, because the head sways long before that. |
 
-### Open v2 decisions, waiting on Adam
+### v2 decisions, 18 Nov 2026
 
-Logged 18 Nov 2026, 12:45 AM (Europe/Budapest). Do not change these until Adam decides.
+Adam answered most of the earlier open items that morning. The lidar choice is still his. The revision is paused at commit `451c65a`.
 
-| Open item | Detail |
+| Item | Status |
 | --- | --- |
-| Head width | The head is 190 mm wide (190×76×64 mm), which matches the target photo but is bigger than the earlier "much smaller than v1" brief (that one was 136×56×50 mm). Keep 190 mm, or shrink it with the `head_w` / `head_h` / `head_d` knobs? |
-| Lidar blind sector | The gimbal knuckle blocks about 19° of the lidar, centred about 33° to the right of forward. Mask that sector in software (current design), or use a taller pod that puts the scan plane above the head (removes the blind sector, but changes the look)? |
-| Lidar pod height | That is why the pod sits lower and smaller than in the photo: the scan plane has to pass under the turret, so the pod rim stays under the LD19 window. This only changes together with the blind-sector decision above. |
-| Charge-path diode (recommended) | The charge jack is always live, even with the loop key out, because it sits on the pack side of the switch, behind a 5 A fuse but no diode. The jack and any future dock contacts would carry 12.6 V with the robot off. Add a reverse-blocking Schottky or an ideal-diode module, and use a recessed jack or shrouded dock contacts. |
-| Bumpers | Part of the safety plan, but not modelled yet. The walls could float on microswitches. |
+| Head width | Decided: keep the 190 mm head (190×76×64 mm). Adam only wanted the neck short. |
+| Front light | Decided: drop the generic LED bar. Use the Adafruit Circuit Playground Express (~50.6 mm, behind the front wall, wired to the CPX connector) as the light. Inspiration from the photo, but only real parts, all properly wired. |
+| Charge-path diode | Decided: no dock yet, but add a diode and an accessible charge jack so charging is easy. |
+| Bumpers | Decided: add minimal ones if needed. |
+| Lidar, still Adam's call | Both options rendered and checked. Option A (low pod, which Adam said is fine): 18.6° blocked, software mask. Option B (a mast that puts the lidar above the head): 0° blocked, but at 467 mm up it misses more low stuff. |
+| Revision status | Paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions. |
 
 Other notes, not waiting on a decision: the head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking (a friction washer, or keeping the tilt servo powered, would help); the camera ribbon needs a test-fit of the real 500 mm cable before the turret is printed; a few clearances are tight (front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm); and an optional HC-SR04P holder and knock-outs are in the model but not fitted.
 
@@ -168,7 +171,7 @@ Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set u
 - [KiCad setup: docs/kicad-setup.md](kicad-setup.md)
 - [KiCad smoke test: hw/kicad-smoketest](../hw/kicad-smoketest/)
 
-**KiCad runs headless on the VPS.** It runs right next to Claude, with no GUI, no shared Fusion session and no need for the Mac to be awake, and it can't crash the Mac. It still renders the schematic, both board sides and 3D views as images, so the AI can check its work. KiCad 10.0.8 is also on Adam's Mac for opening and looking at the files.
+**KiCad runs headless on the VPS.** It runs right next to Claude, with no GUI, no shared Fusion session and no need for the Mac to be awake, and it can't crash the Mac. It still renders the schematic, both board sides and 3D views as images, so the AI can check its work. KiCad 10.0.8 was installed on Adam's Mac on 18 Nov 2026. Rev A is at `~/Desktop/super-bot-pcb` for inspection.
 
 | Part of the setup | Details |
 | --- | --- |
@@ -215,10 +218,9 @@ Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/m
   - The motor-cut gate resistor R207 sits beside C206.
   - The input chain is good for about 9.5–10 A continuous, not the full 15 A fuse rating, because three thin tracks cross the F.Cu VBAT_F strip.
   - The LDO's 3.3 V link is 0.15 mm.
-- **Waiting on Adam's OK:** the TPS56637 on-board bucks replace the approved Pololu D36V50F5 / D36V28F6 modules.
-- **Open questions** (full text in the README):
+- **Adam, 18 Nov 2026: the README questions are OK,** including the TPS56637 swap in place of the approved Pololu buck modules. The other checks (fuse, motor wiring, XT60 polarity, and so on) stay as pre-order reminders.
+- **Open questions** (full text in the README; pre-order reminders):
   - the rev A compromises above
-  - the buck swap
   - v2 fit, including the Pi USB-C notch and right-angle plug
   - the double 15 A fuse and the XF-506P blade size
   - motor/encoder wire order and the 3.3 V Hall encoders
@@ -228,6 +230,30 @@ Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/m
   - no second ESP32 footprint
   - mic cable at about 3 MHz
   - bench checks of the watchdog
+
+### Real quotes (Nov 18)
+
+Checked 18 Nov 2026. Prices in EUR, excluding and including 27% Hungarian VAT. Nothing has been ordered. Full details: [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). PCBWay BOM/CPL for rev A: [`hw/main-board/out/fab/pcbway/`](../hw/main-board/out/fab/pcbway/).
+
+| Board | Qty 2 excl / incl VAT | Qty 5 excl / incl VAT |
+| --- | --- | --- |
+| Rev B, JLC Economic | EUR 179 / 227 | EUR 261 / 332 (~EUR 66 per board incl VAT) |
+| Rev A, JLC Economic | EUR 213 / 271 | EUR 304 / 386 |
+| Rev B, JLC Standard | EUR 233 / 296 | EUR 316 / 401 |
+| Rev B, PCBWay turnkey | EUR 592 / 752 | EUR 691 / 878 |
+| Rev A, PCBWay turnkey | EUR 657 / 834 | EUR 785 / 997 |
+
+Sources: JLC PCB $38.40 for 5 (live quote), PCBWay PCB $87.71 for 5 (live). JLC assembly from the published fee table (a live assembly quote needs a login). PCBWay assembly from the live calculator, $490–605 extra; its $29 promo did not apply even for rev B qty 2. Recommendation: rev B on JLC Economic, qty 5 is likely the best value (fixed costs about EUR 110).
+
+### Rev B (in progress, paused)
+
+[`hw/main-board/rev-b/`](../hw/main-board/rev-b/). Commit `d2179d2`. Paused 18 Nov 2026 at Adam's request to save the Claude limit. Nothing has been ordered.
+
+**Rev B is not orderable yet.** ERC 0. Status: 6 unconnected nets and 3 DRC errors. Next steps are in [`rev-b/HANDOFF.md`](../hw/main-board/rev-b/HANDOFF.md) and [`rev-b/RESEARCH.md`](../hw/main-board/rev-b/RESEARCH.md). Resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched.
+
+- DRV8874 PWM mode; motors C/D nFAULT wired; true 15 A input with no crossing tracks; test points; antenna cut-out.
+- THT parts left for hand-soldering (about EUR 3–8 kit).
+- J101/J102 are now vertical XT60PB-M (LCSC C19268037, 20 A) facing the front wall, which fixes the side-wall fit problem the v2 thread found.
 
 ## Brain architecture
 
@@ -351,6 +377,9 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | Decision | Why |
 | --- | --- |
 | v2 CAD is done and accepted as the current design | Pip, 18 Nov 2026, 12:45 AM (Europe/Budapest), after the side-by-side with the target photo, the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Body 200×200×250 mm rounded smoked PETG, footprint 306×252 mm, head top 429 mm, 5.04 kg, CoG z 128 mm, tips at 31°. 0 interferences at rest and across a 15-pose pan/tilt sweep; all 114 printed parts fit a 256 mm bed. 7-piece shell with tabs and 6×3 mm magnets. 3S4P pack slides out the back. LED bar at the front, lidar pod at the rear, wide capsule head on a short chunky gimbal, mecanum wheels out at the corners. Fusion document "Super bot - v2"; files in [`cad/v2/`](../cad/v2/); commits `3994b36` and `318a829`. The first 300×300 open-frame build was scrapped. Five open decisions wait on Adam (head width, lidar blind sector / pod height, charge-path diode, bumpers). |
+| Keep the 190 mm head; use the CPX as the front light; add a charge diode and an accessible jack; add minimal bumpers | Adam, 18 Nov 2026, morning. He only wanted the neck short, so the 190 mm head stays. There is no generic LED bar — the Adafruit Circuit Playground Express (already the kill-switch and status board) sits behind the front wall as the light. Inspiration from the photo, but only real parts, all properly wired. No dock yet, but charging should be easy (diode + accessible jack). Bumpers: add minimal ones if needed. The PCB README open questions are OK, including the TPS56637 swap. |
+| Lidar: both options rendered; the choice is still Adam's | Option A is the current low pod: 18.6° blocked (a software mask). Option B is a mast that puts the lidar above the head: 0° blocked, but at 467 mm up it misses more low stuff. The low pod itself is fine. Adam wanted both versions shown because 19° is a lot compared with the old ~9°. v2 work is paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions. |
+| Real JLC and PCBWay quotes for rev A and rev B; rev B started then paused | 18 Nov 2026. Adam asked for live quotes after the rough EUR 300 figure, and for a researched rev B. Quotes (EUR, excl / incl 27% VAT): rev B JLC Economic qty 2 EUR 179 / 227, qty 5 EUR 261 / 332 (~EUR 66 per board incl VAT); rev A JLC Economic qty 2 EUR 213 / 271, qty 5 EUR 304 / 386; rev B JLC Standard qty 2 EUR 233 / 296, qty 5 EUR 316 / 401; rev B PCBWay turnkey qty 2 EUR 592 / 752, qty 5 EUR 691 / 878; rev A PCBWay turnkey qty 2 EUR 657 / 834, qty 5 EUR 785 / 997. Recommendation: rev B on JLC Economic, qty 5. Full table in [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). Rev B (`hw/main-board/rev-b/`, commit `d2179d2`) has ERC 0, PWM mode, C/D nFAULT wired, a true 15 A input, test points, an antenna cut-out, THT left for hand-soldering, and vertical XT60PB-M connectors (J101/J102, LCSC C19268037, 20 A) facing the front wall. It is not orderable yet (6 unconnected nets and 3 DRC errors). Paused at Adam's request to save the Claude limit; resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched. Nothing has been ordered. KiCad 10.0.8 is installed on Adam's Mac; rev A is at `~/Desktop/super-bot-pcb`. |
 
 **17 Nov 2026**
 
@@ -373,8 +402,8 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Open questions and next steps
 
-- Open v2 decisions, waiting on Adam (logged 18 Nov 2026, 12:45 AM, Europe/Budapest): 1) The head is 190 mm wide, which matches the target photo but is bigger than the earlier "much smaller than v1" brief — keep it, or shrink it with the `head_w` / `head_h` / `head_d` knobs? 2) The gimbal knuckle blocks about 19° of the lidar. Mask that sector in software (current design), or use a taller pod that puts the scan plane above the head (removes the blind sector, but changes the look)? 3) That is why the lidar pod sits lower and smaller than in the photo; it only changes together with (2). 4) The charge jack is always live, even with the loop key out. Adding a reverse-blocking Schottky or an ideal-diode module, plus a recessed jack or shrouded dock contacts, is recommended. 5) Bumpers are part of the safety plan but are not modelled yet.
-- Finish the custom main PCB in KiCad, and fit it to the v2 bay (in progress, 18 Nov), in the T3 thread "Super bot: custom PCB in KiCad (JLCPCB-ready)" (output: [`hw/main-board/`](../hw/main-board/)). Main carrier board: ESP32-S3, 4× DRV8874, INA226, power, e-stop, connectors. The board outline is provisional until it is fitted to the v2 electronics bay. When it messages Pip: read the renders, ERC/DRC, the JLCPCB zip and the README, and send it back if it needs fixes.
+- Lidar option A vs B, still waiting on Adam (18 Nov 2026). The other v2 items are decided: keep the 190 mm head; use the CPX as the front light (LED bar removed); add a charge diode and an accessible jack; add minimal bumpers if needed. Both lidar options were rendered and checked. Option A (low pod, which is fine): 18.6° blocked, software mask. Option B (mast): 0° blocked, but at 467 mm up it misses more low stuff. v2 revision is paused at commit `451c65a`; remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md).
+- Main board: do not order yet. Adam, 18 Nov 2026: the README open questions are OK, including the TPS56637 swap. Real quotes are in [Real quotes (Nov 18)](#real-quotes-nov-18) and [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md); recommendation is rev B on JLC Economic, qty 5 (~EUR 66 per board incl VAT). Rev B (commit `d2179d2`) is in progress but paused, and is not orderable yet (6 unconnected nets and 3 DRC errors). Resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched. KiCad 10.0.8 is on Adam's Mac, with rev A at `~/Desktop/super-bot-pcb`. Nothing has been ordered.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -390,4 +419,4 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–18 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, renders, and review checks; commits `3994b36` and `318a829`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)) and the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`).
+Facts on the page come from Adam's decisions on 14–18 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, renders, and review checks; commits `3994b36` and `318a829`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)), the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`), the 18 Nov real quotes in [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md), and rev B in [`hw/main-board/rev-b/`](../hw/main-board/rev-b/) (commit `d2179d2`, paused, not orderable yet).
