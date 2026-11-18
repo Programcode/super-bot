@@ -194,7 +194,40 @@ Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set u
 - Exported: JLCPCB Gerber + drill zip, BOM, CPL, STEP, a schematic PDF, ERC/DRC reports, and 3D top/bottom/iso plus front/back PNG renders.
 - Nothing was ordered.
 
-**In progress: the main carrier board.** A T3 thread is designing the custom main carrier board in KiCad (ESP32-S3, 4× DRV8874, INA226, power, e-stop, connectors). Output goes to [`hw/main-board/`](../hw/main-board/). The board outline is provisional until it is fitted to the v2 electronics bay. It's an experiment. Ready-to-order JLCPCB / PCBWay outputs and full ERC/DRC checks are still to come. The thread must message Pip through the webhook when it's done.
+### Main PCB rev A
+
+Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/main-board/), with details and open questions in its [README](../hw/main-board/README.md). Nothing has been ordered.
+
+- **Board:** one 186 × 70 mm, 4-layer (JLC04161H-7628, 1.6 mm) power + I/O carrier. It sits flat on the spine in the v2 front chimney, between the front motors and the Pi 5. The Pi plugs in with a 40-way ribbon (GPIO) and a USB-C cable (5 V).
+- **On it:**
+  - power in: XT60 battery input, 15 A blade fuse, XT30 loop for the DC main switch, reverse-polarity P-FET, INA226 with a 2 mΩ shunt
+  - hardware motor cut: a watchdog one-shot plus a kill loop plus a CPX kill line, which drives the DRV8874 nSLEEP pins and a VMOT P-FET
+  - 4× DRV8874 (3.1 A limit, current sense to the ESP32 ADC)
+  - ESP32-S3-WROOM-1-N16R2 with USB-C, which the Pi can also flash over UART
+  - rails: 5 V 6 A for the Pi and 5.5 V for the servos (2× TPS56637), plus 3.3 V
+  - TCA9555 expander, 74HCT125 level shifting, MAX98357A amp
+  - connectors for 4 cliff sensors, bumpers, IMU, LED bar, lidar, mic, speaker, CPX and the servos
+- **Checks:** ERC 0. DRC 0 violations, 0 unconnected, 0 schematic-parity issues (severity-all; silkscreen trimmed per footprint, minimum thermal spokes 1). JLCPCB Gerber zip, BOM and CPL with LCSC numbers, STEP and renders are in `hw/main-board/out/` and `renders/`.
+- **Cost:** about EUR 300 for 5 assembled boards (about EUR 60 each, before VAT). That's an estimate from catalog prices and JLC's published fees, not a quote.
+- **Rev A compromises:**
+  - The drivers run in PH/EN mode, not PWM mode.
+  - Motor C/D nFAULT is not wired.
+  - The motor-cut gate resistor R207 sits beside C206.
+  - The input chain is good for about 9.5–10 A continuous, not the full 15 A fuse rating, because three thin tracks cross the F.Cu VBAT_F strip.
+  - The LDO's 3.3 V link is 0.15 mm.
+- **Waiting on Adam's OK:** the TPS56637 on-board bucks replace the approved Pololu D36V50F5 / D36V28F6 modules.
+- **Open questions** (full text in the README):
+  - the rev A compromises above
+  - the buck swap
+  - v2 fit, including the Pi USB-C notch and right-angle plug
+  - the double 15 A fuse and the XF-506P blade size
+  - motor/encoder wire order and the 3.3 V Hall encoders
+  - XT60 polarity
+  - kill-loop use
+  - the Pi 5 power cable and `usb_max_current_enable`
+  - no second ESP32 footprint
+  - mic cable at about 3 MHz
+  - bench checks of the watchdog
 
 ## Brain architecture
 
