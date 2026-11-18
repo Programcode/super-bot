@@ -17,6 +17,10 @@ Made overnight by a Claude thread while Adam slept; all are proposals for Adam/P
 | Reverse-polarity P-FET + 15 A blade fuse + XT30 loop for the DC main switch on the board | The v2 CAD also puts a 15 A fuse on the pack; keeping both is harmless. |
 | Pi I/O: UART0 to ESP32 UART0 (also its ROM bootloader), Pi GPIO23/24 drive ESP32 EN/BOOT, LD19 on Pi UART2, I2S to amp + mic, Pi I2C1 on a Qwiic port | The Pi can flash the ESP32 with esptool, no USB cable needed. |
 | Connectors: JST-PH (SMD) for harnesses, JST-SH (Qwiic order) for the cliff sensors and IMU, JST-XH for motors, XT60 battery, XT30 switch loop | Cliff/IMU on SH to fit the board. |
+| Board 186 x 70 mm, all parts on top, 4-layer JLC04161H-7628 | Fills the front chimney from the front motors (z 70) to the Pi's bottom edge (z 140); a notch leaves room for the Pi's USB-C cable. |
+| DRV8874s in PH/EN mode (PMODE = GND) instead of PWM mode | Routing: PMODE on two drivers couldn't reach 3.3 V, and GND is the next pin. IN1 = EN (PWM), IN2 = PH (direction); EN low = brake, nSLEEP low = coast. Firmware uses the PH/EN truth table. |
+| Rev A: motor C/D nFAULT not wired | Their pins were boxed in during routing. The drivers still self-protect, and the ESP32 still reads their IPROPI current. Route them in rev B. |
+| ESP32 XT60 polarity: pad 2 = + | From the LCSC footprint silkscreen. Reverse-polarity FET protects against a mix-up. |
 
 ## 17-18 Nov 2026: Super bot v2 layout (Fusion "Super bot - v2", `cad/v2/`)
 

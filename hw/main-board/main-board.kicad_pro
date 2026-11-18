@@ -352,8 +352,8 @@
     "meta": {
       "version": 5
     },
-    "net_colors": {},
-    "netclass_assignments": {},
+    "net_colors": null,
+    "netclass_assignments": null,
     "netclass_patterns": [
       {
         "netclass": "HighCurrent",
@@ -448,7 +448,7 @@
       {
         "filename": "main-board.kicad_sch",
         "name": "main-board",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b"
       }
     ]
   },

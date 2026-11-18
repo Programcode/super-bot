@@ -2,7 +2,12 @@
 
 The main power and I/O carrier for Super bot v2: one 4-layer board that takes the battery, protects and measures it, makes every supply rail, drives the four wheels, and connects the Raspberry Pi 5 to everything else. The ESP32-S3 on it runs the motor and sensor reflexes. Designed in KiCad 10 on the VPS on 17-18 Nov 2026 by a Claude thread while Adam slept. Nothing has been ordered.
 
-__STATUS__
+**Status (18 Nov 2026, 05:20 UTC): routed and checked.**
+- **ERC:** 0.
+- **DRC:** 0 violations and 0 unconnected items, with schematic parity 0. This is the full `kicad-check` gate: severity-all (warnings count), zones refilled, against JLC-safe rules (0.15 mm clearance, 0.10 mm minimum track, 0.3 mm minimum drill, 0.25 mm copper to edge).
+- **Fab set:** the JLCPCB outputs, STEP and renders are in `out/` and `renders/`.
+
+Read **Open questions** before ordering. The outline is provisional, and three rev A compromises are listed there.
 
 ## What's on it
 
@@ -98,9 +103,9 @@ flowchart LR
 - **Bench use:** JP1 is a solder jumper that bypasses the kill loop.
 
 **Motor drivers.**
-- **Mode and current limit:** DRV8874 in PWM (IN1/IN2) mode. ITRIP = VREF / (R_IPROPI × 455 µA/A) = 2.53 V / (1.8 kΩ × 455 µA/A) ≈ 3.1 A, above the 2.3-2.4 A stall of the 530 rpm JGB37-520, so a stall is limited but never chopped in normal driving.
+- **Mode and current limit:** DRV8874 in **PH/EN mode** (PMODE tied to GND): IN1 = EN (the PWM), IN2 = PH (direction); EN low brakes, nSLEEP low (the motor cut) coasts. PWM (IN/IN) mode was the plan, but PMODE on two drivers couldn't be routed to 3.3 V, and GND sits on the next pin. Firmware just uses the PH/EN truth table. ITRIP = VREF / (R_IPROPI × 455 µA/A) = 2.53 V / (1.8 kΩ × 455 µA/A) ≈ 3.1 A, above the 2.3-2.4 A stall of the 530 rpm JGB37-520, so a stall is limited but never chopped in normal driving.
 - **Current sense:** IPROPI goes to ESP32 ADC1 (0.82 V/A) for the stall reflex. A 10 nF filter sits on each IPROPI line, as the datasheet suggests.
-- **Fault line:** nFAULT is a wired-OR into the expander.
+- **Fault line:** nFAULT is a wired-OR into the expander, for motors A and B only. Motor C and D nFAULT are left unconnected in rev A because their pins were boxed in during routing. Those drivers still protect themselves (overcurrent auto-retry, thermal shutdown, current limit), and the ESP32 still reads their current through IPROPI. Only the fault flag is missing.
 - **Encoders:** they run from 3.3 V, with 10 kΩ pull-ups and 1 kΩ / 1 nF filters. The worst-case edge rate is about 1.8 kHz per channel.
 
 **ESP32 pin budget.**
@@ -163,7 +168,7 @@ flowchart LR
   - Each DRV8874 exposed pad has 6 thermal vias (0.3 mm drill) into the GND planes.
   - Both MOSFETs sit in their own full-connection pours on both outer layers, stitched with via grids.
   - Every IC has local decoupling. Supply pads that sit over their plane get their own via.
-- **Silkscreen:** every connector is labelled (MOTOR A FL ... BATTERY 12V, MAIN SWITCH LOOP, PI 5V OUT, ESP32 USB, PI 5 GPIO, CLIFF F/R/B/L, IMU, QWIIC ESP/PI, BUMPERS, LED BAR, KILL LOOP, LIDAR, CPX, MIC, SPEAKER, PAN, TILT, SONAR, FUSE 15A). Small passives carry their references on the fab layer only, to keep the silkscreen readable.
+- **Silkscreen:** every connector is labelled (on the four motor XH connectors the label sits along the front lip of the connector's own footprint, the only free spot) (MOTOR A FL ... BATTERY 12V, MAIN SWITCH LOOP, PI 5V OUT, ESP32 USB, PI 5 GPIO, CLIFF F/R/B/L, IMU, QWIIC ESP/PI, BUMPERS, LED BAR, KILL LOOP, LIDAR, CPX, MIC, SPEAKER, PAN, TILT, SONAR, FUSE 15A). Small passives carry their references on the fab layer only, to keep the silkscreen readable.
 
 ## Trace widths (IPC-2221, 1 oz outer, 0.5 oz inner)
 
@@ -231,6 +236,12 @@ Going cheaper:
 
 ## Open questions for Adam
 
+0. **Rev A compromises, all small, chosen to finish the routing:**
+   - The DRV8874s run in PH/EN mode, not PWM mode.
+   - Motor C/D nFAULT is not wired.
+   - The motor-cut gate pull-up R207 sits next to C206.
+
+   All three are in the schematic, so schematic and board match. Rev B can route nFAULT C/D if the board grows by about 5 mm or the passives move to the bottom side.
 1. **On-board bucks instead of the Pololu modules.** The approved D36V50F5 / D36V28F6 modules are replaced by two TI TPS56637 on the board. OK? Going back means adding two 3-pin headers and deleting the buck blocks.
 2. **v2 CAD fit.** The board is 186 × 70 mm, from the front motors (z ≈ 70) up to the Pi's bottom edge (z = 140). The Pi's USB-C cable needs the notch and a right-angle plug: either use a short right-angle USB-C cable, or raise `pi_z0` by about 8 mm in v2. The v2 CAD still shows the perfboard, the ESP32 cradle, the cheek PDB/INA226, the Pololu bucks and the amp breakout; all of those are now on this board.
 3. **Fuse.** v2 puts a 15 A blade fuse on the pack and this board has one too. Keep both (harmless) or drop the pack one? Check which blade size the XF-506P holder takes (standard ATO/ATC is expected; the LCSC datasheet is an image) before buying fuses.
@@ -246,6 +257,7 @@ Going cheaper:
 
 - No SPICE or thermal simulation. The buck values follow TI's tables.
 - The current-limit, watchdog and motor-cut behaviour are calculated, not tested on hardware.
+- **Routing:** it was done by Freerouting plus small custom helpers (`gen/fixup.py` grid router, `gen/ripup.py`). A few last-mile links are 0.15 mm tracks, and some cut through the F.Cu copy of a power pour (its B.Cu twin carries the current). DRC passes, but have a human look over the copper in KiCad before ordering, especially around the motor drivers and the bucks.
 - The JLC placement rotations are untested until the online preview.
 - The 3D models for the module, buck, XT60/XT30, fuse holder, box header, inductors and switches come from LCSC/EasyEDA. The other parts use KiCad's library models.
 - Fit in the v2 body is checked against `cad/v2/README.md` parameters only. The CAD isn't updated (another thread owns Fusion).

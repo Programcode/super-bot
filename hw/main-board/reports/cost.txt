@@ -1,0 +1,75 @@
+LCSC       MPN                        JLC type                  stock  qty    unit$   total$  refs
+C14663     CC0603KRX7R9BB104          Basic                  50349394   29   0.0141     2.04  C101 C103 C106 C107 C111 C115 C116 C120 C127 C202 C205 C207 
+C48935389  RV35V470M8X10              Extended                 152898    3   0.1623     2.43  C102 C203 C204
+C13585     CL31A106KBHNNNE            Basic                   2368794    8   0.2882    11.53  C104 C105 C113 C114 C605 C705 C805 C905
+C12891     CL31A226KAHNNNE            Basic                    553006    8   0.1174     4.70  C108 C109 C110 C117 C118 C119 C122 C123
+C14858     CL10C101JB8NNNC            Basic                   3177165    2   0.0087     0.09  C112 C121
+C96446     CL10A106MA8NRNC            Basic                   4819523    2   0.0484     0.48  C124 C501
+C59461     CL10A226MQ8NRNC            Basic                   7271585    2   0.0314     0.31  C125 C301
+C7171      TAJA106K016RNJ             Basic                    900303    1   0.1903     0.95  C126
+C15849     CL10A105KB8NNNC            Basic                   9868521    3   0.0152     0.23  C201 C206 C304
+C1779      CL21A475KAQNNNE            Basic                   2469579    1   0.0348     0.17  C305
+C57112     0603B103K500NT             Basic                   5976362    4   0.0102     0.20  C601 C701 C801 C901
+C21122     CL10B223KB8NNNC            Basic                    937591    4   0.0075     0.15  C602 C702 C802 C902
+C1588      CL10B102KB8NNNC            Basic                   6432787    8   0.0090     0.36  C606 C607 C706 C707 C806 C807 C906 C907
+C19077412  BZT52C15                   Preferred                643803    2   0.0179     0.18  D101 D201
+C19077569  SMBJ15A                    Preferred                 18908    2   0.0505     0.51  D102 D202
+C2297      KT-0805G                   Basic                   2722958    3   0.0164     0.25  D103 D104 D301
+C8598      B5819W SL                  Basic                    384842    2   0.0284     0.28  D105 D106
+C2286      KT-0603R                   Basic                   7858146    2   0.0077     0.08  D107 D203
+C492610    XF-506P                    Extended                  51414    1   0.1269     0.63  F101
+C98732     XT60PW-M                   Extended                  11676    1   0.6049     3.02  J101
+C431092    XT30PW-M30.G.Y             Extended                  62641    1   0.3852     1.93  J102
+C165948    TYPE-C-31-M-12             Extended                 367975    2   0.1872     1.87  J103 J301
+C160352    B2B-PH-SM4-TB(LF)(SN)      Extended                  87185    2   0.2056     2.06  J201 J501
+C9138      2.54-2*20P直简牛              Extended                  14992    1   0.3197     1.60  J401
+C160390    BM04B-SRSS-TB(LF)(SN)      Extended                  36314    2   0.2551     2.55  J402 J409
+C160354    B4B-PH-SM4-TB(LF)(SN)      Extended                  39431    3   0.2720     4.08  J403 J404 J412
+C160391    BM05B-SRSS-TB(LF)(SN)      Extended                  38866    4   0.3518     7.04  J405 J406 J407 J408
+C471518    B6B-PH-SM4-TB(LF)(SN)      Extended                   9454    2   0.4279     4.28  J410 J502
+C160392    BM06B-SRSS-TB(LF)(SN)      Extended                  21493    1   0.3487     1.74  J411
+C49257     2.54-1*3P针                 Extended                 253882    2   0.0284     0.28  J413 J414
+C144397    B6B-XH-A(LF)(SN)           Extended                  26880    4   0.0918     1.84  J601 J701 J801 J901
+C167219    FXL0630-3R3-M              Extended                  20520    1   0.1076     0.54  L101
+C475914    FXL0630-5R6-M              Extended                  10906    1   0.1094     0.55  L102
+C28969     AOD403                     Extended                  34320    2   0.3705     3.71  Q101 Q202
+C8545      2N7002                     Basic                   1830508    4   0.0176     0.35  Q201 Q203 Q301 Q302
+C25804     0603WAF1002T5E             Basic                  32380385   27   0.0052     0.70  R101 R103 R118 R119 R207 R211 R213 R301 R302 R309 R403 R405 
+C459679    RLP25FEGR002               Extended                  68380    1   0.0735     0.37  R102
+C23162     0603WAF4701T5E             Basic                  19500720    5   0.0028     0.07  R104 R208 R210 R310 R311
+C25803     0603WAF1003T5E             Basic                  19748113   10   0.0031     0.15  R105 R110 R112 R117 R202 R203 R205 R206 R305 R306
+C4184      0603WAF2002T5E             Basic                   7868484    5   0.0022     0.06  R106 R109 R113 R116 R420
+C31850     0603WAF2202T5E             Basic                   3458604    1   0.0042     0.02  R107
+C4211      0603WAF3001T5E             Basic                   7620180    1   0.0024     0.01  R108
+C21190     0603WAF1001T5E             Basic                  24277749   21   0.0020     0.21  R111 R120 R204 R303 R304 R314 R401 R402 R404 R406 R408 R410 
+C23242     0603WAF7502T5E             Basic                   1012894    1   0.0021     0.01  R114
+C23260     0603WAF9101T5E             Basic                    708714    1   0.0031     0.02  R115
+C25819     0603WAF4702T5E             Basic                   1993053    1   0.0021     0.01  R201
+C22775     0603WAF1000T5E             Basic                  11248464    1   0.0026     0.01  R209
+C4216      0603WAF3302T5E             Basic                   3644037    1   0.0021     0.01  R212
+C23186     0603WAF5101T5E             Basic                  23749760    2   0.0015     0.01  R307 R308
+C4190      0603WAF2201T5E             Basic                   6762276    2   0.0018     0.02  R312 R313
+C23138     0603WAF3300T5E             Basic                   3527043    3   0.0022     0.03  R416 R417 R418
+C23178     0603WAF4703T5E             Basic                   1322160    1   0.0030     0.01  R501
+C23140     0603WAF330JT5E             Basic                   5071564    2   0.0025     0.03  R502 R503
+C4177      0603WAF1801T5E             Basic                    609271    4   0.0024     0.05  R601 R701 R801 R901
+C720477    TS-1088-AR02016            Basic                    561602    2   0.0528     0.53  SW301 SW302
+C49851     INA226AIDGSR               Extended                  41718    1   0.7557     3.78  U101
+C841386    TPS56637RPAR               Extended                   4318    2   2.2456    22.46  U102 U103
+C6186      AMS1117-3.3                Basic                   1139974    1   0.2094     1.05  U104
+C352969    SN74LVC1G123DCUR           Extended                   3212    1   1.6719     8.36  U201
+C2913205   ESP32-S3-WROOM-1-N16R2     Extended (live LCSC)       6613    1   5.2876    26.44  U301
+C7519      USBLC6-2SC6                Extended                  32269    1   0.1781     0.89  U302
+C465732    TCA9555PWR                 Extended                  34916    1   0.7049     3.52  U303
+C5962      74HCT125D,653              Extended                  86201    1   0.2103     1.05  U401
+C910544    MAX98357AETE+T             Extended                  22133    1   1.3261     6.63  U501
+C1855818   DRV8874PWPR                Extended                  12724    4   0.8786    17.57  U601 U701 U801 U901
+
+unique BOM lines 65, Extended 27, SMT joints/board 675, THT joints/board 82
+PCB (5x, 4-layer)            $   32.00  EUR    29.44
+Parts                        $  157.09  EUR   144.52
+Assembly (setup + joints)    $   37.83  EUR    34.80
+Extended part fees           $   81.00  EUR    74.52
+Shipping (estimate)          $   20.00  EUR    18.40
+TOTAL for 5 boards           $  327.92  EUR   301.69  (per board EUR 60.34, excl. VAT/customs)
+problems: none

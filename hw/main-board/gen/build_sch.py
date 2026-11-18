@@ -54,6 +54,9 @@ def project_file(sheets=None):
     d['net_settings']['netclass_patterns'] = pats
     d['net_settings']['netclass_assignments'] = None
     d['sheets'] = sheets or []
+    if sheets:
+        # KiCad 10 maps the root schematic file to its UUID here (KiBot relies on it)
+        d['schematic']['top_level_sheets'] = [{'filename': PROJECT + '.kicad_sch', 'name': PROJECT, 'uuid': sheets[0][0]}]
     d['boards'] = []
     json.dump(d, open(os.path.join(BOARD, PROJECT + '.kicad_pro'), 'w'), indent=2)
 
