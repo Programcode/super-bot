@@ -5,6 +5,9 @@ The main power and I/O carrier for Super bot v2: one 4-layer board that takes th
 **Status (18 Nov 2026, 05:20 UTC): routed and checked.**
 - **ERC:** 0.
 - **DRC:** 0 violations and 0 unconnected items, with schematic parity 0. This is the full `kicad-check` gate: severity-all (warnings count), zones refilled, against JLC-safe rules (0.15 mm clearance, 0.10 mm minimum track, 0.3 mm minimum drill, 0.25 mm copper to edge).
+- **Two project settings differ from KiCad's defaults:**
+  - `lib_footprint_mismatch` is set to ignore, because silkscreen is trimmed per footprint.
+  - Minimum thermal-relief spokes is 1 instead of 2, for fine-pitch GND pads in pours.
 - **Fab set:** the JLCPCB outputs, STEP and renders are in `out/` and `renders/`.
 
 Read **Open questions** before ordering. The outline is provisional, and three rev A compromises are listed there.
@@ -176,8 +179,8 @@ flowchart LR
 
 | Path | Current | Needed on 1 oz outer (ΔT 20 °C) | What the board has |
 | --- | --- | --- | --- |
-| Battery input chain (fuse rating) | 15 A | 8.3 mm | F.Cu + B.Cu pours in parallel, about 5-8 mm each (10-16 mm total) |
-| Same, realistic worst case (4 stalls + Pi) | 12.3 A | 6.3 mm | same |
+| Battery input chain (fuse rating) | 15 A | 8.3 mm | F.Cu + B.Cu pours in parallel, about 5-8 mm each. **Narrowest point:** the F.Cu VBAT_F strip is crossed by three thin tracks (the LDO's +3V3 link and two signals), so there only the B.Cu strip carries the current, about 4.4 mm net: **≈ 9.5 A at ΔT 20 °C, 11 A at 30 °C** |
+| Same, realistic worst case (4 stalls + Pi) | 12.3 A | 6.3 mm | same; fine as a short peak, since stalls are cut within 0.5 s |
 | VBUS from the shunt to the motor-cut FET | 10 A | 4.7 mm | 7.8 mm channel on F.Cu and B.Cu |
 | VMOT to the drivers (normal driving) | 4 A | 1.3 mm | pours at the FET, then a 14 mm In2 band (6 A at ΔT 20 °C, 7 A at 30 °C) |
 | One motor output (current limit) | 3.1 A | 0.94 mm | 1.0 mm, with a 0.4 mm neck for 1.1 mm at the 0.65 mm-pitch pin |
@@ -187,7 +190,9 @@ flowchart LR
 
 Honest limits:
 - **VMOT band:** 10 A (all four motors stalled at once) would need 28 mm of 0.5 oz inner copper. The band is 14 mm. That's fine because stalls are limited to 3.1 A per motor by the drivers and cut by the ESP32 within 0.5 s, so the full 10 A only lasts for moments.
-- **Thin power stubs:** a few decoupling-capacitor and divider connections on the power nets (VMOT, VBUS, +5V) are 0.5-0.6 mm tracks drawn by the last-mile router. None of them carries a main current.
+- **Input chain rating:** this board is good for about 10 A continuous on the input chain (typical draw is 3-5 A), not the full 15 A fuse rating. The fuse still protects the wiring against a short. Rev B: keep the input, VBUS and VMOT pours free of other nets. The autorouter ran some signals and the +5V/VSERVO feeds through them, so the pours are perforated (VBUS B.Cu is in 6 pieces, stitched together by vias and the In2 strip).
+- **Thin power links:** the LDO output reaches the main 3.3 V plane through a 0.15 mm stretch, good for about 0.8 A. The 3.3 V rail needs under 0.7 A even with ESP32 Wi-Fi bursts, but widen it in rev B.
+- **Last-mile links:** a few decoupling-capacitor, divider and second-input-capacitor connections on VBUS, VMOT and +3V3 are 0.15-0.4 mm tracks. None carries a main current, but the second buck input caps (C105, C115) sit on long thin links and add little decoupling. The VIN-side caps C104 and C113 are the real input caps.
 
 ## Ordering at JLCPCB
 
