@@ -17,7 +17,7 @@ from design import build_design     # noqa: E402
 PROJECT = 'main-board'
 
 
-def project_file():
+def project_file(sheets=None):
     tmpl = os.path.join(BOARD, '..', 'kicad-smoketest', 'kicad-smoketest.kicad_pro')
     d = json.load(open(tmpl))
     d['meta']['filename'] = PROJECT + '.kicad_pro'
@@ -39,6 +39,9 @@ def project_file():
     classes += [nc('HighCurrent', 1.2, 0.15, 0.8, 0.4, 0), nc('Motor', 1.0, 0.15, 0.8, 0.4, 1),
                 nc('Supply', 0.4, 0.15, 0.6, 0.3, 2)]
     d['net_settings']['classes'] = classes
+    # Footprint silkscreen is trimmed per instance where it lands on copper or other parts (gen/finish.py), which
+    # makes the instances differ from the library on purpose. All manufacturing checks stay at their defaults.
+    d['board']['design_settings'].setdefault('rule_severities', {})['lib_footprint_mismatch'] = 'ignore'
     pats = []
     # IPC-2221 widths: see README "Trace widths". Zones carry the 15 A input path; these are the routed minimums.
     for pat, cls in (('/Power/VBAT_IN', 'HighCurrent'), ('/Power/VBAT_F', 'HighCurrent'), ('/Power/VSW', 'HighCurrent'),
@@ -50,7 +53,7 @@ def project_file():
         pats.append({'netclass': cls, 'pattern': pat})
     d['net_settings']['netclass_patterns'] = pats
     d['net_settings']['netclass_assignments'] = None
-    d['sheets'] = []
+    d['sheets'] = sheets or []
     d['boards'] = []
     json.dump(d, open(os.path.join(BOARD, PROJECT + '.kicad_pro'), 'w'), indent=2)
 
@@ -64,7 +67,7 @@ def main():
                               'Sheets: power input and rails, hardware motor cut, MCU, connectors, audio, 4x motor channel.\n'
                               'See hw/main-board/README.md for the block diagram, current calculations and open questions.', 2.0))
     w.write('Super bot main board: hierarchy')
-    project_file()
+    project_file([[w.root_uuid, 'Root']] + [[i['uuid'], i['name']] for i in design.instances])
     print('ok')
 
 

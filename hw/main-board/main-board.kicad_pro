@@ -101,7 +101,7 @@
         "items_not_allowed": "error",
         "length_out_of_range": "error",
         "lib_footprint_issues": "warning",
-        "lib_footprint_mismatch": "warning",
+        "lib_footprint_mismatch": "ignore",
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "mirrored_text_on_front_layer": "warning",
@@ -352,8 +352,8 @@
     "meta": {
       "version": 5
     },
-    "net_colors": {},
-    "netclass_assignments": {},
+    "net_colors": null,
+    "netclass_assignments": null,
     "netclass_patterns": [
       {
         "netclass": "HighCurrent",
@@ -446,13 +446,54 @@
     "legacy_lib_list": [],
     "top_level_sheets": [
       {
-        "filename": "main-board.kicad_sch",
-        "name": "main-board",
+        "filename": "kicad-smoketest.kicad_sch",
+        "name": "kicad-smoketest",
         "uuid": "00000000-0000-0000-0000-000000000000"
       }
     ]
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b",
+      "Root"
+    ],
+    [
+      "0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4",
+      "Power"
+    ],
+    [
+      "f40b2918-3843-5a25-bba8-be6e6555b618",
+      "Motor cut"
+    ],
+    [
+      "72748215-cb0d-5d12-9215-e769d0daa966",
+      "MCU"
+    ],
+    [
+      "e1d5dc48-218c-5cc1-a151-6a504ee9623d",
+      "IO"
+    ],
+    [
+      "917c445d-82a1-52a9-b411-613250b6bec2",
+      "Audio"
+    ],
+    [
+      "8567613c-eb1a-5fca-9f2f-8b85f4c4c707",
+      "Motor A (front left)"
+    ],
+    [
+      "8ed8994d-ecc8-50e1-8c98-291717ddb1a6",
+      "Motor B (front right)"
+    ],
+    [
+      "03218c96-54f7-55b3-afbb-b77592d989fe",
+      "Motor C (rear left)"
+    ],
+    [
+      "1bdf285c-d0af-5292-9291-2656a8a59d94",
+      "Motor D (rear right)"
+    ]
+  ],
   "text_variables": {},
   "tuning_profiles": {
     "meta": {

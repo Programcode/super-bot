@@ -17,12 +17,13 @@ sys.path.insert(0, HERE)
 from pcblib import BOARD_DIR, MM   # noqa: E402
 from build_pcb import X0, Y0, W, H, NOTCH, ANT_KEEPOUT   # noqa: E402
 
-PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(BOARD_DIR, 'main-board.kicad_pcb')
+PCB = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else os.path.join(BOARD_DIR, 'main-board.kicad_pcb')
 RES = 0.05                      # mm per cell
 NX, NY = int(W / RES) + 1, int(H / RES) + 1
-CLR = 0.17                      # clearance used by this router (board rule 0.15 + raster margin)
-LAYERS = (pcbnew.F_Cu, pcbnew.B_Cu)
-WIDE = {'+5V': 0.6, 'VSERVO': 0.6, 'VBUS': 0.6, 'VMOT': 0.6, '+3V3': 0.4, 'GND': 0.4, 'V3V3_IN': 0.4, '+5V_USB': 0.4}
+CLR = 0.18                      # clearance used by this router (board rule 0.15 + raster margin)
+INNER = '--inner' in sys.argv
+LAYERS = (pcbnew.F_Cu, pcbnew.B_Cu, pcbnew.In2_Cu) if INNER else (pcbnew.F_Cu, pcbnew.B_Cu)
+WIDE = {'+5V': 0.3, 'VSERVO': 0.3, 'VBUS': 0.3, 'VMOT': 0.3, '+3V3': 0.15, 'GND': 0.15, 'V3V3_IN': 0.2, '+5V_USB': 0.2}
 
 
 def to_cell(x_nm, y_nm):
@@ -37,7 +38,9 @@ class Grid:
     def __init__(self, board, width):
         self.board = board
         self.width = width
-        self.owner = [np.zeros((NY, NX), np.int32) for _ in LAYERS]   # 0 free, >0 net code, -1 blocked
+        self.owner = [np.zeros((NY, NX), np.int32) for _ in LAYERS]
+        self.nl = len(LAYERS)
+        self.pour_marks = []     # (layer index, mask, net) of F/B power pours, so vias can ignore them   # 0 free, >0 net code, -1 blocked
         self.infl = (CLR + width / 2)
         self._build()
 
@@ -95,7 +98,7 @@ class Grid:
         b = self.board
         g = self.infl
         # board edge, notch, antenna keepout: blocked everywhere
-        for i in range(2):
+        for i in range(len(LAYERS)):
             o = self.owner[i]
             m = int(math.ceil((0.3 + self.width / 2) / RES))
             o[:m, :] = -1
@@ -116,7 +119,7 @@ class Grid:
                     if p.IsOnLayer(L):
                         self.mark(i, mask, net)
                 if p.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH):
-                    for i in range(2):
+                    for i in range(len(LAYERS)):
                         self.mark(i, mask, net)
         for t in b.GetTracks():
             net = t.GetNetCode() or -1
@@ -124,7 +127,7 @@ class Grid:
                 c = t.GetPosition()
                 r = t.GetWidth(pcbnew.F_Cu) / 2e6 + g
                 mask = self.seg_mask((c.x / 1e6, c.y / 1e6), (c.x / 1e6, c.y / 1e6), r)
-                for i in range(2):
+                for i in range(len(LAYERS)):
                     self.mark(i, mask, net)
             else:
                 if t.GetLayer() not in LAYERS:
@@ -137,16 +140,29 @@ class Grid:
             if z.GetIsRuleArea():
                 continue
             for i, L in enumerate(LAYERS):
-                if not z.IsOnLayer(L) or z.GetNetname() == 'GND':
+                # GND fill and In2 planes refill around new copper. F.Cu power pours too: each has a stitched twin on
+                # B.Cu, so a signal track may cut the F.Cu copy (current continues on B.Cu); B.Cu pours stay obstacles.
+                if L == pcbnew.In2_Cu or not z.IsOnLayer(L) or z.GetNetname() == 'GND' or \
+                        (L == pcbnew.F_Cu and z.GetZoneName().endswith(' pour') and '--cut-pours' in sys.argv):
                     continue     # GND pours refill around new copper
                 fp = z.GetFilledPolysList(L)
                 for k in range(fp.OutlineCount()):
                     ol = fp.Outline(k)
                     pts = [(ol.CPoint(j).x / 1e6, ol.CPoint(j).y / 1e6) for j in range(ol.PointCount())]
-                    self.mark(i, self.poly_mask(pts, g), z.GetNetCode())
+                    m_ = self.poly_mask(pts, g)
+                    self.pour_marks.append((i, m_, z.GetNetCode()))
 
-    def free(self, i, net):
-        o = self.owner[i]
+    def free(self, i, net, pours=True):
+        if pours and self.pour_marks and not hasattr(self, '_withpours'):
+            # build the with-pours owner arrays once (pour_marks applied on a copy)
+            self._nopour = [o.copy() for o in self.owner]
+            for li, m_, nc in self.pour_marks:
+                self.mark(li, m_, nc)
+            self._withpours = True
+        if not pours:
+            o = self._nopour[i] if hasattr(self, '_nopour') else self.owner[i]
+        else:
+            o = self.owner[i]
         return (o == 0) | (o == net)
 
 
@@ -171,11 +187,9 @@ def dilate(m, r):
 
 
 def astar(grid, net, starts, goals, via_r):
-    f0, f1 = grid.free(0, net), grid.free(1, net)
-    free = (f0, f1)
+    free = [grid.free(i, net) for i in range(len(LAYERS))]
+    vfree = [grid.free(i, net, pours=False) for i in range(2)]
     vr = int(math.ceil(via_r / RES))
-    # via allowed where both layers are free in a disk of radius vr - (inflation already applied)
-    gx = {(c[0], c[1]) for c in goals}
     goal_l = {(c[2], c[0], c[1]) for c in goals}
     tx = sum(c[0] for c in goals) / len(goals)
     ty = sum(c[1] for c in goals) / len(goals)
@@ -187,6 +201,7 @@ def astar(grid, net, starts, goals, via_r):
             best[(l, x, y)] = 0
     prev = {}
     moves = [(1, 0, 1), (-1, 0, 1), (0, 1, 1), (0, -1, 1), (1, 1, 1.414), (1, -1, 1.414), (-1, 1, 1.414), (-1, -1, 1.414)]
+    lcost = [1.0, 1.15, 3.0]
     n = 0
     while openh:
         f, gcost, l, x, y = heapq.heappop(openh)
@@ -206,29 +221,29 @@ def astar(grid, net, starts, goals, via_r):
             nx, ny = x + dx, y + dy
             if not (0 <= nx < NX and 0 <= ny < NY) or not free[l][ny, nx]:
                 continue
-            ng = gcost + c + (0.3 if l == 1 else 0)
+            ng = gcost + c * lcost[l]
             k = (l, nx, ny)
             if ng < best.get(k, 1e18):
                 best[k] = ng
                 prev[k] = (l, x, y)
-                h = math.hypot(nx - tx, ny - ty)
-                heapq.heappush(openh, (ng + h, ng, l, nx, ny))
-        # via
-        ol = 1 - l
-        if free[ol][y, x]:
-            ok = True
-            for dy in range(-vr, vr + 1, max(1, vr)):
-                for dx in range(-vr, vr + 1, max(1, vr)):
-                    yy, xx = y + dy, x + dx
-                    if not (0 <= xx < NX and 0 <= yy < NY) or not (f0[yy, xx] and f1[yy, xx]):
-                        ok = False
-            if ok:
+                heapq.heappush(openh, (ng, ng, l, nx, ny))
+        # through via: must be free on every copper layer it crosses (In1 is GND plane: antipad, fine)
+        ok = True
+        for dy in range(-vr, vr + 1, max(1, vr)):
+            for dx in range(-vr, vr + 1, max(1, vr)):
+                yy, xx = y + dy, x + dx
+                if not (0 <= xx < NX and 0 <= yy < NY) or not all(fr[yy, xx] for fr in vfree):
+                    ok = False
+        if ok:
+            for ol in range(len(LAYERS)):
+                if ol == l or not (free[ol][y, x] or (ol < 2 and vfree[ol][y, x])):
+                    continue
                 ng = gcost + 25
                 k = (ol, x, y)
                 if ng < best.get(k, 1e18):
                     best[k] = ng
                     prev[k] = (l, x, y)
-                    heapq.heappush(openh, (ng + math.hypot(x - tx, y - ty), ng, ol, x, y))
+                    heapq.heappush(openh, (ng, ng, ol, x, y))
     return None
 
 
@@ -239,7 +254,7 @@ def pad_cells(p):
     cx, cy = to_cell(p.GetPosition().x, p.GetPosition().y)
     cells = []
     for i, L in enumerate(LAYERS):
-        if p.IsOnLayer(L) or p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH:
+        if (p.IsOnLayer(L) and L != pcbnew.In2_Cu) or p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH:
             for x in range(max(x0, cx - 2), min(x1, cx + 2) + 1):
                 for y in range(max(y0, cy - 2), min(y1, cy + 2) + 1):
                     cells.append((x, y, i))
@@ -251,7 +266,7 @@ def item_cells(it):
         return pad_cells(it)
     if it.Type() == pcbnew.PCB_VIA_T:
         x, y = to_cell(it.GetPosition().x, it.GetPosition().y)
-        return [(x, y, 0), (x, y, 1)]
+        return [(x, y, i) for i in range(len(LAYERS))]
     if it.Type() == pcbnew.PCB_TRACE_T and it.GetLayer() in LAYERS:
         i = LAYERS.index(it.GetLayer())
         s, e = it.GetStart(), it.GetEnd()
@@ -321,11 +336,17 @@ def main():
         g = clusters(board, c, net)
         if len(g) > 1:
             todo.append((net, len(g)))
+    first = []
+    for a in sys.argv:
+        if a.startswith('--first='):
+            first = a.split('=', 1)[1].split(',')
+    todo.sort(key=lambda t: (0 if t[0] in first else 1, t[0]))
     print('nets with open connections:', todo)
     done, failed = [], []
     for net, _ in todo:
         width = WIDE.get(net, 0.15)
-        for attempt in range(6):
+        skip = set()
+        for attempt in range(12):
             board.BuildConnectivity()
             c = board.GetConnectivity()
             g = clusters(board, c, net)
@@ -333,14 +354,22 @@ def main():
                 break
             grid = Grid(board, width)
             code = board.FindNet(net).GetNetCode()
-            # connect the smallest cluster to the rest
             g.sort(key=len)
-            src = [cell for it in g[0] for cell in item_cells(it)]
-            dst = [cell for gg in g[1:] for it in gg for cell in item_cells(it)]
-            path = astar(grid, code, src, dst, 0.3 + CLR + 0.05)
-            if not path:
+            # connect the smallest cluster not yet known to be trapped to the rest
+            def ckey(gg):
+                return tuple(sorted('%s.%s' % (i.GetParentFootprint().GetReference(), i.GetNumber())
+                                    for i in gg if isinstance(i, pcbnew.PAD))) or ('track', len(gg))
+            cand = [k for k in range(len(g) - 1) if ckey(g[k]) not in skip]
+            if not cand:
                 failed.append(net)
                 break
+            k = cand[0]
+            src = [cell for it in g[k] for cell in item_cells(it)]
+            dst = [cell for j, gg in enumerate(g) if j != k for it in gg for cell in item_cells(it)]
+            path = astar(grid, code, src, dst, 0.3 + CLR + 0.05)
+            if not path:
+                skip.add(ckey(g[k]))
+                continue
             add_path(board, net, path, width)
             done.append(net)
         filler.Fill(board.Zones())
