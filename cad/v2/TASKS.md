@@ -71,3 +71,22 @@ Fusion document.
 - [x] Renders, exploded view, 9 callouts, exports (f3d, STEP, 87 STL, 7 DXF), stale parameters removed
 - [x] README, decisions.md
 - [ ] Adam's calls: head size vs the original brief, the lidar blind sector / pod height, bumpers
+
+
+## 18 Nov: Adam's answers (one stage per Fusion job, save + checks after each)
+
+Prepared while the Mac was offline. Job order when Fusion is back (each saves on success, then its quick check):
+
+1. `s4_electronics main()`: remove the module parts the main board replaces (perfboard drivers, ESP32 DevKit, PDB/INA226, Pololu bucks, MAX98357A breakout) and the LED bar; Pi 5 stack above the board; CPX front status light (50.6 mm, 10 NeoPixels, behind the front wall); spare ESP32 cradle; BNO085, speaker, XT30 loop key. Check `front`, `back`.
+2. `s4b_mainboard main()`: main board rev A block from its KiCad data (outline + notch, 4x M3 standoffs, connectors at real positions) + hidden keep-outs. Check `front` + `keepouts()`.
+3. `s1_drive main()`: plate cable holes for the cliff sensors. Check `drive`.
+4. `s2_battery main(('battery',))`: ideal-diode module in the charge path. Check `battery`.
+5. `s3_frame main()`: harness slots (spine sides, cheeks, rear plate). Check `frame`.
+6. `s5b_shell_edits main()`: remove the LED bar slot, cut the bumper pin U-slots. Check `shell`.
+7. `s9_bumpers main()`: front bar + 2 rear half bars, 4x D2F-01L. Check `bumpers`.
+8. `s7_lidar set_option(166)`: option B (mast), shot `photo` -> `v2-photo-optB`, sweep + scan plane. Then `set_option(0)`: option A, shot -> `v2-photo-optA`, sweep + scan plane. Check `lidar`.
+9. `s8_wiring main()`: harness from every main-board connector to its part.
+10. Full checks: `all_quick()`, `floating()`, `keepouts()`, `main(('mass', 'bed', 'sweep'))`.
+11. Shots (views, exploded, callouts), exports (f3d, STEP, STL, DXF), side-by-side, README, decisions, commit, pull --rebase, push, Pip.
+
+- [ ] jobs 1-11

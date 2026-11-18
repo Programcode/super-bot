@@ -44,6 +44,10 @@ def battery():
     B(c, 'BMS 3S 20A (64x20x3.4, check yours)', '0 mm', '(pack_y0 + pack_y1)/2 - 20 mm', top, '20 mm', '64 mm', '3.4 mm', 'FR4', 'Plastic - Matte (Blue)')
     B(c, 'fuse holder 15A mini blade', '0 mm', 'pack_y1 - 18 mm', top, '14 mm', '30 mm', '11 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
     B(c, 'charge fuse holder 5A', '0 mm', 'pack_y0 + 22 mm', top, '12 mm', '26 mm', '7 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
+    # reverse-blocking ideal-diode module in the charge path (jack -> diode -> 5 A fuse -> BMS P+): blocks a
+    # live jack and back-feeding; ~20 mV drop, so a 12.6 V CC/CV charger still fills the pack (a Schottky's
+    # ~0.5 V would stop it at about 12.1 V). EST size: LM74700-class module 22 x 16 x 5 mm.
+    B(c, 'ideal diode module (LM74700-class, EST 22x16x5)', '14 mm', 'pack_y0 + 13 mm', top, '16 mm', '22 mm', '5 mm', 'FR4', GREEN)
     log('battery ok, pack top z', mm(top))
 
 

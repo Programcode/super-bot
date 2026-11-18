@@ -8,27 +8,24 @@ import json, time
 REAL = [
     ('Motor JGB37-520', 155, 'SRC vendor listings 150-158'),
     ('Wheel mecanum 100', 300, 'EST: 100 mm wheels weigh 200-400 g; Studica/Nexus 354-400'),
-    ('Battery 3S4P', 602, '12 x 47 g cells + nickel/wrap 20 + BMS 10 + fuse holder 8'),
+    ('Battery 3S4P', 610, '12 x 47 g cells + nickel/wrap 20 + BMS 10 + fuse holders 14 + ideal-diode module 3'),
     ('Raspberry Pi 5', 71, 'Pi 5 46 g + Active Cooler ~25 g'),
     ('Raspberry Pi AI HAT', 45, 'EST'),
-    ('ESP32-S3-DevKitC-1 A', 10, 'EST'),
-    ('ESP32-S3-DevKitC-1 B', 0, 'empty cradle only'),
+    ('Main board rev A', 95, 'EST: 186 x 70 mm 4-layer FR4 (~38 g) + ~225 parts incl. XT60/XT30, fuse, box header, electrolytics'),
+    ('Main board keep-outs', 0, 'volumes, not parts'),
+    ('ESP32-S3 spare cradle', 0, 'empty printed cradle'),
     ('BNO085', 2.5, 'SRC'),
     ('Cliff sensors', 5.2, 'SRC 4 x 1.3'),
     ('Lidar LDROBOT LD19', 47, 'SRC'),
     ('Raspberry Pi Camera Module 3', 4, 'EST'),
     ('TFT 1.3in', 7.6, 'SRC'),
     ('Servo MG90S', 13.4, 'SRC'),
-    ('Pi 5 V 5.5 A buck', 7, 'SRC'),
-    ('Servo 6 V buck', 3.3, 'SRC'),
-    ('Power distribution board', 40, 'EST: perfboard, XT60, 4x XT30, INA226, bus bar'),
-    ('Audio MAX98357A', 28.5, 'SRC amp 1.2 + speaker 27.3'),
-    ('Motor driver board', 25, 'EST: perfboard, 4 carriers, headers, terminals'),
-    ('Power connectors', 16, 'XT60 pair'),
-    ('Charge port', 13, 'EST: jack 5 + fuse holder 8'),
+    ('Speaker 40 mm', 27.3, 'SRC Adafruit 3968'),
+    ('Power connectors', 21, 'XT60 pair 16 + charge jack 5'),
     ('Circuit Playground Express', 8.9, 'SRC'),
     ('Mic INMP441', 1, 'EST'),
-    ('Main power XT60 loop key', 26, 'EST: XT60 pair + 14 AWG loop'),
+    ('Main power XT30 loop key', 14, 'EST: XT30 panel socket + male + 16 AWG loop'),
+    ('Bumpers', 6, 'EST: 4x Omron D2F-01L ~1.5 g'),
     ('Face graphic', 0, 'not a part'),
     ('Wiring harness', 0, 'counted separately'),
 ]
@@ -36,7 +33,7 @@ PRINT_FACTOR = 0.75     # printed non-shell parts: 4 perimeters + ~30 % infill v
 WIRING_G = 220          # harness estimate (16 AWG power runs, signal looms, ribbon), placed at z 160
 BED = 256.0
 SKIP = ('Face graphic',)
-HARDWARE_SAME = ('Corner tie rods', 'L0 posts', 'Motor JGB37', 'Wheel mecanum', 'Battery 3S4P', 'Raspberry Pi', 'ESP32', 'BNO085',
+HARDWARE_SAME = ('Main board', 'Bumpers', 'Lidar', 'Corner tie rods', 'L0 posts', 'Motor JGB37', 'Wheel mecanum', 'Battery 3S4P', 'Raspberry Pi', 'ESP32', 'BNO085',
                  'Cliff sensors', 'Lidar LDROBOT', 'Raspberry Pi Camera', 'TFT 1.3in', 'Servo MG90S', 'Pi 5 V', 'Servo 6 V', 'Power distribution',
                  'Audio', 'Motor driver board', 'Circuit Playground', 'Mic INMP441', 'Main power', 'Charge port', 'Power connectors')
 
@@ -193,7 +190,7 @@ def sweep():
 
 def scan_plane():
     """Bodies crossing the lidar beam (scan_z +- 3 mm) and the bearing sector each blocks."""
-    lx, ly, sz = mm('lidar_x'), mm('lidar_y'), mm('scan_z')
+    lx, ly, sz = mm('ld_x'), mm('ld_y'), mm('scan_z')
     out = []
     for occ, c, b in items():
         top = occ.fullPathName.split('+')[0]
@@ -213,7 +210,7 @@ def scan_plane():
 
 
 def main(parts=('mass', 'bed', 'interf', 'sweep')):
-    its = [(o, c, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(SKIP)]
+    its = [(o, c, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(SKIP + ('Main board keep-outs',))]
     R = {'bodies': len(its), 'timeline': design.timeline.count, 'unhealthy': health(),
          'params': [{'name': p.name, 'expr': p.expression, 'mm': round(p.value * 10, 2), 'comment': p.comment} for p in design.userParameters]}
     if 'mass' in parts:
@@ -240,7 +237,7 @@ def quick(prefixes, tag):
     """Per-stage check: interference of the named top-level components against every body whose box
     touches them, plus print-bed fit of their printed parts. Uploads checks-quick-<tag>.json."""
     t0 = time.time()
-    its = [(o, c, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness',))
+    its = [(o, c, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness', 'Main board keep-outs'))
            and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
     mine = [(o, c, b) for (o, c, b) in its if o.fullPathName.split('+')[0].startswith(prefixes)]
     if not mine:
@@ -269,7 +266,7 @@ def floating(tol=0.3, tag='floating'):
     Interference checks can't see an unsupported part; this one can. Uploads checks-floating.json."""
     t0 = time.time()
     its = [(o, c, b) for (o, c, b) in items()
-           if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness',)) and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
+           if not o.fullPathName.split('+')[0].startswith(SKIP + ('Wiring harness', 'Main board keep-outs')) and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
     mm_ = app.measureManager
     bbs = [(o, b, b.boundingBox) for o, c, b in its]
     pad = (tol + 0.2) / 10.0
@@ -294,3 +291,50 @@ def floating(tol=0.3, tag='floating'):
          'note': 'mecanum rollers ride on axles inside the bought wheel that are not modelled', 'seconds': round(time.time() - t0)}
     put_json('checks-%s.json' % tag, R)
     log('floating check: %d of %d bodies touch nothing' % (len(out), len(bbs)))
+
+
+def keepouts(tag='keepouts'):
+    """Connector access: every keep-out volume (mated plug + cable bend) must be free of every real
+    part except its own board, the wiring paths and the shell walls' air. Uploads checks-keepouts.json."""
+    ko = [b for o in root.allOccurrences if o.component.name.startswith('Main board keep-outs') for b in o.bRepBodies]
+    others = [b for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(
+        SKIP + ('Wiring harness', 'Main board keep-outs', 'Main board rev A')) and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
+    hits = []
+    for k in ko:
+        bb = k.boundingBox
+        near = [b for b in others if all(b.boundingBox.minPoint.asArray()[i] <= bb.maxPoint.asArray()[i] and
+                                         b.boundingBox.maxPoint.asArray()[i] >= bb.minPoint.asArray()[i] for i in range(3))]
+        if not near:
+            continue
+        col = OC.create()
+        col.add(k)
+        for b in near:
+            col.add(b)
+        inp = design.createInterferenceInput(col)
+        inp.areCoincidentFacesIncluded = False
+        for r in design.analyzeInterference(inp):
+            a, b2 = r.entityOne, r.entityTwo
+            if k.entityToken not in (a.entityToken, b2.entityToken):
+                continue
+            other = b2 if a.entityToken == k.entityToken else a
+            hits.append({'keepout': k.name, 'part': (other.assemblyContext.fullPathName if other.assemblyContext else '') + ' / ' + other.name,
+                         'mm3': round(r.interferenceBody.volume * 1000, 1)})
+    opt_a = [h for h in hits if h['keepout'].startswith('option (a)')]
+    rev_a = [h for h in hits if not h['keepout'].startswith('option (a)')]
+    R = {'keepouts': len(ko), 'option_a_volumes': sum(1 for k in ko if k.name.startswith('option (a)')),
+         'rev_a_hits': rev_a, 'option_a_hits': opt_a, 'hits': hits}
+    put_json('checks-%s.json' % tag, R)
+    log('keepout check: %d volumes; rev A blocked %d, option (a) blocked %d' % (len(ko), len(rev_a), len(opt_a)))
+
+
+GROUPS = [('drive', ('Chassis', 'Drive')), ('battery', ('Battery', 'Power connectors', 'Cliff', 'Front ultrasonic')), ('frame', ('Frame',)),
+          ('front', ('Raspberry Pi', 'Main board rev A', 'Circuit Playground')), ('back', ('BNO085', 'Speaker', 'Main power', 'ESP32-S3 spare')),
+          ('shell', ('Shell',)), ('bumpers', ('Bumpers',)), ('head', ('Head',)), ('lidar', ('Lidar',))]
+
+
+def all_quick():
+    for tag, pre in GROUPS:
+        try:
+            quick(pre, tag)
+        except Exception as e:
+            log('quick', tag, 'skipped:', str(e)[:60])

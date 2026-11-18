@@ -50,6 +50,9 @@ def chassis():
     rect(sk, {'x': '0 mm', 'y': '0 mm'}, {'x': 'plate_w', 'y': 'plate_d'})
     plate = extrude(c, sk, 'plate_z', 'plate_t', name='chassis plate 6 mm birch ply').bodies.item(0)
     fillet(c, edges_where(plate, lambda e: is_axis_line(e, 'z')), 'corner_r - pwall - 1 mm')
+    # cable holes for the 4 cliff sensors under the plate (front, rear, left, right), clear of the sled and motors
+    for (hx, hy) in (('24 mm', '72 mm'), ('40 mm', '-40 mm'), ('-62 mm', '14 mm'), ('62 mm', '14 mm')):
+        C(c, 'cliff cable hole', 'z', hx, hy, 'plate_z + plate_t/2', '8 mm', 'plate_t + 2 mm', op=CUT, bodies=[plate])
     finish(plate, 'Birch', appearance('SB Dark grey ply', 'Plastic - Matte (Gray)', color=(70, 72, 78)))
     log('plate ok')
 

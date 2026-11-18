@@ -13,7 +13,7 @@ PARAMS6 = [
     ('scan_h', '27 mm', 'LD19 scan plane above its mounting ears (EST from the datasheet figure)'),
     ('plinth_h', '12 mm', 'Plinth height above the body top'),
     ('knuckle_h', '22 mm', 'Knuckle between plinth and turret (the lidar plane passes here)'),
-    ('scan_z', 'body_top + plinth_h + knuckle_h/2', 'Lidar scan plane Z'),
+    ('scan_z', 'body_top + plinth_h + knuckle_h/2 + lidar_rise', 'Lidar scan plane Z (option A 301 mm, B 467 mm)'),
     ('turret_z', 'body_top + plinth_h + knuckle_h', 'Turret bottom Z'),
     ('tilt_z', 'turret_z + 13 mm', 'Tilt axis Z'),
     ('turret_hw', '30 mm', 'Turret half-width X'),
@@ -34,6 +34,8 @@ ROT = 'Plastic - Matte (Black)'
 
 
 def define():
+    if design.userParameters.itemByName('lidar_rise') is None:   # the lidar option lives in s7; keep it on reruns
+        param('lidar_rise', '0 mm', 'Lidar option: 0 mm = A (low pod), 166 mm = B (mast)')
     for n, e, cm in PARAMS6:
         param(n, e, cm)
 

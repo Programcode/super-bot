@@ -39,19 +39,23 @@ def frame():
     B(c, 'tunnel notch', '0 mm', 'spine_y - ply_t/2', 'plate_top - 1 mm', '2*tun_hw', 'ply_t + 2 mm', 'notch_z - plate_top + 1 mm', op=CUT, bodies=[sp])
     for (x, z, w, h) in (('-30 mm', 'plate_top + 120 mm', '12 mm', '10 mm'),   # 5 V lead: buck (back) to Pi USB-C (front)
                          ('0 mm', 'top_deck_z - 50 mm', '24 mm', '12 mm'),       # camera ribbon + head wiring
-                         ('40 mm', 'plate_top + 56 mm', '30 mm', '10 mm')):      # driver board / ESP32 logic loom
+                         ('40 mm', 'plate_top + 56 mm', '30 mm', '10 mm'),       # front-channel loom to the bay
+                         ('85 mm', 'plate_top + 124 mm', '14 mm', '10 mm'),      # right harness: main switch loop to the rear key
+                         ('-85 mm', 'plate_top + 124 mm', '14 mm', '10 mm')):    # left harness: lidar, speaker, servos, mic
         B(c, 'slot', x, 'spine_y - ply_t/2', z, w, 'ply_t + 2 mm', h, op=CUT, bodies=[sp])
     sp.name = 'spine 4 mm birch ply'
     H1 = 'top_deck_z - frame_z1'
     rp = B(c, 'rear plate', '0 mm', 'rear_y - ply_t/2', 'frame_z1', '2*in_x', 'ply_t', H1)
     B(c, 'tunnel notch', '0 mm', 'rear_y - ply_t/2', 'frame_z1 - 1 mm', '2*tun_hw', 'ply_t + 2 mm', 'rnotch_z - frame_z1 + 1 mm', op=CUT, bodies=[rp])
     B(c, 'housing notch', '0 mm', 'spine_y - ply_t/2', 'top_deck_z - 26 mm', '50 mm', 'ply_t + 2 mm', '27 mm', op=CUT, bodies=[sp])
-    B(c, 'speaker + PDB loom slot', '-40 mm', 'rear_y - ply_t/2', 'plate_top + 150 mm', '16 mm', 'ply_t + 2 mm', '10 mm', op=CUT, bodies=[rp])
+    B(c, 'speaker loom slot', '-40 mm', 'rear_y - ply_t/2', 'plate_top + 150 mm', '16 mm', 'ply_t + 2 mm', '10 mm', op=CUT, bodies=[rp])
+    B(c, 'main switch loop slot', '85 mm', 'rear_y - ply_t/2', 'plate_top + 184 mm', '14 mm', 'ply_t + 2 mm', '10 mm', op=CUT, bodies=[rp])
     rp.name = 'rear plate 4 mm birch ply'
     for sx in (1, -1):
         ch = B(c, 'side cheek', S(sx, 'cheek_x + ply_t/2'), '(spine_y - ply_t + rear_y)/2', 'frame_z1', 'ply_t', '(spine_y - ply_t) - rear_y', H1)
         pl_ = B(c, 'cheek pillar (printed)', S(sx, 'cheek_x + ply_t/2'), '0 mm', 'plate_top', '10 mm', '20 mm', 'frame_z1 - plate_top', 'PET Plastic', BLACK)
         B(c, 'loom slot', S(sx, 'cheek_x + ply_t/2'), '-25 mm', 'frame_z1 + 24 mm', 'ply_t + 2 mm', '30 mm', '10 mm', op=CUT, bodies=[ch])
+        B(c, 'upper loom slot', S(sx, 'cheek_x + ply_t/2'), '-40 mm', 'top_deck_z - 25 mm', 'ply_t + 2 mm', '20 mm', '10 mm', op=CUT, bodies=[ch])
         ch.name = 'side cheek %s 4 mm birch ply' % ('right' if sx > 0 else 'left')
         ply(ch)
     ply(sp)
