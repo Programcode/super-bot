@@ -67,7 +67,7 @@ ANCHORS = {
     # right top
     'J103': (179.0, 4.4, 'U', 'RT'),
     'U401': (156.5, 15.5, 0, 'RT'),
-    'J413': (150.3, 14.0, 0, 'RT'), 'J414': (150.3, 23.0, 0, 'RT'),
+    'J413': (169.5, 66.6, 90, 'BS'), 'J414': (176.4, 61.5, 90, 'BS'),   # on the VSERVO plane
     'J502': (158.5, 31.7, 0, 'RT'), 'J403': (176.5, 31.7, 0, 'RT'), 'J404': (181.5, 19.0, 90, 'RT'),
     'U501': (165.5, 14.5, 0, 'RT'), 'J501': (171.0, 22.5, 0, 'RT'),
     'J415': (141.5, 24.5, 90, 'TM'),      # optional HC-SR04 header (DNP)
@@ -202,8 +202,9 @@ CORRIDORS = [(19.0, 10.5, 24.3, 48.0),   # VBAT_F strip
              (36.0, 42.5, 49.0, 50.0)]   # VBUS to the motor-cut FET
 for _xc in CHX:   # motor output tracks: driver corner pins down to connector pins 1 and 6
     CORRIDORS += [(_xc - 7.6, 49.6, _xc - 3.3, 63.2), (_xc + 3.3, 49.0, _xc + 7.6, 63.2)]
-for _ux in (155.0, 174.0):   # buck SW node and inductor
-    CORRIDORS += [(_ux - 0.6, 43.0, _ux + 1.0, 45.5)]
+for _ux in (155.0, 174.0):   # buck SW node and inductor; VBUS feed via above VIN
+    CORRIDORS += [(_ux - 0.6, 43.0, _ux + 1.0, 45.5), (_ux + 0.2, 36.0, _ux + 1.9, 41.0)]
+CORRIDORS += [(145.8, 36.0, 147.8, 38.0)]   # VBUS feed via at the In2 strip end
 
 
 def main():

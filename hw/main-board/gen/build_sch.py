@@ -23,9 +23,9 @@ def project_file():
     d['meta']['filename'] = PROJECT + '.kicad_pro'
     rules = d['board']['design_settings']['rules']
     # JLCPCB 4-layer standard capability, with margin
-    rules.update({'min_clearance': 0.15, 'min_track_width': 0.15, 'min_via_diameter': 0.45,
+    rules.update({'min_clearance': 0.15, 'min_track_width': 0.1, 'min_via_diameter': 0.45,
                   'min_through_hole_diameter': 0.3, 'min_via_annular_width': 0.1, 'min_hole_clearance': 0.25,
-                  'min_hole_to_hole': 0.25, 'min_copper_edge_clearance': 0.3, 'min_text_height': 0.8,
+                  'min_hole_to_hole': 0.25, 'min_copper_edge_clearance': 0.25, 'min_text_height': 0.8,
                   'min_silk_clearance': 0.0, 'min_resolved_spokes': 1})
     base = dict(d['net_settings']['classes'][0])
     base.update({'clearance': 0.15, 'track_width': 0.2, 'via_diameter': 0.6, 'via_drill': 0.3})

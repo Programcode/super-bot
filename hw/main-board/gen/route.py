@@ -105,7 +105,9 @@ def zones(board):
     add_zone(board, 'GND', pcbnew.In1_Cu, bp, prio=0, clearance=0.25, name='GND plane')
     # In2: split power plane
     add_zone(board, '+3V3', pcbnew.In2_Cu, rect((44.5, 0.5, 147.5, 34.5)), prio=1, name='3V3 plane')
-    add_zone(board, 'VMOT', pcbnew.In2_Cu, rect((44.5, 39.5, 147.5, 69.5)), prio=1, name='VMOT plane')
+    add_zone(board, 'VMOT', pcbnew.In2_Cu, [(44.5, 39.5), (147.5, 39.5), (147.5, 53.5), (64.5, 53.5), (64.5, 69.5), (44.5, 69.5)],
+             prio=1, name='VMOT plane')
+    add_zone(board, '+3V3', pcbnew.In2_Cu, rect((65.5, 54.5, 147.5, 69.5)), prio=1, name='3V3 plane (encoders)')
     add_zone(board, 'VBUS', pcbnew.In2_Cu,
              [(0.5, 0.5), (43.5, 0.5), (43.5, 35.5), (147.5, 35.5), (147.5, 38.5), (43.5, 38.5), (43.5, 69.5), (0.5, 69.5)],
              prio=1, name='VBUS plane')
@@ -186,6 +188,30 @@ def manual_tracks(board):
         a, b = sw.GetPosition(), lp.GetPosition()
         # 0.3 mm neck from the SW pad straight down into the inductor pad (pad top edge ~0.6 mm below the IC)
         track(board, sw.GetNet(), [(a.x, a.y), (a.x, b.y)], 0.3)
+    # VBUS feed to both bucks: via on the In2 VBUS strip, B.Cu track along y 37, vias above each VIN, F.Cu down to VIN
+    vbus = board.FindNet('VBUS')
+
+    def via(x, y, d=0.8, dr=0.4, net=vbus):
+        v = pcbnew.PCB_VIA(board)
+        v.SetPosition(pcbnew.VECTOR2I(int(MM(X0 + x)), int(MM(Y0 + y))))
+        v.SetWidth(int(MM(d)))
+        v.SetDrill(int(MM(dr)))
+        v.SetNet(net)
+        v.SetLocked(True)
+        board.Add(v)
+    feed = [(146.8, 37.0)]
+    for u in ('U102', 'U103'):
+        vin = pad(board, u, '8')
+        vx = vin.GetPosition().x / 1e6 - X0
+        feed.append((vx + 0.05, 37.0))
+    for x, y in feed:
+        via(x, y)
+    track(board, vbus, [(int(MM(X0 + x)), int(MM(Y0 + y))) for x, y in (feed[0], feed[-1])], 1.5, pcbnew.B_Cu)
+    for u in ('U102', 'U103'):
+        vin = pad(board, u, '8')
+        bb = vin.GetBoundingBox()
+        vx = vin.GetPosition().x
+        track(board, vbus, [(vx + int(MM(0.05)), int(MM(Y0 + 37.0))), (vx + int(MM(0.05)), bb.GetTop() + int(MM(0.3)))], 0.8)
     # driver GND pins into the exposed pad, and a VM via right of pin 11 (VMOT plane)
     for n in (6, 7, 8, 9):
         u = 'U%d01' % n
