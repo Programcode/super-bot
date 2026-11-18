@@ -1358,7 +1358,7 @@
 			)
 		)
 	)
-	(text "DRV8874 in PWM (IN/IN) mode, IMODE = GND (fixed off-time, auto retry)"
+	(text "DRV8874 in PH/EN mode (PMODE = GND): IN1 = EN (PWM), IN2 = PH (direction); IMODE = GND"
 		(exclude_from_sim no)
 		(at 20.32 30.48 0)
 		(effects
@@ -1368,7 +1368,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "52e285be-0fe6-5c17-ad11-c55136aebcec")
+		(uuid "bbddd729-ab40-51fb-9a95-3e48ecc5e993")
 	)
 	(text "IPROPI: 455 uA/A into 1.8k -> 0.82 V/A to the ESP32 ADC; also the ITRIP comparator input."
 		(exclude_from_sim no)
@@ -1380,7 +1380,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "00c37eab-a812-5de8-ad8f-0d672a757763")
+		(uuid "276519ed-1854-564c-9fee-9095d41b9fbc")
 	)
 	(symbol
 		(lib_id "sbot:DRV8874")
@@ -1596,14 +1596,14 @@
 		(uuid "34747c60-02df-566e-b952-0825c11b454a")
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 27.94 50.8 90)
+		(lib_id "power:GND")
+		(at 27.94 50.8 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
 		(dnp no)
-		(uuid "8b4c2cbc-0d07-5c04-b630-62627f9715e9")
+		(uuid "bf3d1df3-c56a-53da-bd94-420c1a4685d5")
 		(property "Reference" "#PWR0141"
 			(at 27.94 50.8 0)
 			(show_name no)
@@ -1615,7 +1615,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "GND"
 			(at 24.74 50.8 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1648,7 +1648,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ff2f01dc-339f-5adc-92ce-15e72a639cdd")
+			(uuid "08c2749f-f9a4-5be5-b258-c1caed994c54")
 		)
 		(instances
 			(project "main-board"

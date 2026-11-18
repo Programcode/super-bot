@@ -366,6 +366,20 @@ def main():
             k = cand[0]
             src = [cell for it in g[k] for cell in item_cells(it)]
             dst = [cell for j, gg in enumerate(g) if j != k for it in gg for cell in item_cells(it)]
+            if INNER:
+                # the net's own filled In2 plane is a target too (reach it through a via)
+                for z in board.Zones():
+                    if z.GetIsRuleArea() or z.GetNetname() != net or not z.IsOnLayer(pcbnew.In2_Cu):
+                        continue
+                    fpl = z.GetFilledPolysList(pcbnew.In2_Cu)
+                    bbx = fpl.BBox()
+                    x0c, y0c = to_cell(bbx.GetLeft(), bbx.GetTop())
+                    x1c, y1c = to_cell(bbx.GetRight(), bbx.GetBottom())
+                    for cy_ in range(max(0, y0c), min(NY, y1c), 3):
+                        for cx_ in range(max(0, x0c), min(NX, x1c), 3):
+                            X, Y = to_nm(cx_, cy_)
+                            if fpl.Contains(pcbnew.VECTOR2I(X, Y)):
+                                dst.append((cx_, cy_, 2))
             path = astar(grid, code, src, dst, 0.3 + CLR + 0.05)
             if not path:
                 skip.add(ckey(g[k]))

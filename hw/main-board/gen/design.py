@@ -234,11 +234,11 @@ def motor_sheet():
                   ('IPROPI', 'output'), ('ENC_A', 'output'), ('ENC_B', 'output')):
         s.port(p, sh)
     cx = Ctx()
-    b = s.block('DRV8874 in PWM (IN/IN) mode, IMODE = GND (fixed off-time, auto retry)', 20, 35, 250,
+    b = s.block('DRV8874 in PH/EN mode (PMODE = GND): IN1 = EN (PWM), IN2 = PH (direction); IMODE = GND', 20, 35, 250,
                 note='IPROPI: 455 uA/A into 1.8k -> 0.82 V/A to the ESP32 ADC; also the ITRIP comparator input.')
     b.parts += [
         Part('sbot:DRV8874', cx.ref('U'), 'DRV8874PWPR', 'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm',
-             {'EN/IN1': 'IN1', 'PH/IN2': 'IN2', '~{SLEEP}': 'NSLEEP', 'PMODE': '+3V3', 'IMODE': 'GND', 'VREF': 'VREF',
+             {'EN/IN1': 'IN1', 'PH/IN2': 'IN2', '~{SLEEP}': 'NSLEEP', 'PMODE': 'GND', 'IMODE': 'GND', 'VREF': 'VREF',
               '~{FAULT}': 'NFAULT', 'IPROPI': 'IPROPI', 'VM': 'VMOT', 'VCP': 'VCP', 'CPH': 'CPH', 'CPL': 'CPL',
               'OUT1': 'OUT1', 'OUT2': 'OUT2', 'GND': 'GND', 'PGND': 'GND', 'PAD': 'GND'}, lcsc='C1855818'),
         R(cx, '1.8k', 'IPROPI', 'GND'), C(cx, '10n', 'IPROPI'),
@@ -433,7 +433,8 @@ def build_design(libs):
     d.instantiate(au, 'Audio', 500, ident(au), 30, 170)
     for i, (letter, pos) in enumerate((('A', 'front left'), ('B', 'front right'), ('C', 'rear left'), ('D', 'rear right'))):
         m = 'M%d_' % (i + 1)
-        pm = {'IN1': m + 'IN1', 'IN2': m + 'IN2', 'NSLEEP': 'MOT_EN', 'VREF': 'VREF', 'NFAULT': 'MOT_NFAULT',
+        # rev A: motor C/D nFAULT could not be routed to the wired-OR; left unconnected (drivers still self-protect)
+        pm = {'IN1': m + 'IN1', 'IN2': m + 'IN2', 'NSLEEP': 'MOT_EN', 'VREF': 'VREF', 'NFAULT': 'MOT_NFAULT' if i < 2 else None,
               'IPROPI': m + 'IPROPI', 'ENC_A': m + 'ENC_A', 'ENC_B': m + 'ENC_B'}
         d.instantiate(mo, 'Motor %s (%s)' % (letter, pos), 600 + 100 * i, pm, 300, 40 + 40 * i)
     return d

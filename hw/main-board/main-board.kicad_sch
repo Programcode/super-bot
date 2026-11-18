@@ -3808,15 +3808,9 @@
 		)
 		(uuid "7a5c6298-fa37-525f-8fdc-0cb021e2f1c2")
 	)
-	(label "MOT_NFAULT"
-		(at 342.9 132.08 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "46815288-34c2-562f-9517-f7d2c5429cd3")
+	(no_connect
+		(at 342.9 132.08)
+		(uuid "da68ce49-2924-58c8-a159-0ff2efee3b2d")
 	)
 	(wire
 		(pts
@@ -4102,15 +4096,9 @@
 		)
 		(uuid "0c4e509a-8d46-5afe-b045-377abca236fc")
 	)
-	(label "MOT_NFAULT"
-		(at 342.9 172.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "35927880-4ae5-5a2b-bbb4-df1e1beda6f5")
+	(no_connect
+		(at 342.9 172.72)
+		(uuid "322c242a-b5bc-5d41-964d-8f07fe4a2154")
 	)
 	(wire
 		(pts

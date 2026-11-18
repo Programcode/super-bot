@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-18T05:09:59",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b",
+            "violations": []
+        },
+        {
+            "path": "/Power/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/0bac0f79-9e6a-5acd-b8e6-ca0eb32fe2a4",
+            "violations": []
+        },
+        {
+            "path": "/Motor cut/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/f40b2918-3843-5a25-bba8-be6e6555b618",
+            "violations": []
+        },
+        {
+            "path": "/MCU/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/72748215-cb0d-5d12-9215-e769d0daa966",
+            "violations": []
+        },
+        {
+            "path": "/IO/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/e1d5dc48-218c-5cc1-a151-6a504ee9623d",
+            "violations": []
+        },
+        {
+            "path": "/Audio/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/917c445d-82a1-52a9-b411-613250b6bec2",
+            "violations": []
+        },
+        {
+            "path": "/Motor A (front left)/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/8567613c-eb1a-5fca-9f2f-8b85f4c4c707",
+            "violations": []
+        },
+        {
+            "path": "/Motor B (front right)/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/8ed8994d-ecc8-50e1-8c98-291717ddb1a6",
+            "violations": []
+        },
+        {
+            "path": "/Motor C (rear left)/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/03218c96-54f7-55b3-afbb-b77592d989fe",
+            "violations": []
+        },
+        {
+            "path": "/Motor D (rear right)/",
+            "uuid_path": "/657c2c8c-8a1f-5be4-a5a5-7947aeceaa0b/1bdf285c-d0af-5292-9291-2656a8a59d94",
+            "violations": []
+        }
+    ],
+    "source": "main-board.kicad_sch"
+}
