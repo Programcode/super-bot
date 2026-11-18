@@ -11,7 +11,7 @@ def remove_led_slot():
     c = find_occ('Shell (printed smoked PETG)').component
     gone = 0
     for f in list(c.features.extrudeFeatures):
-        if f.name == 'LED bar slot':
+        if f.name.startswith('LED bar slot'):
             sk = f.profile.parentSketch if hasattr(f.profile, 'parentSketch') else None
             f.deleteMe()
             if sk:

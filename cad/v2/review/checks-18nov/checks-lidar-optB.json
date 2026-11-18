@@ -1,0 +1,111 @@
+{
+ "scan_plane": [],
+ "sweep": [
+  {
+   "pan": -90,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": -158.8,
+   "hits": []
+  },
+  {
+   "pan": -90,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": -152.0,
+   "hits": []
+  },
+  {
+   "pan": -90,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": -159.7,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": -158.8,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": -152.0,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": -159.7,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": -158.8,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": -152.0,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": -159.7,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": -158.8,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": -152.0,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": -159.7,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": -158.8,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": -152.0,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": -159.7,
+   "hits": []
+  }
+ ],
+ "scan_z": 467.0
+}

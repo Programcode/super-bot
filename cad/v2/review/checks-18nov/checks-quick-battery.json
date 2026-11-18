@@ -1,0 +1,16 @@
+{
+ "stage": "battery",
+ "prefixes": [
+  "Battery",
+  "Power connectors",
+  "Cliff",
+  "Front ultrasonic"
+ ],
+ "bodies": 39,
+ "near": 88,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 9,
+ "seconds": 10
+}

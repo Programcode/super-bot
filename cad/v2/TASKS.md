@@ -89,4 +89,28 @@ Prepared while the Mac was offline. Job order when Fusion is back (each saves on
 10. Full checks: `all_quick()`, `floating()`, `keepouts()`, `main(('mass', 'bed', 'sweep'))`.
 11. Shots (views, exploded, callouts), exports (f3d, STEP, STL, DXF), side-by-side, README, decisions, commit, pull --rebase, push, Pip.
 
-- [ ] jobs 1-11
+### Progress (stopped 18 Nov ~12:40 UTC at Adam's request; Fusion doc "Super bot - v2" saved after every job)
+
+- [x] 1 electronics (k1), 2 main board + keep-outs (k2), 3 plate holes (k3), 4 battery diode (k4), 5 frame slots (k5),
+      6 shell edits (k6, k6b: LED slot removed, bumper U-slots), 7 bumpers (k7): all saved, quick checks 0 hits, 0 bed misses
+- [x] keep-out check (B-rep intersection): rev A right-angle XT60/XT30 plugs hit the right side wall (XT60 also the FR wheel);
+      option (a) vertical XT60/XT30 + plug + cable bend: 0 hits. `review/checks-18nov/checks-keepouts.json`
+- [x] 8a lidar option B (k8b2, saved; **the doc is currently in option B**, lidar_rise = 166 mm): scan plane 467 mm, nothing in the
+      plane, 0 sweep hits. Render `renders/v2-photo-optB.png`
+- [ ] 8b option A: job `s7_lidar.py set_option(0)`, then `scripts/option_shot_check.py` with TAG = optA (
+      `views(['photo'], suffix='-optA')`, quick lidar, scan_plane, sweep) -> `renders/v2-photo-optA.png`
+- [ ] 9 `s8_wiring.py main()` (harness from every main-board connector)
+- [ ] 10 full checks: `all_quick(); floating(); keepouts(); main(('mass', 'bed', 'sweep'))`
+- [ ] 11 shots: `views(); exploded(); callouts()`, compose with compose_bg.py + callout_annotate.py; new side-by-side
+      (`sidebyside.py` vs docs/concepts/v2-target-photo.png, crop like the 17 Nov one); exports `export.main()` (drop magnet STLs)
+- [ ] README update (parts audit, main board, bumpers, charging, lidar options), merge `review/decisions-draft-18nov.md`
+      into docs/decisions.md, fill RESULTS_PENDING in `review/main-board-fit.md`, commit, `git pull --rebase`, push, webhook Pip
+      (paths: both option renders, review/lidar-occlusion.png, side-by-side, checks output, board-fit report)
+
+### How to resume
+
+1. Bridge: `nohup python3 -I cad/v2/scripts/bridge_recv.py ~/ops/sb-v2-tools/in cad/v2/scripts &` (from the repo root).
+2. If the session's Fusion MCP tool is down but `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:27182/mcp` gives 405,
+   use `python3 cad/v2/scripts/fmcp.py job <tag> "[('<stage>.py', '<call>')]"` (runs the loader, saves on success) or
+   `fmcp.py exec <script.py> [ro]`.
+3. Run stage `s4b_mainboard` before `s4_electronics` (s4 needs `mb_top`).

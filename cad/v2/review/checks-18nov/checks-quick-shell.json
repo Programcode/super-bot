@@ -1,0 +1,13 @@
+{
+ "stage": "shell",
+ "prefixes": [
+  "Shell"
+ ],
+ "bodies": 57,
+ "near": 240,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 57,
+ "seconds": 10
+}

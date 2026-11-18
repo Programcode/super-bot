@@ -1,0 +1,22 @@
+{
+ "keepouts": 31,
+ "option_a_volumes": 6,
+ "rev_a_hits": [
+  {
+   "keepout": "keep-out J102 MAIN SWITCH XT30PW-M (plug from the side edge)",
+   "part": "Shell (printed smoked PETG):1 / side wall right",
+   "mm3": 191.9
+  },
+  {
+   "keepout": "keep-out J101 BAT IN XT60PW-M (plug from the side edge)",
+   "part": "Shell (printed smoked PETG):1 / side wall right",
+   "mm3": 313.9
+  },
+  {
+   "keepout": "keep-out J101 BAT IN XT60PW-M (plug from the side edge)",
+   "part": "Drive FR:1 / roller 4",
+   "mm3": 234.0
+  }
+ ],
+ "option_a_hits": []
+}

@@ -1,0 +1,22 @@
+{
+ "stage": "back",
+ "prefixes": [
+  "BNO085",
+  "Speaker",
+  "Main power",
+  "ESP32-S3 spare"
+ ],
+ "bodies": 13,
+ "near": 39,
+ "unhealthy": [],
+ "interference": [
+  {
+   "a": "Speaker 40 mm (Adafruit 3968) / speaker 40 mm 4 ohm (Adafruit 3968)",
+   "b": "Speaker 40 mm (Adafruit 3968) / speaker cone",
+   "mm3": 90.79
+  }
+ ],
+ "bed": [],
+ "printed_checked": 3,
+ "seconds": 2
+}

@@ -23,6 +23,8 @@ PARAMS7 = [
 
 def pod():
     for n, e, cm in PARAMS7:
+        if n == 'lidar_rise' and design.userParameters.itemByName(n):
+            continue   # keep the chosen option
         param(n, e, cm)
     param('scan_z', 'body_top + plinth_h + knuckle_h/2 + lidar_rise', 'Lidar scan plane Z (option A 301 mm, B 467 mm)')
     opt_b = mm('lidar_rise') > 0.5

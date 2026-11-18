@@ -1,0 +1,13 @@
+{
+ "stage": "bumpers",
+ "prefixes": [
+  "Bumpers"
+ ],
+ "bodies": 19,
+ "near": 69,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 11,
+ "seconds": 3
+}

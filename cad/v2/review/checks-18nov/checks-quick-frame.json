@@ -1,0 +1,13 @@
+{
+ "stage": "frame",
+ "prefixes": [
+  "Frame"
+ ],
+ "bodies": 21,
+ "near": 233,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 16,
+ "seconds": 10
+}

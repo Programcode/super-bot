@@ -33,7 +33,7 @@ PRINT_FACTOR = 0.75     # printed non-shell parts: 4 perimeters + ~30 % infill v
 WIRING_G = 220          # harness estimate (16 AWG power runs, signal looms, ribbon), placed at z 160
 BED = 256.0
 SKIP = ('Face graphic',)
-HARDWARE_SAME = ('Main board', 'Bumpers', 'Lidar', 'Corner tie rods', 'L0 posts', 'Motor JGB37', 'Wheel mecanum', 'Battery 3S4P', 'Raspberry Pi', 'ESP32', 'BNO085',
+HARDWARE_SAME = ('Speaker', 'Main board', 'Bumpers', 'Lidar', 'Corner tie rods', 'L0 posts', 'Motor JGB37', 'Wheel mecanum', 'Battery 3S4P', 'Raspberry Pi', 'ESP32', 'BNO085',
                  'Cliff sensors', 'Lidar LDROBOT', 'Raspberry Pi Camera', 'TFT 1.3in', 'Servo MG90S', 'Pi 5 V', 'Servo 6 V', 'Power distribution',
                  'Audio', 'Motor driver board', 'Circuit Playground', 'Mic INMP441', 'Main power', 'Charge port', 'Power connectors')
 
@@ -294,35 +294,28 @@ def floating(tol=0.3, tag='floating'):
 
 
 def keepouts(tag='keepouts'):
-    """Connector access: every keep-out volume (mated plug + cable bend) must be free of every real
-    part except its own board, the wiring paths and the shell walls' air. Uploads checks-keepouts.json."""
+    """Connector access: every keep-out volume (mated plug + cable bend) must be free of every real part
+    except its own board and the wiring paths. Uses temporary B-rep intersections, so it works on the
+    hidden keep-out bodies. Uploads checks-keepouts.json."""
     ko = [b for o in root.allOccurrences if o.component.name.startswith('Main board keep-outs') for b in o.bRepBodies]
-    others = [b for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(
+    others = [(o, b) for (o, c, b) in items() if not o.fullPathName.split('+')[0].startswith(
         SKIP + ('Wiring harness', 'Main board keep-outs', 'Main board rev A')) and not any(seg.startswith(SKIP) for seg in o.fullPathName.split('+'))]
     hits = []
     for k in ko:
         bb = k.boundingBox
-        near = [b for b in others if all(b.boundingBox.minPoint.asArray()[i] <= bb.maxPoint.asArray()[i] and
-                                         b.boundingBox.maxPoint.asArray()[i] >= bb.minPoint.asArray()[i] for i in range(3))]
-        if not near:
-            continue
-        col = OC.create()
-        col.add(k)
-        for b in near:
-            col.add(b)
-        inp = design.createInterferenceInput(col)
-        inp.areCoincidentFacesIncluded = False
-        for r in design.analyzeInterference(inp):
-            a, b2 = r.entityOne, r.entityTwo
-            if k.entityToken not in (a.entityToken, b2.entityToken):
+        for o, b in others:
+            b2 = b.boundingBox
+            if not all(b2.minPoint.asArray()[i] <= bb.maxPoint.asArray()[i] and b2.maxPoint.asArray()[i] >= bb.minPoint.asArray()[i] for i in range(3)):
                 continue
-            other = b2 if a.entityToken == k.entityToken else a
-            hits.append({'keepout': k.name, 'part': (other.assemblyContext.fullPathName if other.assemblyContext else '') + ' / ' + other.name,
-                         'mm3': round(r.interferenceBody.volume * 1000, 1)})
+            t1, t2 = TB.copy(k), TB.copy(b)
+            TB.booleanOperation(t1, t2, adsk.fusion.BooleanTypes.IntersectionBooleanType)
+            v = t1.volume * 1000.0
+            if v > 0.5:
+                hits.append({'keepout': k.name, 'part': o.fullPathName.split('+')[0] + ' / ' + b.name, 'mm3': round(v, 1)})
     opt_a = [h for h in hits if h['keepout'].startswith('option (a)')]
     rev_a = [h for h in hits if not h['keepout'].startswith('option (a)')]
     R = {'keepouts': len(ko), 'option_a_volumes': sum(1 for k in ko if k.name.startswith('option (a)')),
-         'rev_a_hits': rev_a, 'option_a_hits': opt_a, 'hits': hits}
+         'rev_a_hits': rev_a, 'option_a_hits': opt_a}
     put_json('checks-%s.json' % tag, R)
     log('keepout check: %d volumes; rev A blocked %d, option (a) blocked %d' % (len(ko), len(rev_a), len(opt_a)))
 

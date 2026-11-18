@@ -1,0 +1,15 @@
+{
+ "stage": "front",
+ "prefixes": [
+  "Raspberry Pi",
+  "Main board rev A",
+  "Circuit Playground"
+ ],
+ "bodies": 101,
+ "near": 15,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 1,
+ "seconds": 2
+}
