@@ -6,15 +6,21 @@ Everything to buy to build Super bot v2 as it is modelled now (`super-bot-v2.f3d
 
 | | EUR net | EUR incl. VAT |
 | --- | --- | --- |
-| Parts and materials (robot, without the main board) | 829 | 1040 |
+| Parts and materials | 829 | 1040 |
 | Shipping (one line per seller) | 66 | 84 |
-| **Robot without the main board** | **895** | **1124** |
-| Main board rev B, 5 assembled boards from JLCPCB ([`QUOTES.md`](../../hw/main-board/QUOTES.md)) | 261 | 331 |
-| **Robot with the main board** | **1156** | **1455** |
+| **Robot total** | **895** | **1124** |
+
+**Main board add-on: parked, not ordering yet.** Adam treats the custom board (rev B) as a design test for now, so it is not in the robot total. If it is ordered later, from the JLCPCB quotes in [`QUOTES.md`](../../hw/main-board/QUOTES.md):
+
+| Main board rev B (JLCPCB Economic, assembled) | EUR net | EUR incl. VAT |
+| --- | --- | --- |
+| 5 boards | 261 | 332 |
+| 2 boards | 179 | 227 |
+
+With 5 boards, robot + board would be EUR 1156 net / 1455 incl. VAT.
 
 - **Already owned, not counted:** Raspberry Pi 5 8 GB and the Circuit Playground Express.
 - **Not counted:** the optional HC-SR04+ (EUR 2), laser cutting (only priced after a DXF upload), CA glue, tools.
-- **Main board for 2 boards instead of 5:** EUR 179 net / 227 incl. VAT, so the robot with the board comes to about EUR 82 net / 105 incl. VAT less. Five boards cost only about EUR 80 more and leave three spares.
 - **Biggest lines:** the AI HAT+ 2 (about EUR 216 incl. VAT), the LD19 (about EUR 140), wheels + hubs (about EUR 140) and the 4 Kiwi sensors + IMU (about EUR 105).
 
 **How the money is worked out.**
@@ -31,13 +37,31 @@ Everything to buy to build Super bot v2 as it is modelled now (`super-bot-v2.f3d
 - **Unverified ("listing"):** AliExpress shows a captcha to the server that checked the links, so most AliExpress lines (except the motors) are priced from the search listing. Open those pages and re-check the variant before ordering. They are marked "listing" in the Stock column.
 - **Shipping estimates:** where a shop shows shipping only in the cart, the line says "est.".
 
-## Open decisions (defaults chosen, flagged to Pip)
+## Open decisions for Adam (spending calls; defaults are in the totals)
 
-1. **Building the 3S4P pack.** The list assumes spot-welded nickel strip, which needs a spot welder. The other options are a ready-made 3S4P pack (check that its size fits the 38 x 58 x 134 mm block) or a battery shop building it from these cells. Don't solder directly onto cells.
-2. **Two 15 A fuses.** The pack fuse (P5) and the board's own F101 both stay. The pack fuse protects the lead from the pack to the board.
-3. **Main board: 5 or 2 boards.** The list uses 5 (QUOTES.md recommends it).
-4. **LD19 source.** RobotShop EU (in stock, verified, about EUR 140 incl. VAT) is the default. AliExpress is about EUR 60 cheaper, but the variant and delivery to Hungary are unverified.
-5. **Wheels.** The Nexus 100 mm set the model is drawn from is on backorder at RobotShop EU. AliExpress sets with 6 mm couplings are cheaper but unverified. Their hub and width must match 100 x 50 mm.
+1. **Building the 3S4P pack.**
+   - **Default:** spot-weld it with pure nickel strip (P3) and fish-paper rings (P4), about EUR 9 incl. VAT, plus a spot welder if you don't have one (not priced here).
+   - **Alternatives:** buy a ready-made 3S4P pack that fits the 38 x 58 x 134 mm block, or have a battery shop build one from the 12 cells (P1, EUR 41). Neither was priced. Either would replace P1-P4 (about EUR 52 incl. VAT).
+   - **Don't** solder onto the cells.
+2. **LD19 source.**
+   - **Default:** RobotShop EU, in stock and verified: EUR 137 incl. VAT (+ shared RobotShop shipping).
+   - **Alternative:** AliExpress LDROBOT listing at EUR 75-81 incl. VAT, about **EUR 56-62 less**. The variant (LD19 vs LD06/LD14) and delivery to Hungary are unverified.
+3. **Wheels source.**
+   - **Default:** the Nexus 100 x 50 mm set the model is drawn from, plus 4 hubs at RobotShop EU: EUR 95 + 45 = **EUR 140** incl. VAT. The wheels are on **backorder**.
+   - **Alternative:** AliExpress 100 mm sets with 6 mm couplings at EUR 40-115 in listings, about **EUR 25-100 less**. Unverified; the wheel must be 100 x 50 mm, 2 L + 2 R.
+
+**Decided (Pip, 19 Nov):**
+- **Fuses:** keep both 15 A fuses, the pack fuse (P5) and the board's own F101.
+- **Main board:** parked, not ordering yet; it stays outside the robot total (above).
+
+## CAD follow-ups
+
+The chosen parts differ from what the model draws. Don't change the CAD from this thread; the wiring thread holds the Fusion lock. Update these in the next Fusion pass:
+
+| Part | In the model | Real part | Link |
+| --- | --- | --- | --- |
+| BMS (P2) | 64 x 20 x 3.4 mm on the pack top | **62 x 41 x 3.4 mm**: wider than the 38 mm pack top; still inside the 53 mm battery tunnel | [Hestore 3S-60A-B](https://www.hestore.hu/prod_10046831.html) |
+| Ideal-diode module (P9) | 22 x 16 x 5 mm (EST) | **17 x 11.7 x 10.2 mm**: smaller footprint, 5 mm taller | [Hestore XL74610-M](https://www.hestore.hu/prod_10049170.html) |
 
 ## Placeholders in the model
 
@@ -46,8 +70,7 @@ Sizes in the CAD that are still estimates. Re-measure the real part on arrival a
 | Part | In the model | What the chosen part says |
 | --- | --- | --- |
 | JGB37 encoder length | 12 mm (EST) | not on the listing; shaft length differs between listings (14 / 15.5 / 21.5 mm) |
-| BMS | 64 x 20 x 3.4 mm | **62 x 41 x 3.4 mm** (Hestore 3S-60A-B): wider than the pack top, fits the 53 mm battery tunnel |
-| Ideal-diode module (new) | 22 x 16 x 5 mm (EST) | **17 x 11.7 x 10.2 mm** (XL74610-M): 5 mm taller |
+| BMS, ideal-diode module | see CAD follow-ups | |
 | INMP441 hole positions | 14 x 14 mm board (EST) | no drawing on any seller page |
 | Fuse holder bodies | estimated | in-line mini-blade holder about 38 x 25 x 13 mm (listing) |
 | AI HAT+ 2 heatsink | 42 x 42 x 14 mm (EST) | ships with the HAT; measure |
@@ -105,11 +128,12 @@ The INA226 placeholder is gone: the INA226 is on the main board now.
 | P9 | Ideal-diode module (charge path) | XL74610-M (TI LM74610 + MOSFET), 1.5-36 V, 30 A | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10049170.html)<br>Alt: [Hestore IDLD-15](https://www.hestore.hu/prod_10046690.html), 15 A, 28 x 23 mm, 1 256 Ft net | 1.97 | 2.50 | > 100 in stock<br>**Placeholder in the model:** drawn as 22 x 16 x 5 mm (EST); this module is 17 x 11.7 x 10.2 mm: smaller but 5 mm taller, update the model |
 | P10 | Charger | 3S Li-ion charger 12.6 V 2 A, CC/CV, 5.5 x 2.1 plug (6-3-11) | 1 | 1 | [Modulshop.hu](https://modulshop.hu/litum-ion-akkupakk-tolto-3s-126-volt-2a-856)<br>Alt: in stock: [Kamami.pl Waveshare 29567](https://kamami.pl/zasilacze-sieciowe/1197565-power-supply-lithium-battery-charger-12-6v-2a-dc-jack-output-od-5-5mm-id-2-1mm-eu-plug-5902186304987.html), 29.20 zł gross (about EUR 6.60), 1 left. ElektroArt YX-126200 (2 420 Ft) was found by research but its page is gone (404) | 6.61 | 8.39 | **not in stock: "Szállítás alatt" (incoming)**<br>**Check:** page does not say whether 3 100 Ft includes VAT (treated as gross) or the plug polarity; check centre-positive before the first charge |
 
-## Main board (custom PCB)
+## Main board add-on (parked, not ordering yet; not in the robot total)
 
 | # | Item | Part / variant to pick | Qty | Buy | Seller | EUR net | EUR incl. VAT | Stock, notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| B1 | Main board rev B, 5 assembled boards | JLCPCB Economic PCBA: 4-layer 186 x 70 mm, parts, assembly, part fees, shipping | 1 | 1 | [JLCPCB (quote)](../../hw/main-board/QUOTES.md) | 261.00 | 331.47 | quoted 18 Nov 2026, not ordered. **Rev B is not orderable yet**: 19 Nov gate still has 3 DRC errors and 6 unconnected (hw/main-board/rev-b/HANDOFF.md)<br>qty 2 is EUR 179 net / 227 incl. VAT. The price already includes the hand-solder THT kit (2 x XT60PB-M, XF-506P fuse holder, 2x20 box header, 4 x B6B-XH-A, 2 x 1x3 servo header): add those to the JLC order as loose parts and solder them yourself. Rev B also drops the LED BAR channel need (J412 stays empty). |
+| B1 | Main board rev B, 5 assembled boards | JLCPCB Economic PCBA: 4-layer 186 x 70 mm, parts, assembly, part fees, shipping | 1 | 1 | [JLCPCB (quote)](../../hw/main-board/QUOTES.md) | 261.00 | 331.47 | **parked, not ordering yet.** Quoted 18 Nov 2026. Rev B is also not orderable yet: 19 Nov gate still has 3 DRC errors and 6 unconnected (hw/main-board/rev-b/HANDOFF.md)<br>The price already includes the hand-solder THT kit (2 x XT60PB-M, XF-506P fuse holder, 2x20 box header, 4 x B6B-XH-A, 2 x 1x3 servo header): add those to the JLC order as loose parts and solder them yourself. Rev B also drops the LED BAR channel need (J412 stays empty). |
+| B2 | Main board rev B, 2 assembled boards (option) | same as B1, qty 2 | 1 | 1 | [JLCPCB (quote)](../../hw/main-board/QUOTES.md) | 179.00 | 227.33 | **parked, not ordering yet**<br>alternative to B1: about EUR 82 net less, no spare boards |
 
 ## Wiring, connectors and crimps
 

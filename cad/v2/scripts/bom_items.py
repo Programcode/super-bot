@@ -16,7 +16,7 @@ S_COMP = 'Compute, camera and head electronics'
 S_SENS = 'Sensors, audio, servos'
 S_DRIVE = 'Drive and lidar'
 S_POWER = 'Battery and power path'
-S_BOARD = 'Main board (custom PCB)'
+S_BOARD = 'Main board add-on (parked, not ordering yet; not in the robot total)'
 S_WIRE = 'Wiring, connectors and crimps'
 S_MECH = 'Mechanical: bearings, shaft, magnets, fasteners'
 S_MAT = 'Printed and cut parts (materials)'
@@ -140,10 +140,13 @@ ITEMS = [
     # ---------------------------------------------------------------- board
     dict(id='B1', section=S_BOARD, item='Main board rev B, 5 assembled boards', part='JLCPCB Economic PCBA: 4-layer 186 x 70 mm, parts, assembly, part fees, shipping',
          qty=1, buy=1, total='board', seller='JLCPCB (quote)', url='../../hw/main-board/QUOTES.md', price=261, cur='EUR', incl=0,
-         stock='quoted 18 Nov 2026, not ordered. **Rev B is not orderable yet**: 19 Nov gate still has 3 DRC errors and 6 unconnected (hw/main-board/rev-b/HANDOFF.md)',
-         notes='qty 2 is EUR 179 net / 227 incl. VAT. The price already includes the hand-solder THT kit (2 x XT60PB-M, XF-506P fuse holder, '
+         stock='**parked, not ordering yet.** Quoted 18 Nov 2026. Rev B is also not orderable yet: 19 Nov gate still has 3 DRC errors and 6 unconnected (hw/main-board/rev-b/HANDOFF.md)',
+         notes='The price already includes the hand-solder THT kit (2 x XT60PB-M, XF-506P fuse holder, '
                '2x20 box header, 4 x B6B-XH-A, 2 x 1x3 servo header): add those to the JLC order as loose parts and solder them yourself. '
                'Rev B also drops the LED BAR channel need (J412 stays empty).'),
+    dict(id='B2', section=S_BOARD, item='Main board rev B, 2 assembled boards (option)', part='same as B1, qty 2',
+         qty=1, buy=1, total='board_alt', seller='JLCPCB (quote)', url='../../hw/main-board/QUOTES.md', price=179, cur='EUR', incl=0,
+         stock='**parked, not ordering yet**', notes='alternative to B1: about EUR 82 net less, no spare boards'),
     # ---------------------------------------------------------------- wiring
     dict(id='W1', section=S_WIRE, item='XT60 plugs', part='XT60H male (XT60H-M-CF) + female (XT60H-F-CF), solder cup', qty=3, buy=3, unit='M+F pair', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10051883.html', price=421 + 473, cur='HUF', incl=0, stock='> 350 male, > 250 female',

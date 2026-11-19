@@ -112,7 +112,7 @@ def main():
             if r.get('notes'):
                 bits.append(r['notes'])
             note = '<br>'.join(b for b in bits if b)
-            tag = ' (owned)' if r.get('owned') else {'optional': ' (optional)', 'board': ''}.get(r.get('total'), '')
+            tag = ' (owned)' if r.get('owned') else {'optional': ' (optional)'}.get(r.get('total'), '')
             buy = '%s x %s' % (r.get('buy', 1), r['unit']) if r.get('unit') else str(r.get('buy', ''))
             md += '| %s | %s%s | %s | %s | %s | %s | %s | %s | %s |\n' % (
                 r['id'], r['item'], tag, r.get('part', ''), r.get('qty', ''), buy, seller,
