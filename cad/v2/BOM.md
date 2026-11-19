@@ -6,9 +6,9 @@ Everything to buy to build Super bot v2 with off-the-shelf control and power mod
 
 | | EUR net | EUR incl. VAT |
 | --- | --- | --- |
-| Parts and materials | 992 | 1246 |
+| Parts and materials | 996 | 1252 |
 | Shipping (one line per seller) | 74 | 94 |
-| **Robot total** | **1066** | **1341** |
+| **Robot total** | **1071** | **1347** |
 
 The custom main board (rev B, [`hw/main-board`](../../hw/main-board)) is **parked, not ordering**: it is not part of v2 and not in any total.
 
@@ -50,7 +50,7 @@ The custom main board (rev B, [`hw/main-board`](../../hw/main-board)) is **parke
 
 ## CAD follow-ups
 
-The chosen parts differ from what the model draws. Don't change the CAD from this thread; the wiring thread holds the Fusion lock. Update these in the next Fusion pass:
+The chosen parts differ from what the model draws. Not changed in CAD by this thread; update them in the next Fusion pass:
 
 | Part | In the model | Real part | Link |
 | --- | --- | --- | --- |
@@ -59,14 +59,14 @@ The chosen parts differ from what the model draws. Don't change the CAD from thi
 
 ## Placeholders in the model
 
-Sizes in the CAD that are still estimates. Re-measure the real part on arrival and update the model. The module blocks themselves are being placed by the wiring thread.
+Sizes in the CAD that are still estimates. Re-measure the real part on arrival and update the model. The module blocks are placed in the model by the wiring thread (19 Nov).
 
 | Part | In the model | What the chosen part says |
 | --- | --- | --- |
 | JGB37 encoder length | 12 mm (EST) | not on the listing; shaft length differs between listings (14 / 15.5 / 21.5 mm) |
 | BMS, ideal-diode module | see CAD follow-ups | |
 | ESP32-S3 dev board (K2) | DevKitC-1 cradle | clone board; measure before printing the cradle |
-| PDB (K5) | old layout: PDB on the left cheek | AliExpress listing; size depends on the board you get |
+| PDB (K5), INA226 (K6) | right cheek (wiring thread layout); INA226 drawn as the 26 x 22 mm 20 A module | AliExpress listings; check sizes on arrival |
 | INMP441 hole positions | 14 x 14 mm board (EST) | no drawing on any seller page |
 | Fuse holder bodies | estimated | in-line mini-blade holder about 38 x 25 x 13 mm (listing) |
 | AI HAT+ 2 heatsink | 42 x 42 x 14 mm (EST) | ships with the HAT; measure |
@@ -133,55 +133,144 @@ The old INA226 "hole positions" placeholder now points at the chosen module: INA
 | K3 | Pi 5 V buck | Pololu D36V50F5, 5 V 5.5 A step-down (#4091) | 1 | 1 | [Opencircuit (NL)](https://opencircuit.nl/product/5v-5.5a-step-down-voltage-regulator-d36v50f5) | 45.15 | 57.34 | external warehouse, 5-7 working days<br>25.4 x 25.4 x 9.5 mm, 3 x M2 holes. Pi 5 in 5 A mode (usb_max_current_enable=1) |
 | K4 | Servo 6 V buck | Pololu D36V28F6, 6 V 2.7 A step-down (#3783) | 1 | 1 | [Opencircuit (NL)](https://opencircuit.nl/product/6v-2.7a-step-down-voltage-regulator-d36v28f6) | 26.65 | 33.85 | 54 in external warehouse, 5-7 working days<br>17.8 x 20.3 x 8.8 mm, 2 x M2 holes |
 | K5 | Power distribution board | PDB: XT60 in, 4 x XT30 out, 60 A | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-xt60-to-xt30-power-distribution-board.html)<br>Alt: [Holybro PDB 60A](https://holybro.com/products/power-distribution-board-pdb), USD 4.59, XT30 pre-soldered option; or build one on perfboard with an [XT60PW-M](https://www.hestore.hu/prod_10051895.html) (592 Ft net) and bus wire | 3.15 | 4.00 | listing<br>**Check:** not page-verified (AliExpress captcha); pick one with the XT30 outputs fitted |
-| K6 | Battery monitor | INA226-M module (I2C, 18 x 19.4 mm) | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10048984.html) | 1.75 | 2.22 | > 500 in stock<br>**Check:** its on-board shunt is the 0.1 ohm (R100) type, good for about 0.8 A only: remove it and wire K7 instead |
-| K7 | Current shunt for the INA226 | SHUNT-FL-2-75-20A: 75 mV / 20 A (3.75 mOhm), 0.5 % | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10051243.html) | 5.12 | 6.51 | > 20 in stock<br>in the PDB input; the INA226 then reads up to about 21.8 A (81.9 mV full scale) |
+| K6 | Battery monitor | INA226 20 A module with on-board 2 mOhm shunt (about 26 x 22 mm), I2C | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-ina226-20a-module.html)<br>Alt: [Hestore INA226-M](https://www.hestore.hu/prod_10048984.html) (647 Ft net, 0.1 ohm shunt: about 0.8 A only) + [SHUNT-FL-2-75-20A](https://www.hestore.hu/prod_10051243.html) (1 893 Ft net, 75 mV / 20 A); verified, but the shunt is larger than the modelled module | 2.36 | 3.00 | listing<br>**Check:** not page-verified; it must be the 20 A version with the 2 mOhm (R002) shunt, not the 0.1 ohm one<br>the part the wiring thread modelled (PDB + INA226 on the right cheek) |
 | K8 | Audio amp | MAX98357 I2S class-D amp module, 3 W (MAX98357-M) | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10045704.html) | 2.57 | 3.26 | > 350 in stock<br>generic module; same chip as the Adafruit 3006 drawn in the old layout |
-| K9 | Perfboard | HS-005 prototyping board, 83 x 54 mm, 2.54 mm | 2 | 2 | [Hestore.hu](https://www.hestore.hu/prod_10043091.html) | 2.92 | 3.71 | > 500 in stock<br>**Check:** final size comes from the wiring thread's module layout<br>one for the 4 driver carriers, one for the ESP32 / signal breakout |
-| K10 | Pin headers | MSRH-40 straight breakable header, 40 pin, 2.54 mm | 4 | 4 | [Hestore.hu](https://www.hestore.hu/prod_10041768.html) | 1.51 | 1.91 | > 350 in stock<br>servo headers, the 2x20 Pi GPIO breakout and spares (the Pololu boards ship with their own headers) |
-| K11 | Screw terminals | KFG-2EDGVC-5.08-2P PCB screw terminal, 2-pole, 5.08 mm | 6 | 6 | [Hestore.hu](https://www.hestore.hu/prod_10042553.html) | 1.30 | 1.64 | > 500 in stock<br>motor power in on the driver perfboard, buck inputs and outputs |
-| K12 | Motor connectors on the perfboard | B6B-XH-A, JST XH 6-pin THT header | 4 | 4 | [Hestore.hu](https://www.hestore.hu/prod_10041552.html) | 1.92 | 2.43 | > 25 in stock<br>mates the XH-6 plugs on the motor leads (W6): M+, GND, A, B, VCC, M- |
+| K9 | Perfboard (driver board) | HS-005 prototyping board, 83 x 54 mm, 2.54 mm | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10043091.html) | 1.46 | 1.86 | > 500 in stock<br>carries the 4 DRV8874 carriers, the nSLEEP bus, the XT30 12 V input, the 4 motor terminals and the XH-10 logic header |
+| K10 | Female headers for the ESP32 cradle | 2.54 mm single-row female header, 1 x 40 (cut to 2 x 22) | 2 | 2 | [AliExpress](https://www.aliexpress.com/w/wholesale-2.54mm-female-header-1x40.html) | 0.79 | 1.00 | listing<br>**Check:** not page-verified; Hestore search had no 2.54 mm female strip<br>the DevKit sits pins-down in its printed cradle on two 1 x 22 rows; wires are soldered to the header tails |
+| K11 | Motor terminals | KFG-2EDGVC-5.08-2P PCB screw terminal, 2-pole, 5.08 mm | 4 | 5 | [Hestore.hu](https://www.hestore.hu/prod_10042553.html) | 1.08 | 1.37 | > 500 in stock<br>one per motor (OUT1 / OUT2, wires in 0.25 mm² ferrules), + 1 spare |
+| K12 | Logic header on the driver board | XH-10A, JST XH 10-pin THT header, straight | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10041654.html) | 0.30 | 0.38 | > 75 in stock<br>mates cable L01 (ESP32 -> 4 x EN/PH + 3V3 + GND) |
 
 ## Wiring, connectors and crimps
 
-**Wire lengths: pending the wiring thread.** The wiring thread is re-laying out the electronics with these modules. Its wire list (`review/wiring.json`, `WIRING.md`) will replace the estimates below, run by run, with gauge, length, connector and pin.
+**Wire lengths and crimps come from the wiring thread** ([`WIRING.md`](WIRING.md), [`review/wiring.json`](review/wiring.json), modelled in Fusion on 19 Nov). Cut length = routed centreline + 12 mm, rounded up to 5 mm; stock cables keep their stock length. The rows below buy each gauge with about 20 % spare. Per-conductor pins and colours are in `WIRING.md`.
 
-Estimates until then (module layout as in the 18 Nov README: drivers + ESP32 low on the spine, PDB + INA226 on the left cheek, bucks behind the Pi and on the right cheek, amp and speaker on the rear plate):
+| Wire (silicone) | Metres incl. cut allowance | Bought as |
+| --- | --- | --- |
+| 16 AWG black | 0.81 | W3 |
+| 16 AWG red | 1.09 | W3 |
+| 18 AWG black | 0.45 | W4c |
+| 18 AWG red | 0.58 | W4c |
+| 20 AWG black | 0.29 | W4c (18 AWG) |
+| 20 AWG red | 0.29 | W4c (18 AWG) |
+| 22 AWG black | 0.29 | W4 |
+| 22 AWG red | 0.36 | W4 |
+| 24 AWG black | 0.32 | W4 (22 AWG) |
+| 24 AWG red | 0.95 | W4 (22 AWG) |
+| 24 AWG white | 0.64 | W4 (22 AWG) |
+| 26 AWG black | 1.44 | W4b |
+| 26 AWG blue | 1.44 | W4b |
+| 26 AWG green | 1.00 | W4b |
+| 26 AWG red | 0.43 | W4b |
+| 26 AWG yellow | 1.44 | W4b |
+| 28 AWG black | 3.15 | W4a |
+| 28 AWG blue | 1.82 | W4a |
+| 28 AWG green | 1.46 | W4a |
+| 28 AWG grey | 0.45 | W4a |
+| 28 AWG orange | 0.92 | W4a |
+| 28 AWG red | 1.90 | W4a |
+| 28 AWG white | 2.02 | W4a |
+| 28 AWG yellow | 2.25 | W4a |
 
-| Run | From -> to | Wire | Est. length | Ends |
-| --- | --- | --- | --- | --- |
-| Battery in | sled XT60 bulkhead -> loop key socket -> PDB input (through the shunt) | 1.5 mm² red + black | about 0.9 m each in total | XT60 |
-| Pack | BMS -> 15 A fuse -> sled XT60 | 1.5 mm² red + black | 0.25 m each | XT60 M |
-| Charge | jack -> ideal diode -> 5 A fuse -> BMS P+ | 18 AWG (holder leads) | 0.25 m each | solder |
-| PDB outputs | PDB -> driver perfboard / Pi buck / servo buck | 1.5 mm² | 0.25 m pairs x 3 | XT30 |
-| Pi 5 V | D36V50F5 -> Pi USB-C | USB-C pigtail | 0.15 m | USB-C |
-| Motors | 4 x JGB37 lead -> driver perfboard | stock 6-wire lead, rear ones extended with 22 AWG | front 0.15 m, rear 0.40 m | XH-6 |
-| Cliff 1-4 + IMU | ESP32 I2C -> VL53L0X / BNO085 (+ XSHUT, INT, RST) | SH-4 leads + 22 AWG | 0.15-0.35 m | STEMMA QT / solder |
-| Bumpers | ESP32 -> 4 x D2F-01L (signal + GND each) | 22 AWG | front 0.25 m, rear 0.50 m | solder |
-| Lidar | Pi UART (signal perfboard) -> LD19 stock cable | 22 AWG splice | 0.50 m | Dupont |
-| CPX | 5 V / GND into its JST battery jack, RX, watchdog line to the driver SLEEP pins | 22 AWG | 0.30 m | PH-2 + solder |
-| Speaker | MAX98357 -> speaker | 22 AWG | 0.20 m | screw terminal |
-| Mic, TFT | signal perfboard -> head, up the pan shaft | 22 AWG silicone, 6 + 8 wires | 0.60 m | solder |
-| Servos | servo header -> pan / tilt MG90S | stock lead + 300 mm extension | 0.30 m + stock | 3-pin |
-| Pi GPIO | AI HAT+ 2 header -> signal perfboard | 40-way ribbon | 0.15 m | IDC |
-| Camera | Pi CAM -> head | FPC | 0.50 m | 22-pin / 15-pin |
+| Connector, crimp or bought cable (wiring list) | Qty | Bought as |
+| --- | --- | --- |
+| JST-XH housing 4-pin (XHP-4) | 1 | W6 |
+| JST-XH crimp contact | 14 | W6 |
+| XT60 female (bulkhead, cable side) | 1 | W1 |
+| XT60H male plug (cable) | 2 | W1 |
+| XT30 female plug (cable) | 4 | W2b |
+| DIY right-angle USB-C plug 5 A (solder) | 1 | W9 |
+| Dupont 2.54 female crimp | 24 | W7 |
+| JST-ZH housing 4-pin (ZHR-4) | 1 | W6b |
+| JST-ZH crimp contact | 4 | W6b |
+| JST-PH housing 2-pin (PHR-2) | 1 | W5 |
+| JST-PH crimp contact | 26 | W5 |
+| JST-PH housing 6-pin (PHR-6) | 4 | W5 |
+| bootlace ferrule 0.25 mm2 | 8 | W8b |
+| JST-XH housing 10-pin (XHP-10) | 1 | W6 |
+| JR/Futaba 3-pin male housing | 2 | W10 (cut male ends) |
+| bootlace ferrule 0.5 mm2 | 2 | W8b |
+| Dupont 2x20 housing (2.54) | 1 | W7 |
+| JR male crimp contact | 6 | W10 (cut male ends) |
+| heatshrink 3 mm / 5 mm / 8 mm (m) | 0.5 / 0.5 / 0.3 (EST) | W11 |
+| cable ties 2.5 mm (pcs) | 23 | W12 |
+| Raspberry Pi 5 camera cable 22-to-15 pin, 500 mm (bought) | 1 | C5 |
+| USB-A to right-angle USB-C cable, 15 cm (USB 2.0 data) (bought) | 1 | W8 |
+| JR servo extension male-female 150 mm (bought) | 1 | W10 |
 
-That is about 2 m each of red and black 1.5 mm² (3 m each bought, for margin) and about 22 m of 22 AWG (50 m kit).
+<details><summary>All 46 cables (id, cable, conductors, cut length)</summary>
+
+| Id | Cable | Conductors | Cut (mm) |
+| --- | --- | --- | --- |
+| S01 | pack B- to BMS B- | 1 x 16 AWG | 30 |
+| S02 | BMS balance lead | 4 x 22 AWG | 35 |
+| S03 | B+ to 15 A fuse in | 1 x 16 AWG | 60 |
+| S04 | 15 A fuse out to sled XT60 male + | 1 x 16 AWG | 75 |
+| S05 | BMS P- to sled XT60 male - | 1 x 16 AWG | 130 |
+| S06 | charge jack + to 5 A fuse in | 1 x 18 AWG | 65 |
+| S07 | 5 A fuse out to ideal diode IN | 1 x 18 AWG | 25 |
+| S08 | ideal diode OUT to pack B+ | 1 x 18 AWG | 125 |
+| S09 | charge jack - to BMS P- | 1 x 18 AWG | 80 |
+| F01 | main feed + : bulkhead XT60 to loop key A | 1 x 16 AWG | 435 |
+| F02 | main feed - : bulkhead XT60 to PDB XT60 - | 1 x 16 AWG | 325 |
+| F03 | loop key B to PDB XT60 + | 1 x 16 AWG | 195 |
+| O01 | PDB out 1 -> DRV8874 perfboard 12 V in | 2 x 16 AWG | 330 |
+| O02 | PDB out 2 -> Pi 5 V buck VIN | 2 x 18 AWG | 285 |
+| O03 | PDB out 3 -> servo 6 V buck VIN | 2 x 20 AWG | 295 |
+| P01 | Pi 5 V: buck VOUT -> Pi USB-C | 2 x 18 AWG | 80 |
+| U01 | USB 2.0 data + 5 V: Pi USB 3 -> ESP32-S3 USB | 4 x 28 AWG | stock 150 |
+| G01 | lidar: Pi GPIO -> LD19 | 4 x 26 AWG | 435 |
+| G02 | I2S out: Pi GPIO -> MAX98357A | 5 x 24/28 AWG | 195 |
+| G03 | CPX power: Pi GPIO 5 V -> CPX battery JST | 2 x 24 AWG | 120 |
+| G04 | TFT cable | 8 x 28 AWG | 380 |
+| G05 | mic cable | 6 x 28 AWG | 460 |
+| K01 | camera FFC | flat 11.5 x 0.3 | stock 500 |
+| Q01 | PCIe FFC Pi 5 -> AI HAT+ 2 | flat 10.7 x 0.3 | stock None |
+| MA | motor FL cable to the DRV terminal | 6 x 24/26 AWG | None |
+| MB | motor FR cable to the DRV terminal | 6 x 24/26 AWG | None |
+| MC | motor RL cable to the DRV terminal | 6 x 24/26 AWG | None |
+| MD | motor RR cable to the DRV terminal | 6 x 24/26 AWG | None |
+| L01 | DRV logic: ESP32 -> perfboard XH-10 | 10 x 28 AWG | 105 |
+| B01 | bumper front left | 2 x 28 AWG | 180 |
+| B02 | bumper front right | 2 x 28 AWG | 100 |
+| B03 | bumper rear left | 2 x 28 AWG | 290 |
+| B04 | bumper rear right | 2 x 28 AWG | 200 |
+| C01 | cliff sensor front | 5 x 28 AWG | 105 |
+| C02 | cliff sensor right | 5 x 28 AWG | 130 |
+| C03 | cliff sensor rear | 5 x 28 AWG | 175 |
+| C04 | cliff sensor left | 5 x 28 AWG | 210 |
+| C05 | IMU: ESP32 -> BNO085 | 6 x 28 AWG | 70 |
+| C06 | power monitor: ESP32 -> INA226 | 4 x 28 AWG | 100 |
+| W01 | heartbeat: ESP32 TX -> CPX A6/RX | 2 x 28 AWG | 185 |
+| W02 | kill line: CPX A1 -> DRV8874 SLEEP | 1 x 28 AWG | 165 |
+| V03 | servo Y harness: 6 V buck -> 2 JR sockets | 2 x 22 AWG | 30 |
+| V04 | servo signals: ESP32 -> Y harness | 2 x 28 AWG | 270 |
+| V01 | pan servo lead | 3 x 26 AWG | stock 250 |
+| V02 | tilt servo lead in the turret + shaft | 3 x 26 AWG | stock 400 |
+| A01 | speaker: MAX98357A -> 40 mm speaker | 2 x 22 AWG | 225 |
+
+</details>
 
 | # | Item | Part / variant to pick | Qty | Buy | Seller | EUR net | EUR incl. VAT | Stock, notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | W1 | XT60 plugs | XT60H male (XT60H-M-CF) + female (XT60H-F-CF), solder cup | 3 | 3 x M+F pair | [Hestore.hu](https://www.hestore.hu/prod_10051883.html) | 7.26 | 9.22 | > 350 male, > 250 female<br>female: [prod_10051884](https://www.hestore.hu/prod_10051884.html). Battery sled blind mate, loop-key leads, PDB input, loop key (+ spares) |
 | W2 | Loop key socket (upper back) | Amass XT60E-F female panel mount | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10047107.html) | 1.50 | 1.91 | > 100 in stock<br>the loop key is XT60. Flange 34 x 15.8 mm, 20.2 mm deep |
-| W2b | XT30 plugs (PDB outputs) | Amass XT30U-M + XT30U-F, solder cup | 4 | 4 x M+F pair | [Hestore.hu](https://www.hestore.hu/prod_10047228.html) | 6.25 | 7.93 | > 250 each<br>female: [prod_10047227](https://www.hestore.hu/prod_10047227.html). PDB -> driver perfboard, Pi buck, servo buck, + 1 spare |
-| W3 | Power wire | silicone 1.5 mm² (about 15.5 AWG), red + black, 3 m each | 1 | 3 x m red + m black | [Hestore.hu](https://www.hestore.hu/prod_10048505.html) | 5.67 | 7.20 | > 100 m each<br>black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Lengths: see the harness table above |
-| W4 | Signal wire | silicone 22 AWG, 5 colours x 10 m | 1 | 1 | [doitsmart.hu](https://www.doitsmart.hu/shop/5-szinu-szilokon-vezetek-50m-22awg/)<br>Alt: [Hestore 0.35 mm² PVC](https://www.hestore.hu/prod_10044705.html), 99-205 Ft/m net per colour (stiffer; avoid it through the pan shaft) | 18.97 | 24.09 | 1 left<br>**Check:** page does not say gross or net; treated as gross |
-| W5 | JST-PH 2-pin plug (CPX battery input) | 2 x PHR-2 housing + 6 x SPH-002T-P0.5S crimp | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10038521.html) | 1.29 | 1.64 | > 350 / > 500<br>[crimps](https://www.hestore.hu/prod_10038522.html). +5 V / GND into the CPX JST battery jack |
-| W6 | JST-XH 6-pin housings + crimps (motors) | 4 x XHP-6 + 30 x BXH-001T-P0.6 | 4 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10041546.html) | 2.68 | 3.41 | > 500 / > 3000<br>contacts: [prod_10035076](https://www.hestore.hu/prod_10035076.html). Re-terminates the motor leads to plug into K12 |
-| W7 | STEMMA QT / Qwiic leads (4 cliff + IMU) | SHR-4-CABLE: JST-SH 1 mm 4-pin, 100 mm, 28 AWG | 5 | 5 | [Hestore.hu](https://www.hestore.hu/prod_10049136.html) | 2.71 | 3.44 | > 250 in stock<br>**Check:** page does not say single- or double-ended<br>I2C into the VL53L0X / BNO085 STEMMA QT sockets; extend with W4 for the longer runs. XSHUT (cliff) and INT / RST (IMU) are separate W4 wires |
-| W8 | Pi GPIO ribbon | 40-way 1.27 mm grey ribbon, 1 m + 3 x 2x20 IDC sockets | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10025053.html) | 3.83 | 4.86 | > 20 m / > 75<br>socket: [prod_10026305](https://www.hestore.hu/prod_10026305.html). AI HAT+ 2 pass-through header -> a 2x20 header (K10) on the signal perfboard: ESP32 UART, I2S amp + mic, TFT SPI, lidar UART |
+| W2b | XT30 plugs (PDB outputs) | Amass XT30U-F x 4 + XT30U-M x 1, solder cup | 5 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10047227.html) | 3.71 | 4.71 | > 250 each<br>4 female cable plugs on O01-O03 (+1 spare); the male ([prod_10047228](https://www.hestore.hu/prod_10047228.html)) is the driver perfboard's 12 V input |
+| W3 | Power wire 16 AWG | silicone 1.5 mm² (about 15.5 AWG): 2 m red + 1 m black | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10048505.html) | 2.99 | 3.79 | > 100 m each<br>black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Wiring list: 1.10 m red, 0.82 m black, + 20 % |
+| W4 | Signal wire 22 AWG (also covers the 24 AWG runs) | silicone 22 AWG, 5 colours x 10 m | 1 | 1 | [doitsmart.hu](https://www.doitsmart.hu/shop/5-szinu-szilokon-vezetek-50m-22awg/) | 18.97 | 24.09 | 1 left<br>**Check:** page does not say gross or net; treated as gross<br>wiring list: 22 AWG 0.65 m, 24 AWG 1.91 m (motor M+ / M-, amp feed, CPX power). Using 22 AWG for the 24 AWG runs needs 0.5 mm² ferrules instead of 0.25 |
+| W4a | Signal wire 28 AWG | silicone 28 AWG hook-up wire kit, 8+ colours, 5 m each | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-28awg-silicone-wire-kit.html) | 7.09 | 9.00 | listing<br>**Check:** not page-verified; no Hungarian shop had thin silicone wire<br>wiring list: 14.0 m in 8 colours (black 3.15 m the most), + 20 % |
+| W4b | Signal wire 26 AWG | silicone 26 AWG hook-up wire kit, 5+ colours, 5 m each | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-26awg-silicone-wire-kit.html) | 6.30 | 8.00 | listing<br>**Check:** not page-verified<br>wiring list: 5.8 m (black, blue, yellow 1.44 m each; green 1.0; red 0.43): the motor encoder leads and the lidar run |
+| W4c | Power wire 18 AWG (also covers the 20 AWG runs) | silicone 18 AWG, red + black, 2 m each | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-18awg-silicone-wire.html) | 3.15 | 4.00 | listing<br>**Check:** not page-verified<br>wiring list: 18 AWG 1.03 m (charge path, Pi 5 V), 20 AWG 0.59 m (servo buck feed) |
+| W5 | JST-PH housings + crimps | 1 x PHR-2, 4 x PHR-6, 50 x SPH-002T-P0.5S | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10038522.html) | 2.44 | 3.10 | all in stock<br>PH-6: one per motor, mating the JGB37 encoder socket; PH-2: CPX battery input. 26 contacts used. Housings: [PHR-2](https://www.hestore.hu/prod_10038521.html), [PHR-6](https://www.hestore.hu/prod_10047542.html) |
+| W6 | JST-XH plugs | XHP-4 + 4 x BXH-001T-P0.6 (BMS balance) + XHP-10-CABLE (XH-10 pre-crimped, 20 cm, 26 AWG) | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10041611.html) | 1.28 | 1.62 | > 200 / > 3000 / > 25<br>[XHP-4](https://www.hestore.hu/prod_10041545.html), [BXH crimps](https://www.hestore.hu/prod_10035076.html). The XH-10 lead is cable L01 (the wiring list draws it in 28 AWG, 105 mm; the pre-crimped 26 AWG lead is cut to length) |
+| W6b | JST-ZH 4-pin plug (lidar) | ZHR-4 housing + 4 x SZH-002T-P0.5 crimps | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10043214.html)<br>Alt: [ZHR-4-CABLE-200](https://www.hestore.hu/prod_10049806.html), pre-crimped 200 mm, 333 Ft net (ZH crimping is fiddly) | 0.32 | 0.41 | > 500 / > 100<br>LD19 end of cable G01. [crimps](https://www.hestore.hu/prod_10036881.html) |
+| W7 | Dupont crimp kit | NDR-NSR-PACK-310: 2.54 mm Dupont housings + contacts, 310 pcs | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10042338.html) | 4.87 | 6.19 | > 25 in stock<br>**Check:** the wiring list puts them in one 2 x 20 Dupont housing; if the kit has no 2 x 20, use single-row housings side by side<br>24 female contacts for the Pi GPIO side (cables G01-G05) |
+| W8 | Pi -> ESP32 USB data cable | USB-A to right-angle USB-C, 15 cm, USB 2.0 | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-usb-a-to-right-angle-usb-c-15cm.html) | 1.97 | 2.50 | listing<br>**Check:** not page-verified<br>cable U01: Pi 5 USB-A (lower USB 3 stack) -> ESP32-S3 native USB |
+| W8b | Ferrules | 10 x 0.25 mm² (NITI 0,25x8) + 10 x 0.5 mm² (NITI 0,5x8), insulated | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10023952.html) | 0.98 | 1.25 | > 2000 / > 500<br>motor wires into the DRV terminals (8 x 0.25), speaker into the amp terminal (2 x 0.5). [0.5 mm²](https://www.hestore.hu/prod_10023957.html) |
 | W8b | Jumper wires | RC-40-20/FF: 40 female-female Dupont jumpers, 20 cm | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10035719.html) | 2.40 | 3.05 | > 500 in stock<br>short module-to-module signal links (ESP32 to the driver carriers, INA226, CPX) |
-| W9 | Pi 5 V lead | USB-C male plug pigtail, 5 A, 20 AWG | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-usb-c-male-5a-pigtail-cable.html) | 1.97 | 2.50 | listing<br>**Check:** not page-verified. Hestore's [TYPE-C-PLUG-BK](https://www.hestore.hu/prod_10047360.html) (224 Ft net) is rated only 2 A; the Pi 5 can draw up to 5 A<br>D36V50F5 output -> Pi 5 USB-C |
-| W10 | Servo extensions | SE-300MM, 3-pin servo extension, male-female, 300 mm | 2 | 2 | [Hestore.hu](https://www.hestore.hu/prod_10036406.html) | 1.87 | 2.38 | > 250 in stock |
+| W9 | Pi 5 V plug | right-angle USB-C male plug, solder type, 5 A | 1 | 1 | [AliExpress](https://www.aliexpress.com/w/wholesale-usb-c-male-right-angle-solder-plug-5a.html) | 1.57 | 2.00 | listing<br>**Check:** not page-verified. Hestore's [TYPE-C-PLUG-BK](https://www.hestore.hu/prod_10047360.html) (224 Ft net) is rated only 2 A; the Pi 5 can draw up to 5 A<br>cable P01: D36V50F5 VOUT -> Pi 5 USB-C (Pi in 5 A mode) |
+| W10 | Servo extensions | SE-150MM, 3-pin servo extension, male-female, 150 mm | 3 | 3 | [Hestore.hu](https://www.hestore.hu/prod_10036405.html) | 1.88 | 2.39 | > 200 in stock<br>1 for the tilt servo lead (V02); cut the male ends off the other 2 for the servo Y harness (V03 / V04), instead of loose JR crimps |
 | W11 | Heat-shrink | HST-SET328 heat-shrink assortment, 2:1, 328 pcs | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10041852.html) | 6.06 | 7.70 | > 50 in stock |
+| W12 | Cable ties | CV 100/2,5/B, 2.5 x 100 mm, black, pack of 100 | 23 | 1 x pack | [Hestore.hu](https://www.hestore.hu/prod_10023377.html) | 0.82 | 1.05 | > 10 in stock |
 
 ## Mechanical: bearings, shaft, magnets, fasteners
 
@@ -195,7 +284,7 @@ That is about 2 m each of red and black 1.5 mm² (3 m each bought, for margin) a
 | Lidar pod to the top deck | M3 x 20 + nut | 4 | modelled |
 | LD19 to the pod shelf | M2.5 x 6 | 3 | modelled |
 | Tilt hubs / head shell to crossbar / battery door | M3 x 10 / M3 x 8 / M3 x 8 + insert | 2 / 2 / 2 | modelled |
-| 2 perfboards, PDB, INA226 | M3 brass standoff + M3 x 6 | 12 + 24 | EST (module layout pending) |
+| Driver perfboard, PDB, INA226 | M3 brass standoff + M3 x 6 | 12 + 24 | EST |
 | Pololu bucks (3 + 2 holes) | M2 x 6 + nut | 5 | EST |
 | CPX bracket | M3 brass standoff 4 mm + M3 x 6 | 2 + 4 | modelled |
 | Pi 5 on the spine | M2.5 brass standoff 6 mm + M2.5 x 6 | 4 + 4 | modelled |
@@ -256,7 +345,7 @@ One line per seller. To cut shipping, combine orders:
 - **Kiwi:** BNO085, VL53L0X, SH leads.
 - **RobotShop EU:** TFT, wheels, hubs, LD19.
 - **Opencircuit:** the 4 DRV8874 carriers and both Pololu bucks.
-- **AliExpress:** motors, PDB, USB-C pigtail, collar, fuse holder, kits.
+- **AliExpress:** motors, PDB, INA226 module, thin silicone wire, USB-C plug and data cable, female headers, collar, fuse holder, kits.
 - **Makerlogic3D:** both filaments.
 - **AtmoWood:** both ply sheets.
 
@@ -290,7 +379,7 @@ One line per seller. To cut shipping, combine orders:
 - **Stock** is as of 2026-11-19.
   - **Not in stock, alternative given:** the charger (Modulshop, incoming; Kamami has 1) and the Nexus wheels (backorder; AliExpress sets).
   - **Thin:** the smoked PETG (exactly 2 spools), the Camera Module 3 (4 at pi-shop) and the signal wire kit (1 left).
-- **Module layout:** quantities of perfboard, headers, terminals and standoffs follow the old module layout; the wiring thread's layout may change them.
+- **Module layout:** quantities follow the wiring thread's layout and wire list (`WIRING.md`, 19 Nov). Standoff and screw counts for the modules are still estimates.
 
 ## Regenerating
 

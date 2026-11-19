@@ -52,7 +52,7 @@ The custom main board (rev B, [`hw/main-board`](../../hw/main-board)) is **parke
 
 ## CAD follow-ups
 
-The chosen parts differ from what the model draws. Don't change the CAD from this thread; the wiring thread holds the Fusion lock. Update these in the next Fusion pass:
+The chosen parts differ from what the model draws. Not changed in CAD by this thread; update them in the next Fusion pass:
 
 | Part | In the model | Real part | Link |
 | --- | --- | --- | --- |
@@ -61,14 +61,14 @@ The chosen parts differ from what the model draws. Don't change the CAD from thi
 
 ## Placeholders in the model
 
-Sizes in the CAD that are still estimates. Re-measure the real part on arrival and update the model. The module blocks themselves are being placed by the wiring thread.
+Sizes in the CAD that are still estimates. Re-measure the real part on arrival and update the model. The module blocks are placed in the model by the wiring thread (19 Nov).
 
 | Part | In the model | What the chosen part says |
 | --- | --- | --- |
 | JGB37 encoder length | 12 mm (EST) | not on the listing; shaft length differs between listings (14 / 15.5 / 21.5 mm) |
 | BMS, ideal-diode module | see CAD follow-ups | |
 | ESP32-S3 dev board (K2) | DevKitC-1 cradle | clone board; measure before printing the cradle |
-| PDB (K5) | old layout: PDB on the left cheek | AliExpress listing; size depends on the board you get |
+| PDB (K5), INA226 (K6) | right cheek (wiring thread layout); INA226 drawn as the 26 x 22 mm 20 A module | AliExpress listings; check sizes on arrival |
 | INMP441 hole positions | 14 x 14 mm board (EST) | no drawing on any seller page |
 | Fuse holder bodies | estimated | in-line mini-blade holder about 38 x 25 x 13 mm (listing) |
 | AI HAT+ 2 heatsink | 42 x 42 x 14 mm (EST) | ships with the HAT; measure |
@@ -80,29 +80,41 @@ Sizes in the CAD that are still estimates. Re-measure the real part on arrival a
 The old INA226 "hole positions" placeholder now points at the chosen module: INA226-M, 18 x 19.4 mm (K6), with an external 20 A shunt (K7).
 """
 
-WIRING = """**Wire lengths: pending the wiring thread.** The wiring thread is re-laying out the electronics with these modules. Its wire list (`review/wiring.json`, `WIRING.md`) will replace the estimates below, run by run, with gauge, length, connector and pin.
+def _wiring():
+    """Wire lengths and crimps straight from the wiring thread's review/wiring.json (19 Nov)."""
+    import json
+    import os
+    f = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'review', 'wiring.json')
+    d = json.load(open(f))
+    out = ['**Wire lengths and crimps come from the wiring thread** ([`WIRING.md`](WIRING.md), [`review/wiring.json`](review/wiring.json), modelled in Fusion on 19 Nov). '
+           'Cut length = routed centreline + 12 mm, rounded up to 5 mm; stock cables keep their stock length. The rows below buy each gauge with about 20 % spare. '
+           'Per-conductor pins and colours are in `WIRING.md`.', '',
+           '| Wire (silicone) | Metres incl. cut allowance | Bought as |', '| --- | --- | --- |']
+    bought = {16: 'W3', 18: 'W4c', 20: 'W4c (18 AWG)', 22: 'W4', 24: 'W4 (22 AWG)', 26: 'W4b', 28: 'W4a'}
+    for k, v in d['wire_totals_m'].items():
+        out.append('| %s | %.2f | %s |' % (k, v, bought.get(int(k.split()[0]), '')))
+    out += ['', '| Connector, crimp or bought cable (wiring list) | Qty | Bought as |', '| --- | --- | --- |']
+    where = {'XHP-4': 'W6', 'XHP-10': 'W6', 'JST-XH crimp': 'W6', 'XT60 female': 'W1', 'XT60H male': 'W1', 'XT30 female': 'W2b',
+             'USB-C plug': 'W9', 'Dupont': 'W7', 'ZHR-4': 'W6b', 'JST-ZH crimp': 'W6b', 'PHR-2': 'W5', 'PHR-6': 'W5', 'JST-PH crimp': 'W5',
+             'ferrule': 'W8b', 'JR': 'W10 (cut male ends)', 'heatshrink': 'W11', 'cable ties': 'W12'}
+    for k, v in d['connector_crimp_tally'].items():
+        out.append('| %s | %s | %s |' % (k, v, next((w for t, w in where.items() if t in k), '')))
+    bc = {'camera': 'C5', 'USB-A': 'W8', 'servo extension': 'W10'}
+    for c in d['bought_cables']:
+        out.append('| %s (bought) | %s | %s |' % (c['item'], c['qty'], next((w for t, w in bc.items() if t in c['item']), '')))
+    out += ['', '<details><summary>All %d cables (id, cable, conductors, cut length)</summary>' % len(d['cables']), '',
+            '| Id | Cable | Conductors | Cut (mm) |', '| --- | --- | --- | --- |']
+    for c in d['cables']:
+        cond = c.get('conductors') or []
+        awgs = sorted({str(x.get('awg')) for x in cond if x.get('awg')})
+        wire = '%d x %s AWG' % (len(cond), '/'.join(awgs)) if awgs else (c.get('kind') or '')
+        cut = ('stock %s' % c['stock_len_mm']) if c.get('stock') else c.get('cut_mm')
+        out.append('| %s | %s | %s | %s |' % (c['id'], c['name'], wire, cut))
+    out += ['', '</details>']
+    return '\n'.join(out)
 
-Estimates until then (module layout as in the 18 Nov README: drivers + ESP32 low on the spine, PDB + INA226 on the left cheek, bucks behind the Pi and on the right cheek, amp and speaker on the rear plate):
 
-| Run | From -> to | Wire | Est. length | Ends |
-| --- | --- | --- | --- | --- |
-| Battery in | sled XT60 bulkhead -> loop key socket -> PDB input (through the shunt) | 1.5 mm² red + black | about 0.9 m each in total | XT60 |
-| Pack | BMS -> 15 A fuse -> sled XT60 | 1.5 mm² red + black | 0.25 m each | XT60 M |
-| Charge | jack -> ideal diode -> 5 A fuse -> BMS P+ | 18 AWG (holder leads) | 0.25 m each | solder |
-| PDB outputs | PDB -> driver perfboard / Pi buck / servo buck | 1.5 mm² | 0.25 m pairs x 3 | XT30 |
-| Pi 5 V | D36V50F5 -> Pi USB-C | USB-C pigtail | 0.15 m | USB-C |
-| Motors | 4 x JGB37 lead -> driver perfboard | stock 6-wire lead, rear ones extended with 22 AWG | front 0.15 m, rear 0.40 m | XH-6 |
-| Cliff 1-4 + IMU | ESP32 I2C -> VL53L0X / BNO085 (+ XSHUT, INT, RST) | SH-4 leads + 22 AWG | 0.15-0.35 m | STEMMA QT / solder |
-| Bumpers | ESP32 -> 4 x D2F-01L (signal + GND each) | 22 AWG | front 0.25 m, rear 0.50 m | solder |
-| Lidar | Pi UART (signal perfboard) -> LD19 stock cable | 22 AWG splice | 0.50 m | Dupont |
-| CPX | 5 V / GND into its JST battery jack, RX, watchdog line to the driver SLEEP pins | 22 AWG | 0.30 m | PH-2 + solder |
-| Speaker | MAX98357 -> speaker | 22 AWG | 0.20 m | screw terminal |
-| Mic, TFT | signal perfboard -> head, up the pan shaft | 22 AWG silicone, 6 + 8 wires | 0.60 m | solder |
-| Servos | servo header -> pan / tilt MG90S | stock lead + 300 mm extension | 0.30 m + stock | 3-pin |
-| Pi GPIO | AI HAT+ 2 header -> signal perfboard | 40-way ribbon | 0.15 m | IDC |
-| Camera | Pi CAM -> head | FPC | 0.50 m | 22-pin / 15-pin |
-
-That is about 2 m each of red and black 1.5 mm² (3 m each bought, for margin) and about 22 m of 22 AWG (50 m kit)."""
+WIRING = _wiring()
 
 FASTENERS = """**Fastener schedule.** "Modelled" means the holes are in the CAD; "EST" means the part is drawn but its screws are not, so the count is an estimate. The kits below cover all of it with spares. MG90S screws come with the servos, and the AI HAT+ 2 brings its own 16 mm spacers and screws.
 
@@ -114,7 +126,7 @@ FASTENERS = """**Fastener schedule.** "Modelled" means the holes are in the CAD;
 | Lidar pod to the top deck | M3 x 20 + nut | 4 | modelled |
 | LD19 to the pod shelf | M2.5 x 6 | 3 | modelled |
 | Tilt hubs / head shell to crossbar / battery door | M3 x 10 / M3 x 8 / M3 x 8 + insert | 2 / 2 / 2 | modelled |
-| 2 perfboards, PDB, INA226 | M3 brass standoff + M3 x 6 | 12 + 24 | EST (module layout pending) |
+| Driver perfboard, PDB, INA226 | M3 brass standoff + M3 x 6 | 12 + 24 | EST |
 | Pololu bucks (3 + 2 holes) | M2 x 6 + nut | 5 | EST |
 | CPX bracket | M3 brass standoff 4 mm + M3 x 6 | 2 + 4 | modelled |
 | Pi 5 on the spine | M2.5 brass standoff 6 mm + M2.5 x 6 | 4 + 4 | modelled |
@@ -143,7 +155,7 @@ SHIPPING = """One line per seller. To cut shipping, combine orders:
 - **Kiwi:** BNO085, VL53L0X, SH leads.
 - **RobotShop EU:** TFT, wheels, hubs, LD19.
 - **Opencircuit:** the 4 DRV8874 carriers and both Pololu bucks.
-- **AliExpress:** motors, PDB, USB-C pigtail, collar, fuse holder, kits.
+- **AliExpress:** motors, PDB, INA226 module, thin silicone wire, USB-C plug and data cable, female headers, collar, fuse holder, kits.
 - **Makerlogic3D:** both filaments.
 - **AtmoWood:** both ply sheets."""
 
@@ -156,7 +168,7 @@ FOOTER = """
 - **Stock** is as of {rate_date}.
   - **Not in stock, alternative given:** the charger (Modulshop, incoming; Kamami has 1) and the Nexus wheels (backorder; AliExpress sets).
   - **Thin:** the smoked PETG (exactly 2 spools), the Camera Module 3 (4 at pi-shop) and the signal wire kit (1 left).
-- **Module layout:** quantities of perfboard, headers, terminals and standoffs follow the old module layout; the wiring thread's layout may change them.
+- **Module layout:** quantities follow the wiring thread's layout and wire list (`WIRING.md`, 19 Nov). Standoff and screw counts for the modules are still estimates.
 
 ## Regenerating
 
