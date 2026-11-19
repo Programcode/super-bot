@@ -1,5 +1,5 @@
 # Item data for bom.py: what to buy for Super bot v2, how many, from whom, at what shown price.
-# total: 'robot' = counted in the robot total, 'board' = the main board order (counted only "with board"),
+# total: 'robot' = counted in the robot total,
 # 'optional' = listed, not counted. owned=True: Adam has it, listed at 0.
 # price/cur/incl: the price exactly as shown on the page for one purchase unit (see bom.py for the VAT maths).
 # "listing" in stock/check = the price came from a search listing, the item page itself could not be opened
@@ -16,11 +16,12 @@ S_COMP = 'Compute, camera and head electronics'
 S_SENS = 'Sensors, audio, servos'
 S_DRIVE = 'Drive and lidar'
 S_POWER = 'Battery and power path'
-S_BOARD = 'Main board add-on (parked, not ordering yet; not in the robot total)'
+S_MOD = 'Control and power modules (off the shelf; the custom main board is not used)'
 S_WIRE = 'Wiring, connectors and crimps'
 S_MECH = 'Mechanical: bearings, shaft, magnets, fasteners'
 S_MAT = 'Printed and cut parts (materials)'
 S_OPT = 'Optional (not in the totals)'
+OC = 'Opencircuit (NL)'
 
 ITEMS = [
     # ---------------------------------------------------------------- compute
@@ -117,9 +118,9 @@ ITEMS = [
          seller=AE + ' (CHANZON)', url='https://www.aliexpress.com/item/1005001382271761.html', price=8.20, cur='USD', incl=0,
          stock='listing', placeholder='fuse holder bodies estimated',
          check='not page-verified. No Hungarian shop sells a 14-16 AWG in-line mini-blade holder to private buyers (Hestore ADD1210-MINI is 10 A only)'),
-    dict(id='P6', section=S_POWER, item='15 A mini blade fuses (pack fuse + board F101)', part='mini (ATM) blade fuse assortment, 120 pcs incl. 12 x 15 A', qty=2, buy=1, total='robot',
+    dict(id='P6', section=S_POWER, item='15 A mini blade fuse (main fuse on the pack)', part='mini (ATM) blade fuse assortment, 120 pcs incl. 12 x 15 A', qty=2, buy=1, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10042354.html', price=3751, cur='HUF', incl=0, stock='> 20 in stock',
-         notes='the board\'s XF-506P holder takes MINI blades (14.8 mm body), not standard 19 mm ATO. Keeps spares of every rating', verified=V),
+         notes='fits the in-line holder P5; the kit keeps spares of every rating', verified=V),
     dict(id='P7', section=S_POWER, item='Charge fuse holder + 5 A fuses', part='LPC-08B-18R in-line 5x20 holder, 18 AWG + 2 x 5x20 T 5 A fuse', qty=1, buy=1, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10047013.html', price=1150 + 2 * 84.71, cur='HUF', incl=0, stock='> 20 holders, > 200 fuses',
          notes='fuse: [prod_10023706](https://www.hestore.hu/prod_10023706.html)', verified=V),
@@ -137,25 +138,57 @@ ITEMS = [
          check='page does not say whether 3 100 Ft includes VAT (treated as gross) or the plug polarity; check centre-positive before the first charge',
          alt='in stock: [Kamami.pl Waveshare 29567](https://kamami.pl/zasilacze-sieciowe/1197565-power-supply-lithium-battery-charger-12-6v-2a-dc-jack-output-od-5-5mm-id-2-1mm-eu-plug-5902186304987.html), '
              '29.20 zł gross (about EUR 6.60), 1 left. ElektroArt YX-126200 (2 420 Ft) was found by research but its page is gone (404)', verified=V),
-    # ---------------------------------------------------------------- board
-    dict(id='B1', section=S_BOARD, item='Main board rev B, 5 assembled boards', part='JLCPCB Economic PCBA: 4-layer 186 x 70 mm, parts, assembly, part fees, shipping',
-         qty=1, buy=1, total='board', seller='JLCPCB (quote)', url='../../hw/main-board/QUOTES.md', price=261, cur='EUR', incl=0,
-         stock='**parked, not ordering yet.** Quoted 18 Nov 2026. Rev B is also not orderable yet: 19 Nov gate still has 3 DRC errors and 6 unconnected (hw/main-board/rev-b/HANDOFF.md)',
-         notes='The price already includes the hand-solder THT kit (2 x XT60PB-M, XF-506P fuse holder, '
-               '2x20 box header, 4 x B6B-XH-A, 2 x 1x3 servo header): add those to the JLC order as loose parts and solder them yourself. '
-               'Rev B also drops the LED BAR channel need (J412 stays empty).'),
-    dict(id='B2', section=S_BOARD, item='Main board rev B, 2 assembled boards (option)', part='same as B1, qty 2',
-         qty=1, buy=1, total='board_alt', seller='JLCPCB (quote)', url='../../hw/main-board/QUOTES.md', price=179, cur='EUR', incl=0,
-         stock='**parked, not ordering yet**', notes='alternative to B1: about EUR 82 net less, no spare boards'),
+    # ---------------------------------------------------------------- modules
+    dict(id='K1', section=S_MOD, item='Motor drivers', part='Pololu DRV8874 single brushed DC motor driver carrier (#4035), headers loose', qty=4, buy=4, total='robot',
+         seller=OC, url='https://opencircuit.nl/product/drv8874-single-brushed-dc-motor-driver-carrier', price=14.65, cur='EUR', incl=0,
+         stock='no stock line on the page', notes='2.1 A continuous, 4.4 A default limit; their SLEEP lines are driven by the CPX watchdog line',
+         alt='[Pololu direct](https://www.pololu.com/product/4035), USD 11.94 (+ US shipping and import VAT)', verified=V),
+    dict(id='K2', section=S_MOD, item='Motor controller', part='ESP32-S3 dev board, N16R8, DevKitC-1 layout, headers soldered (ESP32-S3-DEV-N16R8)', qty=1, buy=1, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10048179.html', price=3398, cur='HUF', incl=0, stock='> 250 in stock',
+         check='clone board: check its size against the printed cradle before printing',
+         alt='[Hestore ESP32-S3-DEV-N16R8-US](https://www.hestore.hu/prod_10048120.html), headers not soldered, 2 423 Ft net', verified=V),
+    dict(id='K3', section=S_MOD, item='Pi 5 V buck', part='Pololu D36V50F5, 5 V 5.5 A step-down (#4091)', qty=1, buy=1, total='robot',
+         seller=OC, url='https://opencircuit.nl/product/5v-5.5a-step-down-voltage-regulator-d36v50f5', price=45.15, cur='EUR', incl=0,
+         stock='external warehouse, 5-7 working days', notes='25.4 x 25.4 x 9.5 mm, 3 x M2 holes. Pi 5 in 5 A mode (usb_max_current_enable=1)', verified=V),
+    dict(id='K4', section=S_MOD, item='Servo 6 V buck', part='Pololu D36V28F6, 6 V 2.7 A step-down (#3783)', qty=1, buy=1, total='robot',
+         seller=OC, url='https://opencircuit.nl/product/6v-2.7a-step-down-voltage-regulator-d36v28f6', price=26.65, cur='EUR', incl=0,
+         stock='54 in external warehouse, 5-7 working days', notes='17.8 x 20.3 x 8.8 mm, 2 x M2 holes', verified=V),
+    dict(id='K5', section=S_MOD, item='Power distribution board', part='PDB: XT60 in, 4 x XT30 out, 60 A', qty=1, buy=1, total='robot',
+         seller=AE, url='https://www.aliexpress.com/w/wholesale-xt60-to-xt30-power-distribution-board.html', price=4.0, cur='EUR', incl=0.27, stock='listing',
+         check='not page-verified (AliExpress captcha); pick one with the XT30 outputs fitted',
+         alt='[Holybro PDB 60A](https://holybro.com/products/power-distribution-board-pdb), USD 4.59, XT30 pre-soldered option; '
+             'or build one on perfboard with an [XT60PW-M](https://www.hestore.hu/prod_10051895.html) (592 Ft net) and bus wire'),
+    dict(id='K6', section=S_MOD, item='Battery monitor', part='INA226-M module (I2C, 18 x 19.4 mm)', qty=1, buy=1, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10048984.html', price=647, cur='HUF', incl=0, stock='> 500 in stock',
+         check='its on-board shunt is the 0.1 ohm (R100) type, good for about 0.8 A only: remove it and wire K7 instead', verified=V),
+    dict(id='K7', section=S_MOD, item='Current shunt for the INA226', part='SHUNT-FL-2-75-20A: 75 mV / 20 A (3.75 mOhm), 0.5 %', qty=1, buy=1, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10051243.html', price=1893, cur='HUF', incl=0, stock='> 20 in stock',
+         notes='in the PDB input; the INA226 then reads up to about 21.8 A (81.9 mV full scale)', verified=V),
+    dict(id='K8', section=S_MOD, item='Audio amp', part='MAX98357 I2S class-D amp module, 3 W (MAX98357-M)', qty=1, buy=1, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10045704.html', price=948, cur='HUF', incl=0, stock='> 350 in stock',
+         notes='generic module; same chip as the Adafruit 3006 drawn in the old layout', verified=V),
+    dict(id='K9', section=S_MOD, item='Perfboard', part='HS-005 prototyping board, 83 x 54 mm, 2.54 mm', qty=2, buy=2, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10043091.html', price=540, cur='HUF', incl=0, stock='> 500 in stock',
+         notes='one for the 4 driver carriers, one for the ESP32 / signal breakout', check='final size comes from the wiring thread\'s module layout', verified=V),
+    dict(id='K10', section=S_MOD, item='Pin headers', part='MSRH-40 straight breakable header, 40 pin, 2.54 mm', qty=4, buy=4, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10041768.html', price=139, cur='HUF', incl=0, stock='> 350 in stock',
+         notes='servo headers, the 2x20 Pi GPIO breakout and spares (the Pololu boards ship with their own headers)', verified=V),
+    dict(id='K11', section=S_MOD, item='Screw terminals', part='KFG-2EDGVC-5.08-2P PCB screw terminal, 2-pole, 5.08 mm', qty=6, buy=6, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10042553.html', price=79.75, cur='HUF', incl=0, stock='> 500 in stock',
+         notes='motor power in on the driver perfboard, buck inputs and outputs', verified=V),
+    dict(id='K12', section=S_MOD, item='Motor connectors on the perfboard', part='B6B-XH-A, JST XH 6-pin THT header', qty=4, buy=4, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10041552.html', price=177, cur='HUF', incl=0, stock='> 25 in stock',
+         notes='mates the XH-6 plugs on the motor leads (W6): M+, GND, A, B, VCC, M-', verified=V),
     # ---------------------------------------------------------------- wiring
     dict(id='W1', section=S_WIRE, item='XT60 plugs', part='XT60H male (XT60H-M-CF) + female (XT60H-F-CF), solder cup', qty=3, buy=3, unit='M+F pair', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10051883.html', price=421 + 473, cur='HUF', incl=0, stock='> 350 male, > 250 female',
-         notes='female: [prod_10051884](https://www.hestore.hu/prod_10051884.html). 3 F: battery bulkhead, J101 lead, J102 lead. '
-               '2 M: battery sled, loop key (+1 spare)', verified=V),
+         notes='female: [prod_10051884](https://www.hestore.hu/prod_10051884.html). Battery sled blind mate, loop-key leads, PDB input, loop key (+ spares)', verified=V),
     dict(id='W2', section=S_WIRE, item='Loop key socket (upper back)', part='Amass XT60E-F female panel mount', qty=1, buy=1, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10047107.html', price=555, cur='HUF', incl=0, stock='> 100 in stock',
-         notes='rev B J102 is a vertical XT60PB-M, so the loop key is XT60 (the CAD\'s XT30 key is being rebuilt as XT60 by the power-plug thread). '
-               'Flange 34 x 15.8 mm, 20.2 mm deep', verified=V),
+         notes='the loop key is XT60. Flange 34 x 15.8 mm, 20.2 mm deep', verified=V),
+    dict(id='W2b', section=S_WIRE, item='XT30 plugs (PDB outputs)', part='Amass XT30U-M + XT30U-F, solder cup', qty=4, buy=4, unit='M+F pair', total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10047228.html', price=313 + 264, cur='HUF', incl=0, stock='> 250 each',
+         notes='female: [prod_10047227](https://www.hestore.hu/prod_10047227.html). PDB -> driver perfboard, Pi buck, servo buck, + 1 spare', verified=V),
     dict(id='W3', section=S_WIRE, item='Power wire', part='silicone 1.5 mm² (about 15.5 AWG), red + black, 2 m each', qty=1, buy=2, unit='m red + m black', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10048505.html', price=405 + 293, cur='HUF', incl=0, stock='> 100 m each',
          notes='black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Lengths: see the harness table above', verified=V),
@@ -163,28 +196,27 @@ ITEMS = [
          seller='doitsmart.hu', url='https://www.doitsmart.hu/shop/5-szinu-szilokon-vezetek-50m-22awg/', price=8900, cur='HUF', incl=0.27,
          stock='1 left', check='page does not say gross or net; treated as gross',
          alt='[Hestore 0.35 mm² PVC](https://www.hestore.hu/prod_10044705.html), 99-205 Ft/m net per colour (stiffer; avoid it through the pan shaft)', verified=V),
-    dict(id='W5', section=S_WIRE, item='JST-PH 2.0 housings + crimps', part='5 x PHR-2, 4 x PHR-4, 4 x PHR-6, 50 x SPH-002T-P0.5S', qty=1, buy=1, unit='set', total='robot',
-         seller=HE, url='https://www.hestore.hu/prod_10038522.html', price=5 * 44.06 + 4 * 47.03 + 4 * 55.31 + 50 * 12.05, cur='HUF', incl=0, stock='all in stock',
-         notes='PH-2: kill-loop shorting plug, speaker, CPX battery jack; PH-4: lidar, CPX; PH-6: bumpers, mic. Housings: '
-               '[PHR-2](https://www.hestore.hu/prod_10038521.html), [PHR-4](https://www.hestore.hu/prod_10046585.html), [PHR-6](https://www.hestore.hu/prod_10047542.html)',
-         verified=V),
+    dict(id='W5', section=S_WIRE, item='JST-PH 2-pin plug (CPX battery input)', part='2 x PHR-2 housing + 6 x SPH-002T-P0.5S crimp', qty=1, buy=1, unit='set', total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10038521.html', price=2 * 79.41 + 6 * 53.0, cur='HUF', incl=0, stock='> 350 / > 500',
+         notes='[crimps](https://www.hestore.hu/prod_10038522.html). +5 V / GND into the CPX JST battery jack', verified=V),
     dict(id='W6', section=S_WIRE, item='JST-XH 6-pin housings + crimps (motors)', part='4 x XHP-6 + 30 x BXH-001T-P0.6', qty=4, buy=1, unit='set', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10041546.html', price=4 * 52.80 + 30 * 26.0, cur='HUF', incl=0, stock='> 500 / > 3000',
-         notes='contacts: [prod_10035076](https://www.hestore.hu/prod_10035076.html). Re-terminates the motor leads for J601-J901 (M+, GND, A, B, VCC, M-)', verified=V),
-    dict(id='W7', section=S_WIRE, item='JST-SH 6-pin leads (4 cliff + IMU)', part='SparkFun PRT-10361, SH-6 to bare wires, 15 cm', qty=5, buy=5, total='robot',
-         seller='Kiwi Electronics (NL)', url='https://www.kiwi-electronics.com/en/jst-sh-jumper-6-wire-assembly-15cm-3080', price=1.59, cur='EUR', incl=0,
-         stock='19 in stock', notes='board end SH-6 (GND, 3V3, SDA, SCL, XSHUT or INT, - or RST). A 4-pin Qwiic cable will not do. '
-                                  'Splice W4 wire onto the bare ends for the longer runs',
-         alt='[Pololu 5541](https://www.pololu.com/product/5541), 30 cm, USD 3.00', verified=V),
+         notes='contacts: [prod_10035076](https://www.hestore.hu/prod_10035076.html). Re-terminates the motor leads to plug into K12', verified=V),
+    dict(id='W7', section=S_WIRE, item='STEMMA QT / Qwiic leads (4 cliff + IMU)', part='SHR-4-CABLE: JST-SH 1 mm 4-pin, 100 mm, 28 AWG', qty=5, buy=5, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10049136.html', price=200, cur='HUF', incl=0, stock='> 250 in stock',
+         notes='I2C into the VL53L0X / BNO085 STEMMA QT sockets; extend with W4 for the longer runs. XSHUT (cliff) and INT / RST (IMU) are separate W4 wires',
+         check='page does not say single- or double-ended', verified=V),
     dict(id='W8', section=S_WIRE, item='Pi GPIO ribbon', part='40-way 1.27 mm grey ribbon, 1 m + 3 x 2x20 IDC sockets', qty=1, buy=1, unit='set', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10025053.html', price=767 + 3 * 216, cur='HUF', incl=0, stock='> 20 m / > 75',
-         notes='socket: [prod_10026305](https://www.hestore.hu/prod_10026305.html). Board J401 -> AI HAT+ 2 pass-through header; the third socket taps SPI0 + 3 GPIO for the head TFT',
-         verified=V),
-    dict(id='W9', section=S_WIRE, item='Pi 5 V cable', part='USB-C to USB-C, 90-degree plug, 20 cm, 3 A or more', qty=1, buy=1, total='robot',
-         seller=AE, url='https://www.aliexpress.com/w/wholesale-usb-c-90-degree-short-cable-20cm.html', price=3.0, cur='EUR', incl=0.27, stock='listing',
-         notes='board J103 PI 5V OUT -> Pi USB-C across the board notch (8 mm gap: needs the angled plug)',
-         check='not page-verified; no EU shop had a short angled C-C cable',
-         alt='[Hestore 0.5 m straight C-C](https://www.hestore.hu/prod_10049550.html), 1 597 Ft net + [BerryBase angled adapter](https://www.berrybase.de/en/usb-c-3.0-adapter-c-socket-c-plug-angled-at-the-side-black), EUR 2.50'),
+         notes='socket: [prod_10026305](https://www.hestore.hu/prod_10026305.html). AI HAT+ 2 pass-through header -> a 2x20 header (K10) on the signal perfboard: '
+               'ESP32 UART, I2S amp + mic, TFT SPI, lidar UART', verified=V),
+    dict(id='W8b', section=S_WIRE, item='Jumper wires', part='RC-40-20/FF: 40 female-female Dupont jumpers, 20 cm', qty=1, buy=1, total='robot',
+         seller=HE, url='https://www.hestore.hu/prod_10035719.html', price=886, cur='HUF', incl=0, stock='> 500 in stock',
+         notes='short module-to-module signal links (ESP32 to the driver carriers, INA226, CPX)', verified=V),
+    dict(id='W9', section=S_WIRE, item='Pi 5 V lead', part='USB-C male plug pigtail, 5 A, 20 AWG', qty=1, buy=1, total='robot',
+         seller=AE, url='https://www.aliexpress.com/w/wholesale-usb-c-male-5a-pigtail-cable.html', price=2.5, cur='EUR', incl=0.27, stock='listing',
+         notes='D36V50F5 output -> Pi 5 USB-C',
+         check='not page-verified. Hestore\'s [TYPE-C-PLUG-BK](https://www.hestore.hu/prod_10047360.html) (224 Ft net) is rated only 2 A; the Pi 5 can draw up to 5 A'),
     dict(id='W10', section=S_WIRE, item='Servo extensions', part='SE-300MM, 3-pin servo extension, male-female, 300 mm', qty=2, buy=2, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10036406.html', price=346, cur='HUF', incl=0, stock='> 250 in stock', verified=V),
     dict(id='W11', section=S_WIRE, item='Heat-shrink', part='HST-SET328 heat-shrink assortment, 2:1, 328 pcs', qty=1, buy=1, total='robot',
@@ -210,7 +242,7 @@ ITEMS = [
          stock='ships from stock', notes='14 pairs: 6 top-half pairs, 8 wall pairs. 74 Ft each from 20 pcs', verified=V),
     dict(id='M6', section=S_MECH, item='M3 + M2.5 brass standoff kit', part='DZ-M3-M2.5-SET210: brass standoffs, screws, nuts', qty=1, buy=1, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10051723.html', price=6207, cur='HUF', incl=0, stock='> 15 in stock',
-         notes='covers the main board, CPX, Pi, BNO085 and TFT standoffs (see the fastener table)', verified=V),
+         notes='covers the perfboards, PDB, CPX, Pi, BNO085 and TFT standoffs (see the fastener table)', verified=V),
     dict(id='M7', section=S_MECH, item='M2 hardware', part='M2 / M2.5 / M3 brass standoff + screw + nut kit, about 200 pcs', qty=1, buy=1, total='robot',
          seller=AE, url='https://www.aliexpress.com/item/32645948444.html', price=10.69, cur='EUR', incl=0.27, stock='listing',
          notes='for the M2 parts: camera standoffs and D2F-01L switch screws', check='not page-verified'),
@@ -247,10 +279,7 @@ ITEMS = [
          seller='Eurocut (Budapest)', url='https://eurocut.eu/en/', price=None,
          notes='not priced: their calculator needs the DXF upload. Kollabor Shop: 200 Ft/min + 3 000 Ft start fee, net. Or cut by hand (jigsaw + drill)'),
     # ---------------------------------------------------------------- optional
-    dict(id='O1', section=S_OPT, item='Front ultrasonic', part='HC-SR04+ (3.3-5 V)', qty=1, buy=1, total='optional',
-         seller=HE, url='https://www.hestore.hu/prod_10048000.html', price=616, cur='HUF', incl=0, stock='> 150 in stock',
-         notes='holder and wall knock-outs are in the model, not fitted; board header J415 (DNP)', verified=V),
-    dict(id='O2', section=S_OPT, item='Second ESP32-S3', part='not needed: the ESP32-S3 is on the main board', qty=0, buy=0, total='optional',
+    dict(id='O2', section=S_OPT, item='Second ESP32-S3', part='not bought: one ESP32-S3 (K2) to start', qty=0, buy=0, total='optional',
          notes='the empty cradle on the right cheek stays for later'),
 ]
 
@@ -259,6 +288,7 @@ SHIPPING = [
     dict(seller=HE, basis='GLS CsomagPont, free from 25 000 Ft gross (this order is far above)', price=0, cur='HUF'),
     dict(seller='pi-shop.hu', basis='courier, as shown on the product pages', price=1890, cur='HUF', incl=0.27),
     dict(seller='MálnaPC', basis='est.', price=1500, cur='HUF', incl=0.27),
+    dict(seller=OC, basis='est. (shown only in the cart)', price=10.0, cur='EUR', incl=0.21),
     dict(seller='Kiwi Electronics (NL)', basis='PostNL parcel to other EU countries, "from EUR 10.10" incl. 21 % VAT', price=10.10, cur='EUR', incl=0.21),
     dict(seller='RobotShop EU', basis='est. (shown only in the cart; ships from NL)', price=12.0, cur='EUR', incl=0.21),
     dict(seller='RET', basis='GLS CsomagPont (free from 25 000 Ft)', price=1190, cur='HUF', incl=0.27),
