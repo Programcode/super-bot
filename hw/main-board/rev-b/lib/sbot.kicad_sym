@@ -927,7 +927,7 @@
 				)
 			)
 		)
-		(property "Description" "Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 2 = +, pad 1 = - (check the molded marks)"
+		(property "Description" "Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 1 = + (square-corner end), pad 2 = - (chamfered end)"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -960,7 +960,7 @@
 						)
 					)
 				)
-				(number "2"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -978,7 +978,7 @@
 						)
 					)
 				)
-				(number "1"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)

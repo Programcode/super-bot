@@ -4237,7 +4237,7 @@
 					)
 				)
 			)
-			(property "Description" "Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 2 = +, pad 1 = - (check the molded marks)"
+			(property "Description" "Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 1 = + (square-corner end), pad 2 = - (chamfered end)"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -4270,7 +4270,7 @@
 							)
 						)
 					)
-					(number "2"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4288,7 +4288,7 @@
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4420,11 +4420,11 @@
 				)
 			)
 		)
-		(pin "2"
-			(uuid "7e087870-d931-5dbd-a997-9df40b087121")
-		)
 		(pin "1"
 			(uuid "8f63676c-1ac9-5215-8491-df0cf0b698d0")
+		)
+		(pin "2"
+			(uuid "7e087870-d931-5dbd-a997-9df40b087121")
 		)
 		(instances
 			(project "main-board-rev-b"
@@ -4444,7 +4444,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "43434a72-11ee-574b-b632-bb5e80243310")
+		(uuid "217e0ac4-1c44-5b82-8708-5cf35ad96f96")
 	)
 	(label "VBAT_IN"
 		(at 33.02 46.99 180)
@@ -4454,7 +4454,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "ff4d5350-8567-5b9b-8847-df9945680093")
+		(uuid "66758e74-ea9c-5399-bfc7-432eb98aac68")
 	)
 	(wire
 		(pts
@@ -4465,7 +4465,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "217e0ac4-1c44-5b82-8708-5cf35ad96f96")
+		(uuid "43434a72-11ee-574b-b632-bb5e80243310")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -4771,11 +4771,11 @@
 				)
 			)
 		)
-		(pin "2"
-			(uuid "52858d8d-4491-5a21-8cc9-a795e898d030")
-		)
 		(pin "1"
 			(uuid "575cf2f3-5c8c-5d9b-b9c1-8338513a56be")
+		)
+		(pin "2"
+			(uuid "52858d8d-4491-5a21-8cc9-a795e898d030")
 		)
 		(instances
 			(project "main-board-rev-b"
@@ -4795,9 +4795,9 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "50952070-94b4-56ea-a391-0bfe3424f611")
+		(uuid "cea5f515-26da-5ce2-9b71-d0558df68386")
 	)
-	(label "VBAT_F"
+	(label "VSW"
 		(at 95.25 46.99 180)
 		(effects
 			(font
@@ -4805,7 +4805,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "66b45bb3-d125-5792-9f74-482fac0f23d7")
+		(uuid "56cf6ba0-5b18-5ee3-b6be-7bb407e60b39")
 	)
 	(wire
 		(pts
@@ -4816,9 +4816,9 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cea5f515-26da-5ce2-9b71-d0558df68386")
+		(uuid "50952070-94b4-56ea-a391-0bfe3424f611")
 	)
-	(label "VSW"
+	(label "VBAT_F"
 		(at 95.25 49.53 180)
 		(effects
 			(font
@@ -4826,7 +4826,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "56cf6ba0-5b18-5ee3-b6be-7bb407e60b39")
+		(uuid "66b45bb3-d125-5792-9f74-482fac0f23d7")
 	)
 	(symbol
 		(lib_id "sbot:AOD403")

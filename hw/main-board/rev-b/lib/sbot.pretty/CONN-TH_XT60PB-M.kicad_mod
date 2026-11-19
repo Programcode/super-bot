@@ -67,8 +67,8 @@
 	(fp_line (start -7.97 -4.05) (end 8.03 -4.05) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 8.03 -4.05) (end 8.03 4.05) (layer F.CrtYd) (width 0.05))
 	(fp_line (start 8.03 4.05) (end -7.97 4.05) (layer F.CrtYd) (width 0.05))
-	(model "${KIPRJMOD}/lib/sbot.3dshapes/CONN-TH_XT60PB-M.step"
-		(offset (xyz 0.000 0.000 0.000))
+	(model "${KICAD10_3DMODEL_DIR}/Connector_AMASS.3dshapes/AMASS_XT60-M_1x02_P7.2mm_Vertical.step"
+		(offset (xyz -3.600 0.000 0.000))
 		(scale (xyz 1 1 1))
 		(rotate (xyz 0 0 0))
 	)

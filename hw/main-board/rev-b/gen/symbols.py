@@ -29,9 +29,11 @@ def build(path):
         syms.append(make_symbol(nm, ref='J', footprint=fp, descr=d,
                                 pins_left=[('2', '+', P), ('1', '-', P)],
                                 pins_right=[('3', 'MP', P), ('4', 'MP', P)], width=10.16))
+    # XT60PB-M (vertical): the LCSC footprint draws the housing chamfer at pad 2. XT-series convention (molded
+    # marks): the square-corner contact is +, the chamfered one is -, so pad 1 = +, pad 2 = -.
     syms.append(make_symbol('XT60PB-M', ref='J', footprint='sbot:CONN-TH_XT60PB-M',
-                            descr='Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 2 = +, pad 1 = - (check the molded marks)',
-                            pins_left=[('2', '+', P), ('1', '-', P)], pins_right=[], width=10.16))
+                            descr='Amass XT60PB-M vertical PCB male, 20 A (UL1977). Pad 1 = + (square-corner end), pad 2 = - (chamfered end)',
+                            pins_left=[('1', '+', P), ('2', '-', P)], pins_right=[], width=10.16))
     # AOD403: P-MOSFET in DPAK, pad 1 = G, tab 2 = D, 3 = S (AO3401A graphics, renumbered)
     libs = Libs({})
     base = copy.deepcopy(libs.get('Transistor_FET:AO3401A'))

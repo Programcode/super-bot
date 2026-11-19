@@ -77,10 +77,19 @@ Sources: [JLCPCB PCB capabilities](https://jlcpcb.com/capabilities/pcb-capabilit
 - **Rev B fix (option a):** both become an **Amass XT60PB-M.G.Y vertical PCB male** ([LCSC C19268037](https://www.lcsc.com/product-detail/C19268037.html)), mating toward the front wall, which has about 46 mm free (about 44 mm needed).
   - **Stock:** 17,051 at LCSC (live, 18 Nov). It's in the local JLC catalog as Extended (19,502).
   - **Rating (Amass datasheet):** 20 A per UL1977, under 60 °C rise at 20 A for 4 h, 500 V DC, pull-out 1.8–4.5 kg.
-  - **Footprint:** the LCSC/EasyEDA footprint (two Ø4.5 mm plated holes on 7.2 mm pitch), via easyeda2kicad.
+  - **Footprint:** the LCSC/EasyEDA footprint (two Ø4.5 mm plated holes on 7.2 mm pitch), via easyeda2kicad. Checked against the Amass drawing on 19 Nov: 7.20 mm pitch, 8.1 × 15.5/16 mm body, 16 mm tall, 3.0 mm solder tails. The drawing contradicts itself on the hole (Ø4.30 pins, but a Ø4.00 hole in the "mounting hole diagram"). The Ø4.5 drill is kept because it fits a 4.3 mm pin.
+  - **3D model:** the EasyEDA STEP had its origin far off the pads, so the body rendered beside its holes. The footprint now uses KiCad's stock `AMASS_XT60-M_1x02_P7.2mm_Vertical.step` (offset x −3.6 mm, chamfer at pad 2). That stock footprint also uses a Ø4.5 drill.
+  - **Fuse holder F101 (XF-506P, C492610), checked the same day:** four 0.50 × 1.90 mm slots, 3.70 mm within a pair, 4.30 mm between pairs, matching the footprint. The 0.3 mm terminals are rated 15 A per contact.
 - **Why XT60 for the switch loop too:** the vertical XT30 (XT30UPB-M, C428721) is only rated 15 A, exactly the fuse value, while the XT60PB has margin. One part for both saves a BOM line and matches the v2 XT60 loop key.
 - **Copper:** the input-chain pours and positions are unchanged. The 15 A target is now enforced with keepouts.
-- **Polarity:** the datasheet doesn't show which pin the molded "+" marks. The board takes pad 2 as + (the same convention as rev A's Amass footprint) and prints +/− on the silkscreen. Check against the real part. The reverse-polarity FET makes a mix-up harmless.
+  - **Measured 19 Nov:** the VBAT_IN, VBAT_F and VSW pours join J101, J102 and F101 with a solid ring on F.Cu and B.Cu (zone connection full, about 18 mm of ring per XT60 pad per layer).
+  - **The weak spot was J101's GND pad:** that pad carries the whole battery return, and it met the GND planes (F.Cu, B.Cu, In1) through four 0.5 mm thermal spokes per layer, only about 2 mm of neck per layer.
+  - **Fix:** its spokes are now 1.5 mm (a pad override, also set in `gen/build_pcb.py`). That gives about 6 mm per layer and 18 mm in total, like the + side, and the pad stays hand-solderable.
+- **Polarity (fixed 19 Nov):** the Amass drawing doesn't say which contact is +, but the XT-series convention (and the molded marks) put **+ on the square-corner end and − on the chamfered end**. Red goes to the flat side ([FlyMod connector FAQ](https://flymod.net/en/txt/power_connector_faq)).
+  - **What was wrong:** the LCSC footprint draws the chamfer at pad 2, but rev B had pad 2 as + (copied from rev A's right-angle XT60PW, whose footprint has its own +/− silk). A standard battery lead would have put + on GND. The reverse-polarity FET would have blocked it, and the robot would never power up.
+  - **Now:** the XT60PB-M symbol has pad 1 = + and pad 2 = −. J101 is rotated 180° with its nets swapped, so the copper stays exactly where it was and only the chamfer moves to the GND end. `gen/finish.py` places the +/− silk by net.
+  - **J102:** a series loop, so its polarity doesn't matter.
+  - **Before soldering:** still check the molded marks on the real part.
 - **Other edge-facing parts to check against the v2 fit report:**
   - **J301 ESP32 USB-C:** right-angle, mates across the top edge at x ≈ 74, toward the Pi's bottom edge about 10 mm above. Fine for a short programming session with a straight plug; tight with the Pi installed.
   - **J103 PI 5V OUT USB-C:** right-angle at the top-right notch, toward the Pi's USB-C by design.

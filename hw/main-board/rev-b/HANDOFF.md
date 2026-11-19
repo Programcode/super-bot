@@ -17,6 +17,20 @@ Paused on Adam's request. Rev A (`hw/main-board/`, tag `main-board-rev-a`) is un
   - 1 courtyard overlap, not yet looked at
 - **Snapshots:** `/tmp/sbpcb/rb_routed.kicad_pcb` (raw Freerouting) and `/tmp/sbpcb/rb_fixup1.kicad_pcb` (current). /tmp may be wiped.
 
+## 19 Nov: power plugs pass (power-plugs thread)
+- **J101/J102:** the vertical Amass XT60PB-M (LCSC C19268037, 19,502 in stock at JLC) is kept for both, as Pip confirmed. The footprint and the F101 holder were checked against their datasheets (see RESEARCH.md).
+- **J101 polarity fixed:** + is now pad 1, the square-corner end. The footprint is rotated 180° with its nets swapped, so the copper did not move. The changes are in `gen/symbols.py`, `gen/design.py`, `gen/build_pcb.py` and `gen/finish.py`, and the schematic was regenerated.
+- **J101 GND pad:** thermal spokes are 1.5 mm (they were 0.5 mm), because that pad carries the whole battery return.
+- **Gate (`kicad-check`, zones refilled), from `reports/`:**
+  - ERC: 0.
+  - Schematic parity: 0.
+  - DRC errors: 3. There are 2 copper-to-edge errors on H103 (0.2987 mm), at the bottom-right corner. The third is a courtyard overlap between H103 and J414.
+  - Unconnected: 6. That is 4 GND (U303 pad 21 and C606 pad 2 to the GND pours), 1 M1_ENC_A (C606 pad 1) and 1 VMOT.
+  - Warnings: 312 silkscreen warnings, because `finish.py` hasn't run yet.
+  - None of these is in the power input area; all were there before this pass.
+- **Outputs:** `out/` (KiBot; DRC preflight skipped, ERC on) and `renders/` are regenerated. **Not orderable** until the steps below are done.
+- **Duplicate footprint UUIDs:** 25 groups of footprints share UUIDs (for example J601/J701/J801/J901), which makes every pcbnew save reorder them in the file. It does no harm in KiCad, but the generator should give each one its own UUID.
+
 ## Next steps (in order)
 1. Find the courtyard overlap. Check the KiCad DRC JSON `items`.
 2. Clear the last connections:

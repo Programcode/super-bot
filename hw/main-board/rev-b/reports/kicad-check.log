@@ -1,0 +1,7 @@
+Found 0 violations
+Saved ERC Report to /home/codex/.t3/worktrees/super-bot/pcb-power-plugs-7047659c8812dfa8/hw/main-board/rev-b/main-board-rev-b-erc.json
+Found 315 violations
+Found 6 unconnected items
+Found 0 schematic parity issues
+Saved DRC Report to /home/codex/.t3/worktrees/super-bot/pcb-power-plugs-7047659c8812dfa8/hw/main-board/rev-b/main-board-rev-b-drc.json
+exit=5

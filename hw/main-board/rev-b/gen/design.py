@@ -119,7 +119,7 @@ def power_sheet():
     b = s.block('Battery input: vertical XT60 -> 15 A fuse -> vertical XT60 main switch loop -> reverse-polarity P-FET -> shunt -> VBUS', 25, 40, 360,
                 note='3S 18650 pack via BMS, 10.5-12.6 V. Main path copper sized for 15 A (see README).')
     b.parts += [
-        Part('sbot:XT60PB-M', cx.ref('J'), 'BAT IN XT60PB-M (vertical)', 'sbot:CONN-TH_XT60PB-M', {'2': 'VBAT_IN', '1': 'GND'},
+        Part('sbot:XT60PB-M', cx.ref('J'), 'BAT IN XT60PB-M (vertical)', 'sbot:CONN-TH_XT60PB-M', {'1': 'VBAT_IN', '2': 'GND'},
              lcsc='C19268037', mpn='XT60PB-M.G.Y', dnp=True, fields={'Silk': 'BATTERY'},
              descr='Vertical: mates toward the front wall (v2 fit: the right side wall is only 4.6 mm away)'),
         Part('Device:Fuse', cx.ref('F'), '15A blade (XF-506P holder)', 'sbot:FUSE-TH_XF-506P', {'1': 'VBAT_IN', '2': 'VBAT_F'},

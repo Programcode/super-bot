@@ -203,13 +203,13 @@ def main():
             board.Add(fp)
             cu.append(fp.GetBoundingBox())
             print('FID%d at (%.1f, %.1f)' % (i, spot[0] / 1e6 - X0, spot[1] / 1e6 - Y0))
-    # battery polarity marks next to the vertical XT60 pads (pad 2 = +), left of the connector body
+    # battery polarity marks next to the vertical XT60 pads (by net: VBAT_IN = +), left of the connector body
     j = board.FindFootprintByReference('J101')
     jb = j.GetCourtyard(pcbnew.F_CrtYd).BBox()
     for p in j.Pads():
         if p.GetNumber() in ('1', '2'):
             y = p.GetPosition().y / 1e6 - Y0
-            t = text(board, '+' if p.GetNumber() == '2' else '-', jb.GetLeft() / 1e6 - X0 - 1.6, y, size=1.8)
+            t = text(board, '+' if p.GetNetname().endswith('VBAT_IN') else '-', jb.GetLeft() / 1e6 - X0 - 1.6, y, size=1.8)
             board.Add(t)
             placed_boxes.append((t.GetBoundingBox(), None))
     # ---- geometric silkscreen trim: outline segments that touch copper, labels, other silk or the edge go to F.Fab;

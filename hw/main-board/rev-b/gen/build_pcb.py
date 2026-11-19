@@ -35,7 +35,7 @@ CHX = [74.5, 95.5, 116.5, 137.5]
 # anchor: ref -> (x, y, rot_or_dir, region). rot: number = degrees; 'L','R','U','D' = mating side direction
 ANCHORS = {
     # power input chain, left region: XT60 -> fuse (vertical) -> VBAT_F strip -> XT30 switch loop -> FET -> shunt -> VBUS channel
-    'J101': (11.3, 55.5, 270, 'PWR'),    # vertical XT60 battery (mates toward the front wall); pad 2 (+) upper, next to the fuse
+    'J101': (11.3, 55.5, 90, 'PWR'),     # vertical XT60 battery (mates toward the front wall); pad 1 (+, square end) upper, next to the fuse
     'F101': (21.5, 48.5, 90, 'PWR'),
     'J102': (11.0, 11.5, 90, 'PWR'),     # vertical XT60 main switch loop: pad 1 (VSW) up to Q101, pad 2 (VBAT_F) down to the strip
     'Q101': (24.0, 5.5, 180, 'PWR'),
@@ -272,6 +272,11 @@ def main():
         region_of[ref] = reg
         occ.add(fp_rect(fp, 0.25))
     occ.add(ANT_KEEPOUT)
+    # battery return: the J101 GND pad meets three GND planes through thermal spokes; 1.5 mm spokes give
+    # ~6 mm of neck per layer (~18 mm total, like the solid VBAT_IN ring) and keep the XT60 hand-solderable
+    for p in fps['J101'].Pads():
+        if p.GetNumber() == '2':
+            p.SetLocalThermalSpokeWidthOverride(MM(1.5))
     for c in CORRIDORS:
         occ.add(c)
     missing = [c['ref'] for c in comps if c['ref'] not in ANCHORS]
