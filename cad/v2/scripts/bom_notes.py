@@ -102,7 +102,7 @@ Estimates until then (module layout as in the 18 Nov README: drivers + ESP32 low
 | Pi GPIO | AI HAT+ 2 header -> signal perfboard | 40-way ribbon | 0.15 m | IDC |
 | Camera | Pi CAM -> head | FPC | 0.50 m | 22-pin / 15-pin |
 
-That is about 2 m each of red and black 1.5 mm² (2 m each bought) and about 22 m of 22 AWG (50 m kit)."""
+That is about 2 m each of red and black 1.5 mm² (3 m each bought, for margin) and about 22 m of 22 AWG (50 m kit)."""
 
 FASTENERS = """**Fastener schedule.** "Modelled" means the holes are in the CAD; "EST" means the part is drawn but its screws are not, so the count is an estimate. The kits below cover all of it with spares. MG90S screws come with the servos, and the AI HAT+ 2 brings its own 16 mm spacers and screws.
 
@@ -127,7 +127,7 @@ FASTENERS = """**Fastener schedule.** "Modelled" means the holes are in the CAD;
 
 Totals: about 140 M3 screws, 64 M3 heat-set inserts, 20 M3 nuts, 14 M3 and 12 M2.5 brass standoffs, 21 M2 screws."""
 
-MATERIALS = """Grams are from the STL volumes in `stl/` (17 Nov export), corrected for the 18 Nov changes: the LED-bar parts and ESP32 cradle A are removed; the bumper bars, switch brackets and CPX bracket are added from their script sizes. Smoked parts are printed solid (6 perimeters); everything else uses the README's 75 % factor. PETG is 1.27 g/cm³.
+MATERIALS = """Grams are from the STL volumes in `stl/` (17 Nov export), corrected for the 18-19 Nov changes: the LED-bar parts and the HC-SR04P holder are removed; the bumper bars, switch brackets and CPX bracket are added from their script sizes (the ESP32 cradle stays, the module layout uses it again). Smoked parts are printed solid (6 perimeters); everything else uses the README's 75 % factor. PETG is 1.27 g/cm³.
 
 | Material | Parts | Estimate | Buy |
 | --- | --- | --- | --- |

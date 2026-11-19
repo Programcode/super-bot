@@ -141,7 +141,7 @@ ITEMS = [
     # ---------------------------------------------------------------- modules
     dict(id='K1', section=S_MOD, item='Motor drivers', part='Pololu DRV8874 single brushed DC motor driver carrier (#4035), headers loose', qty=4, buy=4, total='robot',
          seller=OC, url='https://opencircuit.nl/product/drv8874-single-brushed-dc-motor-driver-carrier', price=14.65, cur='EUR', incl=0,
-         stock='no stock line on the page', notes='2.1 A continuous, 4.4 A default limit; their SLEEP lines are driven by the CPX watchdog line',
+         stock='481 in external warehouse, 5-7 working days', notes='2.1 A continuous, 4.4 A default limit; their SLEEP lines are driven by the CPX watchdog line',
          alt='[Pololu direct](https://www.pololu.com/product/4035), USD 11.94 (+ US shipping and import VAT)', verified=V),
     dict(id='K2', section=S_MOD, item='Motor controller', part='ESP32-S3 dev board, N16R8, DevKitC-1 layout, headers soldered (ESP32-S3-DEV-N16R8)', qty=1, buy=1, total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10048179.html', price=3398, cur='HUF', incl=0, stock='> 250 in stock',
@@ -189,7 +189,7 @@ ITEMS = [
     dict(id='W2b', section=S_WIRE, item='XT30 plugs (PDB outputs)', part='Amass XT30U-M + XT30U-F, solder cup', qty=4, buy=4, unit='M+F pair', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10047228.html', price=313 + 264, cur='HUF', incl=0, stock='> 250 each',
          notes='female: [prod_10047227](https://www.hestore.hu/prod_10047227.html). PDB -> driver perfboard, Pi buck, servo buck, + 1 spare', verified=V),
-    dict(id='W3', section=S_WIRE, item='Power wire', part='silicone 1.5 mm² (about 15.5 AWG), red + black, 2 m each', qty=1, buy=2, unit='m red + m black', total='robot',
+    dict(id='W3', section=S_WIRE, item='Power wire', part='silicone 1.5 mm² (about 15.5 AWG), red + black, 3 m each', qty=1, buy=3, unit='m red + m black', total='robot',
          seller=HE, url='https://www.hestore.hu/prod_10048505.html', price=405 + 293, cur='HUF', incl=0, stock='> 100 m each',
          notes='black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Lengths: see the harness table above', verified=V),
     dict(id='W4', section=S_WIRE, item='Signal wire', part='silicone 22 AWG, 5 colours x 10 m', qty=1, buy=1, total='robot',

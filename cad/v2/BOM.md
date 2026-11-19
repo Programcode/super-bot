@@ -6,9 +6,9 @@ Everything to buy to build Super bot v2 with off-the-shelf control and power mod
 
 | | EUR net | EUR incl. VAT |
 | --- | --- | --- |
-| Parts and materials | 990 | 1244 |
+| Parts and materials | 992 | 1246 |
 | Shipping (one line per seller) | 74 | 94 |
-| **Robot total** | **1064** | **1338** |
+| **Robot total** | **1066** | **1341** |
 
 The custom main board (rev B, [`hw/main-board`](../../hw/main-board)) is **parked, not ordering**: it is not part of v2 and not in any total.
 
@@ -128,7 +128,7 @@ The old INA226 "hole positions" placeholder now points at the chosen module: INA
 
 | # | Item | Part / variant to pick | Qty | Buy | Seller | EUR net | EUR incl. VAT | Stock, notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| K1 | Motor drivers | Pololu DRV8874 single brushed DC motor driver carrier (#4035), headers loose | 4 | 4 | [Opencircuit (NL)](https://opencircuit.nl/product/drv8874-single-brushed-dc-motor-driver-carrier)<br>Alt: [Pololu direct](https://www.pololu.com/product/4035), USD 11.94 (+ US shipping and import VAT) | 58.60 | 74.42 | no stock line on the page<br>2.1 A continuous, 4.4 A default limit; their SLEEP lines are driven by the CPX watchdog line |
+| K1 | Motor drivers | Pololu DRV8874 single brushed DC motor driver carrier (#4035), headers loose | 4 | 4 | [Opencircuit (NL)](https://opencircuit.nl/product/drv8874-single-brushed-dc-motor-driver-carrier)<br>Alt: [Pololu direct](https://www.pololu.com/product/4035), USD 11.94 (+ US shipping and import VAT) | 58.60 | 74.42 | 481 in external warehouse, 5-7 working days<br>2.1 A continuous, 4.4 A default limit; their SLEEP lines are driven by the CPX watchdog line |
 | K2 | Motor controller | ESP32-S3 dev board, N16R8, DevKitC-1 layout, headers soldered (ESP32-S3-DEV-N16R8) | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10048179.html)<br>Alt: [Hestore ESP32-S3-DEV-N16R8-US](https://www.hestore.hu/prod_10048120.html), headers not soldered, 2 423 Ft net | 9.20 | 11.68 | > 250 in stock<br>**Check:** clone board: check its size against the printed cradle before printing |
 | K3 | Pi 5 V buck | Pololu D36V50F5, 5 V 5.5 A step-down (#4091) | 1 | 1 | [Opencircuit (NL)](https://opencircuit.nl/product/5v-5.5a-step-down-voltage-regulator-d36v50f5) | 45.15 | 57.34 | external warehouse, 5-7 working days<br>25.4 x 25.4 x 9.5 mm, 3 x M2 holes. Pi 5 in 5 A mode (usb_max_current_enable=1) |
 | K4 | Servo 6 V buck | Pololu D36V28F6, 6 V 2.7 A step-down (#3783) | 1 | 1 | [Opencircuit (NL)](https://opencircuit.nl/product/6v-2.7a-step-down-voltage-regulator-d36v28f6) | 26.65 | 33.85 | 54 in external warehouse, 5-7 working days<br>17.8 x 20.3 x 8.8 mm, 2 x M2 holes |
@@ -165,14 +165,14 @@ Estimates until then (module layout as in the 18 Nov README: drivers + ESP32 low
 | Pi GPIO | AI HAT+ 2 header -> signal perfboard | 40-way ribbon | 0.15 m | IDC |
 | Camera | Pi CAM -> head | FPC | 0.50 m | 22-pin / 15-pin |
 
-That is about 2 m each of red and black 1.5 mm² (2 m each bought) and about 22 m of 22 AWG (50 m kit).
+That is about 2 m each of red and black 1.5 mm² (3 m each bought, for margin) and about 22 m of 22 AWG (50 m kit).
 
 | # | Item | Part / variant to pick | Qty | Buy | Seller | EUR net | EUR incl. VAT | Stock, notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | W1 | XT60 plugs | XT60H male (XT60H-M-CF) + female (XT60H-F-CF), solder cup | 3 | 3 x M+F pair | [Hestore.hu](https://www.hestore.hu/prod_10051883.html) | 7.26 | 9.22 | > 350 male, > 250 female<br>female: [prod_10051884](https://www.hestore.hu/prod_10051884.html). Battery sled blind mate, loop-key leads, PDB input, loop key (+ spares) |
 | W2 | Loop key socket (upper back) | Amass XT60E-F female panel mount | 1 | 1 | [Hestore.hu](https://www.hestore.hu/prod_10047107.html) | 1.50 | 1.91 | > 100 in stock<br>the loop key is XT60. Flange 34 x 15.8 mm, 20.2 mm deep |
 | W2b | XT30 plugs (PDB outputs) | Amass XT30U-M + XT30U-F, solder cup | 4 | 4 x M+F pair | [Hestore.hu](https://www.hestore.hu/prod_10047228.html) | 6.25 | 7.93 | > 250 each<br>female: [prod_10047227](https://www.hestore.hu/prod_10047227.html). PDB -> driver perfboard, Pi buck, servo buck, + 1 spare |
-| W3 | Power wire | silicone 1.5 mm² (about 15.5 AWG), red + black, 2 m each | 1 | 2 x m red + m black | [Hestore.hu](https://www.hestore.hu/prod_10048505.html) | 3.78 | 4.80 | > 100 m each<br>black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Lengths: see the harness table above |
+| W3 | Power wire | silicone 1.5 mm² (about 15.5 AWG), red + black, 3 m each | 1 | 3 x m red + m black | [Hestore.hu](https://www.hestore.hu/prod_10048505.html) | 5.67 | 7.20 | > 100 m each<br>black: [prod_10048504](https://www.hestore.hu/prod_10048504.html). Lengths: see the harness table above |
 | W4 | Signal wire | silicone 22 AWG, 5 colours x 10 m | 1 | 1 | [doitsmart.hu](https://www.doitsmart.hu/shop/5-szinu-szilokon-vezetek-50m-22awg/)<br>Alt: [Hestore 0.35 mm² PVC](https://www.hestore.hu/prod_10044705.html), 99-205 Ft/m net per colour (stiffer; avoid it through the pan shaft) | 18.97 | 24.09 | 1 left<br>**Check:** page does not say gross or net; treated as gross |
 | W5 | JST-PH 2-pin plug (CPX battery input) | 2 x PHR-2 housing + 6 x SPH-002T-P0.5S crimp | 1 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10038521.html) | 1.29 | 1.64 | > 350 / > 500<br>[crimps](https://www.hestore.hu/prod_10038522.html). +5 V / GND into the CPX JST battery jack |
 | W6 | JST-XH 6-pin housings + crimps (motors) | 4 x XHP-6 + 30 x BXH-001T-P0.6 | 4 | 1 x set | [Hestore.hu](https://www.hestore.hu/prod_10041546.html) | 2.68 | 3.41 | > 500 / > 3000<br>contacts: [prod_10035076](https://www.hestore.hu/prod_10035076.html). Re-terminates the motor leads to plug into K12 |
@@ -223,7 +223,7 @@ Totals: about 140 M3 screws, 64 M3 heat-set inserts, 20 M3 nuts, 14 M3 and 12 M2
 
 ## Printed and cut parts (materials)
 
-Grams are from the STL volumes in `stl/` (17 Nov export), corrected for the 18 Nov changes: the LED-bar parts and ESP32 cradle A are removed; the bumper bars, switch brackets and CPX bracket are added from their script sizes. Smoked parts are printed solid (6 perimeters); everything else uses the README's 75 % factor. PETG is 1.27 g/cm³.
+Grams are from the STL volumes in `stl/` (17 Nov export), corrected for the 18-19 Nov changes: the LED-bar parts and the HC-SR04P holder are removed; the bumper bars, switch brackets and CPX bracket are added from their script sizes (the ESP32 cradle stays, the module layout uses it again). Smoked parts are printed solid (6 perimeters); everything else uses the README's 75 % factor. PETG is 1.27 g/cm³.
 
 | Material | Parts | Estimate | Buy |
 | --- | --- | --- | --- |
