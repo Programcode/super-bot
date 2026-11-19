@@ -150,7 +150,7 @@ callout('chimney', 'Front bay: main board rev A, Pi 5 stack and the CPX status l
         [('Main board rev A, 186 x 70 mm, on 4 M3 standoffs', 'Main board rev A', 'main board PCB', None),
          ('ESP32-S3 module on the board', 'Main board rev A', 'U301', None),
          ('Motor connectors MOTOR A-D (JST-XH 6)', 'Main board rev A', 'J701', None),
-         ('Battery in XT60 + main switch loop XT30 (board change needed, see README)', 'Main board rev A', 'J101', None),
+         ('Battery in + main switch loop: vertical XT60s, plugs face the front wall', 'Main board rev A', 'J101', None),
          ('Pi GPIO ribbon (40-way IDC)', 'Main board rev A', 'J401', None),
          ('Raspberry Pi 5 + AI HAT+ 2 (USB-C over the board notch)', 'Raspberry Pi 5', 'Pi 5 PCB', None),
          ('Circuit Playground Express: 10 NeoPixels show through the front wall', 'Circuit Playground', 'CPX PCB', None),
@@ -161,7 +161,7 @@ callout('back-and-sides', 'Behind the spine: IMU, speaker, loop key, spare ESP32
         (-430, -460, 330), (-20, -10, 160),
         [('BNO085 IMU near the centre (IMU connector)', 'BNO085', 'BNO085 PCB', None),
          ('40 mm speaker, rear grille (SPEAKER connector)', 'Speaker 40 mm', 'speaker 40', None),
-         ('XT30 loop key = main switch (MAIN SWITCH LOOP)', 'Main power', 'loop key', None),
+         ('XT60 loop key = main switch (MAIN SWITCH LOOP)', 'Main power', 'loop key', None),
          ('Empty cradle for a second ESP32-S3', 'ESP32-S3 spare', 'printed cradle', None),
          ('Rear plate (4 mm ply)', 'Frame', 'rear plate', None),
          ('Battery block below', 'Battery 3S4P', 'cell', None)])

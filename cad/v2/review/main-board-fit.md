@@ -21,7 +21,7 @@ The board geometry comes straight from `hw/main-board/main-board.kicad_pcb` (pcb
 | Board top edge to the Pi's bottom edge | 8 mm | yes (right-angle USB-C) |
 | ESP32 antenna (board top edge, x 30..49) | nothing metal above it; the Pi stack is at x <= 7 | yes |
 | J103 PI 5V OUT plug (top edge, x -86) to the Pi | clear (Pi starts at x -78) | yes |
-| **J101 BAT IN (XT60PW-M) and J102 MAIN SWITCH LOOP (XT30PW-M) plugs** | **4.6 mm to the right side wall; a mated plug plus a 16 AWG bend needs about 35 mm** | **no** |
+| J101 BAT IN (XT60PW-M) and J102 MAIN SWITCH LOOP (XT30PW-M) plugs, rev A | 4.6 mm to the right side wall; a mated plug plus a 16 AWG bend needs about 35 mm | **no on rev A; fixed in rev B (vertical XT60PB-M, below)** |
 
 ## The one problem: the two right-angle power connectors
 
@@ -33,15 +33,26 @@ J101 and J102 are right-angle through-hole parts whose plugs mate across the boa
 
 Until then the CAD shows the right-angle parts as they are on the board, and the connector keep-out check (`checks.keepouts()`) reports the clash.
 
-**Option (a) is modelled too** (Pip passed it to the PCB thread as the preferred fix). These go in the hidden keep-out component, at the board positions below, mating toward the front wall:
+**Fixed in rev B (19 Nov): option (a), built.** Rev B's J101 and J102 are both the vertical Amass XT60PB-M (LCSC C19268037, 20 A per UL1977), mating toward the front wall.
+- **Why XT60 for the switch loop:** the vertical XT30 is only rated 15 A, the fuse value (Pip confirmed 19 Nov). The loop key on the upper back is an XT60 again: XT60E-F panel socket plus an XT60 male with a 16 AWG loop.
+- **How the CAD models it:** `scripts/main_board_parts.json` now carries these two parts from the rev B board; everything else in the block is still rev A. `s4b_mainboard.py` builds three volumes for each:
+  - the 16 mm body, on the board
+  - the mated plug out to 26 mm, a keep-out
+  - a 15 mm upward bend of the 16 AWG pair, a keep-out
 
-| Proposed part (rev B) | KiCad position (mm) | Connector body (EST) | Mated plug | Cable bend (16 AWG, bending up) | Front of the volume |
+| Part (rev B) | KiCad courtyard (mm) | Body (Amass drawing) | Mated plug | Cable bend (16 AWG, up) | Front of the volume |
 | --- | --- | --- | --- | --- | --- |
-| J101 vertical XT60 | (59, 103.5), long side along KiCad y | 8.2 x 16, 16 mm tall | to 26 mm off the board | +15 mm | y 92.6 (front wall inner face 97.6) |
-| J102 vertical XT30 | (57, 60), long side along KiCad x | 10.2 x 5.2, 11.6 mm tall | to 19 mm | +12 mm | y 82.6 |
+| J101 BAT IN, XT60PB-M | x 57.2..65.4, y 97.4..113.5 (centre 61.3, 105.5), long side along KiCad y | 8.1 x 16, 16 mm tall | to 26 mm off the board | +15 mm | y 92.6 (front wall inner face 97.6) |
+| J102 MAIN SW, XT60PB-M | x 56.9..65.1, y 53.5..69.6 (centre 61.0, 61.5), long side along KiCad y | 8.1 x 16, 16 mm tall | to 26 mm | +15 mm | y 92.6 |
 
-- **On the board itself (checked from the KiCad footprints):** the vertical XT60 at (59, 103.5) clears the fuse holder F101 by 5.9 mm and the H101 mounting-hole pad by 1.5 mm. At the old origin (63.7, 104.5) it would hit F101. The vertical XT30 clears everything (1.9 mm from the board edge).
-- **In the bay:** `checks.keepouts()` reports option (a) separately from rev A (`option_a_hits`). Results are under Check results below.
+- **On the board (rev B courtyards):**
+  - J101 is 3.7 mm from the fuse holder F101.
+  - J101's body is 4.7 mm from the H101 hole centre: about 1.5 mm to the hole's copper pad and about 2 mm to an M3 pan head.
+  - J102 is 4.9 mm from the H102 centre and 3.5 mm from the board's top edge.
+  - The fuse holder is 14 mm tall, under the 16 mm connector top, so the mated plug and the cable bend pass above it.
+- **Polarity:** + is the square-corner end of the XT60. J101's pad 1 is + (fixed in rev B on 19 Nov; see `hw/main-board/rev-b/RESEARCH.md`).
+- **Rev A** keeps its right-angle parts. A port isn't minimal: rev A's input chain is tracks, not pours, and the new pad spots sit on GND pours. Rev B is the board to order.
+- **In the bay:** see the power connector result under Check results below.
 
 ## Connector use in v2
 

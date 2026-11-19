@@ -24,7 +24,7 @@ REAL = [
     ('Power connectors', 21, 'XT60 pair 16 + charge jack 5'),
     ('Circuit Playground Express', 8.9, 'SRC'),
     ('Mic INMP441', 1, 'EST'),
-    ('Main power XT30 loop key', 14, 'EST: XT30 panel socket + male + 16 AWG loop'),
+    ('Main power loop key', 20, 'EST: XT60E-F panel socket + XT60 male + 16 AWG loop'),
     ('Bumpers', 6, 'EST: 4x Omron D2F-01L ~1.5 g'),
     ('Face graphic', 0, 'not a part'),
     ('Wiring harness', 0, 'counted separately'),

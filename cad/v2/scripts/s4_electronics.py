@@ -5,7 +5,7 @@
 #   Circuit Playground Express on a printed bracket right behind the front wall, so its 10
 #   NeoPixels show through the smoked shell (the front status light).
 # Spine back: BNO085. Right cheek: empty cradle for a second ESP32-S3 (room kept, no board yet).
-# Rear plate: 40 mm speaker (rear grille). Upper back: XT30 loop key (matches the board's J102).
+# Rear plate: 40 mm speaker (rear grille). Upper back: XT60 loop key (matches the board's J102, XT60PB-M since rev B).
 
 OLD = ['Motor driver board 4x DRV8874', 'ESP32-S3-DevKitC-1 A', 'ESP32-S3-DevKitC-1 B spare', 'Pi 5 V 5.5 A buck (Pololu D36V50F5)',
        'Power distribution board + INA226', 'Servo 6 V buck (Pololu D36V28F6)', 'Circuit Playground Express + LED bar',
@@ -134,18 +134,23 @@ def back_side():
            '(rear_y - ply_t) - (-(shell_y - pwall - 21 mm))', '4 mm', 'PET Plastic', BLACK)
     join(a, br, [bf], 'speaker bracket (printed)')
     C(a, 'magnet clearance', 'y', '-45 mm', '-(shell_y - pwall - 23 mm)', 'body_top - 70 mm', '24 mm', '6 mm', op=CUT, bodies=[br])
-    # XT30 loop key (matches the main board's MAIN SWITCH LOOP J102, XT30PW-M)
-    k = fresh('Main power XT30 loop key')
+    # XT60 loop key: XT60E-F panel socket + XT60 male with a 16 AWG loop (matches the main board's MAIN SWITCH
+    # LOOP J102, a vertical XT60PB-M since rev B; Pip, 19 Nov). EST: socket face 16 x 8.2, flange 26 mm wide.
+    old = find_occ('Main power XT30 loop key')
+    if old:
+        old.deleteMe()
+    k = fresh('Main power loop key (XT60)')
     yw = '-(shell_y - pwall)'
     kz = 'body_top - 40 mm'
-    hb = B(k, 'loop key bracket (printed)', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 12 mm' % kz, '28 mm', '4 mm', 'top_deck_z - ((%s) - 12 mm)' % kz, 'PET Plastic', BLACK)
-    hf = B(k, 'bracket flange', '50 mm', '(%s) + 15 mm' % yw, 'top_deck_z - 4 mm', '28 mm', '12 mm', '4 mm', 'PET Plastic', BLACK)
+    hb = B(k, 'loop key bracket (printed)', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 12 mm' % kz, '34 mm', '4 mm', 'top_deck_z - ((%s) - 12 mm)' % kz, 'PET Plastic', BLACK)
+    hf = B(k, 'bracket flange', '50 mm', '(%s) + 15 mm' % yw, 'top_deck_z - 4 mm', '34 mm', '12 mm', '4 mm', 'PET Plastic', BLACK)
     join(k, hb, [hf], 'loop key bracket (printed)')
-    B(k, 'XT30 window', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 2.8 mm' % kz, '10.4 mm', '6 mm', '5.6 mm', op=CUT, bodies=[hb])
-    B(k, 'XT30 female panel socket', '50 mm', '(%s) + 4 mm' % yw, '(%s) - 2.6 mm' % kz, '10.2 mm', '16 mm', '5.2 mm', 'Nylon 6/6', 'Plastic - Matte (Yellow)')
-    kk = B(k, 'loop key (XT30 male + 16 AWG loop)', '50 mm', '(%s) - 6 mm' % yw, '(%s) - 2.6 mm' % kz, '10.2 mm', '12 mm', '5.2 mm', 'Nylon 6/6', 'Plastic - Matte (Red)')
-    g = B(k, 'loop key grip', '50 mm', '(%s) - 16 mm' % yw, '(%s) - 6 mm' % kz, '18 mm', '8 mm', '12 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
-    join(k, kk, [g], 'loop key (XT30 male + 16 AWG loop)')
+    B(k, 'XT60 window', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 2.8 mm' % kz, '16.4 mm', '6 mm', '8.6 mm', op=CUT, bodies=[hb])
+    B(k, 'XT60E-F female panel socket', '50 mm', '(%s) + 4 mm' % yw, '(%s) - 2.8 mm' % kz, '16 mm', '16 mm', '8.2 mm', 'Nylon 6/6', 'Plastic - Matte (Yellow)')
+    B(k, 'XT60E-F flange', '50 mm', '(%s) + 6.5 mm' % yw, '(%s) - 2.8 mm' % kz, '26 mm', '1.5 mm', '8.2 mm', 'Nylon 6/6', 'Plastic - Matte (Yellow)')
+    kk = B(k, 'loop key (XT60 male + 16 AWG loop)', '50 mm', '(%s) - 6 mm' % yw, '(%s) - 2.8 mm' % kz, '15.6 mm', '12 mm', '8 mm', 'Nylon 6/6', 'Plastic - Matte (Red)')
+    g = B(k, 'loop key grip', '50 mm', '(%s) - 16 mm' % yw, '(%s) - 6 mm' % kz, '20 mm', '8 mm', '14 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
+    join(k, kk, [g], 'loop key (XT60 male + 16 AWG loop)')
     log('back side ok')
 
 

@@ -1,5 +1,6 @@
 # Stage 4b: the main board (hw/main-board rev A) as a lightweight block, built from its own KiCad
-# footprint data (main_board_parts.json, extracted with pcbnew): the 186 x 70 mm outline with the
+# footprint data (main_board_parts.json, extracted with pcbnew; J101/J102 are rev B's vertical XT60PB-M,
+# the fix for the side-wall clash, 19 Nov; everything else is still rev A): the 186 x 70 mm outline with the
 # 24 x 8 mm notch, 4x M3 holes on brass standoffs off the spine, and every connector and large part
 # at its real position with an estimated height. Plus, in a separate hidden component, a keep-out
 # volume per connector for the mated plug and its cable bend: the interference check against those
@@ -17,9 +18,12 @@ PARAMS4B = [
 ]
 
 # estimated component heights above the board (mm) by footprint family
-HEIGHT = [('JST_XH', 9.8), ('JST_PH', 6.0), ('JST_SH', 4.25), ('IDC', 9.0), ('USB_C', 3.3), ('XT60', 8.3), ('XT30', 5.9),
+HEIGHT = [('JST_XH', 9.8), ('JST_PH', 6.0), ('JST_SH', 4.25), ('IDC', 9.0), ('USB_C', 3.3), ('XT60PB', 16.0), ('XT60', 8.3), ('XT30', 5.9),
           ('FUSE', 14.0), ('CP_Elec', 10.5), ('IND-SMD', 3.0), ('TO-252', 2.4), ('WIRELM', 3.1), ('SOT-223', 1.8),
           ('SW-SMD', 2.5), ('PinHeader', 8.5), ('SOIC', 1.7), ('TSSOP', 1.2), ('MSOP', 1.1), ('QFN', 1.0), ('SOT-23', 1.1), ('VSSOP', 1.0)]
+# vertical XT60PB-M (J101, J102 since rev B, Amass drawing): 8.1 x 16 x 16 mm body; mated female ~10 mm more,
+# then the 16 AWG pair bends up (toward the board's top edge), ~15 mm
+XT60PB_MATED, XT60PB_BEND = 26.0, 15.0
 # keep-out depth in front of a vertical connector (mated plug + cable bend), mm
 KEEPOUT = [('JST_XH', 22.0), ('JST_PH', 16.0), ('JST_SH', 14.0), ('IDC', 18.0), ('PinHeader', 20.0)]
 UNUSED = ('J412',)       # LED BAR: no LED bar on v2 (Adam, 18 Nov) -> connector stays empty
@@ -96,23 +100,15 @@ def board():
         elif 'USB_C' in fp:   # top-edge receptacle: plug goes up out of the board edge
             up = 7.5 if ref not in SERVICE else 20.0
             box_part(ko, 'keep-out %s %s' % (ref, p['val'][:20]), xc, '(%s) + 4 mm' % yf, '(mb_top) + %.2f mm' % (up / 2), '12 mm', '8 mm', '%.2f mm' % up, None, None)
+        elif 'XT60PB' in fp:   # vertical XT60: mated plug toward the front wall, then the cable bends up
+            box_part(ko, 'keep-out %s %s mated plug' % (ref, p['val'][:20]), xc, '(%s) + %.2f mm' % (yf, (h + XT60PB_MATED) / 2), zc,
+                     '%.2f mm' % (kx1 - kx0 + 1), '%.2f mm' % (XT60PB_MATED - h), '%.2f mm' % (ky1 - ky0 + 1), None, None)
+            box_part(ko, 'keep-out %s %s cable bend (16 AWG, up)' % (ref, p['val'][:20]), xc, '(%s) + %.2f mm' % (yf, XT60PB_MATED + XT60PB_BEND / 2),
+                     '(%s) + %.2f mm' % (zc, XT60PB_BEND / 2), '%.2f mm' % (kx1 - kx0 + 2), '%.2f mm' % XT60PB_BEND, '%.2f mm' % (ky1 - ky0 + XT60PB_BEND), None, None)
         elif 'XT60' in fp or 'XT30' in fp:   # right-angle power connector: mates from the board's side edge
             box_part(ko, 'keep-out %s %s (plug from the side edge)' % (ref, p['val'][:20]), '(mb_xr) + 15 mm', '(%s) + %.3f mm' % (yf, h / 2), zc,
                      '30 mm', '%.2f mm' % h, ht, None, None)
         nko += 1
-    # Option (a) for rev B (Pip, 18 Nov): vertical PCB-mount XT60 / XT30 at the same spots, mating toward the
-    # front wall. Modelled in the keep-out component: connector body, mated plug, and the 16 AWG cable bend
-    # (wires leave toward the front wall, then bend up). EST sizes: XT60 vertical male 8.2 x 16 x 16 mm,
-    # mated stack 26 mm, bend 15 mm; XT30 vertical male 10.2 x 5.2 x 11.6 mm, mated 19 mm, bend 12 mm.
-    for ref, kx, ky, wx, hz, body_h, mated, bend in (('J101 XT60', 59.0, 103.5, 8.2, 16.0, 16.0, 26.0, 15.0),
-                                                     ('J102 XT30', 57.0, 60.0, 10.2, 5.2, 11.6, 19.0, 12.0)):
-        xc, zc = X(kx), Z(ky)
-        box_part(ko, 'option (a) %s vertical connector body' % ref, xc, '(%s) + %.2f mm' % (yf, body_h / 2), zc,
-                 '%.1f mm' % wx, '%.1f mm' % body_h, '%.1f mm' % hz, None, None)
-        box_part(ko, 'option (a) %s mated plug' % ref, xc, '(%s) + %.2f mm' % (yf, body_h + (mated - body_h) / 2), zc,
-                 '%.1f mm' % (wx + 1), '%.1f mm' % (mated - body_h), '%.1f mm' % (hz + 1), None, None)
-        box_part(ko, 'option (a) %s cable bend (16 AWG, up)' % ref, xc, '(%s) + %.2f mm' % (yf, mated + bend / 2), '(%s) + %.2f mm' % (zc, bend / 2),
-                 '%.1f mm' % (wx + 2), '%.1f mm' % bend, '%.1f mm' % (hz + bend), None, None)
     # kill loop J201 is normally closed: with nothing plugged in the motors never run -> shorting plug
     kl = [p for p in parts if p['ref'] == 'J201'][0]
     kx, ky = (kl['x0'] + kl['x1']) / 2, (kl['y0'] + kl['y1']) / 2

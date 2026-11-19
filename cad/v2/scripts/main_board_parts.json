@@ -111,13 +111,13 @@
 },
 {
 "ref": "J102",
-"val": "MAIN SWITCH XT30PW-M",
-"fp": "CONN-TH_XT30PW-M",
-"x0": 50.27,
-"x1": 64.79,
-"y0": 53.23,
-"y1": 66.78,
-"rot": -90.0
+"val": "MAIN SWITCH XT60PB-M (vertical)",
+"fp": "CONN-TH_XT60PB-M",
+"x0": 56.91,
+"x1": 65.09,
+"y0": 53.45,
+"y1": 69.55,
+"rot": 90.0
 },
 {
 "ref": "JP201",
@@ -281,13 +281,13 @@
 },
 {
 "ref": "J101",
-"val": "BAT IN XT60PW-M",
-"fp": "CONN-TH_XT60PW-M",
-"x0": 50.42,
-"x1": 68.8,
-"y0": 96.62,
-"y1": 112.38,
-"rot": 0.0
+"val": "BAT IN XT60PB-M (vertical)",
+"fp": "CONN-TH_XT60PB-M",
+"x0": 57.2,
+"x1": 65.39,
+"y0": 97.39,
+"y1": 113.48,
+"rot": 90.0
 },
 {
 "ref": "Q202",
