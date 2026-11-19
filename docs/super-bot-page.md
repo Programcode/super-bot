@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 18 Nov 2026, 1:26 PM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 18 Nov 2026, 1:26 PM (Europe/Budapest)".
+> **Synced from the Grok Bot page "Super bot" on 20 Nov 2026, 12:40 AM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 20 Nov 2026, 12:40 AM (Europe/Budapest)". The GitHub repo is public.
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -12,7 +12,7 @@ A mecanum-wheel robot with a layered brain that can see, map, talk, fetch, remem
 
 | Metric | Value |
 | --- | --- |
-| Mind | Qwen3.8-27B, Cerebras via OpenRouter, at least low thinking, text + image |
+| Mind | Qwen3.8-27B, Cerebras via OpenRouter, reasoning effort HIGH, text + image |
 | Drive | Mecanum, four motors, one per wheel, encoders |
 | Pilot decisions | 4 / 4, high and medium, all under 1.1 s |
 | Target API cost | Under $1/h (event-driven); ~$4–5/h if it thinks every 2 s (estimates) |
@@ -43,15 +43,17 @@ Approved 15 Nov 2026. Each layer works and is fun on its own.
 
 The page lists three early renders from 15 Nov (core bot, with arm, docked). The newer 17 Nov concept renders are in [`concepts/`](concepts/).
 
+**Final v2 Cycles renders are cooking.** 18 shots are rendering on the VPS with Blender Cycles from the current Fusion export. ETA 2:00–2:30 AM (Europe/Budapest) on 20 Nov 2026. These will replace the older CAD stills once they land.
+
 ## CAD / concept K
 
-v2 finished and accepted 18 Nov 2026, 12:45 AM (Europe/Budapest). v1 stays frozen as a backup.
+v2 finished and accepted 18 Nov 2026, 12:45 AM (Europe/Budapest). On 19 Nov the design moved back to off-the-shelf modules (no custom main board), lidar option A, Pi pose B, and a modelled wiring harness in Fusion doc "Super bot - v2" v53 (commit `f6f2c9b`). The parts list is final (commit `867e29e`). v1 stays frozen as a backup.
 
-**Repo, Fusion, and how Claude talks to Pip.** The project lives in the private repo [github.com/Programcode/super-bot](https://github.com/Programcode/super-bot), set up as a T3 project on the VPS. Autodesk Fusion runs on Adam's Mac. The VPS reaches the official Fusion MCP at `127.0.0.1:27182` through the SSH tunnel `fusion-mcp-tunnel.service`. Claude Code can message Pip through a webhook routine, using `scripts/ask-pip.sh`.
+**Repo, Fusion, and how Claude talks to Pip.** The project lives in the public repo [github.com/Programcode/super-bot](https://github.com/Programcode/super-bot), set up as a T3 project on the VPS. Do not commit secrets or personal data. Autodesk Fusion runs on Adam's Mac. The VPS reaches the official Fusion MCP at `127.0.0.1:27182` through the SSH tunnel `fusion-mcp-tunnel.service`. Claude Code can message Pip through a webhook routine, using `scripts/ask-pip.sh`.
 
 **v2 is done and accepted.** The Fusion design is named "Super bot - v2". Pip accepted it at 12:45 AM on 18 Nov 2026 (Europe/Budapest), after the side-by-side with the target photo (`docs/concepts/v2-target-photo.png`), the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Every part is at real datasheet size. Result: 0 interferences at rest and across a 15-pose pan/tilt sweep, every part mounted, all 114 printed parts fit a 256 mm bed. Files are in [`cad/v2/`](../cad/v2/): STEP, f3d, STL, DXF, renders, review checks, and a README. Git commits `3994b36` and `318a829`. The first v2 build, a 300×300×340 mm open frame with corner tie rods, was scrapped on 17 Nov as a giant empty 3D-printer-looking box; those scripts are in `cad/v2/scripts/old-frame-build/`. v1 stays frozen as the `concept-k-v1` backup.
 
-**v2 revision is paused.** On 18 Nov 2026 Adam decided: keep the 190 mm head; replace the generic LED bar with the Circuit Playground Express as the front light; add a charge diode and an accessible jack; add minimal bumpers if needed. Both lidar options were rendered and checked: option A (low pod) blocks 18.6° and would use a software mask; option B (a mast that puts the lidar above the head) blocks 0°, but at 467 mm up it misses more low stuff. The lidar choice is still Adam's. Work is paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions.
+**19 Nov: modules, lidar option A, Pi pose B, wiring done.** Adam decided not to use a custom main board for now ("maybe later… but for now no"). v2 is back on off-the-shelf modules. Lidar option A is live in Fusion (commit `f0104be`, doc v38, then v53 with the harness): low rear pod, scan plane at 301 mm, an 18.6° software mask, mast deleted. The battery sled has a 14 mm nose for the XT60 blind-mate; the HC-SR04 sonar is dropped. The Pi 5 is in pose B (the model had been mirrored; USB and Ethernet face the right wall). The wiring harness is in the model (commit `f6f2c9b`). The parts list is final (commit `867e29e`), about EUR 1,071 net / EUR 1,347 incl. 27% VAT. A v2-render thread is rendering 18 Blender Cycles shots from the current Fusion export on the VPS, ETA 2:00–2:30 AM (Europe/Budapest) on 20 Nov 2026.
 
 The live page shows two images: the finished model next to the target photo (same viewpoint), and an isometric render. In the repo those are [`cad/v2/review/v2-vs-target-photo.png`](../cad/v2/review/v2-vs-target-photo.png) and [`cad/v2/renders/v2-iso.png`](../cad/v2/renders/v2-iso.png). The smoked PETG renders darker than the real material and the photo.
 
@@ -71,13 +73,13 @@ As built in [`cad/v2/`](../cad/v2/). Coordinates in mm, Z up, +Y is the front, g
 | --- | --- |
 | Body | 200×200×250 mm rounded smoked PETG box (14 mm vertical corners, 12 mm top edges). Height is 1.25× the width, as in the photo. |
 | Wheels | 100 mm mecanum wheels (40% of body height) sticking out at the corners, X configuration. Track 256 mm, wheelbase 152 mm. Four JGB37-520 12 V 530 rpm motors sit inside on printed mounts. Chassis plate: 6 mm birch ply, 194×194 mm, 30 mm ground clearance. |
-| Battery | 3S4P 18650 pack, about 130 Wh, as a 2×3×2 cell block on a printed sled, low and central. It slides out the back between the rear motors. The battery door is a shell piece screwed to the sled and carries the charge jack (5.5×2.1 mm, 5 A, pack side of the loop key). Blind-mate XT60 at the front of the sled, under the spine. |
-| Front chimney | Boards stacked flat behind the front wall on a vertical 4 mm ply spine, bottom to top: the motor-driver board (4× Pololu DRV8874) and the ESP32-S3; the Pi 5 8 GB + Active Cooler + AI HAT+ 2, standing flat with 14.6 mm of air to the front wall; the Circuit Playground Express; and the LED bar. Air comes in through slots above the front motors and leaves through vents in the top deck and the front top half. |
-| Behind the spine | The 5 V 5.5 A Pi buck (Pololu D36V50F5) sits right behind the Pi (Pi set to 5 A mode). The BNO085 sits low near the centre. Two ply side cheeks and a rear plate close the frame (no corner rods). Left cheek: power distribution board with the INA226. Right cheek: a spare ESP32-S3 cradle, the MAX98357A amp, and the servo 6 V buck (Pololu D36V28F6). Rear plate: 40 mm speaker and the XT60 loop key (the main DC switch) on the upper back. |
-| Shell | 2.4 mm smoked translucent PETG in 7 pieces: front and rear walls, two side walls, two top halves, and the battery door. 0.4 mm seams. Each wall has two drop-in tabs at the bottom and two 6×3 mm magnet pairs at the top. All printed parts fit a 256 mm bed; the biggest are the front and rear walls, 200×236×14 mm. |
+| Battery | 3S4P 18650 pack, about 130 Wh, as a 2×3×2 cell block on a printed sled, low and central. It slides out the back between the rear motors. The sled has a 14 mm nose that holds the blind-mate XT60 male, giving the 16 AWG leads room to bend; the bulkhead and female moved 14 mm forward. The battery door is a shell piece screwed to the sled and carries the charge jack (5.5×2.1 mm, 5 A, pack side of the loop key). |
+| Front chimney | Boards stacked flat behind the front wall on a vertical 4 mm ply spine, bottom to top: a 70×40 perfboard with 4× Pololu DRV8874 carriers (low left) and the ESP32-S3-DevKitC-1 in a printed cradle (low right, USB-C toward the right wall); the Pi 5 8 GB + Active Cooler + AI HAT+ 2 in pose B, standing flat with 14.6 mm of air to the front wall (components face front, USB and Ethernet face the right wall, GPIO and the AI HAT along the bottom edge, USB-C top-left; the model had been mirrored); and the Circuit Playground Express as the front status light and motor watchdog (A1 drives the DRV8874 nSLEEP lines). There is no generic LED bar. Air comes in through slots above the front motors and leaves through vents in the top deck and the front top half. |
+| Behind the spine | The 5 V 5.5 A Pi buck (Pololu D36V50F5) sits right behind the Pi's USB-C (Pi set to 5 A mode). The BNO085 sits low near the centre. Two ply side cheeks and a rear plate close the frame (no corner rods). Right cheek, next to the loop key: the power distribution perfboard (XT60 in, 4× XT30 out, 12 V bus) with the INA226 and an external 20 A shunt, and an empty spare ESP32-S3 cradle lowered so the PDB plugs have room. Left cheek, next to the speaker: the MAX98357A amp and the servo 6 V buck (Pololu D36V28F6). Rear plate: 40 mm speaker and the XT60 loop key (the main DC switch) on the upper back. |
+| Shell | 2.4 mm smoked translucent PETG in 7 pieces: front and rear walls, two side walls, two top halves, and the battery door. 0.4 mm seams. Each wall has two drop-in tabs at the bottom and two 6×3 mm magnet pairs at the top. The front wall has no LED bar slot and no sonar knock-outs. All printed parts fit a 256 mm bed; the biggest are the front and rear walls, 200×236×14 mm. |
 | Head | A short chunky gimbal on a 64 mm square plinth, with a hollow 25 mm aluminium shaft, 6805 and 6800 bearings, and MG90S pan/tilt servos. Wide capsule head, 190×76×64 mm: Camera Module 3 behind an eye-ring bezel, a 1.3" TFT face, and the INMP441 mic. The 500 mm Pi 5 camera ribbon runs up the hollow shaft. |
-| Lidar | LD19 in a vented pod at the rear left. The scan plane (z 301 mm) passes under the turret; the head stays at least 6.3 mm above it at every pan and tilt pose. The 30 mm gimbal knuckle blocks about 19° of the scan (see open decisions). |
-| LED bar | 8 WS2812B LEDs in a 140 mm slot near the top of the front, behind a smoked diffuser, driven by the CPX. Added to match the photo. |
+| Lidar | Option A, decided and live in the model (commit `f0104be`; mast deleted). LD19 in a vented low rear pod. The scan plane (z 301 mm) passes under the turret; the head stays at least 6.3 mm above it at every pan and tilt pose. The pan shaft and 30 mm gimbal knuckle block 18.6° of the scan; that sector is masked in software. Option B (a mast, scan plane 467 mm, 0° blocked) was modelled for comparison and has been removed. |
+| Front light | The Adafruit Circuit Playground Express (already owned, ~50.6 mm, 10 NeoPixels behind the front wall) is the front status light and the motor watchdog. The generic 8-LED bar was dropped on 18 Nov. |
 
 ### Runtime and speed
 
@@ -91,20 +93,20 @@ From [`cad/v2/README.md`](../cad/v2/README.md). Pack is 12 Ah × 10.8 V = 130 Wh
 | Forward, hard floor | About 2.0–2.2 m/s (2.8 m/s no-load); sideways about 1.4–1.7 m/s |
 | 0–2 m/s / tip-over | About 1.4 s at 5.0 kg. Static tip 31° forward/back, 45° sideways. On a flat floor it tips only above about 5.9 m/s² of braking; the motors can push about 3.9 m/s², so it cannot tip itself on the flat. Keep the indoor accel limit, because the head sways long before that. |
 
-### v2 decisions, 18 Nov 2026
+### v2 decisions, 18–19 Nov 2026
 
-Adam answered most of the earlier open items that morning. The lidar choice is still his. The revision is paused at commit `451c65a`.
+Adam answered the look and charging items on 18 Nov, then on 19 Nov locked lidar option A, dropped the custom main board, and accepted the module layout, Pi pose B, the battery nose, and the dropped sonar.
 
 | Item | Status |
 | --- | --- |
 | Head width | Decided: keep the 190 mm head (190×76×64 mm). Adam only wanted the neck short. |
-| Front light | Decided: drop the generic LED bar. Use the Adafruit Circuit Playground Express (~50.6 mm, behind the front wall, wired to the CPX connector) as the light. Inspiration from the photo, but only real parts, all properly wired. |
+| Front light | Decided 18 Nov: drop the generic LED bar. Use the Adafruit Circuit Playground Express (~50.6 mm, behind the front wall) as the light and the motor watchdog. |
 | Charge-path diode | Decided: no dock yet, but add a diode and an accessible charge jack so charging is easy. |
 | Bumpers | Decided: add minimal ones if needed. |
-| Lidar, still Adam's call | Both options rendered and checked. Option A (low pod, which Adam said is fine): 18.6° blocked, software mask. Option B (a mast that puts the lidar above the head): 0° blocked, but at 467 mm up it misses more low stuff. |
-| Revision status | Paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions. |
+| Lidar | Decided, 19 Nov: option A, the low rear pod, with an 18.6° software mask. Live in Fusion at commit `f0104be` (doc v38); the option B mast was deleted. Scan plane 301 mm; the head stays at least 6.3 mm above it. |
+| Electronics | Decided, 19 Nov: no custom main board for now. Off-the-shelf modules, as listed under [Electronics](#electronics). Rev A/B stays parked in [`hw/main-board`](../hw/main-board/) as a future option (rev B polarity fix `c0d1343`) and is not in the BOM totals. |
 
-Other notes, not waiting on a decision: the head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking (a friction washer, or keeping the tilt servo powered, would help); the camera ribbon needs a test-fit of the real 500 mm cable before the turret is printed; a few clearances are tight (front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm); and an optional HC-SR04P holder and knock-outs are in the model but not fitted.
+Also decided on 19 Nov: the battery sled gets a 14 mm nose for the XT60 blind-mate; the optional HC-SR04P front sonar is dropped (holder and front-wall knock-outs removed; the front is covered by lidar, bumpers and cliff sensors); the Pi 5 stand-in is pose B (it had been a mirror image). Other notes, not waiting on a decision: the head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking (a friction washer, or keeping the tilt servo powered, would help); the camera ribbon needs a test-fit of the real 500 mm cable before the turret is printed; and a few clearances are tight (front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm).
 
 Close-up callout diagrams for v2 are in [`cad/v2/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/v2/review/callouts): wheel corner, battery, front chimney, back and sides, right cheek, gimbal, head, lidar pod, and shell retention. Review checks live in [`cad/v2/review/`](../cad/v2/review/) (`checks-quick.json`, `checks-sweep.json`, `checks-floating.json`, `checks-a.json`).
 
@@ -159,11 +161,13 @@ From [`cad/concept-k-v1/review/REVIEW.md`](../cad/concept-k-v1/review/REVIEW.md)
 
 Eight labelled callout diagrams are in [`cad/concept-k-v1/review/callouts/`](https://github.com/Programcode/super-bot/tree/main/cad/concept-k-v1/review/callouts): wheel corner, battery/power, Pi stack, ESP32/IMU, CPX/front sensors, lidar backpack, neck base, and head.
 
-The v1 review items that were still open (shell material, neck length, and the rear HC-SR04) are settled or absorbed in v2: the shell is smoked PETG, the long neck is gone, and an optional HC-SR04P holder is in the v2 model but not fitted.
+The v1 review items that were still open (shell material, neck length, and the rear HC-SR04) are settled in v2: the shell is smoked PETG, the long neck is gone, and the HC-SR04 sonar was dropped on 19 Nov (holder and knock-outs removed).
 
-## PCB / electronics design
+## Electronics
 
-Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set up and smoke-tested on the VPS the same evening.
+19 Nov 2026: no custom main board for now. v2 uses off-the-shelf modules. Main board rev A/B stays parked in [`hw/main-board`](../hw/main-board/) as a future option (rev B polarity fix `c0d1343`) and is not in the BOM totals. KiCad, not Fusion Electronics, remains the tool if the board is picked up later.
+
+**No custom main board for now; off-the-shelf modules.** Adam, 19 Nov 2026: the custom PCB was too expensive. "Maybe later we'll use that but for now no." Everything uses modules: 4× Pololu DRV8874 carriers on a perfboard; an ESP32-S3-DevKitC-1 in a printed cradle; a power distribution perfboard (XT60 in, 4× XT30 out, 12 V bus) with an INA226 and an external 20 A shunt; a Pololu D36V50F5 5 V buck for the Pi (5 A mode); a Pololu D36V28F6 6 V buck for the servos; a MAX98357A amp; a BNO085 IMU; and the already-owned Adafruit Circuit Playground Express as the front light and the motor watchdog (it drives the DRV8874 sleep lines). Two 15 A fuses are kept (pack and, historically, the parked board). The XT60 loop key is the main switch.
 
 **Fusion Electronics test: PARTLY, leaning NO.** A Claude Opus 5.5 T3 thread tried to build a tiny LED board in Fusion Electronics through the Fusion MCP. Fusion's electronics API (`adsk.electron`) is read-only: it can't add parts, nets, traces or outlines, or create an electronics document. The only way to write is through hidden, undocumented text commands (`Electron.run`, `Electron.runScript`, `Electron.mfgexport`). Those act only on the active document, so an agent would have to take over the Fusion UI. On the first real attempt, creating an empty electronics document switched focus, and Fusion crashed when the v2 thread's screenshot hit it. It also has no JLCPCB CAM job and no headless mode, and every step depends on Adam's Mac.
 
@@ -197,9 +201,9 @@ Decided 17 Nov 2026. The custom PCB tool is KiCad, not Fusion Electronics. Set u
 - Exported: JLCPCB Gerber + drill zip, BOM, CPL, STEP, a schematic PDF, ERC/DRC reports, and 3D top/bottom/iso plus front/back PNG renders.
 - Nothing was ordered.
 
-### Main PCB rev A
+### Main board rev A (parked)
 
-Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/main-board/), with details and open questions in its [README](../hw/main-board/README.md). Nothing has been ordered.
+Finished 18 Nov 2026, 6:20 AM (Europe/Budapest), then parked on 19 Nov as a future option (git tag `main-board-rev-a`). Files stay in [`hw/main-board/`](../hw/main-board/), with details in its [README](../hw/main-board/README.md). Nothing has been ordered, and the board is not in the robot totals.
 
 - **Board:** one 186 × 70 mm, 4-layer (JLC04161H-7628, 1.6 mm) power + I/O carrier. It sits flat on the spine in the v2 front chimney, between the front motors and the Pi 5. The Pi plugs in with a 40-way ribbon (GPIO) and a USB-C cable (5 V).
 - **On it:**
@@ -218,7 +222,7 @@ Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/m
   - The motor-cut gate resistor R207 sits beside C206.
   - The input chain is good for about 9.5–10 A continuous, not the full 15 A fuse rating, because three thin tracks cross the F.Cu VBAT_F strip.
   - The LDO's 3.3 V link is 0.15 mm.
-- **Adam, 18 Nov 2026: the README questions are OK,** including the TPS56637 swap in place of the approved Pololu buck modules. The other checks (fuse, motor wiring, XT60 polarity, and so on) stay as pre-order reminders.
+- **Adam, 18 Nov 2026: the README questions were OK,** including the TPS56637 swap in place of the approved Pololu buck modules. On 19 Nov the board was parked, so they are only reminders if the board is ever picked up again.
 - **Open questions** (full text in the README; pre-order reminders):
   - the rev A compromises above
   - v2 fit, including the Pi USB-C notch and right-angle plug
@@ -231,9 +235,9 @@ Done 18 Nov 2026 (git tag `main-board-rev-a`). Files: [`hw/main-board/`](../hw/m
   - mic cable at about 3 MHz
   - bench checks of the watchdog
 
-### Real quotes (Nov 18)
+### Real quotes (Nov 18, historical)
 
-Checked 18 Nov 2026. Prices in EUR, excluding and including 27% Hungarian VAT. Nothing has been ordered. Full details: [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). PCBWay BOM/CPL for rev A: [`hw/main-board/out/fab/pcbway/`](../hw/main-board/out/fab/pcbway/).
+Checked 18 Nov 2026, before the board was parked. Prices in EUR, excluding and including 27% Hungarian VAT. The board is not in the robot totals and has not been ordered. Full details: [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). PCBWay BOM/CPL for rev A: [`hw/main-board/out/fab/pcbway/`](../hw/main-board/out/fab/pcbway/).
 
 | Board | Qty 2 excl / incl VAT | Qty 5 excl / incl VAT |
 | --- | --- | --- |
@@ -243,13 +247,13 @@ Checked 18 Nov 2026. Prices in EUR, excluding and including 27% Hungarian VAT. N
 | Rev B, PCBWay turnkey | EUR 592 / 752 | EUR 691 / 878 |
 | Rev A, PCBWay turnkey | EUR 657 / 834 | EUR 785 / 997 |
 
-Sources: JLC PCB $38.40 for 5 (live quote), PCBWay PCB $87.71 for 5 (live). JLC assembly from the published fee table (a live assembly quote needs a login). PCBWay assembly from the live calculator, $490–605 extra; its $29 promo did not apply even for rev B qty 2. Recommendation: rev B on JLC Economic, qty 5 is likely the best value (fixed costs about EUR 110).
+Sources: JLC PCB $38.40 for 5 (live quote), PCBWay PCB $87.71 for 5 (live). JLC assembly from the published fee table (a live assembly quote needs a login). PCBWay assembly from the live calculator, $490–605 extra; its $29 promo did not apply even for rev B qty 2. These quotes are historical. On 19 Nov Adam parked the custom board, so they are not part of the robot total.
 
-### Rev B (in progress, paused)
+### Rev B (parked)
 
-[`hw/main-board/rev-b/`](../hw/main-board/rev-b/). Commit `d2179d2`. Paused 18 Nov 2026 at Adam's request to save the Claude limit. Nothing has been ordered.
+[`hw/main-board/rev-b/`](../hw/main-board/rev-b/). Started as commit `d2179d2`; polarity fix for J101 landed in `c0d1343`. Parked 19 Nov 2026 as a future option, not in the robot totals. Nothing has been ordered.
 
-**Rev B is not orderable yet.** ERC 0. Status: 6 unconnected nets and 3 DRC errors. Next steps are in [`rev-b/HANDOFF.md`](../hw/main-board/rev-b/HANDOFF.md) and [`rev-b/RESEARCH.md`](../hw/main-board/rev-b/RESEARCH.md). Resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched.
+**Rev B is parked, not in the totals.** It was not orderable when work paused (ERC 0; 6 unconnected nets and 3 DRC errors at `d2179d2`). A polarity fix for J101, wider battery-return spokes, and refreshed outputs landed in `c0d1343`. Rev A and the tag `main-board-rev-a` are untouched. Do not order it while v2 uses modules.
 
 - DRV8874 PWM mode; motors C/D nFAULT wired; true 15 A input with no crossing tracks; test points; antenna cut-out.
 - THT parts left for hand-soldering (about EUR 3–8 kit).
@@ -272,7 +276,7 @@ Other parts of the brain:
 - **Perception and classic ML:** local YOLO with tracking every frame, wake word, speech in/out, classic models.
 - **Cheap classifier:** Luna Decisions or Jev for fast "what is this / which skill" calls.
 - **Behaviors, plans, skill library:** follow, go_to, look_for, look_at, stop, ask_help, plus self-written skills.
-- **Mind:** Qwen3.8-27B on Cerebras via OpenRouter, text and image, at least low reasoning, never in the inner loop.
+- **Mind:** Qwen3.8-27B on Cerebras via OpenRouter, text and image, reasoning effort HIGH, never in the inner loop.
 - **Memory keeper:** GLM-5.3-Flash every ~1–2 min. Writes memory only; never sends motor commands.
 - **Learning:** learn_skill, Adam's demos, retry and patch, ML from logged data.
 - **Offline fallback:** a small local Qwen when WiFi dies.
@@ -324,7 +328,7 @@ The page holds a verbatim prompt Adam pasted into Claude Fable 5.2 for a full br
 | DeepSeek V4.1 Flash | Rare hard planning, maybe | — | Thinking off only |
 | gpt-oss-20b / 120b | Old candidate | Groq / Cerebras | Dropped |
 
-Use at least low reasoning (agentic score 22.4 none vs 38.9 low). Set reasoning effort explicitly on Cerebras.
+Current setting: reasoning effort HIGH. On Artificial Analysis, Qwen's agentic score nearly doubles from 22.4 with thinking off to 38.9 at low. In the in-house bench, low scored best of Qwen's four efforts (10/10). The runtime setting is nevertheless HIGH, not low. Set reasoning effort explicitly on Cerebras.
 
 ## Qwen benchmark
 
@@ -337,15 +341,15 @@ Reasoning-effort test of one model (qwen/qwen3.8-27b on Cerebras), not a bake-of
 | medium | 8 / 10 | 4 / 6 | 0.49 s | ~$0.002 |
 | high | 9 / 10 | 6 / 6 | 0.54 s | ~$0.002 |
 
-Low is the current default. Total spend ~$0.19. Bench files were in `/workspace/qwen-bench/` on the Grok Bot box.
+Low was the best of the four efforts in that bench, but the current runtime setting is HIGH, not low. Total spend ~$0.19. Bench files were in `/workspace/qwen-bench/` on the Grok Bot box.
 
 ## Hardware
 
-Kit and early to-buy list as of 15 Nov 2026. Body, battery, and CAD updates from 17–18 Nov, including the accepted v2, are in [CAD / concept K](#cad--concept-k). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled that comes out the back of the v2 body. Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers (the v2 speed figures in CAD / concept K, and the earlier speed check in REVIEW.md section 5, commit `9b6bc6e`, confirm the drivers are OK). Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3. The finished v2 model is a 200×200×250 mm rounded smoked PETG body; details are in [CAD / concept K](#cad--concept-k).
+Kit and early list as of 15 Nov 2026. Body, battery, and CAD updates through 19 Nov, including the accepted v2, modules, and the final BOM (about EUR 1,071 net / EUR 1,347 incl. VAT), are in [CAD / concept K](#cad--concept-k) and [BOM and cost](#bom-and-cost). The current pack is a 3S4P 18650, about 130 Wh, on a slide-out sled with a 14 mm XT60 nose that comes out the back of the v2 body. Drive is 4× JGB37-520, 12 V, 530 rpm, with 100 mm mecanum wheels and 4× Pololu DRV8874 drivers on a perfboard, as part of the off-the-shelf module layout (no custom main board). Speed is a benchmark and fun goal; normal driving is slow, with software speed limits and bumpers for safety. The robot camera is a Pi Camera Module 3, not the C270. Start with one ESP32-S3. Lidar is option A, a low rear LD19 pod with an 18.6° software mask. The finished v2 model is a 200×200×250 mm rounded smoked PETG body.
 
 **Owned now:** laptop (brain now), an existing Pi that is busy with other work, ELEGOO UNO R3 Advanced Starter Kit (servo, 28BYJ-48 stepper + ULN2003, HC-SR04, IR receiver, power module, GY-521 IMU, MAX7219, LCD1602, PIR, RC522, and more), Circuit Playground Express. Code in PlatformIO.
 
-**To buy (updated 17 Nov):** Pi Camera Module 3 (instead of the C270; layer 1 on the desk can still use a phone or a cheap USB cam), MG90S servos + pan-tilt, PCA9685, a separate 5–6 V servo supply, INMP441 + MAX98357A + speaker, one ESP32-S3 DevKitC-1 N16R8 to start, mecanum chassis with 4× JGB37-520 12 V 530 rpm encoder motors, 100 mm wheels, and 4× Pololu DRV8874, 3S4P 18650 pack with BMS (about 130 Wh; README runtime about 3 h continuous driving, about 8 h idle, about 6 h on a typical mix), 15 A main fuse, DC-rated main switch, cliff sensors, INA226, XIAO ESP32S3 Sense later. Euro prices incomplete. Older ballpark for cells was about $30 for 3 cells and a charger.
+**To buy:** use the final BOM in [BOM and cost](#bom-and-cost) and [`cad/v2/BOM.md`](../cad/v2/BOM.md): about EUR 1,071 net / EUR 1,347 incl. 27% VAT, shipping included. The Pi 5 8 GB and the CPX are owned and not counted. Three buying calls are still open (battery pack, LD19 source, wheels source). Nothing has been ordered.
 
 **Dream upgrades:** lidar, robot arm, face display, self-docking charger, VL53L0X ToF, BNO085 IMU. Depth camera skipped.
 
@@ -366,7 +370,38 @@ The Active Cooler is compatible with the AI HAT+ 2 (HAT stacks on top). Train YO
 
 ## Wiring
 
-Now: short pre-cut jumpers, UNO next to the breadboard, red 5 V / black ground. Target: I2C / Qwiic daisy chain, modular ESP32-S3s over USB serial / UART, breadboard to perfboard to a custom PCB designed in KiCad (see [PCB / electronics design](#pcb--electronics-design)), real connectors, one shared power bus (motor current never from the MCU 5 V pin).
+Done 19 Nov 2026. Commit `f6f2c9b`, Fusion document "Super bot - v2" v53, on the module layout (no main board).
+
+**The v2 harness is in the model.** Every real wire is modelled: 46 cables / 85 bodies, with real gauges and connectors. Checks are clean: 0 wire hits, the 15-pose pan/tilt sweep is clean, and the battery sled slides out 160 mm without snagging. Outputs: [`cad/v2/WIRING.md`](../cad/v2/WIRING.md), [`cad/v2/review/wiring.json`](../cad/v2/review/wiring.json), [`review/wiring-diagram.svg`](../cad/v2/review/wiring-diagram.svg), and `renders/wiring-*.png`.
+
+The ESP32 talks to the Pi over USB (a Pi USB 3 port to the ESP32-S3 native USB-C), which also powers and flashes it and leaves Pi UART0 free for the LD19. Pi GPIO goes through one 2×20 Dupont housing on the AI HAT+ 2 pass-through header. Head cables (camera FFC, TFT and mic) run up the hollow pan shaft and cross the tilt joint through a 24×9 mm slot in a rolling U-loop. TFT and mic are soldered at the head end.
+
+**Open call: tilt U-loop radius.** The wire loops at the head tilt are 3–6 mm, below the 10× bend rule for those 28 AWG bundles (10 mm). Fixing that properly means raising the head about 6 mm, which is a looks call for Adam. Cosmetic: the 16 AWG 12 V pair and the GPIO bundle are the most visible wires from the front.
+
+The first desk breadboard is separate, and still looks messy, which is normal. Red is already 5 V and black is already ground. Use short pre-cut wires, keep the colour code, and keep motor and servo current off the MCU's 5 V pin.
+
+## BOM and cost
+
+Final 19 Nov 2026, commit `867e29e`. Generated by [`cad/v2/scripts/bom.py`](../cad/v2/scripts/bom.py) into [`cad/v2/BOM.md`](../cad/v2/BOM.md) and [`BOM.csv`](../cad/v2/BOM.csv). Wire lengths and crimps come from the wiring list. Nothing has been ordered.
+
+| Metric | Value |
+| --- | --- |
+| Net | EUR 1,071 (parts, materials, and shipping; 27% VAT not included) |
+| Incl. 27% VAT | EUR 1,347 (shipping included; the total a private buyer in Hungary would pay) |
+| Already owned, not counted | Pi 5 8 GB and the Circuit Playground Express |
+| Custom main board | Parked; rev A/B not in any total |
+
+AliExpress lines (except the motors) and shipping estimates are unverified, because AliExpress showed a captcha to the server that checked the links. Laser cutting, CA glue and tools are also not counted.
+
+**Three buying calls, still open.** Nothing gets ordered until Adam decides. Defaults are already in the totals.
+
+| Call | Default, in the totals | Alternative |
+| --- | --- | --- |
+| 1. Battery pack | DIY spot-welded 3S4P, about EUR 9 of nickel strip and fish-paper rings, plus a spot welder if you do not have one (welder not priced). Do not solder onto the cells. | A ready-made 3S4P pack that fits the 38×58×134 mm block, or a shop build from the 12 cells. Neither is priced. Either would replace about EUR 52 of cells, BMS and strip. |
+| 2. LD19 lidar | RobotShop EU, EUR 137 incl. VAT, in stock and verified (plus shared RobotShop shipping). | AliExpress, EUR 75–81 incl. VAT, about EUR 56–62 less. Variant (LD19 vs LD06/LD14) and delivery to Hungary are unverified. |
+| 3. Wheels | Nexus 100×50 mm set plus 4 hubs from RobotShop EU, EUR 140 incl. VAT. The wheels are on backorder. | AliExpress 100 mm sets, EUR 40–115 in listings, about EUR 25–100 less. Unverified; the wheel must be 100×50 mm, 2 L + 2 R. |
+
+CAD follow-ups, not spending calls: the chosen BMS is 62×41 mm (modelled 64×20 mm; still inside the 53 mm battery tunnel), and the ideal-diode module is 17×11.7×10.2 mm (modelled 22×16×5 mm). Update them in the next Fusion pass.
 
 ## Decision log
 
@@ -379,7 +414,20 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | v2 CAD is done and accepted as the current design | Pip, 18 Nov 2026, 12:45 AM (Europe/Budapest), after the side-by-side with the target photo, the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Body 200×200×250 mm rounded smoked PETG, footprint 306×252 mm, head top 429 mm, 5.04 kg, CoG z 128 mm, tips at 31°. 0 interferences at rest and across a 15-pose pan/tilt sweep; all 114 printed parts fit a 256 mm bed. 7-piece shell with tabs and 6×3 mm magnets. 3S4P pack slides out the back. LED bar at the front, lidar pod at the rear, wide capsule head on a short chunky gimbal, mecanum wheels out at the corners. Fusion document "Super bot - v2"; files in [`cad/v2/`](../cad/v2/); commits `3994b36` and `318a829`. The first 300×300 open-frame build was scrapped. Five open decisions wait on Adam (head width, lidar blind sector / pod height, charge-path diode, bumpers). |
 | Keep the 190 mm head; use the CPX as the front light; add a charge diode and an accessible jack; add minimal bumpers | Adam, 18 Nov 2026, morning. He only wanted the neck short, so the 190 mm head stays. There is no generic LED bar — the Adafruit Circuit Playground Express (already the kill-switch and status board) sits behind the front wall as the light. Inspiration from the photo, but only real parts, all properly wired. No dock yet, but charging should be easy (diode + accessible jack). Bumpers: add minimal ones if needed. The PCB README open questions are OK, including the TPS56637 swap. |
 | Lidar: both options rendered; the choice is still Adam's | Option A is the current low pod: 18.6° blocked (a software mask). Option B is a mast that puts the lidar above the head: 0° blocked, but at 467 mm up it misses more low stuff. The low pod itself is fine. Adam wanted both versions shown because 19° is a lot compared with the old ~9°. v2 work is paused at commit `451c65a`. Remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md): option A render, wiring, final checks/renders/exports, and README/decisions. |
-| Real JLC and PCBWay quotes for rev A and rev B; rev B started then paused | 18 Nov 2026. Adam asked for live quotes after the rough EUR 300 figure, and for a researched rev B. Quotes (EUR, excl / incl 27% VAT): rev B JLC Economic qty 2 EUR 179 / 227, qty 5 EUR 261 / 332 (~EUR 66 per board incl VAT); rev A JLC Economic qty 2 EUR 213 / 271, qty 5 EUR 304 / 386; rev B JLC Standard qty 2 EUR 233 / 296, qty 5 EUR 316 / 401; rev B PCBWay turnkey qty 2 EUR 592 / 752, qty 5 EUR 691 / 878; rev A PCBWay turnkey qty 2 EUR 657 / 834, qty 5 EUR 785 / 997. Recommendation: rev B on JLC Economic, qty 5. Full table in [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). Rev B (`hw/main-board/rev-b/`, commit `d2179d2`) has ERC 0, PWM mode, C/D nFAULT wired, a true 15 A input, test points, an antenna cut-out, THT left for hand-soldering, and vertical XT60PB-M connectors (J101/J102, LCSC C19268037, 20 A) facing the front wall. It is not orderable yet (6 unconnected nets and 3 DRC errors). Paused at Adam's request to save the Claude limit; resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched. Nothing has been ordered. KiCad 10.0.8 is installed on Adam's Mac; rev A is at `~/Desktop/super-bot-pcb`. |
+| Real JLC and PCBWay quotes for rev A and rev B; rev B started then paused | 18 Nov 2026. Adam asked for live quotes after the rough EUR 300 figure, and for a researched rev B. Quotes stay as history in [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md). On 19 Nov the board was parked and is not in the robot totals. A polarity fix for J101 landed in `c0d1343`. Nothing has been ordered. |
+
+**19 Nov 2026**
+
+| Decision | Why |
+| --- | --- |
+| No custom main board for now; v2 uses off-the-shelf modules | Adam, 19 Nov 2026: the custom PCB was too expensive. "Maybe later we'll use that but for now no." Modules: 4× Pololu DRV8874 on a perfboard, ESP32-S3-DevKitC-1 in a printed cradle, power distribution perfboard (XT60 in, 4× XT30 out, 12 V bus) with an INA226 and an external 20 A shunt, Pololu D36V50F5 5 V (Pi, 5 A mode) and D36V28F6 6 V (servos), MAX98357A, BNO085, and the CPX as front light and watchdog (DRV8874 nSLEEP). Rev A/B stays parked in [`hw/main-board`](../hw/main-board/) as a future option (rev B polarity fix `c0d1343`) and is not in the totals. |
+| Lidar option A is the live design | Low rear pod, 18.6° software mask, scan plane 301 mm, head at least 6.3 mm above it. The option B mast was deleted. Commit `f0104be`, Fusion doc v38, then v53 with the harness. |
+| Battery sled 14 mm nose; HC-SR04 sonar dropped | The XT60 solder cups sat 0.7 mm from the pack. The nose holds the blind-mate XT60 male; the bulkhead and female moved 14 mm forward. The sonar holder and front-wall knock-outs were removed; the front is covered by lidar, bumpers and cliff sensors. |
+| Pi 5 pose B; the model had been mirrored | Checked against the official Pi 5 mechanical drawing: components face the front wall, USB and Ethernet face the right wall, GPIO and the AI HAT+ 2 along the bottom edge, USB-C top-left. |
+| Wiring harness modelled in Fusion | Commit `f6f2c9b`, Fusion doc "Super bot - v2" v53. 46 cables / 85 bodies, real gauges and connectors. Checks clean: 0 wire hits, pan/tilt sweep clean, battery slides out 160 mm. Open looks call: tilt U-loop radius 3–6 mm is below the 10× bend rule for 28 AWG; fixing it needs the head about 6 mm higher. Cosmetic: the 12 V pair and the GPIO bundle are the most visible from the front. |
+| Parts list is final | Commit `867e29e`, [`cad/v2/BOM.md`](../cad/v2/BOM.md) and `BOM.csv` via `scripts/bom.py`. About EUR 1,071 net / EUR 1,347 incl. 27% VAT, shipping included. Pi 5 and CPX owned and not counted. Three buying calls still open (battery pack build, LD19 source, wheels source). AliExpress lines except the motors, and shipping estimates, are unverified because of a captcha. CAD follow-ups: BMS 62×41 mm, ideal diode 17×11.7×10.2 mm. |
+| Repo is public | github.com/Programcode/super-bot is public. Do not commit secrets or personal data. |
+| Mind reasoning effort is HIGH | The current setting for `qwen/qwen3.8-27b` is HIGH, replacing the earlier "at least low" wording on this page. The 15 Nov bench still stands as a reasoning-level comparison, where low scored 10/10. |
 
 **17 Nov 2026**
 
@@ -402,8 +450,9 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Open questions and next steps
 
-- Lidar option A vs B, still waiting on Adam (18 Nov 2026). The other v2 items are decided: keep the 190 mm head; use the CPX as the front light (LED bar removed); add a charge diode and an accessible jack; add minimal bumpers if needed. Both lidar options were rendered and checked. Option A (low pod, which is fine): 18.6° blocked, software mask. Option B (mast): 0° blocked, but at 467 mm up it misses more low stuff. v2 revision is paused at commit `451c65a`; remaining steps are in [`cad/v2/TASKS.md`](../cad/v2/TASKS.md).
-- Main board: do not order yet. Adam, 18 Nov 2026: the README open questions are OK, including the TPS56637 swap. Real quotes are in [Real quotes (Nov 18)](#real-quotes-nov-18) and [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md); recommendation is rev B on JLC Economic, qty 5 (~EUR 66 per board incl VAT). Rev B (commit `d2179d2`) is in progress but paused, and is not orderable yet (6 unconnected nets and 3 DRC errors). Resume with "continue rev b". Rev A and the tag `main-board-rev-a` are untouched. KiCad 10.0.8 is on Adam's Mac, with rev A at `~/Desktop/super-bot-pcb`. Nothing has been ordered.
+- Three buying calls on the final BOM. Nothing has been ordered. (1) Battery pack: DIY spot-weld (about EUR 9 of nickel strip, plus a welder if needed) vs a ready-made 3S4P or shop build (unpriced; would replace about EUR 52). (2) LD19: RobotShop EU EUR 137 in stock vs AliExpress EUR 75–81 unverified. (3) Wheels: Nexus 100×50 + hubs from RobotShop, EUR 140, wheels on backorder, vs AliExpress EUR 40–115 unverified. AliExpress lines except the motors, and shipping estimates, are unverified because of a captcha.
+- Tilt U-loop radius, a looks call. The head-tilt wire loops are 3–6 mm, below the 10× bend rule for 28 AWG (10 mm). Fixing that properly means raising the head about 6 mm. Cosmetic: the 12 V pair and the GPIO bundle are the most visible from the front.
+- Custom main board stays parked. Adam, 19 Nov 2026: no custom main board for now. Rev A/B remains in [`hw/main-board`](../hw/main-board/) as a future option (rev B polarity fix `c0d1343`) and is not in the totals. Do not order it while v2 uses modules.
 - Which harness for the skill-writing and memory agents (thin custom loop for the mind; libfx, Pi agent core, or omp for agents)?
 - Wait for Fable's questions and plan; then write layer contracts and the event list.
 - A minimal keep-target / hold-distance fallback on the ESP32?
@@ -413,10 +462,10 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 - Optional vision extras (YOLO-World, face recognition, Depth Anything).
 - Pick Luna or Jev for the classifier.
 - Check Cerebras prompt caching; cap reasoning tokens.
-- Recheck live prices before later-layer purchases.
+- Recheck live prices before any purchase. The final BOM (commit `867e29e`) is about EUR 1,071 net / EUR 1,347 incl. VAT, with the caveats above. Layer 1 on the desk can still stay at $0 with the laptop and a phone-as-webcam. Recheck live prices, especially unverified AliExpress lines, before buying.
 - Finish layer 1: a talking, seeing head on the desk.
 - A final official name, if "Super bot" should not stick.
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–18 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in this repo (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, renders, and review checks; commits `3994b36` and `318a829`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)), the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`), the 18 Nov real quotes in [`hw/main-board/QUOTES.md`](../hw/main-board/QUOTES.md), and rev B in [`hw/main-board/rev-b/`](../hw/main-board/rev-b/) (commit `d2179d2`, paused, not orderable yet).
+Facts on the page come from Adam's decisions on 14–19 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in the public repo github.com/Programcode/super-bot (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, [`WIRING.md`](../cad/v2/WIRING.md), [`BOM.md`](../cad/v2/BOM.md), renders, and review checks; commits `3994b36`, `318a829`, `f0104be`, `f6f2c9b`, `867e29e`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)), the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`), and the parked main board in [`hw/main-board/`](../hw/main-board/) (rev A finished 18 Nov 2026, 6:20 AM Europe/Budapest; quotes in [`QUOTES.md`](../hw/main-board/QUOTES.md); rev B polarity fix `c0d1343`; not in the robot totals).
