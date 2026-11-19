@@ -24,7 +24,13 @@ REAL = [
     ('Power connectors', 21, 'XT60 pair 16 + charge jack 5'),
     ('Circuit Playground Express', 8.9, 'SRC'),
     ('Mic INMP441', 1, 'EST'),
-    ('Main power XT30 loop key', 14, 'EST: XT30 panel socket + male + 16 AWG loop'),
+    ('Main power XT60 loop key', 33, 'EST: XT60E-F panel socket + male key + 16 AWG loop'),
+    ('Motor driver board', 25, 'EST: 70x40 perfboard + 4x Pololu DRV8874 carriers + headers + terminals'),
+    ('ESP32-S3-DevKitC-1', 10, 'EST'),
+    ('Power distribution board', 40, 'EST: perfboard + XT60 + 4x XT30 + bus bar + INA226 module'),
+    ('Pi 5 V 5.5 A buck', 7, 'SRC Pololu D36V50F5 ~5 g + standoffs'),
+    ('Servo 6 V buck', 3, 'SRC Pololu D36V28F6'),
+    ('Audio MAX98357A', 2, 'SRC Adafruit 3006'),
     ('Bumpers', 6, 'EST: 4x Omron D2F-01L ~1.5 g'),
     ('Face graphic', 0, 'not a part'),
     ('Wiring harness', 0, 'counted separately'),
@@ -320,8 +326,9 @@ def keepouts(tag='keepouts'):
     log('keepout check: %d volumes; rev A blocked %d, option (a) blocked %d' % (len(ko), len(rev_a), len(opt_a)))
 
 
-GROUPS = [('drive', ('Chassis', 'Drive')), ('battery', ('Battery', 'Power connectors', 'Cliff', 'Front ultrasonic')), ('frame', ('Frame',)),
-          ('front', ('Raspberry Pi', 'Main board rev A', 'Circuit Playground')), ('back', ('BNO085', 'Speaker', 'Main power', 'ESP32-S3 spare')),
+GROUPS = [('drive', ('Chassis', 'Drive')), ('battery', ('Battery', 'Power connectors', 'Cliff')), ('frame', ('Frame',)),
+          ('front', ('Raspberry Pi', 'Motor driver board', 'ESP32-S3-DevKitC', 'Circuit Playground')),
+          ('back', ('BNO085', 'Speaker', 'Main power', 'ESP32-S3 spare', 'Pi 5 V', 'Power distribution', 'Audio', 'Servo 6 V')),
           ('shell', ('Shell',)), ('bumpers', ('Bumpers',)), ('head', ('Head',)), ('lidar', ('Lidar',))]
 
 

@@ -1,0 +1,16 @@
+{
+ "stage": "front",
+ "prefixes": [
+  "Raspberry Pi",
+  "Motor driver board",
+  "ESP32-S3-DevKitC",
+  "Circuit Playground"
+ ],
+ "bodies": 69,
+ "near": 12,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 2,
+ "seconds": 2
+}

@@ -2,6 +2,22 @@
 
 Key decisions for Super bot. Newest first. Dates are Europe/Budapest. The full log with reasons is on the Grok Bot page (snapshot in [super-bot-page.md](super-bot-page.md)). Append a row whenever something is decided.
 
+## 19 Nov 2026: v2 wiring harness, back to modules (`cad/v2/`, details in [cad/v2/WIRING.md](../cad/v2/WIRING.md))
+
+| Decision | Notes |
+| --- | --- |
+| v2 uses off-the-shelf modules, not the custom main board | Adam (via Pip). Rev A/B stays parked in `hw/main-board/` as a future option. Modules: 4x Pololu DRV8874 on a perfboard, ESP32-S3-DevKitC-1 in a printed cradle, power distribution perfboard (XT60 in, 4x XT30 out, 12 V bus) with the INA226 module, Pololu D36V50F5 5 V (Pi, 5 A mode) and D36V28F6 6 V (servos), MAX98357A, BNO085, CPX front light + watchdog (drives the DRV8874 sleep lines). |
+| Module layout = the 17 Nov one, with the PDB and the amp/servo buck swapped between the cheeks | PDB + INA226 on the right cheek next to the loop key (short 16 AWG main feed); amp + 6 V buck on the left cheek next to the speaker; empty spare-ESP32 cradle lowered to z 90-119 so the PDB plugs have room; 5 V buck on the spine back behind the Pi's USB-C. |
+| Lidar option A (low rear pod) is live in the CAD | Mast removed. Scan plane 301 mm, only the pan shaft + knuckle in it (the ~19 deg masked sector; every in-shaft cable is inside that shadow). |
+| Optional HC-SR04P front sonar dropped to make room for the sled XT60 nose; front covered by lidar + bumpers + cliff sensors; J415 spare | Pip/Adam, 19 Nov 2026. Holder and both front-wall knock-outs removed. |
+| Battery sled gets a 14 mm nose carrying the blind-mate XT60 male; bulkhead + female move 14 mm forward | The XT60's solder cups sat 0.7 mm from the pack: no room for the 16 AWG leads. `sled_nose` parameter. |
+| Spine: 20 mm wire relief above the battery-tunnel notch (to z 108) and two 18 x 12 mm low harness slots at x +-48 | The sled's fuse-to-XT60 leads pass the spine when the sled slides out; the low slots carry the rear motor, rear bumper and cliff cables under the boards. |
+| Raspberry Pi 5 stand-in fixed to pose B (it was a mirror image) | Checked against the official Pi 5 mechanical drawing: components face the front wall, USB/Ethernet toward the right wall, GPIO header + AI HAT+ 2 along the bottom edge, USB-C top-left. PCIe FFC position corrected, fan header added. |
+| ESP32 <-> Pi over USB (Pi USB 3 port -> ESP32-S3 native USB-C), not UART | Powers and flashes the ESP32 too. Frees Pi UART0 for the LD19. |
+| Pi GPIO via one 2x20 Dupont housing on the AI HAT+ 2 pass-through header (21 wires) | Lidar, I2S amp + mic, TFT (SPI0), CPX power. Head TFT and mic are soldered at the head end (no room for housings behind them). |
+| Head cables cross the tilt joint in a 24 x 9 mm slot straight above the pan shaft (turret top, fork crossbar, head bottom, head-frame foot), with a rolling U-loop in the 10 mm turret-to-crossbar gap | Replaces the 14 mm ribbon slots at x 14 that the 16 mm camera FFC could not pass. Checked at all 15 pan/tilt poses (`review/wiring.json`, moving_cables). |
+| CPX bracket bottom raised 6 mm | Clears the PH plug in the CPX battery input. |
+
 ## 17-18 Nov 2026: main PCB rev A (KiCad, `hw/main-board/`)
 
 Made overnight by a Claude thread while Adam slept; all are proposals for Adam/Pip to accept or change. Details and open questions in [hw/main-board/README.md](../hw/main-board/README.md).

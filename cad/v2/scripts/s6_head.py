@@ -299,3 +299,28 @@ def main(parts=('fixed', 'pan')):
         pc = pan_rotor()
         tilt_rotor(pc)
     done()
+
+
+def cable_slots():
+    """19 Nov 2026 (wiring): one 24 x 9 mm cable slot straight above the pan shaft, through the turret top, the
+    fork crossbar, the head bottom and the head-frame foot, for the camera FFC (16 mm at the camera end) and the
+    TFT + mic bundles. Replaces the 14 mm ribbon window/slots at x 14 that the cables could not use."""
+    pan = find_occ('Head pan rotor')
+    tilt = find_occ('Head tilt rotor', pan.component)
+    gone = 0
+    for comp in (pan.component, tilt.component):
+        for f in list(comp.features.extrudeFeatures):
+            if f.name.startswith(('ribbon window', 'ribbon slot', 'cable slot')):
+                f.deleteMe()
+                gone += 1
+    pb = {b.name: b for b in pan.component.bRepBodies}
+    tb = {b.name: b for b in tilt.component.bRepBodies}
+    turret = [b for n, b in pb.items() if n.startswith('turret')][0]
+    B(pan.component, 'cable slot (turret top)', '4 mm', '(pan_y) + 5.5 mm', 'tilt_z + 13 mm - 4 mm', '24 mm', '9 mm', '6 mm', op=CUT, bodies=[turret])
+    fork = [b for n, b in tb.items() if n.startswith('tilt fork')][0]
+    B(tilt.component, 'cable slot (crossbar)', '4 mm', '(pan_y) + 5.5 mm', 'head_z0 - 6 mm', '24 mm', '9 mm', '7 mm', op=CUT, bodies=[fork])
+    for n in ('head shell front', 'head frame'):
+        bb = [b for k, b in tb.items() if k.startswith(n)]
+        if bb:
+            B(tilt.component, 'cable slot (%s)' % n, '4 mm', '(pan_y) + 5.5 mm', 'head_z0 - 1 mm', '24 mm', '9 mm', '14 mm', op=CUT, bodies=bb)
+    log('head cable slots cut; old ribbon cuts removed', gone)

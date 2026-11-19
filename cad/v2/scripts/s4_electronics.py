@@ -1,19 +1,15 @@
-# Stage 4: electronics that sit around the main board (hw/main-board, built in s4b_mainboard.py).
-# Only parts from the BOM / decisions; every module connects to a main-board connector (see s8).
-# Spine front (the chimney, seen through the front wall): main board rev A low, Raspberry Pi 5 +
-#   Active Cooler + AI HAT+ 2 above it (its USB-C lines up with the board's notch), and the
-#   Circuit Playground Express on a printed bracket right behind the front wall, so its 10
-#   NeoPixels show through the smoked shell (the front status light).
-# Spine back: BNO085. Right cheek: empty cradle for a second ESP32-S3 (room kept, no board yet).
-# Rear plate: 40 mm speaker (rear grille). Upper back: XT30 loop key (matches the board's J102).
+# Stage 4: the Pi stack, front light, IMU and speaker. 19 Nov 2026 (Adam): v2 uses off-the-shelf modules,
+# not the custom main board (hw/main-board stays parked as a future option); the module blocks are in
+# s4c_modules.py. Spine front (the chimney, seen through the front wall): DRV8874 perfboard + ESP32-S3 low
+# (s4c), Raspberry Pi 5 + Active Cooler + AI HAT+ 2 above them, and the Circuit Playground Express on a
+# printed bracket right behind the front wall, so its 10 NeoPixels show through the smoked shell.
+# Spine back: BNO085 (5 V buck: s4c). Right cheek: empty cradle for a second ESP32-S3. Rear plate: 40 mm speaker.
 
-OLD = ['Motor driver board 4x DRV8874', 'ESP32-S3-DevKitC-1 A', 'ESP32-S3-DevKitC-1 B spare', 'Pi 5 V 5.5 A buck (Pololu D36V50F5)',
-       'Power distribution board + INA226', 'Servo 6 V buck (Pololu D36V28F6)', 'Circuit Playground Express + LED bar',
-       'Audio MAX98357A + speaker', 'Main power XT60 loop key', 'BNO085 IMU (Adafruit 4754)']
+OLD = ['Main board rev A (hw-main-board)', 'Main board keep-outs (plug + cable bend)', 'Main power XT30 loop key']
 
 PARAMS4 = [
-    ('pi_xc', '-35.7 mm', 'Pi 5 PCB centre X: puts its USB-C (11.2 mm from the left edge) over the main board notch'),
-    ('pi_z0', 'mb_top + 8 mm', 'Pi 5 PCB bottom (HDMI/USB-C) edge Z: 8 mm above the main board for the right-angle USB-C plug'),
+    ('pi_xc', '-5 mm', 'Pi 5 PCB centre X (module layout: USB/Ethernet edge faces +X)'),
+    ('pi_z0', 'plate_top + 104 mm', 'Pi 5 PCB bottom (GPIO) edge Z, above the driver board and ESP32 (pose B)'),
     ('pi_so', '6 mm', 'Pi standoffs off the spine'),
     ('pi_y0', 'spine_y + pi_so', 'Pi PCB back face Y'),
     ('hat_so', '16 mm', 'AI HAT+ 2 spacer height (SRC)'),
@@ -38,10 +34,13 @@ def remove_old():
 
 
 def pi_box(c, name, u, v, wu, hv, t, yb, mat, look, op=NEWB, bodies=None):
-    """Box in Pi board coordinates: u from the left (USB-C) edge -> +X, v from the HDMI edge -> +Z,
-    yb from the PCB front face -> +Y. u, v = the box's low corner."""
+    """Box in Pi board coordinates (real Pi 5 frame: component side up, GPIO edge on top, u to the right
+    from the USB-C end, v up from the HDMI edge). Pose B (19 Nov, matches the official Pi 5 STEP):
+    components face the front wall, u -> +X (USB/Ethernet toward the right wall), v -> -Z, so the
+    GPIO header + AI HAT+ 2 sit along the BOTTOM edge (pi_z0) and USB-C / HDMI along the top (pi_z0 + 56).
+    yb from the PCB front face -> +Y. u, v = the box's low corner. (Before 19 Nov v ran -> +Z: a mirror image.)"""
     x = '(pi_xc - 42.5 mm) + (%s) + (%s)/2' % (u, wu)
-    z = 'pi_z0 + (%s) + (%s)/2' % (v, hv)
+    z = 'pi_z0 + 56 mm - (%s) - (%s)/2' % (v, hv)
     y = 'pi_y0 + 1.4 mm + (%s) + (%s)/2' % (yb, t)
     b = box(c, name, {'x': x, 'y': y, 'z': z}, {'x': wu, 'y': t, 'z': hv}, op=op, bodies=bodies)
     if op == NEWB:
@@ -61,19 +60,20 @@ def pi_stack():
     for k, uu in (('1', '47.3 mm'), ('0', '53.5 mm')):
         pi_box(c, 'MIPI CAM-DISP%s 22p' % k, uu, '0.5 mm', '3 mm', '15.8 mm', '3 mm', '0 mm', 'ABS Plastic', 'Plastic - Matte (White)')
     pi_box(c, 'GPIO 2x20 header', '7 mm', '56 mm - 6 mm', '51 mm', '5 mm', '8.5 mm', '0 mm', 'ABS Plastic', BLACK)
-    pi_box(c, 'PCIe FFC', '0.5 mm', '20 mm', '3 mm', '15 mm', '1.2 mm', '0 mm', 'ABS Plastic', 'Plastic - Matte (White)')
-    pi_box(c, 'Active Cooler', '3.5 mm', '8 mm', '57 mm', '40 mm', '13.7 mm', '0 mm', 'Aluminum 6061', 'Aluminum - Anodized Rough (Grey)')
+    pi_box(c, 'PCIe FFC', '0.5 mm', '24.6 mm', '3 mm', '10.7 mm', '1.2 mm', '0 mm', 'ABS Plastic', 'Plastic - Matte (White)')   # official drawing
+    pi_box(c, 'fan connector (JST-SH 4)', '65.25 mm', '48.85 mm', '3.1 mm', '6.1 mm', '4.25 mm', '0 mm', 'ABS Plastic', 'Plastic - Matte (White)')
+    pi_box(c, 'Active Cooler', '3.5 mm', '17 mm', '57 mm', '31 mm', '13.7 mm', '0 mm', 'Aluminum 6061', 'Aluminum - Anodized Rough (Grey)')
     for hu in ('3.5 mm', '61.5 mm'):
         for hv in ('3.5 mm', '52.5 mm'):
             x = '(pi_xc - 42.5 mm) + %s' % hu
-            z = 'pi_z0 + %s' % hv
+            z = 'pi_z0 + 56 mm - %s' % hv
             C(c, 'M2.5 standoff 6', 'y', x, 'spine_y + pi_so/2', z, '5 mm', 'pi_so', 'Copper, Alloy', BRASS)
             C(c, 'M2.5 spacer 16', 'y', x, 'pi_y0 + 1.4 mm + hat_so/2', z, '5 mm', 'hat_so', 'Copper, Alloy', BRASS)
     h = fresh('Raspberry Pi AI HAT+ 2 (Hailo-10H)')
     hb = 'hat_so'
     hp = pi_box(h, 'AI HAT+ 2 PCB', '0 mm', '56 mm - 56.5 mm', '65 mm', '56.5 mm', '1.6 mm', hb, 'FR4', GREEN)
     pi_box(h, 'ribbon cut-out', '47.5 mm', '-1 mm', '10 mm', '17 mm', '4 mm', '(%s) - 1 mm' % hb, None, None, op=CUT, bodies=[hp])
-    hs = pi_box(h, 'HAT heatsink (EST 42x42)', '3 mm', '10 mm', '42 mm', '42 mm', '14 mm', '(%s) + 1.6 mm' % hb, 'Aluminum 6061', 'Aluminum - Anodized Rough (Grey)')
+    hs = pi_box(h, 'HAT heatsink (EST 42x37)', '3 mm', '10 mm', '42 mm', '37 mm', '14 mm', '(%s) + 1.6 mm' % hb, 'Aluminum 6061', 'Aluminum - Anodized Rough (Grey)')
     for k in range(5):
         pi_box(h, 'fin slot', '3 mm + 4 mm + %d*8 mm' % k, '9 mm', '4 mm', '44 mm', '12 mm', '(%s) + 3.6 mm' % hb, None, None, op=CUT, bodies=[hs])
     pi_box(h, 'GPIO stacking header', '7 mm', '56 mm - 6 mm', '51 mm', '5 mm', '8.5 mm', '(%s) + 1.6 mm' % hb, 'ABS Plastic', BLACK)
@@ -99,7 +99,7 @@ def cpx_front():
     for bx in (-1, 1):
         B(c, 'button', '%d*13 mm' % bx, '(%s) + 1.6 mm + 1 mm' % yp, 'cpx_z - 3 mm', '6 mm', '2 mm', '6 mm', 'ABS Plastic', BLACK)
     # plate behind the CPX; two 9 mm legs up to the top deck, landing between the chimney vent slots
-    br = B(c, 'CPX bracket (printed)', '0 mm', '(%s) - 4 mm - 2 mm' % yp, 'cpx_z - 20 mm', '60 mm', '4 mm', '40 mm', 'PET Plastic', BLACK)
+    br = B(c, 'CPX bracket (printed)', '0 mm', '(%s) - 4 mm - 2 mm' % yp, 'cpx_z - 14 mm', '60 mm', '4 mm', '34 mm', 'PET Plastic', BLACK)   # 19 Nov: bottom raised 6 mm, clear of the CPX battery JST plug
     legs = []
     for sx in (1, -1):
         legs.append(B(c, 'leg', S(sx, '9 mm'), '(%s) - 4 mm - 2 mm' % yp, 'cpx_z + 20 mm', '9 mm', '4 mm', 'top_deck_z - (cpx_z + 20 mm)'))
@@ -113,8 +113,8 @@ def cpx_front():
 
 def spare_cradle():
     c = fresh('ESP32-S3 spare cradle (empty)')
-    cr = B(c, 'printed cradle (empty, for a second ESP32-S3 later)', 'cheek_x + ply_t + 4.5 mm', '-8 mm', 'plate_top + 92 mm', '9 mm', '66 mm', '29.4 mm', 'PET Plastic', BLACK)
-    B(c, 'header pocket', 'cheek_x + ply_t + 6.5 mm', '-8 mm', 'plate_top + 94 mm', '8 mm', '64 mm', '25.4 mm', op=CUT, bodies=[cr])
+    cr = B(c, 'printed cradle (empty, for a second ESP32-S3 later)', 'cheek_x + ply_t + 4.5 mm', '-8 mm', 'plate_top + 54 mm', '9 mm', '66 mm', '29.4 mm', 'PET Plastic', BLACK)
+    B(c, 'header pocket', 'cheek_x + ply_t + 6.5 mm', '-8 mm', 'plate_top + 56 mm', '8 mm', '64 mm', '25.4 mm', op=CUT, bodies=[cr])
     cr.name = 'printed cradle (empty, for a second ESP32-S3 later)'
 
 
@@ -134,18 +134,6 @@ def back_side():
            '(rear_y - ply_t) - (-(shell_y - pwall - 21 mm))', '4 mm', 'PET Plastic', BLACK)
     join(a, br, [bf], 'speaker bracket (printed)')
     C(a, 'magnet clearance', 'y', '-45 mm', '-(shell_y - pwall - 23 mm)', 'body_top - 70 mm', '24 mm', '6 mm', op=CUT, bodies=[br])
-    # XT30 loop key (matches the main board's MAIN SWITCH LOOP J102, XT30PW-M)
-    k = fresh('Main power XT30 loop key')
-    yw = '-(shell_y - pwall)'
-    kz = 'body_top - 40 mm'
-    hb = B(k, 'loop key bracket (printed)', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 12 mm' % kz, '28 mm', '4 mm', 'top_deck_z - ((%s) - 12 mm)' % kz, 'PET Plastic', BLACK)
-    hf = B(k, 'bracket flange', '50 mm', '(%s) + 15 mm' % yw, 'top_deck_z - 4 mm', '28 mm', '12 mm', '4 mm', 'PET Plastic', BLACK)
-    join(k, hb, [hf], 'loop key bracket (printed)')
-    B(k, 'XT30 window', '50 mm', '(%s) + 9 mm' % yw, '(%s) - 2.8 mm' % kz, '10.4 mm', '6 mm', '5.6 mm', op=CUT, bodies=[hb])
-    B(k, 'XT30 female panel socket', '50 mm', '(%s) + 4 mm' % yw, '(%s) - 2.6 mm' % kz, '10.2 mm', '16 mm', '5.2 mm', 'Nylon 6/6', 'Plastic - Matte (Yellow)')
-    kk = B(k, 'loop key (XT30 male + 16 AWG loop)', '50 mm', '(%s) - 6 mm' % yw, '(%s) - 2.6 mm' % kz, '10.2 mm', '12 mm', '5.2 mm', 'Nylon 6/6', 'Plastic - Matte (Red)')
-    g = B(k, 'loop key grip', '50 mm', '(%s) - 16 mm' % yw, '(%s) - 6 mm' % kz, '18 mm', '8 mm', '12 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
-    join(k, kk, [g], 'loop key (XT30 male + 16 AWG loop)')
     log('back side ok')
 
 

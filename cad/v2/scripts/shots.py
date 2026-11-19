@@ -32,7 +32,7 @@ def views(names=None, suffix=''):
 
 # ---------------------------------------------------------------- exploded
 GROUPS = [
-    ('base', 0, ('Chassis', 'Drive', 'Battery', 'Power connectors', 'Cliff', 'Front ultrasonic', 'Bumpers')),
+    ('base', 0, ('Chassis', 'Drive', 'Battery', 'Power connectors', 'Cliff', 'Bumpers')),
     ('frame', 170, ('Frame', 'Main board rev A', 'Raspberry Pi', 'ESP32-S3 spare', 'Circuit Playground', 'BNO085',
                     'Speaker', 'Main power', 'Wiring')),
     ('top', 330, ('Head joint fixed', 'Lidar')),

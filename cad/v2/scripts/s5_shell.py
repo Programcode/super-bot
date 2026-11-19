@@ -118,12 +118,10 @@ def openings(c, P_):
         B(c, 'chimney vent', '%d*18 mm' % (j - 3), '(spine_y + 6 mm + shell_y - top_r - 2 mm)/2', tz, '5 mm',
           '(shell_y - top_r - 2 mm) - (spine_y + 6 mm)', 'pwall + 3 mm', op=CUT, bodies=[P_['top F']])
     f = P_['front']
-    # LED bar slot (bezel + diffuser added in s4), intake slots above the front motors, HC-SR04P knock-outs
+    # LED bar slot (bezel + diffuser added in s4), intake slots above the front motors (HC-SR04P knock-outs dropped 19 Nov)
     B(c, 'LED bar slot', '0 mm', 'shell_y - pwall/2', 'bar_z - 6 mm', 'bar_w', 'pwall + 2 mm', '12 mm', op=CUT, bodies=[f])
     for j in range(-4, 5):
         B(c, 'intake slot', '%d*16 mm' % j, 'shell_y - pwall/2', 'plate_top + 50 mm', '4 mm', 'pwall + 2 mm', '24 mm', op=CUT, bodies=[f])
-    for tx in (-1, 1):
-        C(c, 'HC-SR04P knock-out', 'y', '%d*13 mm' % tx, 'shell_y - pwall/2 - 0.3 mm', 'plate_top + 24 mm', '16.6 mm', 'pwall - 0.6 mm', op=CUT, bodies=[f])
     # side walls: U-slots over the wheel shafts so the walls lift off
     for k, sx in (('right', 1), ('left', -1)):
         for sy in (1, -1):

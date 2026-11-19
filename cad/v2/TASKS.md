@@ -4,6 +4,9 @@ Coordinates: mm, Z up, +Y = robot front, +X = robot right, ground Z = 0.
 
 ## Revised layout (17 Nov, after Adam's feedback on the target photo)
 
+The 17 Nov plan, kept as history. Where it differs from the 18 Nov and 19 Nov sections below (LED bar, sonar, module
+positions), those win; `README.md` describes the current model.
+
 Target: `docs/concepts/v2-target-photo.png`. A compact, dense, rounded smoked box a bit taller than wide,
 boards stacked flat behind the front wall, big wheels outside the corners, a short chunky gimbal on a
 square plinth forward of centre, a rounded lidar pod at the top rear, an LED bar near the top front.
@@ -99,13 +102,45 @@ Prepared while the Mac was offline. Job order when Fusion is back (each saves on
       plane, 0 sweep hits. Render `renders/v2-photo-optB.png`
 - [x] 8b option A (19 Nov, wiring thread, doc v38): `set_option(0)` now also deletes the option B mast; render `renders/v2-photo-optA.png`, quick lidar 0 hits, scan plane 301 mm (only the pan shaft + knuckle in it), sweep 0 hits, head >= 6.3 mm above the plane. `review/checks-19nov/`. Was: job `s7_lidar.py set_option(0)`, then `scripts/option_shot_check.py` with TAG = optA (
       `views(['photo'], suffix='-optA')`, quick lidar, scan_plane, sweep) -> `renders/v2-photo-optA.png`
-- [ ] 9 `s8_wiring.py main()` (harness from every main-board connector)
-- [ ] 10 full checks: `all_quick(); floating(); keepouts(); main(('mass', 'bed', 'sweep'))`
+- [x] ~~9 `s8_wiring.py main()` (harness from every main-board connector)~~ replaced on 19 Nov by the module harness (see below)
+- [ ] 10 full checks: `all_quick(); floating(); main(('mass', 'bed', 'sweep'))` (render thread). `keepouts()` belonged to the
+      main board and is not needed for the module layout.
 - [ ] 11 shots: `views(); exploded(); callouts()`, compose with compose_bg.py + callout_annotate.py; new side-by-side
       (`sidebyside.py` vs docs/concepts/v2-target-photo.png, crop like the 17 Nov one); exports `export.main()` (drop magnet STLs)
-- [ ] README update (parts audit, main board, bumpers, charging, lidar options), merge `review/decisions-draft-18nov.md`
-      into docs/decisions.md, fill RESULTS_PENDING in `review/main-board-fit.md`, commit, `git pull --rebase`, push, webhook Pip
-      (paths: both option renders, review/lidar-occlusion.png, side-by-side, checks output, board-fit report)
+      (render thread). Note: `shots.py` GROUPS still lists 'Main board rev A' in the frame group; harmless (no match), but the
+      exploded view needs the module components in that group.
+- [ ] Docs: README rewritten for the module layout on 19 Nov (mass/CoG/check numbers marked "17 Nov checks, re-run pending";
+      refresh them after 10). Still open: merge `review/decisions-draft-18nov.md` into docs/decisions.md (its main-board rows
+      are history now), commit, `git pull --rebase`, push, webhook Pip (paths: option A render, review/lidar-occlusion.png,
+      side-by-side, checks output, WIRING.md). `review/main-board-fit.md` RESULTS_PENDING is moot while the board is parked.
+
+## 19 Nov: wiring thread (module layout, harness)
+
+Adam (via Pip), 19 Nov: v2 uses off-the-shelf modules, not the custom main board. The board stays parked in `hw/main-board/`
+as a future option; `scripts/s4b_mainboard.py` is parked too and is **not run** for the module layout. Decisions:
+docs/decisions.md, "19 Nov 2026". The Fusion doc has all of the items below.
+
+- [x] Lidar option A live (doc v38): `set_option(0)` also deletes the option B mast. Scan plane 301 mm, ~19 deg masked sector
+      (pan shaft + knuckle), sweep 0 hits, head >= 6.3 mm above the plane. `renders/v2-photo-optA.png`, `review/checks-19nov/`
+- [x] Optional HC-SR04P front sonar dropped (holder + both front-wall knock-outs removed; `s2_battery`, `s5b_shell_edits`).
+      Battery sled gets a 14 mm nose (`sled_nose`) for the blind-mate XT60 male and its 16 AWG leads; bulkhead + female 14 mm forward
+- [x] Back to modules (`s4_electronics` + new `s4c_modules`): 4x DRV8874 perfboard (spine front low left, x -80..-10, z 82..122),
+      ESP32-S3-DevKitC-1 in a cradle (spine front low right, x 17..83), Pi 5 stack above (PCB z 140..196), CPX front light +
+      motor watchdog (A1 -> DRV8874 nSLEEP), BNO085 + D36V50F5 5 V buck on the spine back, XT60 loop key, speaker. Main board
+      block, keep-outs and XT30 loop key removed
+- [x] Pi 5 stand-in fixed to pose B (it was a mirror image; checked against the official mechanical drawing): components face the
+      front wall, USB/Ethernet to the right wall, GPIO + AI HAT+ 2 along the bottom edge, USB-C top-left
+- [x] Cheek swap: PDB perfboard + INA226 to the right cheek (next to the loop key), MAX98357A + D36V28F6 6 V buck to the left
+      cheek (next to the speaker); empty spare-ESP32 cradle lowered to z 90..119
+- [x] Slots: spine feed-wire relief above the tunnel notch (x +-10, to z 108) and two 18 x 12 low harness slots at x +-48
+      (z 48..60) (`s3_frame.low_slots`); head: one 24 x 9 cable slot above the pan shaft through the turret top, fork crossbar,
+      head bottom and head-frame foot, old 14 mm ribbon slots at x 14 removed (`s6_head.cable_slots`); CPX bracket bottom raised 6 mm
+- [ ] Harness + checks: **in progress, see `WIRING.md`** (component 'Wiring harness' + 'Wiring harness (tilt)'; routes in
+      `w_routes.py`, checks `w_check.py` / `w_flex.py`, schedule `w_report.py` -> `review/wiring.json`)
+- [x] README rewritten for the module layout (this thread)
+
+Charge path (as built): jack -> 5 A fuse -> ideal diode -> pack. The comments in `s2_battery.py` still say jack -> diode -> fuse
+(the 18 Nov draft order); fix the comment next time that stage is touched.
 
 ### How to resume
 
@@ -113,4 +148,5 @@ Prepared while the Mac was offline. Job order when Fusion is back (each saves on
 2. If the session's Fusion MCP tool is down but `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:27182/mcp` gives 405,
    use `python3 cad/v2/scripts/fmcp.py job <tag> "[('<stage>.py', '<call>')]"` (runs the loader, saves on success) or
    `fmcp.py exec <script.py> [ro]`.
-3. Run stage `s4b_mainboard` before `s4_electronics` (s4 needs `mb_top`).
+3. Electronics for the module layout: run `s4_electronics` (defines `pi_xc`, `pi_z0` and removes the main-board components),
+   then `s4c_modules`. Do **not** run `s4b_mainboard` (parked; it would put the board block back).

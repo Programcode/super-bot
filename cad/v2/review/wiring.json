@@ -1,0 +1,2853 @@
+{
+ "generated_from": "cad/v2/scripts/w_routes.py (+ w_lib.py), doc \"Super bot - v2\" v52",
+ "units": "mm",
+ "cut_length_rule": "routed centreline + 12 mm, rounded up to 5 mm; stock cables give the stock length instead",
+ "bend_rule": ">= 4x conductor OD static (silicone), >= 10x where the cable flexes; tilt U-loop and terminations noted per cable",
+ "cables": [
+  {
+   "id": "S01",
+   "name": "pack B- to BMS B-",
+   "from": "pack B- terminal (rear top)",
+   "to": "BMS B- pad",
+   "route_mm": 15.8,
+   "cut_mm": 30,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (pack B- tab)",
+   "end_b": "solder (BMS B- pad)",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 4.89,
+   "min_bend_x_od": 1.7,
+   "moving": false,
+   "route": "",
+   "notes": "solder both ends; lands on the B- pad from the left (clear of the 5 A fuse holder)",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "B-",
+     "to": "B-",
+     "awg": 16,
+     "colour": "black",
+     "signal": "pack -"
+    }
+   ],
+   "pieces": [
+    "S01"
+   ]
+  },
+  {
+   "id": "S02",
+   "name": "BMS balance lead",
+   "from": "BMS balance header (4)",
+   "to": "cell group taps 0 / 1 / 2 / 3",
+   "route_mm": 20.2,
+   "cut_mm": 35,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "JST-XH 4 housing + 4 XH crimps (BMS balance)",
+   "end_b": "solder to nickel taps",
+   "kind": "bundle",
+   "od_mm": 4.0,
+   "min_bend_mm": 6.4,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "",
+   "notes": "JST-XH 4 at the BMS; taps soldered to the nickel strips (bundle drawn to the middle strip; the rear strip is under the ideal diode)",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "B0",
+     "to": "B-",
+     "awg": 22,
+     "colour": "black",
+     "signal": "cell 0"
+    },
+    {
+     "wire": 2,
+     "from": "B1",
+     "to": "cell 1+",
+     "awg": 22,
+     "colour": "red",
+     "signal": "cell 1"
+    },
+    {
+     "wire": 3,
+     "from": "B2",
+     "to": "cell 2+",
+     "awg": 22,
+     "colour": "red",
+     "signal": "cell 2"
+    },
+    {
+     "wire": 4,
+     "from": "B3",
+     "to": "B+",
+     "awg": 22,
+     "colour": "red",
+     "signal": "cell 3"
+    }
+   ],
+   "pieces": [
+    "S02"
+   ]
+  },
+  {
+   "id": "S03",
+   "name": "B+ to 15 A fuse in",
+   "from": "pack B+ terminal (front top)",
+   "to": "15 A fuse holder in-lead",
+   "route_mm": 46.2,
+   "cut_mm": 60,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (pack B+ tab)",
+   "end_b": "solder/butt splice to fuse-holder lead",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 1.4,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "B+",
+     "to": "in",
+     "awg": 16,
+     "colour": "red",
+     "signal": "pack +"
+    }
+   ],
+   "pieces": [
+    "S03"
+   ]
+  },
+  {
+   "id": "S04",
+   "name": "15 A fuse out to sled XT60 male +",
+   "from": "15 A fuse holder out-lead",
+   "to": "XT60 male (sled) +",
+   "route_mm": 62.2,
+   "cut_mm": 75,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "butt splice to fuse-holder lead",
+   "end_b": "XT60 male (sled), solder",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 5.07,
+   "min_bend_x_od": 1.7,
+   "moving": false,
+   "route": "",
+   "notes": "over the pack front edge, through the spine feed relief, down into the sled nose",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "out",
+     "to": "+",
+     "awg": 16,
+     "colour": "red",
+     "signal": "VBAT fused"
+    }
+   ],
+   "pieces": [
+    "S04"
+   ]
+  },
+  {
+   "id": "S05",
+   "name": "BMS P- to sled XT60 male -",
+   "from": "BMS P- pad",
+   "to": "XT60 male (sled) -",
+   "route_mm": 117.9,
+   "cut_mm": 130,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (BMS P-)",
+   "end_b": "XT60 male (sled), solder",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 5.07,
+   "min_bend_x_od": 1.7,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "P-",
+     "to": "-",
+     "awg": 16,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "S05"
+   ]
+  },
+  {
+   "id": "S06",
+   "name": "charge jack + to 5 A fuse in",
+   "from": "DC jack 5.5x2.1 centre (+)",
+   "to": "5 A inline fuse in",
+   "route_mm": 49.1,
+   "cut_mm": 65,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (DC jack tip)",
+   "end_b": "butt splice to inline 5 A fuse lead",
+   "kind": "bundle",
+   "od_mm": 2.3,
+   "min_bend_mm": 5.37,
+   "min_bend_x_od": 2.3,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "tip",
+     "to": "in",
+     "awg": 18,
+     "colour": "red",
+     "signal": "charge +"
+    }
+   ],
+   "pieces": [
+    "S06"
+   ]
+  },
+  {
+   "id": "S07",
+   "name": "5 A fuse out to ideal diode IN",
+   "from": "5 A inline fuse out",
+   "to": "ideal-diode module IN",
+   "route_mm": 12.3,
+   "cut_mm": 25,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "butt splice to fuse lead",
+   "end_b": "solder (ideal-diode IN)",
+   "kind": "bundle",
+   "od_mm": 2.3,
+   "min_bend_mm": 3.53,
+   "min_bend_x_od": 1.5,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "out",
+     "to": "IN",
+     "awg": 18,
+     "colour": "red",
+     "signal": "charge + fused"
+    }
+   ],
+   "pieces": [
+    "S07"
+   ]
+  },
+  {
+   "id": "S08",
+   "name": "ideal diode OUT to pack B+",
+   "from": "ideal-diode module OUT",
+   "to": "pack B+ terminal",
+   "route_mm": 110.3,
+   "cut_mm": 125,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ideal-diode OUT)",
+   "end_b": "solder (pack B+ tab)",
+   "kind": "bundle",
+   "od_mm": 2.3,
+   "min_bend_mm": 9.2,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "OUT",
+     "to": "B+",
+     "awg": 18,
+     "colour": "red",
+     "signal": "charge into P+ (common-port BMS)"
+    }
+   ],
+   "pieces": [
+    "S08"
+   ]
+  },
+  {
+   "id": "S09",
+   "name": "charge jack - to BMS P-",
+   "from": "DC jack sleeve (-)",
+   "to": "BMS P- pad",
+   "route_mm": 65.7,
+   "cut_mm": 80,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (DC jack sleeve)",
+   "end_b": "solder (BMS P-)",
+   "kind": "bundle",
+   "od_mm": 2.3,
+   "min_bend_mm": 9.2,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "sleeve",
+     "to": "P-",
+     "awg": 18,
+     "colour": "black",
+     "signal": "charge -"
+    }
+   ],
+   "pieces": [
+    "S09"
+   ]
+  },
+  {
+   "id": "F01",
+   "name": "main feed + : bulkhead XT60 to loop key A",
+   "from": "bulkhead XT60 female + (sled blind mate)",
+   "to": "loop key XT60E-F socket pin A",
+   "route_mm": 418.7,
+   "cut_mm": 435,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT60 female (bulkhead), solder",
+   "end_b": "XT60E-F panel socket, solder",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 3.5,
+   "min_bend_x_od": 1.2,
+   "moving": false,
+   "route": "up the front power lane, right column, right spine slot, behind the PDB (cheek gap), rear-plate loop slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "+",
+     "to": "A",
+     "awg": 16,
+     "colour": "red",
+     "signal": "VBAT fused, unswitched"
+    }
+   ],
+   "pieces": [
+    "F01"
+   ]
+  },
+  {
+   "id": "F02",
+   "name": "main feed - : bulkhead XT60 to PDB XT60 -",
+   "from": "bulkhead XT60 female -",
+   "to": "PDB XT60H-M plug -",
+   "route_mm": 311.3,
+   "cut_mm": 325,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT60 female (bulkhead), solder",
+   "end_b": "XT60H male plug (PDB), solder",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 5.98,
+   "min_bend_x_od": 2.1,
+   "moving": false,
+   "route": "with F01 to the right spine slot, under the PDB, up into the PDB XT60 from below",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "-",
+     "to": "-",
+     "awg": 16,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "F02"
+   ]
+  },
+  {
+   "id": "F03",
+   "name": "loop key B to PDB XT60 +",
+   "from": "loop key XT60E-F socket pin B",
+   "to": "PDB XT60H-M plug +",
+   "route_mm": 179.4,
+   "cut_mm": 195,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT60E-F panel socket, solder",
+   "end_b": "XT60H male plug (PDB), solder",
+   "kind": "bundle",
+   "od_mm": 2.9,
+   "min_bend_mm": 4.4,
+   "min_bend_x_od": 1.5,
+   "moving": false,
+   "route": "back through the loop slot, down the side channel outboard of the PDB, into the PDB XT60 from below",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "B",
+     "to": "+",
+     "awg": 16,
+     "colour": "red",
+     "signal": "VBAT switched"
+    }
+   ],
+   "pieces": [
+    "F03"
+   ]
+  },
+  {
+   "id": "O01",
+   "name": "PDB out 1 -> DRV8874 perfboard 12 V in",
+   "from": "PDB XT30 out 1",
+   "to": "DRV perfboard XT30 in",
+   "route_mm": 313.7,
+   "cut_mm": 330,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT30 female plug (PDB out 1), solder",
+   "end_b": "XT30 female plug (DRV perfboard), solder",
+   "kind": "pair",
+   "od_mm": 2.9,
+   "min_bend_mm": null,
+   "min_bend_x_od": null,
+   "moving": false,
+   "route": "up over the PDB, forward behind it, right spine slot (upper row), right column, across above the ESP32",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "+",
+     "to": "+",
+     "awg": 16,
+     "colour": "red",
+     "signal": "12 V motors"
+    },
+    {
+     "wire": 2,
+     "from": "-",
+     "to": "-",
+     "awg": 16,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "O01"
+   ]
+  },
+  {
+   "id": "O02",
+   "name": "PDB out 2 -> Pi 5 V buck VIN",
+   "from": "PDB XT30 out 2",
+   "to": "D36V50F5 VIN / GND",
+   "route_mm": 272.4,
+   "cut_mm": 285,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT30 female plug (PDB out 2), solder",
+   "end_b": "solder (D36V50F5 VIN/GND)",
+   "kind": "bundle",
+   "od_mm": 4.1,
+   "min_bend_mm": 8.38,
+   "min_bend_x_od": 3.6,
+   "moving": false,
+   "route": "right upper cheek slot, across the bay behind the bearing housing, forward beside it, down the spine back",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "+",
+     "to": "VIN",
+     "awg": 18,
+     "colour": "red",
+     "signal": "12 V"
+    },
+    {
+     "wire": 2,
+     "from": "-",
+     "to": "GND",
+     "awg": 18,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "O02"
+   ]
+  },
+  {
+   "id": "O03",
+   "name": "PDB out 3 -> servo 6 V buck VIN",
+   "from": "PDB XT30 out 3",
+   "to": "D36V28F6 VIN / GND",
+   "route_mm": 282.0,
+   "cut_mm": 295,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "XT30 female plug (PDB out 3), solder",
+   "end_b": "solder (D36V28F6 VIN/GND)",
+   "kind": "bundle",
+   "od_mm": 3.4,
+   "min_bend_mm": 7.6,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "right upper cheek slot, across the bay, left upper cheek slot, down the left side channel",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "+",
+     "to": "VIN",
+     "awg": 20,
+     "colour": "red",
+     "signal": "12 V"
+    },
+    {
+     "wire": 2,
+     "from": "-",
+     "to": "GND",
+     "awg": 20,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "O03"
+   ]
+  },
+  {
+   "id": "P01",
+   "name": "Pi 5 V: buck VOUT -> Pi USB-C",
+   "from": "D36V50F5 VOUT / GND",
+   "to": "Pi 5 USB-C (right-angle plug, 5 A mode)",
+   "route_mm": 64.4,
+   "cut_mm": 80,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D36V50F5 VOUT/GND)",
+   "end_b": "DIY right-angle USB-C plug, 5 A, solder type",
+   "kind": "bundle",
+   "od_mm": 4.1,
+   "min_bend_mm": 6.69,
+   "min_bend_x_od": 2.9,
+   "moving": false,
+   "route": "up the spine back, centre slot, down to the plug; set usb_max_current_enable=1 on the Pi",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VOUT",
+     "to": "VBUS",
+     "awg": 18,
+     "colour": "red",
+     "signal": "5.1 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 18,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "P01"
+   ]
+  },
+  {
+   "id": "U01",
+   "name": "USB 2.0 data + 5 V: Pi USB 3 -> ESP32-S3 USB",
+   "from": "Pi 5 USB-A (USB 3 stack, lower)",
+   "to": "ESP32-S3-DevKitC-1 USB-C (native USB)",
+   "route_mm": 71.7,
+   "cut_mm": null,
+   "stock": "bought 15 cm USB-A to right-angle USB-C cable; slack in an S in the right column",
+   "stock_len_mm": 150,
+   "end_a": "bought cable: USB-A plug",
+   "end_b": "bought cable: right-angle USB-C plug",
+   "kind": "bundle",
+   "od_mm": 3.5,
+   "min_bend_mm": 13.84,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "right column (inboard of the power column)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VBUS",
+     "to": "VBUS",
+     "awg": 28,
+     "colour": "red",
+     "signal": "5 V"
+    },
+    {
+     "wire": 2,
+     "from": "D+",
+     "to": "D+",
+     "awg": 28,
+     "colour": "green",
+     "signal": "D+"
+    },
+    {
+     "wire": 3,
+     "from": "D-",
+     "to": "D-",
+     "awg": 28,
+     "colour": "white",
+     "signal": "D-"
+    },
+    {
+     "wire": 4,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "U01"
+   ]
+  },
+  {
+   "id": "G01",
+   "name": "lidar: Pi GPIO -> LD19",
+   "from": "Pi GPIO pins 4 / 6 / 10 (+ GND jumper to LD19 PWM)",
+   "to": "LD19 ZH1.5 socket (1 Tx, 2 PWM, 3 GND, 4 P5V)",
+   "route_mm": 418.6,
+   "cut_mm": 435,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "Dupont 2.54 female crimp in the 2x20 housing x3 (+ GND bridge)",
+   "end_b": "JST ZH1.5 4 housing + 4 ZH crimps",
+   "kind": "bundle",
+   "od_mm": 3.0,
+   "min_bend_mm": 2.89,
+   "min_bend_x_od": 2.4,
+   "moving": false,
+   "route": "down the front loom, left column, left spine slot, left channel, left upper cheek slot, rear-plate speaker slot (beside A01), up behind the rear plate through the deck hole under the LD19",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "10 RXD (GPIO15)",
+     "to": "1 Tx",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "lidar data 230400 Bd"
+    },
+    {
+     "wire": 2,
+     "from": "6 GND (bridge)",
+     "to": "2 PWM",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "PWM held low = internal speed control"
+    },
+    {
+     "wire": 3,
+     "from": "6 GND",
+     "to": "3 GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 4,
+     "from": "4 5V",
+     "to": "4 P5V",
+     "awg": 26,
+     "colour": "red",
+     "signal": "5 V 180 mA"
+    }
+   ],
+   "pieces": [
+    "G01"
+   ]
+  },
+  {
+   "id": "G02",
+   "name": "I2S out: Pi GPIO -> MAX98357A",
+   "from": "Pi GPIO pins 2 / 14 / 12 / 35 / 40",
+   "to": "MAX98357A Vin / GND / BCLK / LRC / DIN (header, soldered)",
+   "route_mm": 180.9,
+   "cut_mm": 195,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "Dupont 2.54 female crimp in the 2x20 housing x5",
+   "end_b": "solder (MAX98357A header pads)",
+   "kind": "bundle",
+   "od_mm": 3.3,
+   "min_bend_mm": 3.0,
+   "min_bend_x_od": 2.1,
+   "moving": false,
+   "route": "front loom, left column, left spine slot, left channel",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "2 5V",
+     "to": "Vin",
+     "awg": 24,
+     "colour": "red",
+     "signal": "5 V"
+    },
+    {
+     "wire": 2,
+     "from": "14 GND",
+     "to": "GND",
+     "awg": 24,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "12 GPIO18",
+     "to": "BCLK",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2S BCLK (spliced to the mic)"
+    },
+    {
+     "wire": 4,
+     "from": "35 GPIO19",
+     "to": "LRC",
+     "awg": 28,
+     "colour": "green",
+     "signal": "I2S LRCLK (spliced to the mic)"
+    },
+    {
+     "wire": 5,
+     "from": "40 GPIO21",
+     "to": "DIN",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2S data out"
+    }
+   ],
+   "pieces": [
+    "G02"
+   ]
+  },
+  {
+   "id": "G03",
+   "name": "CPX power: Pi GPIO 5 V -> CPX battery JST",
+   "from": "Pi GPIO pins 2 (spliced) / 30",
+   "to": "CPX JST-PH 2 (1 +, 2 GND)",
+   "route_mm": 105.3,
+   "cut_mm": 120,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "Dupont 2.54 female crimp in the 2x20 housing x2",
+   "end_b": "JST-PH 2 housing + 2 PH crimps",
+   "kind": "bundle",
+   "od_mm": 2.5,
+   "min_bend_mm": 3.0,
+   "min_bend_x_od": 2.1,
+   "moving": false,
+   "route": "front loom, straight up in front of the HAT (left of the camera FFC), back under the CPX",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "2 5V (splice)",
+     "to": "1 +",
+     "awg": 24,
+     "colour": "red",
+     "signal": "5 V"
+    },
+    {
+     "wire": 2,
+     "from": "30 GND",
+     "to": "2 GND",
+     "awg": 24,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "G03"
+   ]
+  },
+  {
+   "id": "G04",
+   "name": "TFT cable",
+   "from": "Pi GPIO (Dupont housing)",
+   "to": "TFT header pads (soldered)",
+   "route_mm": 367.4,
+   "cut_mm": 380,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "Dupont 2.54 female crimp in the 2x20 housing x8",
+   "end_b": "solder (TFT header pads)",
+   "kind": "bundle",
+   "od_mm": 3.5,
+   "min_bend_mm": 2.9,
+   "min_bend_x_od": 2.9,
+   "moving": true,
+   "route": "front loom, up in front of the HAT, top lane, centre slot (right, stacked), into the pan shaft",
+   "notes": "pan twist +-90 deg over the shaft length; tilt -35..45 deg: rolling U-loop in the 10 mm turret-to-crossbar gap; U radius ~3 mm (below the 10x rule: use high-flex silicone)",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "17 3V3",
+     "to": "Vin",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "20 GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "23 SCLK",
+     "to": "SCK",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "SPI0 SCLK"
+    },
+    {
+     "wire": 4,
+     "from": "19 MOSI",
+     "to": "SI",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "SPI0 MOSI"
+    },
+    {
+     "wire": 5,
+     "from": "24 CE0",
+     "to": "TCS",
+     "awg": 28,
+     "colour": "white",
+     "signal": "SPI0 CE0"
+    },
+    {
+     "wire": 6,
+     "from": "22 GPIO25",
+     "to": "D/C",
+     "awg": 28,
+     "colour": "green",
+     "signal": "data/command"
+    },
+    {
+     "wire": 7,
+     "from": "13 GPIO27",
+     "to": "RST",
+     "awg": 28,
+     "colour": "grey",
+     "signal": "reset"
+    },
+    {
+     "wire": 8,
+     "from": "15 GPIO22",
+     "to": "Lite",
+     "awg": 28,
+     "colour": "orange",
+     "signal": "backlight PWM"
+    }
+   ],
+   "pieces": [
+    "G04a",
+    "G04b",
+    "G04c",
+    "G04d"
+   ]
+  },
+  {
+   "id": "G05",
+   "name": "mic cable",
+   "from": "Pi GPIO (Dupont housing)",
+   "to": "INMP441 pads (soldered)",
+   "route_mm": 444.1,
+   "cut_mm": 460,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "Dupont 2.54 female crimp in the 2x20 housing x6 (2 spliced with G02)",
+   "end_b": "solder (INMP441 pads)",
+   "kind": "bundle",
+   "od_mm": 3.1,
+   "min_bend_mm": 2.75,
+   "min_bend_x_od": 2.8,
+   "moving": true,
+   "route": "front loom, up in front of the HAT, top lane, centre slot (right, stacked), into the pan shaft",
+   "notes": "pan twist +-90 deg over the shaft length; tilt -35..45 deg: rolling U-loop in the 10 mm turret-to-crossbar gap; U radius ~3 mm (below the 10x rule: use high-flex silicone)",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "1 3V3",
+     "to": "VDD",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "9 GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "12 GPIO18 (splice)",
+     "to": "SCK",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2S BCLK"
+    },
+    {
+     "wire": 4,
+     "from": "35 GPIO19 (splice)",
+     "to": "WS",
+     "awg": 28,
+     "colour": "green",
+     "signal": "I2S LRCLK"
+    },
+    {
+     "wire": 5,
+     "from": "38 GPIO20",
+     "to": "SD",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2S data in"
+    },
+    {
+     "wire": 6,
+     "from": "9 GND (splice)",
+     "to": "L/R",
+     "awg": 28,
+     "colour": "black",
+     "signal": "left channel"
+    }
+   ],
+   "pieces": [
+    "G05a",
+    "G05b",
+    "G05c",
+    "G05d"
+   ]
+  },
+  {
+   "id": "K01",
+   "name": "camera FFC",
+   "from": "Pi 5 CAM/DISP0 (22-pin 0.5 mm)",
+   "to": "Camera Module 3 (15-pin 1 mm)",
+   "route_mm": 367.5,
+   "cut_mm": null,
+   "stock": "Raspberry Pi 5 camera cable 500 mm (22 to 15 pin); slack folded flat on the spine back",
+   "stock_len_mm": 500,
+   "end_a": "bought FFC 22-pin end",
+   "end_b": "bought FFC 15-pin end",
+   "kind": "flat 11.5 x 0.3",
+   "od_mm": null,
+   "min_bend_mm": 0.9,
+   "min_bend_x_od": null,
+   "moving": true,
+   "route": "up through the HAT cut-out, 45 deg fold to vertical, top lane, centre slot, into the pan shaft",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "22-pin",
+     "to": "15-pin",
+     "awg": 0,
+     "colour": "FFC",
+     "signal": "MIPI CSI-2 2-lane"
+    }
+   ],
+   "pieces": [
+    "K01a",
+    "K01b",
+    "K01c",
+    "K01d"
+   ]
+  },
+  {
+   "id": "Q01",
+   "name": "PCIe FFC Pi 5 -> AI HAT+ 2",
+   "from": "Pi 5 PCIe FFC (16-pin)",
+   "to": "AI HAT+ 2 PCIe FFC",
+   "route_mm": 30.3,
+   "cut_mm": null,
+   "stock": "included with the AI HAT+ 2",
+   "stock_len_mm": null,
+   "end_a": "bought FFC (with the AI HAT+ 2)",
+   "end_b": "",
+   "kind": "flat 10.7 x 0.3",
+   "od_mm": null,
+   "min_bend_mm": 1.35,
+   "min_bend_x_od": null,
+   "moving": false,
+   "route": "wraps round the left edge of the HAT",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "16-pin",
+     "to": "16-pin",
+     "awg": 0,
+     "colour": "FFC",
+     "signal": "PCIe Gen 2/3 x1"
+    }
+   ],
+   "pieces": [
+    "Q01"
+   ]
+  },
+  {
+   "id": "MA",
+   "name": "motor FL cable to the DRV terminal",
+   "from": "JGB37 FL encoder PH2.0-6",
+   "to": "DRV8874 #3 screw terminal (OUT1/OUT2)",
+   "route_mm": 48.2,
+   "cut_mm": 65,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "JST-PH 6 housing + 6 PH crimps (encoder)",
+   "end_b": "2 bootlace ferrules 0.25 mm2 (screw terminal); 4 wires on as MAe",
+   "kind": "bundle",
+   "od_mm": 3.9,
+   "min_bend_mm": 5.6,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "straight up between the front motors",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "M+ (red)",
+     "to": "OUT1",
+     "awg": 24,
+     "colour": "red",
+     "signal": "motor +"
+    },
+    {
+     "wire": 6,
+     "from": "M- (white)",
+     "to": "OUT2",
+     "awg": 24,
+     "colour": "white",
+     "signal": "motor -"
+    },
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_FL_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_FL_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MA"
+   ]
+  },
+  {
+   "id": "MAe",
+   "name": "motor FL encoder wires to the ESP32",
+   "from": "split at the DRV terminal",
+   "to": "ESP32 carrier (3V3, GND, ENC A/B)",
+   "route_mm": 85.3,
+   "cut_mm": 100,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "(continues from MA)",
+   "end_b": "solder (ESP32 carrier tails)",
+   "kind": "bundle",
+   "od_mm": 3.0,
+   "min_bend_mm": 4.8,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under-board lane (own lane under the terminal block)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_FL_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_FL_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MAe"
+   ]
+  },
+  {
+   "id": "MB",
+   "name": "motor FR cable to the DRV terminal",
+   "from": "JGB37 FR encoder PH2.0-6",
+   "to": "DRV8874 #4 screw terminal (OUT1/OUT2)",
+   "route_mm": 62.3,
+   "cut_mm": 75,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "JST-PH 6 housing + 6 PH crimps (encoder)",
+   "end_b": "2 bootlace ferrules 0.25 mm2; 4 wires on as MBe",
+   "kind": "bundle",
+   "od_mm": 3.9,
+   "min_bend_mm": 5.6,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "straight up between the front motors",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "M+ (red)",
+     "to": "OUT1",
+     "awg": 24,
+     "colour": "red",
+     "signal": "motor +"
+    },
+    {
+     "wire": 6,
+     "from": "M- (white)",
+     "to": "OUT2",
+     "awg": 24,
+     "colour": "white",
+     "signal": "motor -"
+    },
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_FR_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_FR_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MB"
+   ]
+  },
+  {
+   "id": "MBe",
+   "name": "motor FR encoder wires to the ESP32",
+   "from": "split at the DRV terminal",
+   "to": "ESP32 carrier (3V3, GND, ENC A/B)",
+   "route_mm": 73.1,
+   "cut_mm": 90,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "(continues from MB)",
+   "end_b": "solder (ESP32 carrier tails)",
+   "kind": "bundle",
+   "od_mm": 3.0,
+   "min_bend_mm": 4.8,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under-board lane (own lane under the terminal block)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_FR_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_FR_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MBe"
+   ]
+  },
+  {
+   "id": "MC",
+   "name": "motor RL cable to the DRV terminal",
+   "from": "JGB37 RL encoder PH2.0-6",
+   "to": "DRV8874 #1 screw terminal (OUT1/OUT2)",
+   "route_mm": 190.5,
+   "cut_mm": 205,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "JST-PH 6 housing + 6 PH crimps (encoder)",
+   "end_b": "2 bootlace ferrules 0.25 mm2; 4 wires on as MCe",
+   "kind": "bundle",
+   "od_mm": 3.9,
+   "min_bend_mm": 3.08,
+   "min_bend_x_od": 2.2,
+   "moving": false,
+   "route": "over the rear motor, along the bay floor, low spine slot, under the terminal block",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "M+ (red)",
+     "to": "OUT1",
+     "awg": 24,
+     "colour": "red",
+     "signal": "motor +"
+    },
+    {
+     "wire": 6,
+     "from": "M- (white)",
+     "to": "OUT2",
+     "awg": 24,
+     "colour": "white",
+     "signal": "motor -"
+    },
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_RL_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_RL_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MC"
+   ]
+  },
+  {
+   "id": "MCe",
+   "name": "motor RL encoder wires to the ESP32",
+   "from": "split at the DRV terminal",
+   "to": "ESP32 carrier (3V3, GND, ENC A/B)",
+   "route_mm": 109.8,
+   "cut_mm": 125,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "(continues from MC)",
+   "end_b": "solder (ESP32 carrier tails)",
+   "kind": "bundle",
+   "od_mm": 3.0,
+   "min_bend_mm": 4.8,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under-board lane (own lane under the terminal block)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_RL_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_RL_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MCe"
+   ]
+  },
+  {
+   "id": "MD",
+   "name": "motor RR cable to the DRV terminal",
+   "from": "JGB37 RR encoder PH2.0-6",
+   "to": "DRV8874 #2 screw terminal (OUT1/OUT2)",
+   "route_mm": 280.4,
+   "cut_mm": 295,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "JST-PH 6 housing + 6 PH crimps (encoder)",
+   "end_b": "2 bootlace ferrules 0.25 mm2; 4 wires on as MDe",
+   "kind": "bundle",
+   "od_mm": 3.9,
+   "min_bend_mm": 2.75,
+   "min_bend_x_od": 2.0,
+   "moving": false,
+   "route": "over the rear motor, along the bay floor, low spine slot, under the terminal block",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "M+ (red)",
+     "to": "OUT1",
+     "awg": 24,
+     "colour": "red",
+     "signal": "motor +"
+    },
+    {
+     "wire": 6,
+     "from": "M- (white)",
+     "to": "OUT2",
+     "awg": 24,
+     "colour": "white",
+     "signal": "motor -"
+    },
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_RR_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_RR_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MD"
+   ]
+  },
+  {
+   "id": "MDe",
+   "name": "motor RR encoder wires to the ESP32",
+   "from": "split at the DRV terminal",
+   "to": "ESP32 carrier (3V3, GND, ENC A/B)",
+   "route_mm": 97.1,
+   "cut_mm": 110,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "(continues from MD)",
+   "end_b": "solder (ESP32 carrier tails)",
+   "kind": "bundle",
+   "od_mm": 3.0,
+   "min_bend_mm": 4.8,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under-board lane (own lane under the terminal block)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 2,
+     "from": "GND (black)",
+     "to": "GND",
+     "awg": 26,
+     "colour": "black",
+     "signal": "encoder GND"
+    },
+    {
+     "wire": 5,
+     "from": "VCC (blue)",
+     "to": "3V3",
+     "awg": 26,
+     "colour": "blue",
+     "signal": "encoder 3.3 V"
+    },
+    {
+     "wire": 3,
+     "from": "A (yellow)",
+     "to": "ENC_RR_A",
+     "awg": 26,
+     "colour": "yellow",
+     "signal": "Hall A"
+    },
+    {
+     "wire": 4,
+     "from": "B (green)",
+     "to": "ENC_RR_B",
+     "awg": 26,
+     "colour": "green",
+     "signal": "Hall B"
+    }
+   ],
+   "pieces": [
+    "MDe"
+   ]
+  },
+  {
+   "id": "L01",
+   "name": "DRV logic: ESP32 -> perfboard XH-10",
+   "from": "ESP32 carrier left end",
+   "to": "DRV perfboard JST-XH 10",
+   "route_mm": 90.1,
+   "cut_mm": 105,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ESP32 carrier tails)",
+   "end_b": "JST-XH 10 housing + 10 XH crimps",
+   "kind": "bundle",
+   "od_mm": 4.0,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "over the DRV XT30 plug",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "EN1",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "PWM motor A"
+    },
+    {
+     "wire": 2,
+     "from": "PH1",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "green",
+     "signal": "DIR motor A"
+    },
+    {
+     "wire": 3,
+     "from": "EN2",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "PWM B"
+    },
+    {
+     "wire": 4,
+     "from": "PH2",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "green",
+     "signal": "DIR B"
+    },
+    {
+     "wire": 5,
+     "from": "EN3",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "PWM C"
+    },
+    {
+     "wire": 6,
+     "from": "PH3",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "green",
+     "signal": "DIR C"
+    },
+    {
+     "wire": 7,
+     "from": "EN4",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "PWM D"
+    },
+    {
+     "wire": 8,
+     "from": "PH4",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "green",
+     "signal": "DIR D"
+    },
+    {
+     "wire": 9,
+     "from": "3V3",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "red",
+     "signal": "logic 3.3 V"
+    },
+    {
+     "wire": 10,
+     "from": "GND",
+     "to": "GPIO",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "L01"
+   ]
+  },
+  {
+   "id": "B01",
+   "name": "bumper front left",
+   "from": "D2F-01L COM/NO pins (soldered; terminals face inward)",
+   "to": "ESP32 carrier",
+   "route_mm": 164.5,
+   "cut_mm": 180,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D2F pins)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under the front motor, along the floor in front of the sled nose, up to the carrier bottom edge",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "COM",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "NO",
+     "to": "BUMP1",
+     "awg": 28,
+     "colour": "white",
+     "signal": "bumper 1 (pull-up on the ESP32)"
+    }
+   ],
+   "pieces": [
+    "B01"
+   ]
+  },
+  {
+   "id": "B02",
+   "name": "bumper front right",
+   "from": "D2F-01L COM/NO pins (soldered; terminals face inward)",
+   "to": "ESP32 carrier",
+   "route_mm": 86.6,
+   "cut_mm": 100,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D2F pins)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "under the front motor, along the floor in front of the sled nose, up to the carrier bottom edge",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "COM",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "NO",
+     "to": "BUMP2",
+     "awg": 28,
+     "colour": "white",
+     "signal": "bumper 2 (pull-up on the ESP32)"
+    }
+   ],
+   "pieces": [
+    "B02"
+   ]
+  },
+  {
+   "id": "B03",
+   "name": "bumper rear left",
+   "from": "D2F-01L COM/NO pins (soldered; terminals face inward)",
+   "to": "ESP32 carrier",
+   "route_mm": 275.1,
+   "cut_mm": 290,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D2F pins)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "along the plate, up the left side, over the battery pack, carrier back slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "COM",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "NO",
+     "to": "BUMP3",
+     "awg": 28,
+     "colour": "white",
+     "signal": "bumper 3 (pull-up on the ESP32)"
+    }
+   ],
+   "pieces": [
+    "B03"
+   ]
+  },
+  {
+   "id": "B04",
+   "name": "bumper rear right",
+   "from": "D2F-01L COM/NO pins (soldered; terminals face inward)",
+   "to": "ESP32 carrier",
+   "route_mm": 183.1,
+   "cut_mm": 200,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D2F pins)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "along the plate, carrier back slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "COM",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "NO",
+     "to": "BUMP4",
+     "awg": 28,
+     "colour": "white",
+     "signal": "bumper 4 (pull-up on the ESP32)"
+    }
+   ],
+   "pieces": [
+    "B04"
+   ]
+  },
+  {
+   "id": "C01",
+   "name": "cliff sensor front",
+   "from": "VL53L0X pads VIN/GND/SCL/SDA/SHDN (soldered)",
+   "to": "ESP32 carrier",
+   "route_mm": 88.8,
+   "cut_mm": 105,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (VL53L0X pads)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "plate hole, then front lane",
+   "notes": "runs 8 mm under the plate in a groove of the printed pocket to the plate hole",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VIN",
+     "to": "3V3",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C SCL (bus)"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C SDA (bus)"
+    },
+    {
+     "wire": 5,
+     "from": "XSHUT",
+     "to": "XSHUT1",
+     "awg": 28,
+     "colour": "white",
+     "signal": "address select at boot"
+    }
+   ],
+   "pieces": [
+    "C01"
+   ]
+  },
+  {
+   "id": "C02",
+   "name": "cliff sensor right",
+   "from": "VL53L0X pads VIN/GND/SCL/SDA/SHDN (soldered)",
+   "to": "ESP32 carrier",
+   "route_mm": 115.5,
+   "cut_mm": 130,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (VL53L0X pads)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "plate hole, then carrier back slot",
+   "notes": "runs 8 mm under the plate in a groove of the printed pocket to the plate hole",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VIN",
+     "to": "3V3",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C SCL (bus)"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C SDA (bus)"
+    },
+    {
+     "wire": 5,
+     "from": "XSHUT",
+     "to": "XSHUT2",
+     "awg": 28,
+     "colour": "white",
+     "signal": "address select at boot"
+    }
+   ],
+   "pieces": [
+    "C02"
+   ]
+  },
+  {
+   "id": "C03",
+   "name": "cliff sensor rear",
+   "from": "VL53L0X pads VIN/GND/SCL/SDA/SHDN (soldered)",
+   "to": "ESP32 carrier",
+   "route_mm": 158.8,
+   "cut_mm": 175,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (VL53L0X pads)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "plate hole, then carrier back slot",
+   "notes": "runs 8 mm under the plate in a groove of the printed pocket to the plate hole",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VIN",
+     "to": "3V3",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C SCL (bus)"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C SDA (bus)"
+    },
+    {
+     "wire": 5,
+     "from": "XSHUT",
+     "to": "XSHUT3",
+     "awg": 28,
+     "colour": "white",
+     "signal": "address select at boot"
+    }
+   ],
+   "pieces": [
+    "C03"
+   ]
+  },
+  {
+   "id": "C04",
+   "name": "cliff sensor left",
+   "from": "VL53L0X pads VIN/GND/SCL/SDA/SHDN (soldered)",
+   "to": "ESP32 carrier",
+   "route_mm": 196.5,
+   "cut_mm": 210,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (VL53L0X pads)",
+   "end_b": "solder (ESP32 carrier)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "plate hole, then over the battery pack, carrier back slot",
+   "notes": "runs 8 mm under the plate in a groove of the printed pocket to the plate hole",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VIN",
+     "to": "3V3",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C SCL (bus)"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C SDA (bus)"
+    },
+    {
+     "wire": 5,
+     "from": "XSHUT",
+     "to": "XSHUT4",
+     "awg": 28,
+     "colour": "white",
+     "signal": "address select at boot"
+    }
+   ],
+   "pieces": [
+    "C04"
+   ]
+  },
+  {
+   "id": "C05",
+   "name": "IMU: ESP32 -> BNO085",
+   "from": "ESP32 carrier back",
+   "to": "BNO085 header VIN/GND/SCL/SDA/INT/RST (soldered)",
+   "route_mm": 54.7,
+   "cut_mm": 70,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ESP32 carrier)",
+   "end_b": "solder (BNO085 header pads)",
+   "kind": "bundle",
+   "od_mm": 3.1,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "carrier back slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "3V3",
+     "to": "VIN",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C"
+    },
+    {
+     "wire": 5,
+     "from": "GPIO",
+     "to": "INT",
+     "awg": 28,
+     "colour": "white",
+     "signal": "interrupt"
+    },
+    {
+     "wire": 6,
+     "from": "GPIO",
+     "to": "RST",
+     "awg": 28,
+     "colour": "grey",
+     "signal": "reset"
+    }
+   ],
+   "pieces": [
+    "C05"
+   ]
+  },
+  {
+   "id": "C06",
+   "name": "power monitor: ESP32 -> INA226",
+   "from": "ESP32 carrier right end",
+   "to": "INA226 header VCC/GND/SCL/SDA (soldered)",
+   "route_mm": 87.4,
+   "cut_mm": 100,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ESP32 carrier)",
+   "end_b": "solder (INA226 header pads)",
+   "kind": "bundle",
+   "od_mm": 2.5,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "right column, right spine slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "3V3",
+     "to": "VCC",
+     "awg": 28,
+     "colour": "red",
+     "signal": "3.3 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND",
+     "awg": 28,
+     "colour": "black",
+     "signal": "GND"
+    },
+    {
+     "wire": 3,
+     "from": "SCL",
+     "to": "SCL",
+     "awg": 28,
+     "colour": "yellow",
+     "signal": "I2C"
+    },
+    {
+     "wire": 4,
+     "from": "SDA",
+     "to": "SDA",
+     "awg": 28,
+     "colour": "blue",
+     "signal": "I2C"
+    }
+   ],
+   "pieces": [
+    "C06"
+   ]
+  },
+  {
+   "id": "W01",
+   "name": "heartbeat: ESP32 TX -> CPX A6/RX",
+   "from": "ESP32 carrier right end (UART1 TX)",
+   "to": "CPX pad A6 / RX (soldered)",
+   "route_mm": 169.7,
+   "cut_mm": 185,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ESP32 carrier)",
+   "end_b": "solder (CPX pad A6 + GND)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "right column, beside the CPX bracket",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "TX",
+     "to": "A6 RX",
+     "awg": 28,
+     "colour": "white",
+     "signal": "heartbeat UART"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "GND pad",
+     "awg": 28,
+     "colour": "black",
+     "signal": "reference"
+    }
+   ],
+   "pieces": [
+    "W01"
+   ]
+  },
+  {
+   "id": "W02",
+   "name": "kill line: CPX A1 -> DRV8874 SLEEP",
+   "from": "CPX pad A1 (soldered)",
+   "to": "DRV perfboard nSLEEP bus",
+   "route_mm": 149.4,
+   "cut_mm": 165,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (CPX pad A1)",
+   "end_b": "solder (perfboard nSLEEP bus)",
+   "kind": "bundle",
+   "od_mm": 1.0,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "down the left of the HAT stack (in front of it)",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "A1",
+     "to": "nSLEEP",
+     "awg": 28,
+     "colour": "red",
+     "signal": "motors enabled only while the CPX watchdog is fed"
+    }
+   ],
+   "pieces": [
+    "W02"
+   ]
+  },
+  {
+   "id": "V03",
+   "name": "servo Y harness: 6 V buck -> 2 JR sockets",
+   "from": "D36V28F6 VOUT / GND",
+   "to": "2x JR male socket (+6 V, GND)",
+   "route_mm": 16.1,
+   "cut_mm": 30,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (D36V28F6 VOUT/GND)",
+   "end_b": "2x JR 3-pin male housing; 4 male crimps (+/- x2)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 4.79,
+   "min_bend_x_od": 3.0,
+   "moving": false,
+   "route": "left side channel",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "VOUT",
+     "to": "+ (both)",
+     "awg": 22,
+     "colour": "red",
+     "signal": "6 V"
+    },
+    {
+     "wire": 2,
+     "from": "GND",
+     "to": "- (both)",
+     "awg": 22,
+     "colour": "black",
+     "signal": "GND"
+    }
+   ],
+   "pieces": [
+    "V03"
+   ]
+  },
+  {
+   "id": "V04",
+   "name": "servo signals: ESP32 -> Y harness",
+   "from": "ESP32 carrier back (2 PWM GPIO)",
+   "to": "JR sockets signal pins",
+   "route_mm": 254.4,
+   "cut_mm": 270,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "solder (ESP32 carrier)",
+   "end_b": "2 male crimps (S pins of the JR sockets)",
+   "kind": "bundle",
+   "od_mm": 1.8,
+   "min_bend_mm": 4.0,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "carrier back slot, across the bay, left cheek loom slot",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "GPIO",
+     "to": "pan S",
+     "awg": 28,
+     "colour": "orange",
+     "signal": "pan PWM 50 Hz"
+    },
+    {
+     "wire": 2,
+     "from": "GPIO",
+     "to": "tilt S",
+     "awg": 28,
+     "colour": "orange",
+     "signal": "tilt PWM 50 Hz"
+    }
+   ],
+   "pieces": [
+    "V04"
+   ]
+  },
+  {
+   "id": "V01",
+   "name": "pan servo lead",
+   "from": "MG90S pan (lead exit)",
+   "to": "JR socket 1",
+   "route_mm": 192.4,
+   "cut_mm": null,
+   "stock": "MG90S lead 250 mm (stock)",
+   "stock_len_mm": 250,
+   "end_a": "stock MG90S lead",
+   "end_b": "stock JR female plug into Y-harness socket 1",
+   "kind": "bundle",
+   "od_mm": 2.6,
+   "min_bend_mm": 5.99,
+   "min_bend_x_od": 2.3,
+   "moving": false,
+   "route": "over the shelf front, under the shaft-bottom cables, across the bay, left upper cheek slot, left channel",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "brown",
+     "to": "-",
+     "awg": 26,
+     "colour": "brown",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "red",
+     "to": "+",
+     "awg": 26,
+     "colour": "red",
+     "signal": "6 V"
+    },
+    {
+     "wire": 3,
+     "from": "orange",
+     "to": "S",
+     "awg": 26,
+     "colour": "orange",
+     "signal": "PWM"
+    }
+   ],
+   "pieces": [
+    "V01"
+   ]
+  },
+  {
+   "id": "V02",
+   "name": "tilt servo lead in the turret + shaft",
+   "from": "MG90S tilt (in the turret)",
+   "to": "JR socket 2",
+   "route_mm": 258.7,
+   "cut_mm": null,
+   "stock": "MG90S lead 250 mm + JR extension 150 mm (joint in the bay)",
+   "stock_len_mm": 400,
+   "end_a": "stock MG90S lead",
+   "end_b": "stock JR female plug -> bought JR extension 150 mm -> Y-harness socket 2",
+   "kind": "bundle",
+   "od_mm": 2.6,
+   "min_bend_mm": 3.8,
+   "min_bend_x_od": 1.5,
+   "moving": true,
+   "route": "",
+   "notes": "turret end rides with the pan; +-90 deg twist over the shaft",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "brown",
+     "to": "-",
+     "awg": 26,
+     "colour": "brown",
+     "signal": "GND"
+    },
+    {
+     "wire": 2,
+     "from": "red",
+     "to": "+",
+     "awg": 26,
+     "colour": "red",
+     "signal": "6 V"
+    },
+    {
+     "wire": 3,
+     "from": "orange",
+     "to": "S",
+     "awg": 26,
+     "colour": "orange",
+     "signal": "PWM"
+    }
+   ],
+   "pieces": [
+    "V02b",
+    "V02a"
+   ]
+  },
+  {
+   "id": "A01",
+   "name": "speaker: MAX98357A -> 40 mm speaker",
+   "from": "MAX98357A 3.5 mm terminal (+/-)",
+   "to": "Adafruit 3968 solder tabs (+/-)",
+   "route_mm": 211.7,
+   "cut_mm": 225,
+   "stock": null,
+   "stock_len_mm": null,
+   "end_a": "2 bootlace ferrules 0.5 mm2 (MAX98357A screw terminal)",
+   "end_b": "solder (speaker tabs)",
+   "kind": "bundle",
+   "od_mm": 2.8,
+   "min_bend_mm": 6.4,
+   "min_bend_x_od": 4.0,
+   "moving": false,
+   "route": "left channel, left upper cheek slot, rear-plate speaker slot, through the bracket magnet hole",
+   "notes": "",
+   "conductors": [
+    {
+     "wire": 1,
+     "from": "+",
+     "to": "+",
+     "awg": 22,
+     "colour": "red",
+     "signal": "speaker +"
+    },
+    {
+     "wire": 2,
+     "from": "-",
+     "to": "-",
+     "awg": 22,
+     "colour": "black",
+     "signal": "speaker -"
+    }
+   ],
+   "pieces": [
+    "A01"
+   ]
+  }
+ ],
+ "wire_totals_m": {
+  "16 AWG black": 0.815,
+  "16 AWG red": 1.095,
+  "18 AWG black": 0.445,
+  "18 AWG red": 0.58,
+  "20 AWG black": 0.295,
+  "20 AWG red": 0.295,
+  "22 AWG black": 0.29,
+  "22 AWG red": 0.36,
+  "24 AWG black": 0.315,
+  "24 AWG red": 0.955,
+  "24 AWG white": 0.64,
+  "26 AWG black": 1.5,
+  "26 AWG blue": 1.5,
+  "26 AWG green": 1.065,
+  "26 AWG red": 0.435,
+  "26 AWG yellow": 1.5,
+  "28 AWG black": 3.15,
+  "28 AWG blue": 1.825,
+  "28 AWG green": 1.455,
+  "28 AWG grey": 0.45,
+  "28 AWG orange": 0.92,
+  "28 AWG red": 1.9,
+  "28 AWG white": 2.025,
+  "28 AWG yellow": 2.245
+ },
+ "connector_crimp_tally": {
+  "JST-XH housing 4-pin (XHP-4)": 1,
+  "JST-XH crimp contact": 14,
+  "XT60 female (bulkhead, cable side)": 1,
+  "XT60H male plug (cable)": 2,
+  "XT30 female plug (cable)": 4,
+  "DIY right-angle USB-C plug 5 A (solder)": 1,
+  "Dupont 2.54 female crimp": 24,
+  "JST-ZH housing 4-pin (ZHR-4)": 1,
+  "JST-ZH crimp contact": 4,
+  "JST-PH housing 2-pin (PHR-2)": 1,
+  "JST-PH crimp contact": 26,
+  "JST-PH housing 6-pin (PHR-6)": 4,
+  "bootlace ferrule 0.25 mm2": 8,
+  "JST-XH housing 10-pin (XHP-10)": 1,
+  "JR/Futaba 3-pin male housing": 2,
+  "bootlace ferrule 0.5 mm2": 2,
+  "Dupont 2x20 housing (2.54)": 1,
+  "JR male crimp contact": 6,
+  "heatshrink 3 mm / 5 mm / 8 mm (m)": "0.5 / 0.5 / 0.3 (EST)",
+  "cable ties 2.5 mm (pcs)": 23
+ },
+ "bought_cables": [
+  {
+   "item": "Raspberry Pi 5 camera cable 22-to-15 pin, 500 mm",
+   "qty": 1
+  },
+  {
+   "item": "USB-A to right-angle USB-C cable, 15 cm (USB 2.0 data)",
+   "qty": 1
+  },
+  {
+   "item": "JR servo extension male-female 150 mm",
+   "qty": 1
+  }
+ ],
+ "moving_cables": {
+  "tilt_spans": [
+   {
+    "cable": "G04c",
+    "rest_length_mm": 38.3,
+    "rule_radius_mm": 10.0,
+    "per_tilt": [
+     {
+      "tilt": -35,
+      "chord_mm": 17.1,
+      "slack_mm": 21.2,
+      "gap_at_slot_mm": 12.6,
+      "u_loop_radius_mm": 4.2,
+      "ok": true
+     },
+     {
+      "tilt": 0,
+      "chord_mm": 12.8,
+      "slack_mm": 25.5,
+      "gap_at_slot_mm": 10.0,
+      "u_loop_radius_mm": 3.2,
+      "ok": true
+     },
+     {
+      "tilt": 45,
+      "chord_mm": 18.2,
+      "slack_mm": 20.1,
+      "gap_at_slot_mm": 99.0,
+      "u_loop_radius_mm": 4.2,
+      "ok": true
+     }
+    ],
+    "note": "same at every pan angle (both ends ride with the pan)"
+   },
+   {
+    "cable": "G05c",
+    "rest_length_mm": 37.9,
+    "rule_radius_mm": 10.0,
+    "per_tilt": [
+     {
+      "tilt": -35,
+      "chord_mm": 16.8,
+      "slack_mm": 21.1,
+      "gap_at_slot_mm": 12.6,
+      "u_loop_radius_mm": 4.5,
+      "ok": true
+     },
+     {
+      "tilt": 0,
+      "chord_mm": 12.7,
+      "slack_mm": 25.3,
+      "gap_at_slot_mm": 10.0,
+      "u_loop_radius_mm": 3.5,
+      "ok": true
+     },
+     {
+      "tilt": 45,
+      "chord_mm": 18.3,
+      "slack_mm": 19.6,
+      "gap_at_slot_mm": 99.0,
+      "u_loop_radius_mm": 4.5,
+      "ok": true
+     }
+    ],
+    "note": "same at every pan angle (both ends ride with the pan)"
+   },
+   {
+    "cable": "K01c",
+    "rest_length_mm": 28.9,
+    "rule_radius_mm": 10.0,
+    "per_tilt": [
+     {
+      "tilt": -35,
+      "chord_mm": 12.9,
+      "slack_mm": 16.0,
+      "gap_at_slot_mm": 10.5,
+      "u_loop_radius_mm": 5.1,
+      "ok": true
+     },
+     {
+      "tilt": 0,
+      "chord_mm": 9.1,
+      "slack_mm": 19.8,
+      "gap_at_slot_mm": 10.0,
+      "u_loop_radius_mm": 4.8,
+      "ok": true
+     },
+     {
+      "tilt": 45,
+      "chord_mm": 18.7,
+      "slack_mm": 10.2,
+      "gap_at_slot_mm": 99.0,
+      "u_loop_radius_mm": 5.8,
+      "ok": true
+     }
+    ],
+    "note": "same at every pan angle (both ends ride with the pan)"
+   }
+  ],
+  "pan_spans": [
+   {
+    "cable": "G04b",
+    "twist_length_mm": 109.0,
+    "max_twist_deg": 90,
+    "twist_rate_deg_per_mm": 0.83,
+    "offset_from_axis_mm": 9.2,
+    "helix_takeup_mm": 0.96,
+    "ffc_edge_strain_pct": null
+   },
+   {
+    "cable": "G05b",
+    "twist_length_mm": 109.0,
+    "max_twist_deg": 90,
+    "twist_rate_deg_per_mm": 0.83,
+    "offset_from_axis_mm": 9.7,
+    "helix_takeup_mm": 1.05,
+    "ffc_edge_strain_pct": null
+   },
+   {
+    "cable": "K01b",
+    "twist_length_mm": 109.0,
+    "max_twist_deg": 90,
+    "twist_rate_deg_per_mm": 0.83,
+    "offset_from_axis_mm": 7.3,
+    "helix_takeup_mm": 0.61,
+    "ffc_edge_strain_pct": 0.114
+   },
+   {
+    "cable": "V02b",
+    "twist_length_mm": 91.0,
+    "max_twist_deg": 90,
+    "twist_rate_deg_per_mm": 0.99,
+    "offset_from_axis_mm": 7.2,
+    "helix_takeup_mm": 0.7,
+    "ffc_edge_strain_pct": null
+   }
+  ],
+  "poses": [
+   [
+    -90,
+    -35
+   ],
+   [
+    -90,
+    0
+   ],
+   [
+    -90,
+    45
+   ],
+   [
+    -45,
+    -35
+   ],
+   [
+    -45,
+    0
+   ],
+   [
+    -45,
+    45
+   ],
+   [
+    0,
+    -35
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    45
+   ],
+   [
+    45,
+    -35
+   ],
+   [
+    45,
+    0
+   ],
+   [
+    45,
+    45
+   ],
+   [
+    90,
+    -35
+   ],
+   [
+    90,
+    0
+   ],
+   [
+    90,
+    45
+   ]
+  ]
+ },
+ "sweep": 0,
+ "checks": {
+  "wires": 85,
+  "parts_checked": 381,
+  "wire_part_hits": [
+   {
+    "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+    "part": "Cliff sensors 4x VL53L0X / VL53L0X front pocket (printed)",
+    "mm3": 20.84
+   },
+   {
+    "wire": "C02 | cliff sensor right (VL53L0X 3317)",
+    "part": "Cliff sensors 4x VL53L0X / VL53L0X right pocket (printed)",
+    "mm3": 9.83
+   },
+   {
+    "wire": "C04 | cliff sensor left (VL53L0X 3317)",
+    "part": "Cliff sensors 4x VL53L0X / VL53L0X left pocket (printed)",
+    "mm3": 9.83
+   },
+   {
+    "wire": "C03 | cliff sensor rear (VL53L0X 3317)",
+    "part": "Cliff sensors 4x VL53L0X / VL53L0X rear pocket (printed)",
+    "mm3": 7.23
+   },
+   {
+    "wire": "K01d | camera FFC in the head",
+    "part": "Head pan rotor / head frame (printed)",
+    "mm3": 3.32
+   },
+   {
+    "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+    "part": "Cliff sensors 4x VL53L0X / VL53L0X front PCB (Adafruit 3317)",
+    "mm3": 1.75
+   },
+   {
+    "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+    "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+    "mm3": 1.19
+   },
+   {
+    "wire": "S04 | 15 A fuse out to sled XT60 male +",
+    "part": "Battery 3S4P 18650  / fuse holder 15A mini blade",
+    "mm3": 0.9
+   },
+   {
+    "wire": "MD | motor RR cable to the DRV terminal (6 x 24/26 AWG)",
+    "part": "Motor driver board 4x DRV8874 / motor terminals",
+    "mm3": 0.58
+   },
+   {
+    "wire": "W01 | heartbeat: ESP32 TX -> CPX A6/RX",
+    "part": "Circuit Playground Express (front status light) / CPX PCB",
+    "mm3": 0.57
+   },
+   {
+    "wire": "MC | motor RL cable to the DRV terminal (6 x 24/26 AWG)",
+    "part": "Motor driver board 4x DRV8874 / motor terminals",
+    "mm3": 0.49
+   },
+   {
+    "wire": "C06 | power monitor: ESP32 -> INA226 (I2C)",
+    "part": "Power distribution board  / INA226 20 A module (26x22, 2 mOhm shunt)",
+    "mm3": 0.47
+   },
+   {
+    "wire": "MBe | motor FR encoder wires to the ESP32",
+    "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+    "mm3": 0.43
+   },
+   {
+    "wire": "MAe | motor FL encoder wires to the ESP32",
+    "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+    "mm3": 0.28
+   },
+   {
+    "wire": "MDe | motor RR encoder wires to the ESP32",
+    "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+    "mm3": 0.12
+   },
+   {
+    "wire": "S03 | B+ to 15 A fuse in",
+    "part": "Battery 3S4P 18650  / fuse holder 15A mini blade",
+    "mm3": 0.08
+   },
+   {
+    "wire": "S04 | 15 A fuse out to sled XT60 male +",
+    "part": "Power connectors / XT60 male on sled",
+    "mm3": 0.08
+   },
+   {
+    "wire": "W02 | kill line: CPX A1 -> DRV8874 SLEEP (all four)",
+    "part": "Circuit Playground Express (front status light) / CPX PCB",
+    "mm3": 0.05
+   }
+  ],
+  "wire_wire_hits": [],
+  "scan_band": [
+   {
+    "wire": "G04b | TFT cable in the pan shaft + turret (twist span, rest pose)",
+    "max_r_from_pan_axis": 12.7
+   },
+   {
+    "wire": "G05b | mic cable in the pan shaft + turret (twist span, rest pose)",
+    "max_r_from_pan_axis": 15.9
+   },
+   {
+    "wire": "V02b | tilt servo lead in the turret + shaft (twist span)",
+    "max_r_from_pan_axis": 11.1
+   },
+   {
+    "wire": "K01b | camera FFC in the shaft + turret (twist span)",
+    "max_r_from_pan_axis": 8.9
+   }
+  ],
+  "seconds": 5
+ }
+}

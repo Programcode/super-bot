@@ -23,6 +23,17 @@ def remove_led_slot():
     log('LED bar slot features removed', gone)
 
 
+def remove_sonar_knockouts():
+    """19 Nov 2026: the optional HC-SR04P spot is dropped, so its two front-wall knock-outs go too."""
+    c = find_occ('Shell (printed smoked PETG)').component
+    gone = 0
+    for f in list(c.features.extrudeFeatures):
+        if f.name.startswith('HC-SR04P knock-out'):
+            f.deleteMe()
+            gone += 1
+    log('HC-SR04P knock-outs removed', gone)
+
+
 def bumper_slots():
     c = find_occ('Shell (printed smoked PETG)').component
     body = {b.name: b for b in c.bRepBodies}
@@ -33,10 +44,12 @@ def bumper_slots():
     log('bumper slots cut', len(BUMP_PINS_FRONT) + len(BUMP_PINS_REAR))
 
 
-def main(parts=('led', 'slots')):
+def main(parts=('led', 'slots', 'sonar')):
     param('bump_z0', 'plate_z', 'Bumper bar bottom Z (= the 30 mm ground clearance)')
     if 'led' in parts:
         remove_led_slot()
     if 'slots' in parts:
         bumper_slots()
+    if 'sonar' in parts:
+        remove_sonar_knockouts()
     done()

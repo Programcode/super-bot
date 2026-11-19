@@ -23,6 +23,23 @@ PARAMS3 = [
 ]
 
 
+LOW_SLOTS = (('-48 mm', 'plate_top + 12 mm'), ('48 mm', 'plate_top + 12 mm'))   # 19 Nov: rear motors, rear bumpers, cliff L/R/B
+
+
+def low_slots(c=None, sp=None):
+    """Two 18 x 12 mm harness slots low in the spine, under the boards and beside the battery tunnel, for the
+    cables from the bay and the rear (rear motors, rear bumpers, left/right/rear cliff sensors)."""
+    if c is None:
+        c = find_occ('Frame (4 mm ply)').component
+        sp = [b for b in c.bRepBodies if b.name.startswith('spine')][0]
+    for x, z in LOW_SLOTS:
+        B(c, 'low harness slot', x, 'spine_y - ply_t/2', z, '18 mm', 'ply_t + 2 mm', '12 mm', op=CUT, bodies=[sp])
+    # wire relief above the battery tunnel notch: the sled's 16 AWG leads run from the pack top (fuse, BMS) over
+    # the pack front into the sled nose and must pass the spine when the sled slides out (19 Nov)
+    B(c, 'feed wire relief', '0 mm', 'spine_y - ply_t/2', 'notch_z - 1 mm', '20 mm', 'ply_t + 2 mm', 'plate_top + 72 mm - notch_z + 1 mm', op=CUT, bodies=[sp])
+    log('low harness slots cut', len(LOW_SLOTS), '+ feed relief')
+
+
 def define():
     for n, e, cm in PARAMS3:
         param(n, e, cm)
@@ -44,6 +61,7 @@ def frame():
                          ('-85 mm', 'plate_top + 124 mm', '14 mm', '10 mm')):    # left harness: lidar, speaker, servos, mic
         B(c, 'slot', x, 'spine_y - ply_t/2', z, w, 'ply_t + 2 mm', h, op=CUT, bodies=[sp])
     sp.name = 'spine 4 mm birch ply'
+    low_slots(c, sp)
     H1 = 'top_deck_z - frame_z1'
     rp = B(c, 'rear plate', '0 mm', 'rear_y - ply_t/2', 'frame_z1', '2*in_x', 'ply_t', H1)
     B(c, 'tunnel notch', '0 mm', 'rear_y - ply_t/2', 'frame_z1 - 1 mm', '2*tun_hw', 'ply_t + 2 mm', 'rnotch_z - frame_z1 + 1 mm', op=CUT, bodies=[rp])

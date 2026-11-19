@@ -1,0 +1,117 @@
+{
+ "wires": 85,
+ "parts_checked": 381,
+ "wire_part_hits": [
+  {
+   "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+   "part": "Cliff sensors 4x VL53L0X / VL53L0X front pocket (printed)",
+   "mm3": 20.84
+  },
+  {
+   "wire": "C02 | cliff sensor right (VL53L0X 3317)",
+   "part": "Cliff sensors 4x VL53L0X / VL53L0X right pocket (printed)",
+   "mm3": 9.83
+  },
+  {
+   "wire": "C04 | cliff sensor left (VL53L0X 3317)",
+   "part": "Cliff sensors 4x VL53L0X / VL53L0X left pocket (printed)",
+   "mm3": 9.83
+  },
+  {
+   "wire": "C03 | cliff sensor rear (VL53L0X 3317)",
+   "part": "Cliff sensors 4x VL53L0X / VL53L0X rear pocket (printed)",
+   "mm3": 7.23
+  },
+  {
+   "wire": "K01d | camera FFC in the head",
+   "part": "Head pan rotor / head frame (printed)",
+   "mm3": 3.32
+  },
+  {
+   "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+   "part": "Cliff sensors 4x VL53L0X / VL53L0X front PCB (Adafruit 3317)",
+   "mm3": 1.75
+  },
+  {
+   "wire": "C01 | cliff sensor front (VL53L0X 3317)",
+   "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+   "mm3": 1.19
+  },
+  {
+   "wire": "S04 | 15 A fuse out to sled XT60 male +",
+   "part": "Battery 3S4P 18650  / fuse holder 15A mini blade",
+   "mm3": 0.9
+  },
+  {
+   "wire": "MD | motor RR cable to the DRV terminal (6 x 24/26 AWG)",
+   "part": "Motor driver board 4x DRV8874 / motor terminals",
+   "mm3": 0.58
+  },
+  {
+   "wire": "W01 | heartbeat: ESP32 TX -> CPX A6/RX",
+   "part": "Circuit Playground Express (front status light) / CPX PCB",
+   "mm3": 0.57
+  },
+  {
+   "wire": "MC | motor RL cable to the DRV terminal (6 x 24/26 AWG)",
+   "part": "Motor driver board 4x DRV8874 / motor terminals",
+   "mm3": 0.49
+  },
+  {
+   "wire": "C06 | power monitor: ESP32 -> INA226 (I2C)",
+   "part": "Power distribution board  / INA226 20 A module (26x22, 2 mOhm shunt)",
+   "mm3": 0.47
+  },
+  {
+   "wire": "MBe | motor FR encoder wires to the ESP32",
+   "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+   "mm3": 0.43
+  },
+  {
+   "wire": "MAe | motor FL encoder wires to the ESP32",
+   "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+   "mm3": 0.28
+  },
+  {
+   "wire": "MDe | motor RR encoder wires to the ESP32",
+   "part": "ESP32-S3-DevKitC-1 A / printed cradle",
+   "mm3": 0.12
+  },
+  {
+   "wire": "S03 | B+ to 15 A fuse in",
+   "part": "Battery 3S4P 18650  / fuse holder 15A mini blade",
+   "mm3": 0.08
+  },
+  {
+   "wire": "S04 | 15 A fuse out to sled XT60 male +",
+   "part": "Power connectors / XT60 male on sled",
+   "mm3": 0.08
+  },
+  {
+   "wire": "W02 | kill line: CPX A1 -> DRV8874 SLEEP (all four)",
+   "part": "Circuit Playground Express (front status light) / CPX PCB",
+   "mm3": 0.05
+  }
+ ],
+ "wire_wire_hits": [],
+ "scan_band": [
+  {
+   "wire": "G04b | TFT cable in the pan shaft + turret (twist span, rest pose)",
+   "max_r_from_pan_axis": 12.7
+  },
+  {
+   "wire": "G05b | mic cable in the pan shaft + turret (twist span, rest pose)",
+   "max_r_from_pan_axis": 15.9
+  },
+  {
+   "wire": "V02b | tilt servo lead in the turret + shaft (twist span)",
+   "max_r_from_pan_axis": 11.1
+  },
+  {
+   "wire": "K01b | camera FFC in the shaft + turret (twist span)",
+   "max_r_from_pan_axis": 8.9
+  }
+ ],
+ "shaft_inner_r": 11.5,
+ "seconds": 5
+}

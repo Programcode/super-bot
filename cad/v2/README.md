@@ -2,9 +2,15 @@
 
 The buildable v2 robot, designed in Autodesk Fusion as **"Super bot - v2"** (Adam's *Default Project*). `super-bot-v2.f3d` is an archive copy, `super-bot-v2.step` the whole robot as an assembly. Every part is built by the scripts in `scripts/`, from user parameters, at real datasheet size.
 
-It follows Adam's target photo (`docs/concepts/v2-target-photo.png`): a compact rounded smoked box a bit taller than wide, boards stacked flat behind the front wall, big mecanum wheels sticking out at the corners, a short chunky gimbal with a wide capsule head, a lidar pod at the top rear and an LED bar near the top of the front.
+It follows Adam's target photo (`docs/concepts/v2-target-photo.png`): a compact rounded smoked box a bit taller than wide, boards stacked flat behind the front wall, big mecanum wheels sticking out at the corners, a short chunky gimbal with a wide capsule head and a low lidar pod at the top rear. The front status light is the Circuit Playground Express glowing through the smoked front wall (the photo's LED bar was dropped on 18 Nov).
 
-![Target photo next to the model, same viewpoint](review/v2-vs-target-photo.png)
+**State on 19 Nov 2026:** v2 uses off-the-shelf modules, not the custom main board (Adam, 19 Nov). The board design is parked in `hw/main-board/` as a future option. The Fusion model has the module layout, lidar option A, the bumpers, the ideal diode in the charge path and the full wiring harness. Full checks, renders and exports for this state are still to be re-run, so the numbers below marked "17 Nov checks" come from the earlier layout.
+
+![Current model, option A (low lidar pod), 19 Nov](renders/v2-photo-optA.png)
+
+![Target photo next to the model, same viewpoint (17 Nov)](review/v2-vs-target-photo.png)
+
+The views below are the 17 Nov renders. They still show the LED bar, the sonar knock-outs and the earlier module positions, and will be replaced when the render pass runs.
 
 | 3/4 | Front | Side | Rear |
 | --- | --- | --- | --- |
@@ -14,42 +20,77 @@ It follows Adam's target photo (`docs/concepts/v2-target-photo.png`): a compact 
 | --- | --- | --- | --- |
 | ![top](renders/v2-top.png) | ![head](renders/v2-head.png) | ![exploded](renders/v2-exploded.png) | ![rear 3/4](renders/v2-iso-rear.png) |
 
-Close-up callouts with leader lines, one per area, are in [`review/callouts/`](review/callouts): wheel corner, battery, front chimney, back and sides, right cheek, gimbal, head, lidar pod, shell retention.
+Close-up callouts with leader lines, one per area, are in [`review/callouts/`](review/callouts) (17 Nov): wheel corner, battery, front chimney, back and sides, right cheek, gimbal, head, lidar pod, shell retention.
 
 ## Headline numbers
+
+Size numbers are set by parameters and haven't changed. Mass, balance and check counts are **from the 17 Nov checks, re-run pending**: since then the LED bar and the sonar spot were removed, the main-board block was tried and taken out again, the bumpers, the ideal diode and the full harness were added, and the PDB and audio modules swapped cheeks.
 
 - **Body box:** 200 W x 200 D x 250 H mm (height = 1.25 x width, as in the photo). Rounded: 14 mm vertical corners, 12 mm top edges.
 - **Overall:** 306 x 252 mm on the ground (wheels outside the body), **429 mm** to the top of the head.
 - **Wheels:** 100 mm, 40 % of the body height. Track 256 mm, wheelbase 152 mm.
-- **Mass:** about **5.0 kg** (5038 g). Bought parts use real masses, printed parts Fusion's PETG density (non-shell printed parts at 75 % for infill), ply its density, plus 220 g of wiring.
-- **Centre of gravity:** x -1.3, y -1.5, **z 128 mm**.
-- **Tip-over:** static tip angle **31 deg** forward/back, **45 deg** sideways. On a flat floor it tips forward only above about **5.9 m/s^2 (0.6 g)** of braking; the motors can push about 3.9 m/s^2, so it can't tip itself on the flat, but keep the ESP32 limits (1 m/s^2 indoors) because the head sways long before that.
-- **Mounting:** every body touches the part that holds it (0 of 369 bodies more than 0.3 mm from everything; the mecanum rollers are bought-wheel internals and not counted). `review/checks-floating.json`.
-- **Interference:** **0** between parts at rest (8 grouped checks covering all 387 bodies; the wiring paths and the face graphic are left out because they are routes and display content, not parts), and **0** between the moving head and everything else at 15 pan/tilt poses (pan -90/-45/0/45/90 x tilt -35/0/45). `review/checks-quick.json`, `review/checks-sweep.json`.
-- **Print bed:** all printed parts fit a 256 x 256 x 256 mm bed. The biggest are the front and rear walls, 200 x 236 x 14 mm.
-- **Timeline:** healthy, 101 user parameters.
+- **Mass (17 Nov checks, re-run pending):** about **5.0 kg** (5038 g). Bought parts use real masses, printed parts Fusion's PETG density (non-shell printed parts at 75 % for infill), ply its density, plus 220 g of wiring (an estimate; the harness is now modelled wire by wire).
+- **Centre of gravity (17 Nov checks, re-run pending):** x -1.3, y -1.5, **z 128 mm**.
+- **Tip-over (17 Nov checks, re-run pending):** static tip angle **31 deg** forward/back, **45 deg** sideways. On a flat floor it tips forward only above about **5.9 m/s^2 (0.6 g)** of braking; the motors can push about 3.9 m/s^2, so it can't tip itself on the flat, but keep the ESP32 limits (1 m/s^2 indoors) because the head sways long before that.
+- **Mounting (17 Nov checks, re-run pending):** every body touched the part that holds it (0 of 369 bodies more than 0.3 mm from everything; the mecanum rollers are bought-wheel internals and not counted). `review/checks-floating.json`.
+- **Interference (17 Nov checks, re-run pending):** **0** between parts at rest (8 grouped checks covering all 387 bodies), and **0** between the moving head and everything else at 15 pan/tilt poses (pan -90/-45/0/45/90 x tilt -35/0/45). `review/checks-quick.json`, `review/checks-sweep.json`. The per-stage quick checks after each 18-19 Nov job were all 0 hits (`review/checks-18nov/`, `review/checks-19nov/`), and the option A sweep on 19 Nov was 0 hits.
+- **Print bed:** all printed parts fit a 256 x 256 x 256 mm bed (17 Nov, and every printed part added since passed the per-stage bed check). The biggest are the front and rear walls, 200 x 236 x 14 mm.
+- **Timeline:** healthy. 101 user parameters on 17 Nov; a few have been added since.
 
 ## Layout
 
 Coordinates: mm, Z up, +Y front, +X right, ground at Z 0.
 
-**Drive (corners).** Four JGB37-520 12 V 530 rpm (19:1) motors sit inside the body on printed mounts, gearbox faces 7 mm inside the side walls. The shafts pass through U-slots in the side walls to 100 x 50 mm mecanum wheels outside the body, X configuration (seen from above, the top rollers point at the centre, so it can spin and strafe). Chassis plate: 6 mm birch ply, 194 x 194, 30 mm ground clearance.
+**Drive (corners).** Four JGB37-520 12 V 530 rpm (19:1) motors sit inside the body on printed mounts, gearbox faces 7 mm inside the side walls. The shafts pass through U-slots in the side walls to 100 x 50 mm mecanum wheels outside the body, X configuration (seen from above, the top rollers point at the centre, so it can spin and strafe). Chassis plate: 6 mm birch ply, 194 x 194, 30 mm ground clearance, with a cable hole for each cliff sensor.
 
-**Battery (low, central, removable).** 3S4P 18650 (12 cells, about 130 Wh) packed as a 2 (wide) x 3 (high) x 2 (long) block, 38 x 58 x 134 mm, on a printed sled at the bottom centre. It slides **out of the back** between the rear motors (the wheels outside the sides leave no side gap). The battery door is a shell piece screwed to the sled; it carries the **charge jack** (5.5 x 2.1, 5 A, with its own 5 A fuse) on the pack side of the main switch, so charging works with the loop key out. BMS 3S 20 A and the **15 A blade fuse** ride on top of the pack. At the front the sled **blind-mates an XT60** in a bulkhead under the spine.
+**Battery (low, central, removable).** 3S4P 18650 (12 cells, about 130 Wh) packed as a 2 (wide) x 3 (high) x 2 (long) block, 38 x 58 x 134 mm, on a printed sled at the bottom centre. It slides **out of the back** between the rear motors (the wheels outside the sides leave no side gap). The BMS (3S 20 A), the **15 A blade fuse**, the 5 A charge fuse and an ideal-diode module ride on top of the pack. The sled has a 14 mm nose in front of the pack (`sled_nose`) that holds the blind-mate **XT60 male** and gives its 16 AWG leads room to bend; it mates with an XT60 female in a printed bulkhead under the spine. The battery door is a shell piece screwed to the sled and carries the **charge jack** (5.5 x 2.1, 5 A).
 
-**Front chimney (what you see through the front).** A vertical 4 mm ply spine 44 mm behind the front wall carries, bottom to top: the motor-driver board (4x Pololu DRV8874 on a perfboard; their sleep line is shared with the CPX watchdog) and the ESP32-S3 in a printed cradle; the Raspberry Pi 5 8 GB + Active Cooler + AI HAT+ 2 standing flat against the spine with the heatsink fins vertical and 14.6 mm of air to the front wall (USB/Ethernet face the right wall with about 45 mm of plug room); the Circuit Playground Express; and the LED bar (8 WS2812B LEDs cut from a 60/m strip, behind a smoked diffuser in a 140 mm slot with a black bezel, driven by the CPX). Air comes in through slots above the front motors and leaves through vents in the top deck and the front top half: a real chimney.
+**Front chimney (spine front, what you see through the front wall).** A vertical 4 mm ply spine 44 mm behind the front wall carries, bottom to top:
 
-**Behind the spine.** The 5 V 5.5 A Pi buck (Pololu D36V50F5) sits right behind the Pi's USB-C (Pi set to 5 A mode); the BNO085 sits low near the centre. Two ply side cheeks and a rear plate close the frame into a box (no corner rods). Left cheek: power distribution board (XT60 in, 4x XT30 out, 12 V bus bar) with the INA226 20 A module. Right cheek: an empty printed cradle for a second ESP32-S3, the MAX98357A amp and the separate servo 6 V buck (Pololu D36V28F6). Rear plate: 40 mm speaker firing through a rear grille, and the **XT60 loop key** (the main DC switch) on the upper back.
+- Low left: a 70 x 40 perfboard with 4x Pololu DRV8874 carriers in female headers, motor terminals along the bottom, an XT30 12 V input and a 10-pin JST-XH logic header (x -80..-10, z 82..122).
+- Low right: the ESP32-S3-DevKitC-1 in a printed cradle, USB-C ports toward the right wall (x 17..83).
+- Above them: the Raspberry Pi 5 8 GB + Active Cooler + AI HAT+ 2 (`pi_xc` -5, PCB z 140..196), standing flat on the spine with the heatsink fins vertical. The Pi is in **pose B**, checked against the official Pi 5 mechanical drawing: components face the front wall, USB/Ethernet toward the right wall, the GPIO header and the AI HAT+ 2 along the bottom edge, USB-C at the top left. (The stand-in before 19 Nov was a mirror image of a real Pi 5.)
+- Top: the Circuit Playground Express on a printed bracket hung from the top deck, its 10 NeoPixels 2.5 mm behind the top of the front wall (centre z 238). It is the front status light and the motor watchdog: its A1 pad drives the DRV8874 nSLEEP lines, so the CPX can cut the motors on its own.
 
-**Top.** Gimbal forward of centre: a 64 mm square printed plinth (4 visible M3) holding the upper 6805 bearing; the lower 6805, the 1:1 36T printed gear pair and the pan MG90S hang under the top deck. A hollow 25 x 1 mm aluminium shaft carries the knuckle and the turret; the head's weight sits on a thrust collar on the upper bearing, so the servo only turns it. The turret holds the tilt MG90S lying down, with the tilt on two 6800 bearings. The head is a 190 x 76 x 64 smoked capsule: Camera Module 3 behind an eye-ring bezel at one end, the 1.3" TFT face beside it, the INMP441 mic behind an "ear" bezel at the other end. The camera ribbon (Pi 5 22-pin, 500 mm) runs from the Pi through a spine slot, down into the bottom of the hollow shaft and up through it into the turret and head.
+Air comes in through slots above the front motors and leaves through vents in the top deck and the front top half.
 
-**Lidar.** LD19 in a rounded vented pod at the rear left, bolted to the top deck. The LD19 sits inside on a shelf so only its cap shows. Its scan plane (z 301) passes between the plinth top (z 290) and the turret bottom (z 312): the head and fork stay at least **6.3 mm** above it at every pan and tilt pose.
+**Behind the spine.** The Pololu D36V50F5 5 V 5.5 A buck sits right behind the Pi's USB-C (Pi set to 5 A mode); its lead passes through a spine slot. The BNO085 sits low near the centre. Two ply side cheeks and a rear plate close the frame into a box (no corner rods).
 
-**Shell.** 2.4 mm smoked translucent PETG, 7 pieces: front and rear walls (each with both corner rounds), two flat side walls, two top halves (split front/back) and the battery door. 0.4 mm seams. Each wall has two drop-in tabs at the bottom (into printed clips on the plate edge) and two 6 x 3 mm magnet pairs at the top (blocks under the top deck). Each top half has magnets onto the top deck. **To open:** slide the front top half forward off the plinth and the rear one back off the pod, then lift any wall straight up (the side walls clear the wheel shafts through their U-slots). Pull the loop key before taking off the rear wall.
+- **Right cheek** (outer face, next to the loop key): the power distribution perfboard (80 x 50, XT60 in at the bottom, 4x XT30 out on top, 12 V bus bar) and the INA226 20 A module. Under it, an empty printed cradle for a second ESP32-S3, lowered to z 90..119 so the PDB plugs have room.
+- **Left cheek** (next to the speaker): the MAX98357A amp and the Pololu D36V28F6 6 V servo buck.
+- **Rear plate:** 40 mm speaker firing through a rear grille, and the **XT60 loop key** (XT60E-F panel socket in a printed bracket + a male XT60 with a wire loop, the main DC switch) on the upper back.
+
+**Frame cable passages.** Besides the 17 Nov loom slots, the spine has a 20 mm wire relief above the battery-tunnel notch (x +-10, up to z 108), so the sled's fuse-to-XT60 leads pass when the sled slides out, and two 18 x 12 mm low harness slots at x +-48 (z 48..60) for the rear motors, rear bumpers and the left/right/rear cliff sensors.
+
+**Top.** Gimbal forward of centre: a 64 mm square printed plinth (4 visible M3) holding the upper 6805 bearing; the lower 6805, the 1:1 36T printed gear pair and the pan MG90S hang under the top deck. A hollow 25 x 1 mm aluminium shaft carries the knuckle and the turret; the head's weight sits on a thrust collar on the upper bearing, so the servo only turns it. The turret holds the tilt MG90S lying down, with the tilt on two 6800 bearings. The head is a 190 x 76 x 64 smoked capsule: Camera Module 3 behind an eye-ring bezel at one end, the 1.3" TFT face beside it, the INMP441 mic behind an "ear" bezel at the other end. Head cables (camera FFC, TFT and mic bundles) come up the hollow shaft and cross the tilt joint through one 24 x 9 mm slot straight above the pan shaft, cut through the turret top, the fork crossbar, the head bottom and the head-frame foot, with a rolling U-loop in the 10 mm gap between the turret and the crossbar. This replaced the 14 mm ribbon slots at x 14, which the 16 mm camera FFC could not pass.
+
+**Lidar (option A).** LD19 in a rounded vented pod at the rear left, bolted to the top deck. The LD19 sits inside on a shelf so only its cap shows. Its scan plane (z 301) passes between the plinth top (z 290) and the turret bottom (z 312): the head and fork stay at least **6.3 mm** above it at every pan and tilt pose (19 Nov sweep). Option B (a mast that lifted the LD19 above the head, scan plane 467 mm) was modelled on 18 Nov for comparison and has been removed from the model; its render is `renders/v2-photo-optB.png`. `lidar_rise` switches between them (0 = A).
+
+**Bumpers.** A printed front bar between the front wheels on 2 microswitches and two rear half bars, one each side of the battery door, on 1 switch each: 4x Omron D2F-01L lying on the plate. The bar pins pass through open-bottom U-slots in the front and rear walls, so the walls still lift off. They cover what the lidar (301 mm up), the cliff sensors (looking down) and the camera miss: shoes, toys, chair bases, and anything behind when reversing.
+
+**Shell.** 2.4 mm smoked translucent PETG, 7 pieces: front and rear walls (each with both corner rounds), two flat side walls, two top halves (split front/back) and the battery door. 0.4 mm seams. Each wall has two drop-in tabs at the bottom (into printed clips on the plate edge) and two 6 x 3 mm magnet pairs at the top (blocks under the top deck). Each top half has magnets onto the top deck. The front wall has no LED bar slot and no sonar knock-outs any more. **To open:** slide the front top half forward off the plinth and the rear one back off the pod, then lift any wall straight up (the side walls clear the wheel shafts through their U-slots). Pull the loop key before taking off the rear wall.
+
+**Wiring.** The full harness is modelled: component `Wiring harness` (fixed wiring) plus `Wiring harness (tilt)` inside the head. The schedule (every wire, gauge, connector and route) is in [`WIRING.md`](WIRING.md) and [`review/wiring.json`](review/wiring.json). Main points:
+
+- The ESP32 talks to the Pi over USB (a Pi USB 3 port to the ESP32-S3's native USB-C), which also powers and flashes it. That leaves Pi UART0 free for the LD19.
+- The Pi GPIO is wired through one 2x20 Dupont housing on the AI HAT+ 2 pass-through header: lidar on UART0, I2S to the amp and mic, the TFT on SPI0, and power for the CPX. The TFT and mic are soldered at the head end (no room for housings behind them).
 
 ## Power
 
-Path: pack -> BMS -> 15 A blade fuse -> XT60 (sled, blind mate) -> XT60 loop key on the upper back -> PDB with INA226 -> XT30 branches: motor drivers, Pi 5 V buck, servo 6 V buck. Charge jack -> 5 A fuse -> pack side of the key. Connector families: XT60 main, XT30 branches, JST-XH signals, STEMMA QT for the I2C sensors.
+Main path (+):
+
+pack -> BMS -> 15 A blade fuse -> sled XT60 male (blind mate) -> bulkhead XT60 female -> loop key socket A -> loop key -> loop key socket B -> PDB XT60 in (+) -> 12 V bus bar. The INA226 module on the PDB measures the main current.
+
+The negative lead runs straight from the bulkhead to the PDB; only + goes through the loop key. The PDB's four XT30 outputs:
+
+1. DRV8874 perfboard (12 V motor supply)
+2. Pi 5 V buck (Pololu D36V50F5)
+3. Servo 6 V buck (Pololu D36V28F6)
+4. Spare
+
+**Charging:** charge jack (battery door) -> 5 A fuse -> ideal-diode module -> pack (the BMS is common-port). The charge path skips the loop key, so the robot charges while switched off, and the ideal diode keeps 12.6 V off the jack and stops back-feeding. Its drop is about 20 mV, so a 12.6 V CC/CV charger still fills the pack (a Schottky's ~0.5 V would stop near 12.1 V). Use a 3S Li-ion 12.6 V 2 A charger. (The 18 Nov draft had jack -> diode -> fuse; the order above is the current one.)
+
+Connector families: XT60 main, XT30 branches, JST-XH signals, STEMMA QT for the I2C sensors, Dupont 2x20 on the Pi.
 
 | Load | Standing, awake | Driving indoors (0.5 m/s) |
 | --- | --- | --- |
@@ -58,11 +99,13 @@ Path: pack -> BMS -> 15 A blade fuse -> XT60 (sled, blind mate) -> XT60 loop key
 | LD19 lidar | 0.9 W | 0.9 W |
 | Camera Module 3 | 0.4 W | 0.4 W |
 | ESP32-S3 | 0.4 W | 0.4 W |
-| TFT, CPX + LED bar (low brightness), BNO085, 4x VL53L0X, mic, amp idle | 1.2 W | 1.2 W |
+| TFT, CPX front light (low brightness), BNO085, 4x VL53L0X, mic, amp idle | 1.2 W | 1.2 W |
 | 5 V subtotal / 0.9 buck efficiency | **13.2 W** | **13.2 W** |
 | Pan/tilt servos (own 6 V buck) | 0.3 W | 1 W |
 | 4x JGB37-520 (about 5 W no-load in total, plus rolling, turns, strafing) | none | about 15 W |
 | **From the pack** | **about 13.5 W** | **about 29 W** |
+
+The 1.2 W row is the 17 Nov estimate, which still included the 8-LED bar; without it the real figure is a little lower.
 
 Pack: 12 Ah x 10.8 V = 130 Wh nominal, about 110 Wh usable.
 
@@ -75,7 +118,7 @@ Peak: four stalled motors (4 x 2.4 A) + Pi at full load (about 2.3 A at 12 V) + 
 
 ## Speed
 
-4x JGB37-520 12 V 530 rpm (19:1), 100 mm wheels (314 mm per turn), 5.0 kg.
+4x JGB37-520 12 V 530 rpm (19:1), 100 mm wheels (314 mm per turn), about 5.0 kg (17 Nov mass, re-run pending).
 
 - No-load catalogue: 2.8 m/s. **Real top speed on a hard floor: about 2.0-2.2 m/s**; strafing about 1.4-1.7 m/s.
 - Pushing force at a standstill about 22 N, so about **3.9 m/s^2** starting acceleration, 0 to 2 m/s in about 1.4 s.
@@ -83,9 +126,11 @@ Peak: four stalled motors (4 x 2.4 A) + Pi at full load (about 2.3 A at 12 V) + 
 
 ## Clearances (measured or set by parameters)
 
+Measured on 17 Nov unless noted; the lidar rows were re-measured on 19 Nov with option A. The rest are set by parameters that haven't changed, but re-run the full checks before trusting the tight ones.
+
 | Pair | Clearance |
 | --- | --- |
-| Head + fork to the lidar scan plane, worst pose (pan any, tilt 45) | 6.3 mm |
+| Head + fork to the lidar scan plane, worst pose (pan any, tilt 45) | 6.3 mm (19 Nov) |
 | Plinth top / turret bottom to the scan plane | 11 mm / 11 mm |
 | Head bottom to the turret, any tilt | 2.5 mm minimum (head 28 mm above the tilt axis, turret reach 25.5 mm) |
 | AI HAT+ 2 heatsink to the front wall | 14.6 mm (fan and chimney air) |
@@ -99,19 +144,23 @@ Peak: four stalled motors (4 x 2.4 A) + Pi at full load (about 2.3 A at 12 V) + 
 
 ## Lidar coverage
 
-The scan plane clears the head at every pan and tilt angle. The only thing in the plane is the 30 mm knuckle between the plinth and the turret: from the lidar it blocks a fixed sector about **19 deg** wide, centred about 33 deg to the right of the robot's forward direction (the bounding-box check in `review/checks-a.json` reports a conservative 25 deg). Mask it in software. A taller pod that lifts the plane above the head would remove it, but it no longer looks like the photo (that's a decision for Adam).
+With option A the scan plane clears the head at every pan and tilt angle. The only things in the plane are the pan shaft and the 30 mm knuckle between the plinth and the turret: from the lidar they block a fixed sector about **19 deg** wide, centred about 33 deg to the right of the robot's forward direction. The bounding-box check reports a conservative 25 deg, and every cable inside the shaft stays within the same shadow (`review/checks-19nov/checks-lidar-optA.json`). Mask it in software. Option B (mast) removed the sector but changed the look; see `review/lidar-occlusion.png` and the two option renders.
 
 ## Parts list
 
 **Bought:** see **[`BOM.md`](BOM.md)** (and [`BOM.csv`](BOM.csv)): every item to buy, with quantity, the exact part, a seller that ships to Hungary, a link, and EUR prices with and without 27 % VAT. v2 uses off-the-shelf modules (Adam, 19 Nov): 4x Pololu DRV8874 carriers on perfboard, an ESP32-S3 dev board, a PDB (XT60 in, XT30 outs) with an INA226 module and 20 A shunt, Pololu D36V50F5 and D36V28F6 bucks, a MAX98357 amp. The custom main board (`hw/main-board`, rev B) is parked. Other 18 Nov changes are in too: no LED bar (the CPX is the front light), XT60 loop key, 4x Omron D2F-01L bumpers, an ideal-diode module in the charge path, no sonar. Owned: Raspberry Pi 5 8 GB, Circuit Playground Express.
 
-**Printed (PETG, `stl/`):** shell walls x4, top halves x2, battery door (smoked); head shell front/back, plinth, turret, pod (smoked or black); motor mounts + saddles x4, battery sled + 2 rails, XT60 bulkhead, cliff-sensor pockets x4, HC-SR04P holder, ESP32 cradles x2, LED bar carrier + bezel + diffuser, speaker bracket, loop-key bracket, frame brackets x14, cheek pillars x2, pan servo shelf, lower bearing housing, 36T gears x2, knuckle sleeve, tilt hubs x2, tilt fork, head frame, eye-ring/TFT/mic bezels, panel clips x8, magnet blocks x14. Identical parts share a name with a `-2`, `-3` suffix. 86 files.
+Dropped: the LED bar strip (18 Nov) and the optional HC-SR04P front sonar (19 Nov).
 
-**Cut (`dxf/`):** chassis plate (6 mm birch ply), spine, rear plate, 2 side cheeks, top deck (4 mm birch ply, stained dark grey in the renders), TFT window (1 mm clear acrylic). The plate and top deck are about 194 mm, so any hobby laser fits them.
+**Printed (PETG, `stl/`):** shell walls x4, top halves x2, battery door (smoked); head shell front/back, plinth, turret, pod (smoked or black); motor mounts + saddles x4, battery sled (with the XT60 nose) + 2 rails, XT60 bulkhead, cliff-sensor pockets x4, ESP32 cradles x2, CPX bracket, speaker bracket, loop-key bracket, bumper front bar + 2 rear half bars + switch brackets, frame brackets x14, cheek pillars x2, pan servo shelf, lower bearing housing, 36T gears x2, knuckle sleeve, tilt hubs x2, tilt fork, head frame, eye-ring/TFT/mic bezels, panel clips x8, magnet blocks x14. Identical parts share a name with a `-2`, `-3` suffix. The `stl/` folder is the 17 Nov export (86 files, still with the LED bar parts and the sonar holder); re-export pending.
+
+**Cut (`dxf/`):** chassis plate (6 mm birch ply), spine, rear plate, 2 side cheeks, top deck (4 mm birch ply, stained dark grey in the renders), TFT window (1 mm clear acrylic). The plate and top deck are about 194 mm, so any hobby laser fits them. The DXFs are from 17 Nov; the plate cable holes and the new spine slots need a re-export.
 
 **Placeholders / estimates (measure on arrival):** JGB37 encoder length, BMS size (the chosen 3S board is 62 x 41 mm, not the modelled 64 x 20), the ideal-diode module (modelled 22 x 16 x 5, chosen one 17 x 11.7 x 10.2), INMP441 hole positions, fuse holder bodies, AI HAT+ 2 heatsink size, the LD19 scan-plane height (27 mm, read off a datasheet figure), wheel mass (300 g used; the Nexus wheel is 400 g). INA226 module 18 x 19.4 mm. Details in `BOM.md`.
 
 ## Mass by component
+
+From the 17 Nov checks, re-run pending. Since then the PDB + INA226 moved to the right cheek and the MAX98357A + servo buck to the left (their x signs flip), the spare ESP32 cradle moved down, the CPX bracket bottom was raised 6 mm, the sonar spot was removed, and the bumpers, the ideal diode and the modelled harness were added.
 
 | Component | Mass (g) | Centre of mass x, y, z (mm) |
 | --- | --- | --- |
@@ -140,11 +189,13 @@ The scan plane clears the head at every pan and tilt angle. The only thing in th
 | Cliff sensors 4x VL53L0X | 15 | 0, 0, 29 |
 | ESP32-S3-DevKitC-1 B spare | 8 | 83, -8, 143 |
 | Pi 5 V 5.5 A buck (Pololu D36V50F5) | 7 | -26, 33, 154 |
-| Front ultrasonic spot (optional HC-SR04P) | 7 | -0, 87, 49 |
+| Front ultrasonic spot (optional HC-SR04P), removed 19 Nov | 7 | -0, 87, 49 |
 
 ## Parameters
 
 Change them in Fusion under Modify -> Change Parameters, or edit the stage scripts. Lengths in mm.
+
+This is the 17 Nov dump (`review/params.json`) with the rows changed or added since then edited by hand from the stage scripts. Regenerate it after the next full check run.
 
 | Name | Expression | Value | Meaning |
 | --- | --- | --- | --- |
@@ -190,12 +241,13 @@ Change them in Fusion under Modify -> Change Parameters, or edit the stage scrip
 | `pan_y` | `20 mm` | 20.00 | Head pan axis Y (forward of centre; the pan gear clears the spine) |
 | `lidar_y` | `-58 mm` | -58.00 | Lidar centre Y (rear) |
 | `pan_servo_x` | `36 mm` | 36.00 | Pan servo shaft X (1:1 gear pair, 36 mm centre distance) |
-| `pi_xc` | `-5 mm` | -5.00 | Pi 5 PCB centre X (USB/Ethernet edge faces +X, ~40 mm plug room) |
-| `pi_z0` | `plate_top + 104 mm` | 140.00 | Pi 5 PCB bottom (HDMI/USB-C) edge Z |
+| `pi_xc` | `-5 mm` | -5.00 | Pi 5 PCB centre X (module layout: USB/Ethernet edge faces +X) |
+| `pi_z0` | `plate_top + 104 mm` | 140.00 | Pi 5 PCB bottom (GPIO) edge Z, above the driver board and ESP32 (pose B) |
 | `pi_so` | `6 mm` | 6.00 | Pi standoffs off the spine |
 | `pi_y0` | `spine_y + pi_so` | 50.00 | Pi PCB back face Y |
 | `hat_so` | `16 mm` | 16.00 | AI HAT+ 2 spacer height (SRC) |
-| `cpx_z` | `pi_z0 + 92 mm` | 232.00 | CPX centre Z |
+| `cpx_z` | `top_deck_z - 26 mm` | 238.00 | CPX centre Z (front status light) |
+| `cpx_yf` | `shell_y - pwall - 2.5 mm` | 95.10 | CPX NeoPixel tops, 2.5 mm behind the front wall |
 | `shaft_od` | `25 mm` | 25.00 | Pan shaft: 25 x 1 mm aluminium tube (fits 6805 bearings) |
 | `seam_gap` | `0.4 mm` | 0.40 | Gap between shell pieces |
 | `pod_w` | `70 mm` | 70.00 | Lidar pod width X |
@@ -204,7 +256,8 @@ Change them in Fusion under Modify -> Change Parameters, or edit the stage scrip
 | `mag_t` | `3 mm` | 3.00 | Magnet thickness |
 | `scan_h` | `27 mm` | 27.00 | LD19 scan plane above its mounting ears (EST from the datasheet figure) |
 | `plinth_h` | `12 mm` | 12.00 | Plinth height above the body top |
-| `scan_z` | `body_top + plinth_h + knuckle_h / 2` | 301.00 | Lidar scan plane Z |
+| `scan_z` | `body_top + plinth_h + knuckle_h / 2 + lidar_rise` | 301.00 | Lidar scan plane Z (option A 301, B 467) |
+| `lidar_rise` | `0 mm` | 0.00 | Lidar option: 0 = A (low pod, ~19 deg masked), 166 mm = B (mast) |
 | `turret_z` | `body_top + plinth_h + knuckle_h` | 312.00 | Turret bottom Z |
 | `tilt_z` | `turret_z + 13 mm` | 325.00 | Tilt axis Z |
 | `turret_hw` | `30 mm` | 30.00 | Turret half-width X |
@@ -225,7 +278,8 @@ Change them in Fusion under Modify -> Change Parameters, or edit the stage scrip
 | `sled_y0` | `-( shell_y - pwall )` | -97.60 | Sled rear face (the door screws on here) |
 | `pack_y0` | `sled_y0 + sled_wall + 0.5 mm` | -94.70 | Pack rear end Y |
 | `pack_y1` | `pack_y0 + pack_y` | 39.70 | Pack front end Y |
-| `sled_y1` | `pack_y1 + sled_wall + 0.3 mm` | 42.40 | Sled front face Y (XT60 male sticks out here) |
+| `sled_nose` | `14 mm` | 14.00 | Sled nose in front of the pack: room for the XT60 male leads (19 Nov) |
+| `sled_y1` | `pack_y1 + sled_wall + 0.3 mm + sled_nose` | 56.40 | Sled front face Y (XT60 male sticks out here) |
 | `sled_hw` | `pack_x / 2 + sled_wall + 0.5 mm` | 22.00 | Sled half-width |
 | `tun_hw` | `sled_hw + 4.5 mm` | 26.50 | Battery tunnel half-width (notches in the spine and rear plate) |
 | `ply_t` | `4 mm` | 4.00 | Frame ply thickness (4 mm birch ply) |
@@ -239,41 +293,43 @@ Change them in Fusion under Modify -> Change Parameters, or edit the stage scrip
 | `door_hw` | `tun_hw - 2 mm` | 24.50 | Battery door half-width |
 | `door_top` | `body_z0 + 100 mm` | 128.00 | Battery door top |
 | `plinth_s` | `64 mm` | 64.00 | Head plinth size (square) |
-| `bar_z` | `body_top - 40 mm` | 238.00 | LED bar centre Z |
-| `bar_w` | `140 mm` | 140.00 | LED bar slot length |
-| `drv_z` | `plate_top + 46 mm` | 82.00 | Driver board bottom Z (above the front motors) |
+| `bar_z` | `body_top - 40 mm` | 238.00 | LED bar centre Z (bar dropped 18 Nov; still read by `s5_shell`, whose slot `s5b_shell_edits` removes) |
+| `bar_w` | `140 mm` | 140.00 | LED bar slot length (bar dropped 18 Nov; same as `bar_z`) |
+| `drv_z` | `plate_top + 46 mm` | 82.00 | Driver perfboard bottom Z (above the front motors) |
 | `knuckle_h` | `22 mm` | 22.00 | Knuckle between plinth and turret (the lidar plane passes here) |
 | `mic_x` | `-68 mm` | -68.00 | Mic ear centre X |
 | `ld_z` | `scan_z - scan_h` | 274.00 | LD19 ear underside Z |
-| `pod_top` | `scan_z - 8 mm` | 293.00 | Pod rim Z (5 mm under the LD19 window band) |
+| `pod_top` | `pod_ld_z + scan_h - 8 mm` | 293.00 | Pod rim Z (5 mm under the LD19 window band in option A) |
 | `lidar_x` | `-50 mm` | -50.00 | Lidar centre X (rear left, as in the target photo) |
 | `top_seam_y` | `( pan_y - plinth_s / 2 + lidar_y + pod_d / 2 ) / 2` | -19.00 | Seam between the front and rear top halves |
 | `frame_z1` | `plate_top + 46 mm` | 82.00 | Bottom of the cheeks and rear plate (clear of the motor mounts) |
 
+
 ## Open issues (honest)
 
-1. **Head size vs the brief.** The first brief asked for a head "much smaller than v1's" (136 x 56 x 50). Matching the photo made it 190 x 76 x 64. `head_w`, `head_h` and `head_d` are the knobs. Decision for Adam.
-2. **Lidar blind sector** of about 19 deg from the knuckle (see above). Masking works; the only full fix is a taller pod, which changes the look.
-3. **Pod height.** The photo's pod is taller. Here the pod rim must stay under the LD19's window, which must stay under the turret, so the pod is about 15 mm tall plus the LD19 cap.
-4. **Footprint.** The body is 200 x 200, but with the wheels outside, the robot needs 306 x 252 on the floor, bigger than the original "about 30 x 30" body idea.
-5. **Head flop.** The head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking. A friction washer on the tilt hub, or keeping the tilt servo powered, solves it.
-6. **Camera ribbon.** It twists inside the hollow shaft for pan (about 80 mm of free twist length for +/-90 deg) and folds hard where it leaves the shaft under the tilt servo (3.9 mm of room). Test-fit the real 500 mm cable before printing the turret.
-7. **Blind-mate XT60.** It needs a firm push (roughly 30-40 N) and good alignment from the sled rails. If it fights, swap to a short pigtail with slack.
-8. **Cliff sensors.** The VL53L0X pockets sit 27 mm above the floor, close to the sensor's minimum range. If readings are noisy, sink them 5 mm more into the plate.
-9. **Tight spots:** front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm, servo tab to the turret wall under 1 mm. All are clear in the model; check them on the printed parts.
-10. **Gears** are modelled as simplified trapezoid teeth. Print real involute 36T m1 gears from a gear generator.
-11. **Thermals** are designed (a vertical chimney, vertical fins, a 14.6 mm gap), not simulated. Log temperatures on the first long run.
-12. **Frame stiffness.** The cheeks and rear plate start above the motor mounts and stand on two printed pillars; the spine stands on the plate. Check for wobble with the head on top; add a printed gusset if needed.
-13. **Bumpers** (part of Adam's safety plan) are not modelled yet. The walls could float on microswitches later.
-14. **LED bar** (8 WS2812B on a strip) is a new part, added because the photo has the bar; the CPX drives it.
-15. **The charge jack is always live.** It sits on the pack side of the loop key (so charging works with the robot off), behind a 5 A fuse but no diode, so the jack and any future dock contacts carry 12.6 V even when the robot is off. Add a reverse-blocking Schottky or an ideal-diode module in the charge path, and use a recessed jack or shrouded dock contacts.
-16. **Wiring** is modelled as paths (pipes) for the main runs, not every wire.
-17. **Renders** are Fusion viewport captures; the smoked PETG renders darker than the real material and the photo.
+1. **Full checks, renders and exports are stale.** Mass, CoG, floating, interference, bed, the views, STL/DXF and the side-by-side are from 17 Nov. Re-run them on the 19 Nov model (see `TASKS.md`).
+2. **Custom main board parked.** v2 is built from modules (Adam, 19 Nov). The rev A/B board in `hw/main-board/` and its CAD stage `scripts/s4b_mainboard.py` are kept as a future option and are not part of this model.
+3. **Lidar blind sector** of about 19 deg from the pan shaft and knuckle (option A, see above). Masking works; option B removed it but changed the look.
+4. **Pod height.** The photo's pod is taller. Here the pod rim must stay under the LD19's window, which must stay under the turret, so the pod is about 15 mm tall plus the LD19 cap.
+5. **Footprint.** The body is 200 x 200, but with the wheels outside, the robot needs 306 x 252 on the floor, bigger than the original "about 30 x 30" body idea.
+6. **Head flop.** The head's centre of mass is about 66 mm above the tilt axis, so it will nod when the servos are unpowered and sway when braking. A friction washer on the tilt hub, or keeping the tilt servo powered, solves it.
+7. **Head cables.** The camera FFC twists inside the hollow shaft for pan (about 80 mm of free twist length for +/-90 deg) and crosses the tilt joint as a U-loop through the 24 x 9 mm slot. It is checked at all 15 pan/tilt poses in the model; test-fit the real 500 mm cable before printing the turret.
+8. **Blind-mate XT60.** It needs a firm push (roughly 30-40 N) and good alignment from the sled rails. The 14 mm sled nose now leaves room for the leads. If the mate fights, swap to a short pigtail with slack.
+9. **Cliff sensors.** The VL53L0X pockets sit 27 mm above the floor, close to the sensor's minimum range. If readings are noisy, sink them 5 mm more into the plate.
+10. **Tight spots:** front gearbox to the corner round about 1.3 mm, pan gear to the spine about 1 mm, servo tab to the turret wall under 1 mm. All are clear in the model; check them on the printed parts.
+11. **Gears** are modelled as simplified trapezoid teeth. Print real involute 36T m1 gears from a gear generator.
+12. **Thermals** are designed (a vertical chimney, vertical fins, a 14.6 mm gap), not simulated. Log temperatures on the first long run.
+13. **Frame stiffness.** The cheeks and rear plate start above the motor mounts and stand on two printed pillars; the spine stands on the plate. Check for wobble with the head on top; add a printed gusset if needed.
+14. **Front sensing without the sonar.** The HC-SR04P was dropped for the sled nose. The front is covered by the lidar, the front bumper and the cliff sensors; low, soft obstacles are found by touch.
+15. **Renders** are Fusion viewport captures; the smoked PETG renders darker than the real material and the photo.
+
+Settled since 17 Nov: the head stays 190 mm wide (Adam, 18 Nov); the LED bar is gone and the CPX is the front light; bumpers are modelled; the always-live charge jack is fixed by the ideal diode; the wiring is modelled wire by wire instead of as a few paths.
 
 ## Files
 
-- `super-bot-v2.f3d`, `super-bot-v2.step`: the design.
-- `stl/`: printed parts. `dxf/`: cut parts.
-- `renders/`: viewport images (`v2-photo*.png` is the photo-matching view). `review/`: side-by-side with the photo, callouts, check results (`checks-a.json` mass/bed/scan plane, `checks-quick.json` interference, `checks-sweep.json` pan/tilt sweep, `params.json`).
-- `scripts/`: the Fusion API scripts, run through the Fusion MCP. `loader.py` fetches `v2lib.py` plus one stage from the VPS file bridge, runs it, uploads the log and saves the document. Stages: `s1_drive`, `s2_battery`, `s3_frame`, `s4_electronics`, `s5_shell`, `s6_head`, `s7_lidar`, `s8_wiring`; then `looks.py`, `checks.py` (`quick()` per stage, `main()` for mass/bed/sweep), `shots.py`, `export.py`. `sidebyside.py`, `compose_bg.py` and `callout_annotate.py` run on the VPS.
-- **File bridge:** the Fusion scripts fetch `v2lib.py` and the stage files from, and upload logs, images and exports to, a tiny HTTP bridge on the VPS: `python3 -I cad/v2/scripts/bridge_recv.py <upload dir> cad/v2/scripts` (listens on the VPS Tailscale IP, port 8766). `mkrun.py <tag> "<jobs>"` prints a loader body for one job. `old-frame-build/` holds the scrapped first layout.
+- `super-bot-v2.f3d`, `super-bot-v2.step`: the design (17 Nov export; re-export pending).
+- `stl/`: printed parts. `dxf/`: cut parts (both 17 Nov).
+- [`WIRING.md`](WIRING.md): the harness schedule. [`review/wiring.json`](review/wiring.json): the same as data, plus the moving-cable checks.
+- `renders/`: viewport images. `v2-photo-optA.png` is the current option A view, `v2-photo-optB.png` the mast option; `v2-photo*.png` are the photo-matching views. `review/`: side-by-side with the photo, callouts, `lidar-occlusion.png`, check results (`checks-a.json` mass/bed/scan plane, `checks-quick.json` interference, `checks-sweep.json` pan/tilt sweep, `checks-floating.json`, `params.json`, all 17 Nov; per-job checks in `checks-18nov/` and `checks-19nov/`). `main-board-fit.md` is the fit report for the parked board.
+- `scripts/`: the Fusion API scripts, run through the Fusion MCP. `loader.py` fetches `v2lib.py` plus one stage from the VPS file bridge, runs it, uploads the log and saves the document. Stages: `s1_drive`, `s2_battery`, `s3_frame`, `s4_electronics` (Pi stack, CPX, spare cradle, IMU, speaker), `s4c_modules` (driver perfboard, ESP32, bucks, PDB + INA226, amp, loop key), `s5_shell` + `s5b_shell_edits`, `s6_head`, `s7_lidar` (`set_option`), `s8_wiring` (harness data in `w_routes.py` and `w_lib.py`; `w_dump.py`, `w_check.py`, `w_flex.py` and `w_report.py` dump the geometry, check the wires and moving cables, and write the schedule; `w_look.py` takes quick-look images), `s9_bumpers`; then `looks.py`, `checks.py` (`quick()` per stage, `main()` for mass/bed/sweep), `shots.py`, `export.py`. `s4b_mainboard.py` is parked (main board block; not run for the module layout). `sidebyside.py`, `compose_bg.py` and `callout_annotate.py` run on the VPS.
+- **File bridge:** the Fusion scripts fetch `v2lib.py` and the stage files from, and upload logs, images and exports to, a tiny HTTP bridge on the VPS: `python3 -I cad/v2/scripts/bridge_recv.py <upload dir> cad/v2/scripts` (listens on the VPS Tailscale IP, port 8766). `mkrun.py <tag> "<jobs>"` prints a loader body for one job; `fmcp.py job` runs one when the session's Fusion MCP tool is down. `old-frame-build/` holds the scrapped first layout.

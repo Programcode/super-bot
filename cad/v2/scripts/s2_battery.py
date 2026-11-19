@@ -4,7 +4,8 @@
 # piece, added in s5) screws to the sled's rear wall and carries the charge jack, so charging
 # works with the loop key out. At the front the sled blind-mates an XT60 in a bulkhead that
 # sits in a notch under the spine. BMS and the 15 A blade fuse ride on top of the pack.
-# 4x VL53L0X cliff sensors under the plate; optional HC-SR04P holder at the front.
+# 4x VL53L0X cliff sensors under the plate. (The optional HC-SR04P spot was dropped on 19 Nov 2026 to make
+# room for the sled XT60 nose; ultrasonic_spot() now only deletes its old component.)
 
 PARAMS2 = [
     ('cell_d', '18.6 mm', '18650 cell diameter'),
@@ -16,7 +17,8 @@ PARAMS2 = [
     ('sled_y0', '-(shell_y - pwall)', 'Sled rear face (the door screws on here)'),
     ('pack_y0', 'sled_y0 + sled_wall + 0.5 mm', 'Pack rear end Y'),
     ('pack_y1', 'pack_y0 + pack_y', 'Pack front end Y'),
-    ('sled_y1', 'pack_y1 + sled_wall + 0.3 mm', 'Sled front face Y (XT60 male sticks out here)'),
+    ('sled_nose', '14 mm', 'Sled nose in front of the pack: room for the XT60 male wires (19 Nov: sonar spot dropped for it)'),
+    ('sled_y1', 'pack_y1 + sled_wall + 0.3 mm + sled_nose', 'Sled front face Y (XT60 male sticks out here; pack + wall + nose)'),
     ('sled_hw', 'pack_x/2 + sled_wall + 0.5 mm', 'Sled half-width'),
     ('tun_hw', 'sled_hw + 4.5 mm', 'Battery tunnel half-width (notches in the spine and rear plate)'),
     ('tof_r', '80 mm', 'Cliff sensor distance from the centre (under the plate)'),
@@ -44,7 +46,7 @@ def battery():
     B(c, 'BMS 3S 20A (64x20x3.4, check yours)', '0 mm', '(pack_y0 + pack_y1)/2 - 20 mm', top, '20 mm', '64 mm', '3.4 mm', 'FR4', 'Plastic - Matte (Blue)')
     B(c, 'fuse holder 15A mini blade', '0 mm', 'pack_y1 - 18 mm', top, '14 mm', '30 mm', '11 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
     B(c, 'charge fuse holder 5A', '0 mm', 'pack_y0 + 22 mm', top, '12 mm', '26 mm', '7 mm', 'ABS Plastic', 'Plastic - Matte (Red)')
-    # reverse-blocking ideal-diode module in the charge path (jack -> diode -> 5 A fuse -> BMS P+): blocks a
+    # reverse-blocking ideal-diode module in the charge path (jack -> 5 A fuse -> diode -> pack P+, as wired in w_routes S06-S08): blocks a
     # live jack and back-feeding; ~20 mV drop, so a 12.6 V CC/CV charger still fills the pack (a Schottky's
     # ~0.5 V would stop it at about 12.1 V). EST size: LM74700-class module 22 x 16 x 5 mm.
     B(c, 'ideal diode module (LM74700-class, EST 22x16x5)', '14 mm', 'pack_y0 + 13 mm', top, '16 mm', '22 mm', '5 mm', 'FR4', GREEN)
@@ -60,6 +62,8 @@ def sled():
     rw = B(c, 'rear wall', '0 mm', 'sled_y0 + sled_wall/2', 'plate_top', '2*sled_hw', 'sled_wall', 'body_z0 + 92 mm - plate_top', 'PET Plastic', BLACK)
     fw = B(c, 'front wall', '0 mm', 'sled_y1 - sled_wall/2', 'plate_top', '2*sled_hw', 'sled_wall', '40 mm', 'PET Plastic', BLACK)
     join(c, s, [rw, fw], 'battery sled (printed)')
+    # nose cavity between the pack front and the front wall: the XT60 male's 16 AWG leads bend up here
+    B(c, 'nose cavity', '0 mm', '(pack_y1 + sled_y1 - sled_wall)/2', 'plate_top + 2 mm', 'pack_x + 1 mm', '(sled_y1 - sled_wall) - pack_y1', '40 mm', op=CUT, bodies=[s])
     B(c, 'XT60 window', '0 mm', 'sled_y1 - sled_wall/2', 'plate_top + 8 mm', '16.2 mm', '4 mm', '8.8 mm', op=CUT, bodies=[s])
     C(c, 'charge jack hole', 'y', '0 mm', 'sled_y0 + sled_wall/2', 'body_z0 + 82 mm', '11 mm', '4 mm', op=CUT, bodies=[s])
     for xx in ('-12 mm', '12 mm'):
@@ -92,13 +96,11 @@ def cliff():
 
 
 def ultrasonic_spot():
-    h = fresh('Front ultrasonic spot (optional HC-SR04P)')
-    hb = B(h, 'HC-SR04P holder (printed)', '0 mm', 'shell_y - pwall - 9 mm', 'plate_top', '40 mm', '4 mm', '38 mm', 'PET Plastic', BLACK)
-    hf = B(h, 'holder foot', '0 mm', 'shell_y - pwall - 15 mm', 'plate_top', '40 mm', '12 mm', '4 mm', 'PET Plastic', BLACK)
-    join(h, hb, [hf], 'HC-SR04P holder (printed)')
-    for tx in (-1, 1):
-        C(h, 'transducer hole', 'y', '%d*13 mm' % tx, 'shell_y - pwall - 9 mm', 'plate_top + 24 mm', '16.6 mm', '6 mm', op=CUT, bodies=[hb])
-    log('ultrasonic spot ok')
+    """Dropped 19 Nov 2026 (Pip/Adam): the sled XT60 nose and the battery feed need the space. Removes the old component."""
+    o = find_occ('Front ultrasonic spot (optional HC-SR04P)')
+    if o:
+        o.deleteMe()
+    log('ultrasonic spot removed')
 
 
 def main(parts=('battery', 'sled', 'cliff', 'us')):
