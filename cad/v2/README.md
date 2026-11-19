@@ -148,7 +148,7 @@ With option A the scan plane clears the head at every pan and tilt angle. The on
 
 ## Parts list
 
-**Bought:** see **[`BOM.md`](BOM.md)** (and [`BOM.csv`](BOM.csv)): every item to buy, with quantity, the exact part, a seller that ships to Hungary, a link, and EUR prices with and without 27 % VAT. v2 uses off-the-shelf modules (Adam, 19 Nov): 4x Pololu DRV8874 carriers on perfboard, an ESP32-S3 dev board, a PDB (XT60 in, XT30 outs) with an INA226 module and 20 A shunt, Pololu D36V50F5 and D36V28F6 bucks, a MAX98357 amp. The custom main board (`hw/main-board`, rev B) is parked. Other 18 Nov changes are in too: no LED bar (the CPX is the front light), XT60 loop key, 4x Omron D2F-01L bumpers, an ideal-diode module in the charge path, no sonar. Owned: Raspberry Pi 5 8 GB, Circuit Playground Express.
+**Bought:** see **[`BOM.md`](BOM.md)** (and [`BOM.csv`](BOM.csv)): every item to buy, with quantity, the exact part, a seller that ships to Hungary, a link, and EUR prices with and without 27 % VAT. v2 uses off-the-shelf modules (Adam, 19 Nov): 4x Pololu DRV8874 carriers on perfboard, an ESP32-S3 dev board, a PDB (XT60 in, XT30 outs) with a 20 A INA226 module, Pololu D36V50F5 and D36V28F6 bucks, a MAX98357 amp. The custom main board (`hw/main-board`, rev B) is parked. Other 18 Nov changes are in too: no LED bar (the CPX is the front light), XT60 loop key, 4x Omron D2F-01L bumpers, an ideal-diode module in the charge path, no sonar. Owned: Raspberry Pi 5 8 GB, Circuit Playground Express.
 
 Dropped: the LED bar strip (18 Nov) and the optional HC-SR04P front sonar (19 Nov).
 
