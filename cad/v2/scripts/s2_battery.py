@@ -95,6 +95,20 @@ def cliff():
     log('cliff ok')
 
 
+# wire grooves in the cliff-sensor pockets (19 Nov): the 5-wire leads (2.8 mm bundles) run from the sensor pads to the
+# plate holes between the pocket and the plate. Boxes (x0, x1, y0, y1) in mm from the C01-C04 routes in w_routes.py.
+GROOVES = (('front', 11.0, 15.6, 70.3, 74.7), ('right', 67.9, 70.4, -1.6, 15.6), ('rear', -1.6, 15.6, -70.4, -67.9), ('left', -70.4, -67.9, -1.6, 15.6))
+
+
+def wire_grooves():
+    c = find_occ('Cliff sensors 4x VL53L0X').component
+    for tag, x0, x1, y0, y1 in GROOVES:
+        pk = [b for b in c.bRepBodies if b.name.startswith('VL53L0X %s pocket' % tag)]
+        B(c, 'wire groove %s' % tag, '%.2f mm' % ((x0 + x1) / 2), '%.2f mm' % ((y0 + y1) / 2), 'plate_z - 2.6 mm', '%.2f mm' % (x1 - x0), '%.2f mm' % (y1 - y0),
+          '3 mm', op=CUT, bodies=pk)
+    log('cliff pocket wire grooves cut', len(GROOVES))
+
+
 def ultrasonic_spot():
     """Dropped 19 Nov 2026 (Pip/Adam): the sled XT60 nose and the battery feed need the space. Removes the old component."""
     o = find_occ('Front ultrasonic spot (optional HC-SR04P)')

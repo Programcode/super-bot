@@ -90,7 +90,7 @@ The negative lead runs straight from the bulkhead to the PDB; only + goes throug
 
 **Charging:** charge jack (battery door) -> 5 A fuse -> ideal-diode module -> pack (the BMS is common-port). The charge path skips the loop key, so the robot charges while switched off, and the ideal diode keeps 12.6 V off the jack and stops back-feeding. Its drop is about 20 mV, so a 12.6 V CC/CV charger still fills the pack (a Schottky's ~0.5 V would stop near 12.1 V). Use a 3S Li-ion 12.6 V 2 A charger. (The 18 Nov draft had jack -> diode -> fuse; the order above is the current one.)
 
-Connector families: XT60 main, XT30 branches, JST-XH signals, STEMMA QT for the I2C sensors, Dupont 2x20 on the Pi.
+Connector families: XT60 main, XT30 branches, JST-XH (driver logic, balance lead), JST-PH (motor encoders, CPX), JST-ZH (LD19), Dupont 2x20 on the Pi, JR for the servos. The I2C sensors (VL53L0X, BNO085, INA226) are soldered to their header pads: there is no room for STEMMA QT plugs under the plate or behind the spine. Full schedule: [WIRING.md](WIRING.md).
 
 | Load | Standing, awake | Driving indoors (0.5 m/s) |
 | --- | --- | --- |

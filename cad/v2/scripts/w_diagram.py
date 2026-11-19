@@ -31,11 +31,11 @@ E = {  # cable id -> (from node, to node, kind)
     'F01': ('bulk', 'key', 'p'), 'F02': ('bulk', 'pdb', 'p'), 'F03': ('key', 'pdb', 'p'),
     'O01': ('pdb', 'drv', 'p'), 'O02': ('pdb', 'buck5', 'p'), 'O03': ('pdb', 'buck6', 'p'), 'P01': ('buck5', 'pi', 'p'),
     'U01': ('pi', 'esp', 'd'), 'G01': ('pi', 'lidar', 'd'), 'G02': ('pi', 'amp', 'd'), 'G03': ('pi', 'cpx', 'p'), 'G04': ('pi', 'head', 'd'), 'G05': ('pi', 'head', 'd'),
-    'K01': ('pi', 'head', 'f'), 'MA': ('motors', 'drv', 'p'), 'MAe': ('motors', 'esp', 'd'), 'L01': ('esp', 'drv', 'd'),
+    'K01': ('pi', 'head', 'f'), 'MA': ('motors', 'drv', 'p'), 'L01': ('esp', 'drv', 'd'),
     'B01': ('bump', 'esp', 'd'), 'C01': ('cliff', 'esp', 'd'), 'C05': ('esp', 'imu', 'd'), 'C06': ('esp', 'pdb', 'd'),
     'W01': ('esp', 'cpx', 'd'), 'W02': ('cpx', 'drv', 'd'), 'V03': ('buck6', 'servo', 'p'), 'V04': ('esp', 'servo', 'd'), 'A01': ('amp', 'spk', 'p'),
 }
-GROUP = {'MA': 'MA-MD (x4)', 'MAe': 'MAe-MDe (x4)', 'B01': 'B01-B04 (x4)', 'C01': 'C01-C04 (x4)'}
+GROUP = {'MA': 'MA-MD (x4, encoder wires on to the ESP32)', 'B01': 'B01-B04 (x4)', 'C01': 'C01-C04 (x4)'}
 COL = {'p': '#d9483b', 'd': '#3b7dd9', 'f': '#8a8f98'}
 
 

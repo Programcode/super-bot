@@ -3,17 +3,11 @@
  "prefixes": [
   "Head"
  ],
- "bodies": 56,
+ "bodies": 57,
  "near": 32,
  "unhealthy": [],
- "interference": [
-  {
-   "a": "Wiring harness (tilt) / K01d | camera FFC in the head",
-   "b": "Head tilt rotor / head frame (printed)",
-   "mm3": 3.32
-  }
- ],
+ "interference": [],
  "bed": [],
- "printed_checked": 16,
- "seconds": 3
+ "printed_checked": 17,
+ "seconds": 2
 }

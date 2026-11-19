@@ -30,12 +30,10 @@ ENDS = {
     'G01': (D + ' x3 (+ GND bridge)', 'JST ZH1.5 4 housing + 4 ZH crimps'), 'G02': (D + ' x5', 'solder (MAX98357A header pads)'),
     'G03': (D + ' x2', 'JST-PH 2 housing + 2 PH crimps'), 'G04': (D + ' x8', 'solder (TFT header pads)'), 'G05': (D + ' x6 (2 spliced with G02)', 'solder (INMP441 pads)'),
     'K01': ('bought FFC 22-pin end', 'bought FFC 15-pin end'), 'Q01': ('bought FFC (with the AI HAT+ 2)', ''),
-    'MA': ('JST-PH 6 housing + 6 PH crimps (encoder)', '2 bootlace ferrules 0.25 mm2 (screw terminal); 4 wires on as MAe'),
-    'MB': ('JST-PH 6 housing + 6 PH crimps (encoder)', '2 bootlace ferrules 0.25 mm2; 4 wires on as MBe'),
-    'MC': ('JST-PH 6 housing + 6 PH crimps (encoder)', '2 bootlace ferrules 0.25 mm2; 4 wires on as MCe'),
-    'MD': ('JST-PH 6 housing + 6 PH crimps (encoder)', '2 bootlace ferrules 0.25 mm2; 4 wires on as MDe'),
-    'MAe': ('(continues from MA)', 'solder (ESP32 carrier tails)'), 'MBe': ('(continues from MB)', 'solder (ESP32 carrier tails)'),
-    'MCe': ('(continues from MC)', 'solder (ESP32 carrier tails)'), 'MDe': ('(continues from MD)', 'solder (ESP32 carrier tails)'),
+    'MA': ('JST-PH 6 housing + 6 PH crimps (encoder)', 'M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier)'),
+    'MB': ('JST-PH 6 housing + 6 PH crimps (encoder)', 'M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier)'),
+    'MC': ('JST-PH 6 housing + 6 PH crimps (encoder)', 'M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier)'),
+    'MD': ('JST-PH 6 housing + 6 PH crimps (encoder)', 'M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier)'),
     'L01': ('solder (ESP32 carrier tails)', 'JST-XH 10 housing + 10 XH crimps'),
     'B01': ('solder (D2F pins)', 'solder (ESP32 carrier)'), 'B02': ('solder (D2F pins)', 'solder (ESP32 carrier)'),
     'B03': ('solder (D2F pins)', 'solder (ESP32 carrier)'), 'B04': ('solder (D2F pins)', 'solder (ESP32 carrier)'),
@@ -63,6 +61,17 @@ for r in R['cables']:
     c = cab.setdefault(b, {'id': b, 'pieces': [], 'route_mm': 0.0, 'conductors': r['conductors'], 'name': r['name'].split(',')[0].split(' (')[0]})
     c['pieces'].append({k: r.get(k) for k in ('id', 'name', 'from_', 'to', 'kind', 'od', 'route_mm', 'min_bend_mm', 'min_bend_x_od', 'bend_rule_mm', 'moving', 'stock', 'note', 'route')})
     c['route_mm'] += r['route_mm'] or 0.0
+# one six-core motor cable each: MA (motor -> DRV terminal) + MAe (encoder wires on to the ESP32) = one cable
+CUT = lambda L: int(math.ceil((L + 12.0) / 5.0) * 5)
+for m in ('MA', 'MB', 'MC', 'MD'):
+    if m in cab and m + 'e' in cab:
+        e = cab.pop(m + 'e')
+        c = cab[m]
+        c['pieces'] += e['pieces']
+        c['split_route_mm'] = (round(c['route_mm'], 1), round(e['route_mm'], 1))
+        c['conductors'] = [dict(cd, cut_mm=CUT(c['route_mm'] if cd['to'].startswith('OUT') else c['route_mm'] + e['route_mm']),
+                                to=(cd['to'] + ' (DRV terminal)' if cd['to'].startswith('OUT') else cd['to'] + ' (ESP32 carrier)')) for cd in c['conductors']]
+        c['route_mm'] += e['route_mm']
 out_c, wire_m, crimps = [], {}, {}
 for b, c in cab.items():
     p0, p1 = c['pieces'][0], c['pieces'][-1]
@@ -76,10 +85,17 @@ for b, c in cab.items():
            'moving': any(p['moving'] for p in c['pieces']), 'route': '; '.join(p['route'] for p in c['pieces'] if p.get('route')),
            'notes': '; '.join(p['note'] for p in c['pieces'] if p.get('note')), 'conductors': c['conductors'], 'pieces': [p['id'] for p in c['pieces']]}
     out_c.append(row)
+    if b in ('MA', 'MB', 'MC', 'MD'):
+        row['cut_mm'] = None
+        row['note_cut'] = 'per conductor: M+/M- %d mm to the DRV terminal, encoder wires %d mm to the ESP32 carrier (split after %d mm)' % (
+            c['conductors'][0]['cut_mm'], c['conductors'][2]['cut_mm'], c['split_route_mm'][0])
+    else:
+        for cd in row['conductors']:
+            cd.setdefault('cut_mm', None if (stock or row['kind'].startswith('flat')) else cut)
     if not stock and not row['kind'].startswith('flat'):
         for cd in c['conductors']:
             k = '%d AWG %s' % (cd['awg'], cd['colour'])
-            wire_m[k] = round(wire_m.get(k, 0.0) + cut / 1000.0, 3)
+            wire_m[k] = round(wire_m.get(k, 0.0) + (cd.get('cut_mm') or cut) / 1000.0, 3)
     for e in (ea, eb):
         for pat, key in ((r'JST-XH (\d+) housing', 'JST-XH housing %s-pin (XHP-%s)'), (r'JST-PH (\d+) housing', 'JST-PH housing %s-pin (PHR-%s)'),
                          (r'JST ZH1.5 (\d+) housing', 'JST-ZH housing %s-pin (ZHR-%s)')):

@@ -1,0 +1,94 @@
+{
+ "battery_slide_out": [
+  {
+   "slide_mm": 0,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 10,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 25,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 40,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 55,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 70,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 85,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 100,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 115,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 130,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 145,
+   "new_hits": []
+  },
+  {
+   "slide_mm": 160,
+   "new_hits": []
+  }
+ ],
+ "airflow_sections": {
+  "z90": {
+   "channel_mm2": 10463,
+   "blocked_mm2": 1475,
+   "free_pct": 85.9,
+   "bodies": 9
+  },
+  "z100": {
+   "channel_mm2": 10463,
+   "blocked_mm2": 1177,
+   "free_pct": 88.8,
+   "bodies": 20
+  },
+  "z160": {
+   "channel_mm2": 10463,
+   "blocked_mm2": 1519,
+   "free_pct": 85.5,
+   "bodies": 18
+  },
+  "z175": {
+   "channel_mm2": 10463,
+   "blocked_mm2": 1377,
+   "free_pct": 86.8,
+   "bodies": 9
+  },
+  "z230": {
+   "channel_mm2": 10463,
+   "blocked_mm2": 328,
+   "free_pct": 96.9,
+   "bodies": 6
+  }
+ },
+ "wiring_in_front_of_hat_heatsink": [
+  "Wiring harness / F02 | main feed - : bulkhead XT60 to PDB XT60 -",
+  "Wiring harness / G01 | lidar: Pi GPIO -> LD19 (custom ZH1.5-4 to Dupont)",
+  "Wiring harness / G02 | I2S out: Pi GPIO -> MAX98357A",
+  "Wiring harness / G03 | CPX power: Pi GPIO 5 V -> CPX battery JST",
+  "Wiring harness / G04a | TFT cable, fixed part (to the shaft bottom tie)",
+  "Wiring harness / W02 | kill line: CPX A1 -> DRV8874 SLEEP (all four)",
+  "Wiring harness / K01a | camera FFC, fixed part"
+ ],
+ "seconds": 3
+}

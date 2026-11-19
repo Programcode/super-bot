@@ -58,14 +58,10 @@ Every cable in the v2 robot, modelled in Fusion (doc "Super bot - v2"): componen
 | G05 | mic cable | Pi GPIO (Dupont housing) | INMP441 pads (soldered) | 6 x 28 AWG | 460 | Dupont 2.54 female crimp in the 2x20 housing x6 (2 spliced with G02) | solder (INMP441 pads) | front loom, up in front of the HAT, top lane, centre slot (right, stacked), into the pan shaft | 2.8 (2.8x) |
 | K01 | camera FFC | Pi 5 CAM/DISP0 (22-pin 0.5 mm) | Camera Module 3 (15-pin 1 mm) | FFC 11.5 x 0.3 | stock 500 (route 367) | bought FFC 22-pin end | bought FFC 15-pin end | up through the HAT cut-out, 45 deg fold to vertical, top lane, centre slot, into the pan shaft | 0.9 (-x) |
 | Q01 | PCIe FFC Pi 5 -> AI HAT+ 2 | Pi 5 PCIe FFC (16-pin) | AI HAT+ 2 PCIe FFC | FFC 10.7 x 0.3 | stock  (route 30) | bought FFC (with the AI HAT+ 2) |  | wraps round the left edge of the HAT | 1.4 (-x) |
-| MA | motor FL cable to the DRV terminal | JGB37 FL encoder PH2.0-6 | DRV8874 #3 screw terminal (OUT1/OUT2) | 6 x 24/26 AWG | 65 | JST-PH 6 housing + 6 PH crimps (encoder) | 2 bootlace ferrules 0.25 mm2 (screw terminal); 4 wires on as MAe | straight up between the front motors | 5.6 (4.0x) |
-| MAe | motor FL encoder wires to the ESP32 | split at the DRV terminal | ESP32 carrier (3V3, GND, ENC A/B) | 4 x 26 AWG | 100 | (continues from MA) | solder (ESP32 carrier tails) | under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
-| MB | motor FR cable to the DRV terminal | JGB37 FR encoder PH2.0-6 | DRV8874 #4 screw terminal (OUT1/OUT2) | 6 x 24/26 AWG | 75 | JST-PH 6 housing + 6 PH crimps (encoder) | 2 bootlace ferrules 0.25 mm2; 4 wires on as MBe | straight up between the front motors | 5.6 (4.0x) |
-| MBe | motor FR encoder wires to the ESP32 | split at the DRV terminal | ESP32 carrier (3V3, GND, ENC A/B) | 4 x 26 AWG | 90 | (continues from MB) | solder (ESP32 carrier tails) | under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
-| MC | motor RL cable to the DRV terminal | JGB37 RL encoder PH2.0-6 | DRV8874 #1 screw terminal (OUT1/OUT2) | 6 x 24/26 AWG | 205 | JST-PH 6 housing + 6 PH crimps (encoder) | 2 bootlace ferrules 0.25 mm2; 4 wires on as MCe | over the rear motor, along the bay floor, low spine slot, under the terminal block | 3.1 (2.2x) |
-| MCe | motor RL encoder wires to the ESP32 | split at the DRV terminal | ESP32 carrier (3V3, GND, ENC A/B) | 4 x 26 AWG | 125 | (continues from MC) | solder (ESP32 carrier tails) | under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
-| MD | motor RR cable to the DRV terminal | JGB37 RR encoder PH2.0-6 | DRV8874 #2 screw terminal (OUT1/OUT2) | 6 x 24/26 AWG | 295 | JST-PH 6 housing + 6 PH crimps (encoder) | 2 bootlace ferrules 0.25 mm2; 4 wires on as MDe | over the rear motor, along the bay floor, low spine slot, under the terminal block | 2.8 (2.0x) |
-| MDe | motor RR encoder wires to the ESP32 | split at the DRV terminal | ESP32 carrier (3V3, GND, ENC A/B) | 4 x 26 AWG | 110 | (continues from MD) | solder (ESP32 carrier tails) | under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
+| MA | motor FL cable to the DRV terminal | JGB37 FL encoder PH2.0-6 | ESP32 carrier (3V3, GND, ENC A/B) | 6 x 24/26 AWG | per conductor: M+/M- 65 mm to the DRV terminal, encoder wires 150 mm to the ESP32 carrier (split after 48 mm) | JST-PH 6 housing + 6 PH crimps (encoder) | M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier) | straight up between the front motors; under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
+| MB | motor FR cable to the DRV terminal | JGB37 FR encoder PH2.0-6 | ESP32 carrier (3V3, GND, ENC A/B) | 6 x 24/26 AWG | per conductor: M+/M- 75 mm to the DRV terminal, encoder wires 150 mm to the ESP32 carrier (split after 62 mm) | JST-PH 6 housing + 6 PH crimps (encoder) | M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier) | straight up between the front motors; under-board lane (own lane under the terminal block) | 4.8 (4.0x) |
+| MC | motor RL cable to the DRV terminal | JGB37 RL encoder PH2.0-6 | ESP32 carrier (3V3, GND, ENC A/B) | 6 x 24/26 AWG | per conductor: M+/M- 205 mm to the DRV terminal, encoder wires 315 mm to the ESP32 carrier (split after 190 mm) | JST-PH 6 housing + 6 PH crimps (encoder) | M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier) | over the rear motor, along the bay floor, low spine slot, under the terminal block; under-board lane (own lane under the terminal block) | 3.1 (2.2x) |
+| MD | motor RR cable to the DRV terminal | JGB37 RR encoder PH2.0-6 | ESP32 carrier (3V3, GND, ENC A/B) | 6 x 24/26 AWG | per conductor: M+/M- 295 mm to the DRV terminal, encoder wires 390 mm to the ESP32 carrier (split after 280 mm) | JST-PH 6 housing + 6 PH crimps (encoder) | M+/M-: 2 bootlace ferrules 0.25 mm2 (DRV terminal); encoder 4: solder (ESP32 carrier) | over the rear motor, along the bay floor, low spine slot, under the terminal block; under-board lane (own lane under the terminal block) | 2.8 (2.0x) |
 | L01 | DRV logic: ESP32 -> perfboard XH-10 | ESP32 carrier left end | DRV perfboard JST-XH 10 | 10 x 28 AWG | 105 | solder (ESP32 carrier tails) | JST-XH 10 housing + 10 XH crimps | over the DRV XT30 plug | 4.0 (4.0x) |
 | B01 | bumper front left | D2F-01L COM/NO pins (soldered; terminals face inward) | ESP32 carrier | 2 x 28 AWG | 180 | solder (D2F pins) | solder (ESP32 carrier) | under the front motor, along the floor in front of the sled nose, up to the carrier bottom edge | 4.0 (4.0x) |
 | B02 | bumper front right | D2F-01L COM/NO pins (soldered; terminals face inward) | ESP32 carrier | 2 x 28 AWG | 100 | solder (D2F pins) | solder (ESP32 carrier) | under the front motor, along the floor in front of the sled nose, up to the carrier bottom edge | 4.0 (4.0x) |
@@ -87,163 +83,147 @@ Every cable in the v2 robot, modelled in Fusion (doc "Super bot - v2"): componen
 
 ## Conductors and pins
 
-| Cable | # | From pin | To pin | AWG | Colour | Signal |
-| --- | --- | --- | --- | --- | --- | --- |
-| S01 | 1 | B- | B- | 16 | black | pack - |
-| S02 | 1 | B0 | B- | 22 | black | cell 0 |
-| S02 | 2 | B1 | cell 1+ | 22 | red | cell 1 |
-| S02 | 3 | B2 | cell 2+ | 22 | red | cell 2 |
-| S02 | 4 | B3 | B+ | 22 | red | cell 3 |
-| S03 | 1 | B+ | in | 16 | red | pack + |
-| S04 | 1 | out | + | 16 | red | VBAT fused |
-| S05 | 1 | P- | - | 16 | black | GND |
-| S06 | 1 | tip | in | 18 | red | charge + |
-| S07 | 1 | out | IN | 18 | red | charge + fused |
-| S08 | 1 | OUT | B+ | 18 | red | charge into P+ (common-port BMS) |
-| S09 | 1 | sleeve | P- | 18 | black | charge - |
-| F01 | 1 | + | A | 16 | red | VBAT fused, unswitched |
-| F02 | 1 | - | - | 16 | black | GND |
-| F03 | 1 | B | + | 16 | red | VBAT switched |
-| O01 | 1 | + | + | 16 | red | 12 V motors |
-| O01 | 2 | - | - | 16 | black | GND |
-| O02 | 1 | + | VIN | 18 | red | 12 V |
-| O02 | 2 | - | GND | 18 | black | GND |
-| O03 | 1 | + | VIN | 20 | red | 12 V |
-| O03 | 2 | - | GND | 20 | black | GND |
-| P01 | 1 | VOUT | VBUS | 18 | red | 5.1 V |
-| P01 | 2 | GND | GND | 18 | black | GND |
-| U01 | 1 | VBUS | VBUS | 28 | red | 5 V |
-| U01 | 2 | D+ | D+ | 28 | green | D+ |
-| U01 | 3 | D- | D- | 28 | white | D- |
-| U01 | 4 | GND | GND | 28 | black | GND |
-| G01 | 1 | 10 RXD (GPIO15) | 1 Tx | 26 | yellow | lidar data 230400 Bd |
-| G01 | 2 | 6 GND (bridge) | 2 PWM | 26 | blue | PWM held low = internal speed control |
-| G01 | 3 | 6 GND | 3 GND | 26 | black | GND |
-| G01 | 4 | 4 5V | 4 P5V | 26 | red | 5 V 180 mA |
-| G02 | 1 | 2 5V | Vin | 24 | red | 5 V |
-| G02 | 2 | 14 GND | GND | 24 | black | GND |
-| G02 | 3 | 12 GPIO18 | BCLK | 28 | yellow | I2S BCLK (spliced to the mic) |
-| G02 | 4 | 35 GPIO19 | LRC | 28 | green | I2S LRCLK (spliced to the mic) |
-| G02 | 5 | 40 GPIO21 | DIN | 28 | blue | I2S data out |
-| G03 | 1 | 2 5V (splice) | 1 + | 24 | red | 5 V |
-| G03 | 2 | 30 GND | 2 GND | 24 | black | GND |
-| G04 | 1 | 17 3V3 | Vin | 28 | red | 3.3 V |
-| G04 | 2 | 20 GND | GND | 28 | black | GND |
-| G04 | 3 | 23 SCLK | SCK | 28 | yellow | SPI0 SCLK |
-| G04 | 4 | 19 MOSI | SI | 28 | blue | SPI0 MOSI |
-| G04 | 5 | 24 CE0 | TCS | 28 | white | SPI0 CE0 |
-| G04 | 6 | 22 GPIO25 | D/C | 28 | green | data/command |
-| G04 | 7 | 13 GPIO27 | RST | 28 | grey | reset |
-| G04 | 8 | 15 GPIO22 | Lite | 28 | orange | backlight PWM |
-| G05 | 1 | 1 3V3 | VDD | 28 | red | 3.3 V |
-| G05 | 2 | 9 GND | GND | 28 | black | GND |
-| G05 | 3 | 12 GPIO18 (splice) | SCK | 28 | yellow | I2S BCLK |
-| G05 | 4 | 35 GPIO19 (splice) | WS | 28 | green | I2S LRCLK |
-| G05 | 5 | 38 GPIO20 | SD | 28 | blue | I2S data in |
-| G05 | 6 | 9 GND (splice) | L/R | 28 | black | left channel |
-| MA | 1 | M+ (red) | OUT1 | 24 | red | motor + |
-| MA | 6 | M- (white) | OUT2 | 24 | white | motor - |
-| MA | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MA | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MA | 3 | A (yellow) | ENC_FL_A | 26 | yellow | Hall A |
-| MA | 4 | B (green) | ENC_FL_B | 26 | green | Hall B |
-| MAe | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MAe | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MAe | 3 | A (yellow) | ENC_FL_A | 26 | yellow | Hall A |
-| MAe | 4 | B (green) | ENC_FL_B | 26 | green | Hall B |
-| MB | 1 | M+ (red) | OUT1 | 24 | red | motor + |
-| MB | 6 | M- (white) | OUT2 | 24 | white | motor - |
-| MB | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MB | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MB | 3 | A (yellow) | ENC_FR_A | 26 | yellow | Hall A |
-| MB | 4 | B (green) | ENC_FR_B | 26 | green | Hall B |
-| MBe | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MBe | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MBe | 3 | A (yellow) | ENC_FR_A | 26 | yellow | Hall A |
-| MBe | 4 | B (green) | ENC_FR_B | 26 | green | Hall B |
-| MC | 1 | M+ (red) | OUT1 | 24 | red | motor + |
-| MC | 6 | M- (white) | OUT2 | 24 | white | motor - |
-| MC | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MC | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MC | 3 | A (yellow) | ENC_RL_A | 26 | yellow | Hall A |
-| MC | 4 | B (green) | ENC_RL_B | 26 | green | Hall B |
-| MCe | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MCe | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MCe | 3 | A (yellow) | ENC_RL_A | 26 | yellow | Hall A |
-| MCe | 4 | B (green) | ENC_RL_B | 26 | green | Hall B |
-| MD | 1 | M+ (red) | OUT1 | 24 | red | motor + |
-| MD | 6 | M- (white) | OUT2 | 24 | white | motor - |
-| MD | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MD | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MD | 3 | A (yellow) | ENC_RR_A | 26 | yellow | Hall A |
-| MD | 4 | B (green) | ENC_RR_B | 26 | green | Hall B |
-| MDe | 2 | GND (black) | GND | 26 | black | encoder GND |
-| MDe | 5 | VCC (blue) | 3V3 | 26 | blue | encoder 3.3 V |
-| MDe | 3 | A (yellow) | ENC_RR_A | 26 | yellow | Hall A |
-| MDe | 4 | B (green) | ENC_RR_B | 26 | green | Hall B |
-| L01 | 1 | EN1 | GPIO | 28 | yellow | PWM motor A |
-| L01 | 2 | PH1 | GPIO | 28 | green | DIR motor A |
-| L01 | 3 | EN2 | GPIO | 28 | yellow | PWM B |
-| L01 | 4 | PH2 | GPIO | 28 | green | DIR B |
-| L01 | 5 | EN3 | GPIO | 28 | yellow | PWM C |
-| L01 | 6 | PH3 | GPIO | 28 | green | DIR C |
-| L01 | 7 | EN4 | GPIO | 28 | yellow | PWM D |
-| L01 | 8 | PH4 | GPIO | 28 | green | DIR D |
-| L01 | 9 | 3V3 | GPIO | 28 | red | logic 3.3 V |
-| L01 | 10 | GND | GPIO | 28 | black | GND |
-| B01 | 1 | COM | GND | 28 | black | GND |
-| B01 | 2 | NO | BUMP1 | 28 | white | bumper 1 (pull-up on the ESP32) |
-| B02 | 1 | COM | GND | 28 | black | GND |
-| B02 | 2 | NO | BUMP2 | 28 | white | bumper 2 (pull-up on the ESP32) |
-| B03 | 1 | COM | GND | 28 | black | GND |
-| B03 | 2 | NO | BUMP3 | 28 | white | bumper 3 (pull-up on the ESP32) |
-| B04 | 1 | COM | GND | 28 | black | GND |
-| B04 | 2 | NO | BUMP4 | 28 | white | bumper 4 (pull-up on the ESP32) |
-| C01 | 1 | VIN | 3V3 | 28 | red | 3.3 V |
-| C01 | 2 | GND | GND | 28 | black | GND |
-| C01 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) |
-| C01 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) |
-| C01 | 5 | XSHUT | XSHUT1 | 28 | white | address select at boot |
-| C02 | 1 | VIN | 3V3 | 28 | red | 3.3 V |
-| C02 | 2 | GND | GND | 28 | black | GND |
-| C02 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) |
-| C02 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) |
-| C02 | 5 | XSHUT | XSHUT2 | 28 | white | address select at boot |
-| C03 | 1 | VIN | 3V3 | 28 | red | 3.3 V |
-| C03 | 2 | GND | GND | 28 | black | GND |
-| C03 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) |
-| C03 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) |
-| C03 | 5 | XSHUT | XSHUT3 | 28 | white | address select at boot |
-| C04 | 1 | VIN | 3V3 | 28 | red | 3.3 V |
-| C04 | 2 | GND | GND | 28 | black | GND |
-| C04 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) |
-| C04 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) |
-| C04 | 5 | XSHUT | XSHUT4 | 28 | white | address select at boot |
-| C05 | 1 | 3V3 | VIN | 28 | red | 3.3 V |
-| C05 | 2 | GND | GND | 28 | black | GND |
-| C05 | 3 | SCL | SCL | 28 | yellow | I2C |
-| C05 | 4 | SDA | SDA | 28 | blue | I2C |
-| C05 | 5 | GPIO | INT | 28 | white | interrupt |
-| C05 | 6 | GPIO | RST | 28 | grey | reset |
-| C06 | 1 | 3V3 | VCC | 28 | red | 3.3 V |
-| C06 | 2 | GND | GND | 28 | black | GND |
-| C06 | 3 | SCL | SCL | 28 | yellow | I2C |
-| C06 | 4 | SDA | SDA | 28 | blue | I2C |
-| W01 | 1 | TX | A6 RX | 28 | white | heartbeat UART |
-| W01 | 2 | GND | GND pad | 28 | black | reference |
-| W02 | 1 | A1 | nSLEEP | 28 | red | motors enabled only while the CPX watchdog is fed |
-| V03 | 1 | VOUT | + (both) | 22 | red | 6 V |
-| V03 | 2 | GND | - (both) | 22 | black | GND |
-| V04 | 1 | GPIO | pan S | 28 | orange | pan PWM 50 Hz |
-| V04 | 2 | GPIO | tilt S | 28 | orange | tilt PWM 50 Hz |
-| V01 | 1 | brown | - | 26 | brown | GND |
-| V01 | 2 | red | + | 26 | red | 6 V |
-| V01 | 3 | orange | S | 26 | orange | PWM |
-| V02 | 1 | brown | - | 26 | brown | GND |
-| V02 | 2 | red | + | 26 | red | 6 V |
-| V02 | 3 | orange | S | 26 | orange | PWM |
-| A01 | 1 | + | + | 22 | red | speaker + |
-| A01 | 2 | - | - | 22 | black | speaker - |
+| Cable | # | From pin | To pin | AWG | Colour | Signal | Cut (mm) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| S01 | 1 | B- | B- | 16 | black | pack - | 30 |
+| S02 | 1 | B0 | B- | 22 | black | cell 0 | 35 |
+| S02 | 2 | B1 | cell 1+ | 22 | red | cell 1 | 35 |
+| S02 | 3 | B2 | cell 2+ | 22 | red | cell 2 | 35 |
+| S02 | 4 | B3 | B+ | 22 | red | cell 3 | 35 |
+| S03 | 1 | B+ | in | 16 | red | pack + | 60 |
+| S04 | 1 | out | + | 16 | red | VBAT fused | 75 |
+| S05 | 1 | P- | - | 16 | black | GND | 130 |
+| S06 | 1 | tip | in | 18 | red | charge + | 65 |
+| S07 | 1 | out | IN | 18 | red | charge + fused | 25 |
+| S08 | 1 | OUT | B+ | 18 | red | charge into P+ (common-port BMS) | 125 |
+| S09 | 1 | sleeve | P- | 18 | black | charge - | 80 |
+| F01 | 1 | + | A | 16 | red | VBAT fused, unswitched | 435 |
+| F02 | 1 | - | - | 16 | black | GND | 325 |
+| F03 | 1 | B | + | 16 | red | VBAT switched | 195 |
+| O01 | 1 | + | + | 16 | red | 12 V motors | 330 |
+| O01 | 2 | - | - | 16 | black | GND | 330 |
+| O02 | 1 | + | VIN | 18 | red | 12 V | 285 |
+| O02 | 2 | - | GND | 18 | black | GND | 285 |
+| O03 | 1 | + | VIN | 20 | red | 12 V | 295 |
+| O03 | 2 | - | GND | 20 | black | GND | 295 |
+| P01 | 1 | VOUT | VBUS | 18 | red | 5.1 V | 80 |
+| P01 | 2 | GND | GND | 18 | black | GND | 80 |
+| U01 | 1 | VBUS | VBUS | 28 | red | 5 V | stock |
+| U01 | 2 | D+ | D+ | 28 | green | D+ | stock |
+| U01 | 3 | D- | D- | 28 | white | D- | stock |
+| U01 | 4 | GND | GND | 28 | black | GND | stock |
+| G01 | 1 | 10 RXD (GPIO15) | 1 Tx | 26 | yellow | lidar data 230400 Bd | 435 |
+| G01 | 2 | 6 GND (bridge) | 2 PWM | 26 | blue | PWM held low = internal speed control | 435 |
+| G01 | 3 | 6 GND | 3 GND | 26 | black | GND | 435 |
+| G01 | 4 | 4 5V | 4 P5V | 26 | red | 5 V 180 mA | 435 |
+| G02 | 1 | 2 5V | Vin | 24 | red | 5 V | 195 |
+| G02 | 2 | 14 GND | GND | 24 | black | GND | 195 |
+| G02 | 3 | 12 GPIO18 | BCLK | 28 | yellow | I2S BCLK (spliced to the mic) | 195 |
+| G02 | 4 | 35 GPIO19 | LRC | 28 | green | I2S LRCLK (spliced to the mic) | 195 |
+| G02 | 5 | 40 GPIO21 | DIN | 28 | blue | I2S data out | 195 |
+| G03 | 1 | 2 5V (splice) | 1 + | 24 | red | 5 V | 120 |
+| G03 | 2 | 30 GND | 2 GND | 24 | black | GND | 120 |
+| G04 | 1 | 17 3V3 | Vin | 28 | red | 3.3 V | 380 |
+| G04 | 2 | 20 GND | GND | 28 | black | GND | 380 |
+| G04 | 3 | 23 SCLK | SCK | 28 | yellow | SPI0 SCLK | 380 |
+| G04 | 4 | 19 MOSI | SI | 28 | blue | SPI0 MOSI | 380 |
+| G04 | 5 | 24 CE0 | TCS | 28 | white | SPI0 CE0 | 380 |
+| G04 | 6 | 22 GPIO25 | D/C | 28 | green | data/command | 380 |
+| G04 | 7 | 13 GPIO27 | RST | 28 | grey | reset | 380 |
+| G04 | 8 | 15 GPIO22 | Lite | 28 | orange | backlight PWM | 380 |
+| G05 | 1 | 1 3V3 | VDD | 28 | red | 3.3 V | 460 |
+| G05 | 2 | 9 GND | GND | 28 | black | GND | 460 |
+| G05 | 3 | 12 GPIO18 (splice) | SCK | 28 | yellow | I2S BCLK | 460 |
+| G05 | 4 | 35 GPIO19 (splice) | WS | 28 | green | I2S LRCLK | 460 |
+| G05 | 5 | 38 GPIO20 | SD | 28 | blue | I2S data in | 460 |
+| G05 | 6 | 9 GND (splice) | L/R | 28 | black | left channel | 460 |
+| MA | 1 | M+ (red) | OUT1 (DRV terminal) | 24 | red | motor + | 65 |
+| MA | 6 | M- (white) | OUT2 (DRV terminal) | 24 | white | motor - | 65 |
+| MA | 2 | GND (black) | GND (ESP32 carrier) | 26 | black | encoder GND | 150 |
+| MA | 5 | VCC (blue) | 3V3 (ESP32 carrier) | 26 | blue | encoder 3.3 V | 150 |
+| MA | 3 | A (yellow) | ENC_FL_A (ESP32 carrier) | 26 | yellow | Hall A | 150 |
+| MA | 4 | B (green) | ENC_FL_B (ESP32 carrier) | 26 | green | Hall B | 150 |
+| MB | 1 | M+ (red) | OUT1 (DRV terminal) | 24 | red | motor + | 75 |
+| MB | 6 | M- (white) | OUT2 (DRV terminal) | 24 | white | motor - | 75 |
+| MB | 2 | GND (black) | GND (ESP32 carrier) | 26 | black | encoder GND | 150 |
+| MB | 5 | VCC (blue) | 3V3 (ESP32 carrier) | 26 | blue | encoder 3.3 V | 150 |
+| MB | 3 | A (yellow) | ENC_FR_A (ESP32 carrier) | 26 | yellow | Hall A | 150 |
+| MB | 4 | B (green) | ENC_FR_B (ESP32 carrier) | 26 | green | Hall B | 150 |
+| MC | 1 | M+ (red) | OUT1 (DRV terminal) | 24 | red | motor + | 205 |
+| MC | 6 | M- (white) | OUT2 (DRV terminal) | 24 | white | motor - | 205 |
+| MC | 2 | GND (black) | GND (ESP32 carrier) | 26 | black | encoder GND | 315 |
+| MC | 5 | VCC (blue) | 3V3 (ESP32 carrier) | 26 | blue | encoder 3.3 V | 315 |
+| MC | 3 | A (yellow) | ENC_RL_A (ESP32 carrier) | 26 | yellow | Hall A | 315 |
+| MC | 4 | B (green) | ENC_RL_B (ESP32 carrier) | 26 | green | Hall B | 315 |
+| MD | 1 | M+ (red) | OUT1 (DRV terminal) | 24 | red | motor + | 295 |
+| MD | 6 | M- (white) | OUT2 (DRV terminal) | 24 | white | motor - | 295 |
+| MD | 2 | GND (black) | GND (ESP32 carrier) | 26 | black | encoder GND | 390 |
+| MD | 5 | VCC (blue) | 3V3 (ESP32 carrier) | 26 | blue | encoder 3.3 V | 390 |
+| MD | 3 | A (yellow) | ENC_RR_A (ESP32 carrier) | 26 | yellow | Hall A | 390 |
+| MD | 4 | B (green) | ENC_RR_B (ESP32 carrier) | 26 | green | Hall B | 390 |
+| L01 | 1 | EN1 | GPIO | 28 | yellow | PWM motor A | 105 |
+| L01 | 2 | PH1 | GPIO | 28 | green | DIR motor A | 105 |
+| L01 | 3 | EN2 | GPIO | 28 | yellow | PWM B | 105 |
+| L01 | 4 | PH2 | GPIO | 28 | green | DIR B | 105 |
+| L01 | 5 | EN3 | GPIO | 28 | yellow | PWM C | 105 |
+| L01 | 6 | PH3 | GPIO | 28 | green | DIR C | 105 |
+| L01 | 7 | EN4 | GPIO | 28 | yellow | PWM D | 105 |
+| L01 | 8 | PH4 | GPIO | 28 | green | DIR D | 105 |
+| L01 | 9 | 3V3 | GPIO | 28 | red | logic 3.3 V | 105 |
+| L01 | 10 | GND | GPIO | 28 | black | GND | 105 |
+| B01 | 1 | COM | GND | 28 | black | GND | 180 |
+| B01 | 2 | NO | BUMP1 | 28 | white | bumper 1 (pull-up on the ESP32) | 180 |
+| B02 | 1 | COM | GND | 28 | black | GND | 100 |
+| B02 | 2 | NO | BUMP2 | 28 | white | bumper 2 (pull-up on the ESP32) | 100 |
+| B03 | 1 | COM | GND | 28 | black | GND | 290 |
+| B03 | 2 | NO | BUMP3 | 28 | white | bumper 3 (pull-up on the ESP32) | 290 |
+| B04 | 1 | COM | GND | 28 | black | GND | 200 |
+| B04 | 2 | NO | BUMP4 | 28 | white | bumper 4 (pull-up on the ESP32) | 200 |
+| C01 | 1 | VIN | 3V3 | 28 | red | 3.3 V | 105 |
+| C01 | 2 | GND | GND | 28 | black | GND | 105 |
+| C01 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) | 105 |
+| C01 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) | 105 |
+| C01 | 5 | XSHUT | XSHUT1 | 28 | white | address select at boot | 105 |
+| C02 | 1 | VIN | 3V3 | 28 | red | 3.3 V | 130 |
+| C02 | 2 | GND | GND | 28 | black | GND | 130 |
+| C02 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) | 130 |
+| C02 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) | 130 |
+| C02 | 5 | XSHUT | XSHUT2 | 28 | white | address select at boot | 130 |
+| C03 | 1 | VIN | 3V3 | 28 | red | 3.3 V | 175 |
+| C03 | 2 | GND | GND | 28 | black | GND | 175 |
+| C03 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) | 175 |
+| C03 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) | 175 |
+| C03 | 5 | XSHUT | XSHUT3 | 28 | white | address select at boot | 175 |
+| C04 | 1 | VIN | 3V3 | 28 | red | 3.3 V | 210 |
+| C04 | 2 | GND | GND | 28 | black | GND | 210 |
+| C04 | 3 | SCL | SCL | 28 | yellow | I2C SCL (bus) | 210 |
+| C04 | 4 | SDA | SDA | 28 | blue | I2C SDA (bus) | 210 |
+| C04 | 5 | XSHUT | XSHUT4 | 28 | white | address select at boot | 210 |
+| C05 | 1 | 3V3 | VIN | 28 | red | 3.3 V | 70 |
+| C05 | 2 | GND | GND | 28 | black | GND | 70 |
+| C05 | 3 | SCL | SCL | 28 | yellow | I2C | 70 |
+| C05 | 4 | SDA | SDA | 28 | blue | I2C | 70 |
+| C05 | 5 | GPIO | INT | 28 | white | interrupt | 70 |
+| C05 | 6 | GPIO | RST | 28 | grey | reset | 70 |
+| C06 | 1 | 3V3 | VCC | 28 | red | 3.3 V | 100 |
+| C06 | 2 | GND | GND | 28 | black | GND | 100 |
+| C06 | 3 | SCL | SCL | 28 | yellow | I2C | 100 |
+| C06 | 4 | SDA | SDA | 28 | blue | I2C | 100 |
+| W01 | 1 | TX | A6 RX | 28 | white | heartbeat UART | 185 |
+| W01 | 2 | GND | GND pad | 28 | black | reference | 185 |
+| W02 | 1 | A1 | nSLEEP | 28 | red | motors enabled only while the CPX watchdog is fed | 165 |
+| V03 | 1 | VOUT | + (both) | 22 | red | 6 V | 30 |
+| V03 | 2 | GND | - (both) | 22 | black | GND | 30 |
+| V04 | 1 | GPIO | pan S | 28 | orange | pan PWM 50 Hz | 270 |
+| V04 | 2 | GPIO | tilt S | 28 | orange | tilt PWM 50 Hz | 270 |
+| V01 | 1 | brown | - | 26 | brown | GND | stock |
+| V01 | 2 | red | + | 26 | red | 6 V | stock |
+| V01 | 3 | orange | S | 26 | orange | PWM | stock |
+| V02 | 1 | brown | - | 26 | brown | GND | stock |
+| V02 | 2 | red | + | 26 | red | 6 V | stock |
+| V02 | 3 | orange | S | 26 | orange | PWM | stock |
+| A01 | 1 | + | + | 22 | red | speaker + | 225 |
+| A01 | 2 | - | - | 22 | black | speaker - | 225 |
 
 Shared pins: Pi pin 2 (5 V) feeds the amp and the CPX, pin 12 (BCLK) and 35 (LRCLK) feed the amp and the mic (solder splices with heatshrink next to the housing). The I2C buses meet on the ESP32 carrier (one SDA/SCL bus for the cliff sensors, BNO085 and INA226; the VL53L0X addresses are set at boot with XSHUT1-4). Pin numbers on the ESP32 side are firmware choices (GPIO); assign them in the firmware pin map.
 
@@ -288,11 +268,11 @@ Shared pins: Pi pin 2 (5 V) feeds the amp and the CPX, pin 12 (BCLK) and 35 (LRC
 | 24 AWG black | 0.32 |
 | 24 AWG red | 0.95 |
 | 24 AWG white | 0.64 |
-| 26 AWG black | 1.50 |
-| 26 AWG blue | 1.50 |
-| 26 AWG green | 1.06 |
+| 26 AWG black | 1.44 |
+| 26 AWG blue | 1.44 |
+| 26 AWG green | 1.00 |
 | 26 AWG red | 0.43 |
-| 26 AWG yellow | 1.50 |
+| 26 AWG yellow | 1.44 |
 | 28 AWG black | 3.15 |
 | 28 AWG blue | 1.82 |
 | 28 AWG green | 1.46 |
@@ -329,16 +309,15 @@ Both ends of a tilt span ride with the pan, so the pan angle does not change it.
 
 ## Checks
 
-- Wire bodies checked: 85, against 381 solid parts (B-rep intersection, `scripts/w_check.py`).
-- Wire vs part: 18 overlaps over 0.05 mm3, listed below with what they are. None blocks assembly: the pocket and frame ones are two small printed-part tweaks, the rest are wire ends touching the pad, terminal or cradle they end at.
+- Wire bodies checked: 85, against 382 solid parts (B-rep intersection, `scripts/w_check.py`).
+- Wire vs part: 17 overlaps over 0.05 mm3, listed below with what they are. None blocks assembly: the pocket and frame ones are two small printed-part tweaks, the rest are wire ends touching the pad, terminal or cradle they end at.
 - Wire vs wire (different cables): 0.
 - Lidar scan band (z 298-304): only the cables inside the pan shaft (G04b, G05b, V02b, K01b), all inside the shaft (r <= 11.5 mm), i.e. inside the masked knuckle sector. Nothing else crosses the plane.
-  - C01 | cliff sensor front (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X front pocket (printed): 20.84 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
-  - C02 | cliff sensor right (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X right pocket (printed): 9.83 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
-  - C04 | cliff sensor left (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X left pocket (printed): 9.83 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
-  - C03 | cliff sensor rear (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X rear pocket (printed): 7.23 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
-  - K01d | camera FFC in the head / Head pan rotor / head frame (printed): 3.32 mm3 (the FFC grazes the head-frame web next to the cable slot: trim the web 1.5 mm there when printing)
+  - C01 | cliff sensor front (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X front pocket (printed): 4.04 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
+  - C02 | cliff sensor right (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X right pocket (printed): 1.90 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
+  - C04 | cliff sensor left (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X left pocket (printed): 1.90 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
   - C01 | cliff sensor front (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X front PCB (Adafruit 3317): 1.75 mm3 (termination contact)
+  - C03 | cliff sensor rear (VL53L0X 3317) / Cliff sensors 4x VL53L0X / VL53L0X rear pocket (printed): 1.40 mm3 (print a 1.5 x 1.5 mm wire groove in the pocket from the PCB edge to the plate hole (not modelled; the wire body shows the path))
   - C01 | cliff sensor front (VL53L0X 3317) / ESP32-S3-DevKitC-1 A / printed cradle: 1.19 mm3 (termination contact)
   - S04 | 15 A fuse out to sled XT60 male + / Battery 3S4P 18650  / fuse holder 15A mini blade: 0.90 mm3 (termination contact)
   - MD | motor RR cable to the DRV terminal (6 x 24/26 AWG) / Motor driver board 4x DRV8874 / motor terminals: 0.58 mm3 (termination contact)
@@ -351,4 +330,14 @@ Both ends of a tilt span ride with the pan, so the pan angle does not change it.
   - S03 | B+ to 15 A fuse in / Battery 3S4P 18650  / fuse holder 15A mini blade: 0.08 mm3 (termination contact)
   - S04 | 15 A fuse out to sled XT60 male + / Power connectors / XT60 male on sled: 0.08 mm3 (termination contact)
   - W02 | kill line: CPX A1 -> DRV8874 SLEEP (all four) / Circuit Playground Express (front status light) / CPX PCB: 0.05 mm3 (termination contact)
+- Pan/tilt sweep (15 poses, the head wiring moving with the head, vs plinth, frame, shell, lidar): 0 hits.
 
+- Battery removal: the sled, pack, sled connectors and the sled leads S01-S09 slid out of the back in 12 steps up to 160 mm: 0 new contacts with any fixed part or other cable (rails and bulkhead stay). The leads pass the spine through the feed relief.
+- Airflow (front chimney, spine front face to the front wall, 10463 mm2): free cross-section 90 mm 86 %, 100 mm 89 %, 160 mm 86 %, 175 mm 87 %, 230 mm 97 %. The cables in front of the AI HAT+ 2 heatsink (F02, G01, G02, G03, G04a, W02, K01a) all run vertically, along the chimney flow.
+- Tie points: tie each bundle with a 2.5 mm cable tie at every ply slot it passes (a 3 mm hole beside the slot) and every ~60 mm on long runs; the ties modelled are the shaft-bottom ties of the head cables and the tilt lead.
+
+## Open items
+
+- Tilt U-loop radius 3-6 mm is below the 10x-OD rule for the 28 AWG bundles. Meeting it needs a taller turret-to-crossbar gap (head about 6 mm higher), a looks call for Adam.
+- Most visible through the smoked front: the 16 AWG 12 V pair (O01) across the top of the ESP32 and the GPIO loom from the Dupont housing. Tidy-up is cosmetic.
+- ESP32 GPIO numbers are left to the firmware pin map; the carrier tails are listed by function.

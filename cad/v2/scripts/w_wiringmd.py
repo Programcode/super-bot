@@ -64,20 +64,20 @@ for c in C:
     wire = ('%d x %s AWG' % (len(c['conductors']), '/'.join(str(a) for a in awg))) if awg else c['kind']
     if c['kind'].startswith('flat'):
         wire = 'FFC ' + c['kind'][5:]
-    length = c['cut_mm'] if c['cut_mm'] else ('stock %s (route %d)' % (c['stock_len_mm'] or '', c['route_mm']))
+    length = c['cut_mm'] if c['cut_mm'] else (c['note_cut'] if c.get('note_cut') else 'stock %s (route %d)' % (c['stock_len_mm'] or '', c['route_mm']))
     mb = '' if c['min_bend_mm'] is None else '%.1f (%sx)' % (c['min_bend_mm'], c['min_bend_x_od'] if c['min_bend_x_od'] is not None else '-')
     w('| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (c['id'], c['name'], c['from'], c['to'], wire, length, c['end_a'], c['end_b'],
                                                                (c['route'] or '-').replace('|', '/'), mb))
 w('')
 w('## Conductors and pins')
 w('')
-w('| Cable | # | From pin | To pin | AWG | Colour | Signal |')
-w('| --- | --- | --- | --- | --- | --- | --- |')
+w('| Cable | # | From pin | To pin | AWG | Colour | Signal | Cut (mm) |')
+w('| --- | --- | --- | --- | --- | --- | --- | --- |')
 for c in C:
     for cd in c['conductors']:
         if not cd['awg']:
             continue
-        w('| %s | %s | %s | %s | %s | %s | %s |' % (c['id'], cd['wire'], cd['from'], cd['to'], cd['awg'], cd['colour'], cd['signal']))
+        w('| %s | %s | %s | %s | %s | %s | %s | %s |' % (c['id'], cd['wire'], cd['from'], cd['to'], cd['awg'], cd['colour'], cd['signal'], cd.get('cut_mm') or 'stock'))
 w('')
 w('Shared pins: Pi pin 2 (5 V) feeds the amp and the CPX, pin 12 (BCLK) and 35 (LRCLK) feed the amp and the mic (solder splices with heatshrink '
   'next to the housing). The I2C buses meet on the ESP32 carrier (one SDA/SCL bus for the cliff sensors, BNO085 and INA226; the VL53L0X '
@@ -134,8 +134,25 @@ if ch:
                if 'head frame' in h['part'] else 'termination contact')
         w('  - %s / %s: %.2f mm3 (%s)' % (h['wire'], h['part'], h['mm3'], why))
     sw = d.get('sweep')
-    if sw:
+    if sw is not None:
         w('- Pan/tilt sweep (15 poses, the head wiring moving with the head, vs plinth, frame, shell, lidar): %d hits.' % sw)
 w('')
+if len(sys.argv) > 3:
+    k = json.load(open(sys.argv[3]))
+    steps = [r['slide_mm'] for r in k['battery_slide_out']]
+    w('- Battery removal: the sled, pack, sled connectors and the sled leads S01-S09 slid out of the back in %d steps up to %d mm: %d new contacts with '
+      'any fixed part or other cable (rails and bulkhead stay). The leads pass the spine through the feed relief.' % (len(steps), max(steps), sum(len(r['new_hits']) for r in k['battery_slide_out'])))
+    a = k['airflow_sections']
+    w('- Airflow (front chimney, spine front face to the front wall, %d mm2): free cross-section %s. The cables in front of the AI HAT+ 2 heatsink (%s) '
+      'all run vertically, along the chimney flow.' % (list(a.values())[0]['channel_mm2'], ', '.join('%s mm %.0f %%' % (z[1:], v['free_pct']) for z, v in a.items()),
+                                                      ', '.join(x.split(' / ')[-1].split(' | ')[0] for x in k['wiring_in_front_of_hat_heatsink'])))
+w('- Tie points: tie each bundle with a 2.5 mm cable tie at every ply slot it passes (a 3 mm hole beside the slot) and every ~60 mm on long runs; '
+  'the ties modelled are the shaft-bottom ties of the head cables and the tilt lead.')
+w('')
+w('## Open items')
+w('')
+w('- Tilt U-loop radius 3-6 mm is below the 10x-OD rule for the 28 AWG bundles. Meeting it needs a taller turret-to-crossbar gap (head about 6 mm higher), a looks call for Adam.')
+w('- Most visible through the smoked front: the 16 AWG 12 V pair (O01) across the top of the ESP32 and the GPIO loom from the Dupont housing. Tidy-up is cosmetic.')
+w('- ESP32 GPIO numbers are left to the firmware pin map; the carrier tails are listed by function.')
 open(sys.argv[2], 'w').write('\n'.join(L) + '\n')
 print('WIRING.md lines', len(L))

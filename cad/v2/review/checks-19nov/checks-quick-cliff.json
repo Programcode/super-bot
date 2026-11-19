@@ -1,0 +1,13 @@
+{
+ "stage": "cliff",
+ "prefixes": [
+  "Cliff"
+ ],
+ "bodies": 12,
+ "near": 5,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 4,
+ "seconds": 2
+}

@@ -39,9 +39,7 @@
 <line x1="932.0" y1="300.0" x2="932.0" y2="190.0" stroke="#8a8f98" stroke-width="2"/>
 <text x="932.0" y="220.0" fill="#8a8f98" text-anchor="middle" font-size="11" paint-order="stroke" stroke="#fff" stroke-width="3">K01 500</text>
 <line x1="725.0" y1="720.0" x2="725.0" y2="660.0" stroke="#d9483b" stroke-width="2"/>
-<text x="725.0" y="687.0" fill="#d9483b" text-anchor="middle" font-size="11" paint-order="stroke" stroke="#fff" stroke-width="3">MA-MD (x4)</text>
-<line x1="753.8" y1="720.0" x2="915.4" y2="580.0" stroke="#3b7dd9" stroke-width="2"/>
-<text x="834.6" y="647.0" fill="#3b7dd9" text-anchor="middle" font-size="11" paint-order="stroke" stroke="#fff" stroke-width="3">MAe-MDe (x4)</text>
+<text x="725.0" y="687.0" fill="#d9483b" text-anchor="middle" font-size="11" paint-order="stroke" stroke="#fff" stroke-width="3">MA-MD (x4, encoder wires on to the ESP32)</text>
 <line x1="880.0" y1="574.9" x2="800.0" y2="603.3" stroke="#3b7dd9" stroke-width="2"/>
 <text x="840.0" y="586.1" fill="#3b7dd9" text-anchor="middle" font-size="11" paint-order="stroke" stroke="#fff" stroke-width="3">L01 105</text>
 <line x1="950.0" y1="720.0" x2="950.0" y2="580.0" stroke="#3b7dd9" stroke-width="2"/>

@@ -323,4 +323,7 @@ def cable_slots():
         bb = [b for k, b in tb.items() if k.startswith(n)]
         if bb:
             B(tilt.component, 'cable slot (%s)' % n, '4 mm', '(pan_y) + 5.5 mm', 'head_z0 - 1 mm', '24 mm', '9 mm', '14 mm', op=CUT, bodies=bb)
+    fr = [b for k, b in tb.items() if k.startswith('head frame')]
+    if fr:   # the camera FFC rises past the frame web just left of the slot
+        B(tilt.component, 'cable slot (head frame web notch)', '-1.5 mm', '(pan_y) + 6 mm', 'head_z0', '6 mm', '18 mm', '17 mm', op=CUT, bodies=fr)
     log('head cable slots cut; old ribbon cuts removed', gone)
