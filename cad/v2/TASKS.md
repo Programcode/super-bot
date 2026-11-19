@@ -97,7 +97,7 @@ Prepared while the Mac was offline. Job order when Fusion is back (each saves on
       option (a) vertical XT60/XT30 + plug + cable bend: 0 hits. `review/checks-18nov/checks-keepouts.json`
 - [x] 8a lidar option B (k8b2, saved; **the doc is currently in option B**, lidar_rise = 166 mm): scan plane 467 mm, nothing in the
       plane, 0 sweep hits. Render `renders/v2-photo-optB.png`
-- [ ] 8b option A: job `s7_lidar.py set_option(0)`, then `scripts/option_shot_check.py` with TAG = optA (
+- [x] 8b option A (19 Nov, wiring thread, doc v38): `set_option(0)` now also deletes the option B mast; render `renders/v2-photo-optA.png`, quick lidar 0 hits, scan plane 301 mm (only the pan shaft + knuckle in it), sweep 0 hits, head >= 6.3 mm above the plane. `review/checks-19nov/`. Was: job `s7_lidar.py set_option(0)`, then `scripts/option_shot_check.py` with TAG = optA (
       `views(['photo'], suffix='-optA')`, quick lidar, scan_plane, sweep) -> `renders/v2-photo-optA.png`
 - [ ] 9 `s8_wiring.py main()` (harness from every main-board connector)
 - [ ] 10 full checks: `all_quick(); floating(); keepouts(); main(('mass', 'bed', 'sweep'))`

@@ -1,0 +1,139 @@
+{
+ "scan_plane": [
+  {
+   "body": "Wiring harness (paths):1 / camera ribbon 500 mm (Pi 5 DISP0 to Camera Module 3), path",
+   "bearing_deg_from_front": [
+    20.1,
+    40.6
+   ],
+   "width_deg": 20.5,
+   "dist_mm": 119.0
+  },
+  {
+   "body": "Head pan rotor:1 / pan shaft 25x1 alu tube",
+   "bearing_deg_from_front": [
+    22.5,
+    43.7
+   ],
+   "width_deg": 21.1,
+   "dist_mm": 92.6
+  },
+  {
+   "body": "Head pan rotor:1 / knuckle sleeve (printed)",
+   "bearing_deg_from_front": [
+    20.6,
+    45.9
+   ],
+   "width_deg": 25.3,
+   "dist_mm": 92.6
+  }
+ ],
+ "sweep": [
+  {
+   "pan": -90,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": 7.2,
+   "hits": []
+  },
+  {
+   "pan": -90,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": 14.0,
+   "hits": []
+  },
+  {
+   "pan": -90,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": 6.3,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": 7.2,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": 14.0,
+   "hits": []
+  },
+  {
+   "pan": -45,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": 6.3,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": 7.2,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": 14.0,
+   "hits": []
+  },
+  {
+   "pan": 0,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": 6.3,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": 7.2,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": 14.0,
+   "hits": []
+  },
+  {
+   "pan": 45,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": 6.3,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": -35,
+   "head_min_z": 308.2,
+   "head_above_scan": 7.2,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": 0,
+   "head_min_z": 315.0,
+   "head_above_scan": 14.0,
+   "hits": []
+  },
+  {
+   "pan": 90,
+   "tilt": 45,
+   "head_min_z": 307.3,
+   "head_above_scan": 6.3,
+   "hits": []
+  }
+ ],
+ "scan_z": 301.0
+}

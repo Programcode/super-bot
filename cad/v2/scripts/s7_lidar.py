@@ -66,6 +66,10 @@ def pod():
         C(m, 'mast socket', 'z', 'mast_x', 'mast_y', 'pod_ld_z + 4.5 mm', '20.2 mm', '8 mm', op=CUT, bodies=[base])
         tp = RB(m, 'LD19 top plate (printed)', 'ld_x', 'ld_y', 'ld_z - 3 mm', '56 mm', '48 mm', '3 mm', '6 mm', 'PET Plastic', BLACK)
         C(m, 'mast plug (printed)', 'z', 'mast_x', 'mast_y', 'ld_z - 3 mm - 6 mm', '17 mm', '12 mm', 'PET Plastic', BLACK)
+    else:
+        old = find_occ('Lidar mast (option B)')
+        if old:
+            old.deleteMe()      # switching back to option A: no mast
     l = fresh('Lidar LDROBOT LD19')
     ears = B(l, 'LD19 ear plate', 'ld_x', 'ld_y', 'ld_z', '54 mm', '46.29 mm', '2.5 mm', 'ABS Plastic', BLACK)
     fillet(l, edges_where(ears, lambda e: is_axis_line(e, 'z')), '6 mm')

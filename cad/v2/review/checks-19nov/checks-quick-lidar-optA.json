@@ -1,0 +1,13 @@
+{
+ "stage": "lidar-optA",
+ "prefixes": [
+  "Lidar"
+ ],
+ "bodies": 5,
+ "near": 2,
+ "unhealthy": [],
+ "interference": [],
+ "bed": [],
+ "printed_checked": 1,
+ "seconds": 2
+}

@@ -56,7 +56,7 @@ def main():
             obj['readOnly'] = True
         sys.exit(call('fusion_mcp_execute', {'featureType': 'script', 'object': obj}))
     if mode == 'job':
-        src = open('/home/codex/.t3/projects/super-bot/cad/v2/scripts/loader.py').read()
+        src = open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), 'loader.py')).read()
         src = re.sub(r'^JOBS = .*$', 'JOBS = ' + sys.argv[3], src, flags=re.M)
         src = re.sub(r'^TAG = .*$', 'TAG = %r' % sys.argv[2], src, flags=re.M)
         sys.exit(call('fusion_mcp_execute', {'featureType': 'script', 'object': {'script': src}}))
