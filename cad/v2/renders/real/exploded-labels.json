@@ -1,0 +1,117 @@
+{
+ "w": 1920,
+ "h": 2160,
+ "title": "Super bot v2, exploded: every part is a real, bought or printed part",
+ "labels": [
+  {
+   "text": "Head: smoked PETG capsule, 190 x 76 x 64 mm",
+   "x": 831.4546394348145,
+   "y": 183.65376949310303
+  },
+  {
+   "text": "Raspberry Pi Camera Module 3 (eye)",
+   "x": 791.931095123291,
+   "y": 136.3650941848755
+  },
+  {
+   "text": "1.3\" 240 x 240 TFT face",
+   "x": 883.9549255371094,
+   "y": 124.70649719238281
+  },
+  {
+   "text": "Tilt MG90S in the printed turret",
+   "x": 915.5556678771973,
+   "y": 286.87989234924316
+  },
+  {
+   "text": "Square plinth with the upper 6805 bearing",
+   "x": 909.7422981262207,
+   "y": 638.0085611343384
+  },
+  {
+   "text": "LDROBOT LD19 lidar",
+   "x": 1081.2959289550781,
+   "y": 628.8227891921997
+  },
+  {
+   "text": "Lidar pod (smoked PETG)",
+   "x": 1084.1772079467773,
+   "y": 630.1267290115356
+  },
+  {
+   "text": "Top halves (smoked PETG, magnets)",
+   "x": 777.0879936218262,
+   "y": 973.0108880996704
+  },
+  {
+   "text": "Front wall (smoked PETG, 2.4 mm)",
+   "x": 629.0956878662109,
+   "y": 1386.0879635810852
+  },
+  {
+   "text": "Side wall (lifts off over the wheel shaft)",
+   "x": 455.4368591308594,
+   "y": 1099.2122554779053
+  },
+  {
+   "text": "Top deck, 4 mm stained birch ply",
+   "x": 981.0405349731445,
+   "y": 1177.5609111785889
+  },
+  {
+   "text": "Raspberry Pi 5 8 GB + AI HAT+ 2",
+   "x": 898.9134979248047,
+   "y": 1349.8919820785522
+  },
+  {
+   "text": "4x Pololu DRV8874 motor drivers on a perfboard",
+   "x": 929.5479583740234,
+   "y": 1513.6951732635498
+  },
+  {
+   "text": "ESP32-S3-DevKitC-1 (reflex layer)",
+   "x": 802.6467704772949,
+   "y": 1471.4997553825378
+  },
+  {
+   "text": "Circuit Playground Express (front status light)",
+   "x": 821.7319107055664,
+   "y": 1272.5808262825012
+  },
+  {
+   "text": "Spine, 4 mm stained birch ply",
+   "x": 867.8411293029785,
+   "y": 1485.4893636703491
+  },
+  {
+   "text": "3S4P 18650 pack + BMS on the battery sled",
+   "x": 983.6945343017578,
+   "y": 1811.1960983276367
+  },
+  {
+   "text": "JGB37-520 gear motor with Hall encoder",
+   "x": 758.6330223083496,
+   "y": 1875.2309310436249
+  },
+  {
+   "text": "100 mm mecanum wheel (rubber rollers)",
+   "x": 654.8002052307129,
+   "y": 1853.3433330059052
+  },
+  {
+   "text": "Chassis plate, 6 mm birch ply",
+   "x": 834.4550514221191,
+   "y": 1867.7498531341553
+  },
+  {
+   "text": "Bumper bar on D2F-01L microswitches",
+   "x": 892.8499031066895,
+   "y": 1955.674300789833
+  },
+  {
+   "text": "Battery door with charge jack",
+   "x": 1258.718376159668,
+   "y": 1592.585849761963
+  }
+ ]
+}

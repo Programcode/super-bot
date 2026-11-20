@@ -1,0 +1,22 @@
+{"_comment": "Vendor models replacing Fusion stand-ins. Meshes come from fetch_vendor.sh (not committed). rot rows = robot X, Y, Z in vendor axes.",
+ "items": [
+  {"name": "Raspberry Pi 5", "mesh": "/tmp/sbr/vm/pi5c", "group": "Raspberry Pi 5 8GB + Active Cooler",
+   "_pose": "B (Pip, 19 Nov): components to the front, USB/Ethernet to the right wall, GPIO at the bottom, USB-C top-left",
+   "rot": [[1,0,0],[0,0,1],[0,-1,0]],
+   "target": "^raspberry pi 5 8gb.*:: pi 5 pcb",
+   "hide": "^raspberry pi 5 8gb.*:: (pi 5 pcb|ethernet|usb|micro hdmi|gpio 2x20|mipi|pcie)"},
+  {"name": "Circuit Playground Express", "mesh": "/tmp/sbr/vm/cpx", "group": "Circuit Playground Express",
+   "rot": [[-1,0,0],[0,0,1],[0,1,0]], "mat_by_name": {"^board$": "pcb_black"}, "neopixels": true,
+   "target": "^circuit playground.*:: cpx pcb",
+   "hide": "^circuit playground.*:: (cpx pcb|cpx neopixel|neopixel|usb micro|jst-ph|button)"},
+  {"name": "BNO085", "mesh": "/tmp/sbr/vm/bno", "group": "BNO085 IMU (Adafruit 4754)",
+   "rot": [[1,0,0],[0,0,-1],[0,1,0]], "mat_by_name": {"^board$": "pcb_black"},
+   "target": "^bno085.*:: bno085 pcb", "hide": "^bno085.*:: (bno085 pcb|bno085 chip)"},
+  {"name": "Raspberry Pi Camera Module 3", "mesh": "/tmp/sbr/vm/cm3", "group": "Head pan rotor",
+   "rot": [[0,1,0],[0,0,-1],[-1,0,0]], "mat_by_name": {"dielectric": "pcb_green", "tnba": "plastic_black"},
+   "target": "camera module 3.*:: cm3 lens barrel", "anchor": "tnba",
+   "hide": "camera module 3.*:: cm3 (pcb|fpc|lens)"},
+  {"name": "LDROBOT LD19", "mesh": "/tmp/sbr/vm/ld19", "group": "Lidar LDROBOT LD19",
+   "rot": [[1,0,0],[0,0,-1],[0,1,0]], "mat_by_name": {".": "plastic_black", "pa2x6": "steel_black"},
+   "target": "^lidar ldrobot", "anchor": "ALL", "align": "bottom", "hide": "^lidar ldrobot"}
+ ]}
