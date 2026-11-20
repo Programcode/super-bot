@@ -1,7 +1,7 @@
 # Super bot: page snapshot
 
-> **Synced from the Grok Bot page "Super bot" on 20 Nov 2026, 12:40 AM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
-> The page itself says "Last updated: 20 Nov 2026, 12:40 AM (Europe/Budapest)". The GitHub repo is public.
+> **Synced from the Grok Bot page "Super bot" on 20 Nov 2026, 2:30 AM (Europe/Budapest)** (canvas id `45200f5a-d70f-476f-988f-23a206c0bfd9`, [open the live page](https://cursor.com/canvas/store-3f866d4b-6e7e-4115-b119-325492ec6c21/45200f5a-d70f-476f-988f-23a206c0bfd9), Adam's account).
+> The page itself says "Last updated: 20 Nov 2026, 2:30 AM (Europe/Budapest)". The GitHub repo is public.
 > Do not hand-edit. Pip regenerates this file whenever the page changes (see [`sync.md`](sync.md)).
 
 Living master page for Super bot, Adam's mecanum-wheel home robot and layered brain. This is a passion project. The page is the single source of truth: every decision goes there and into the decision log.
@@ -41,9 +41,19 @@ Approved 15 Nov 2026. Each layer works and is fun on its own.
 
 ## Concept renders
 
-The page lists three early renders from 15 Nov (core bot, with arm, docked). The newer 17 Nov concept renders are in [`concepts/`](concepts/).
+Photoreal Blender Cycles renders of the post-wiring v2 Fusion STEP, finished 20 Nov 2026 (commit `c9d6937`). Files are in [`cad/v2/renders/real/`](../cad/v2/renders/real/); scripts are in [`cad/v2/render/`](../cad/v2/render/). The live page embeds `hero.png` and `contact-sheet.png`.
 
-**Final v2 Cycles renders are cooking.** 18 shots are rendering on the VPS with Blender Cycles from the current Fusion export. ETA 2:00–2:30 AM (Europe/Budapest) on 20 Nov 2026. These will replace the older CAD stills once they land.
+**19 photoreal Cycles shots are done.** They were rendered from the post-wiring Fusion STEP: off-the-shelf modules, no custom main board, lidar option A, Pi 5 pose B, and the full 85-body harness. The hero is a three-quarter front view; the contact sheet shows every shot. Write-up: [`cad/v2/renders/real/README.md`](../cad/v2/renders/real/README.md).
+
+- Vendor models replace the Fusion stand-ins for the Raspberry Pi 5, Camera Module 3, Circuit Playground Express (NeoPixels lit), BNO085 and LD19.
+- The Active Cooler and the AI HAT+ 2 keep their Fusion shapes; no vendor model exists for those.
+- Mecanum rollers are drawn as rubber barrels on the same axis; the CAD uses double cones as a modelling shortcut.
+- The shell is rendered as smoked translucent PETG so the internals show. That is a looks choice: the target photo has an opaque dark shell, and the colours were not measured from samples.
+- The exploded views leave the harness out, because cables between moved groups would float.
+
+**Open calls, still waiting on Adam.** The tilt U-loop radius is still tight (3–6 mm, below the 10× bend rule for 28 AWG). Fixing it properly means raising the head about 6 mm, a looks call. Three buying calls are still open on the final BOM, and nothing has been ordered: (1) DIY spot-welded battery pack versus a ready-made 3S4P or shop build; (2) LD19 from RobotShop EU versus AliExpress; (3) Nexus wheels and hubs from RobotShop versus AliExpress. Details are in [BOM and cost](#bom-and-cost) and in [Open questions](#open-questions-and-next-steps).
+
+Three early AI concept images from 15 Nov 2026, not photographs of a real build, and not the current v2: a core mecanum rover; a taller fetch-and-help look with an arm, which was Adam's favourite then; and a docked, sleeping body. Self-docking and the arm stay later dream upgrades. The newer 17 Nov concept renders are in [`concepts/`](concepts/).
 
 ## CAD / concept K
 
@@ -53,7 +63,7 @@ v2 finished and accepted 18 Nov 2026, 12:45 AM (Europe/Budapest). On 19 Nov the 
 
 **v2 is done and accepted.** The Fusion design is named "Super bot - v2". Pip accepted it at 12:45 AM on 18 Nov 2026 (Europe/Budapest), after the side-by-side with the target photo (`docs/concepts/v2-target-photo.png`), the renders, and [`cad/v2/README.md`](../cad/v2/README.md). Every part is at real datasheet size. Result: 0 interferences at rest and across a 15-pose pan/tilt sweep, every part mounted, all 114 printed parts fit a 256 mm bed. Files are in [`cad/v2/`](../cad/v2/): STEP, f3d, STL, DXF, renders, review checks, and a README. Git commits `3994b36` and `318a829`. The first v2 build, a 300×300×340 mm open frame with corner tie rods, was scrapped on 17 Nov as a giant empty 3D-printer-looking box; those scripts are in `cad/v2/scripts/old-frame-build/`. v1 stays frozen as the `concept-k-v1` backup.
 
-**19 Nov: modules, lidar option A, Pi pose B, wiring done.** Adam decided not to use a custom main board for now ("maybe later… but for now no"). v2 is back on off-the-shelf modules. Lidar option A is live in Fusion (commit `f0104be`, doc v38, then v53 with the harness): low rear pod, scan plane at 301 mm, an 18.6° software mask, mast deleted. The battery sled has a 14 mm nose for the XT60 blind-mate; the HC-SR04 sonar is dropped. The Pi 5 is in pose B (the model had been mirrored; USB and Ethernet face the right wall). The wiring harness is in the model (commit `f6f2c9b`). The parts list is final (commit `867e29e`), about EUR 1,071 net / EUR 1,347 incl. 27% VAT. A v2-render thread is rendering 18 Blender Cycles shots from the current Fusion export on the VPS, ETA 2:00–2:30 AM (Europe/Budapest) on 20 Nov 2026.
+**19 Nov: modules, lidar option A, Pi pose B, wiring done.** Adam decided not to use a custom main board for now ("maybe later… but for now no"). v2 is back on off-the-shelf modules. Lidar option A is live in Fusion (commit `f0104be`, doc v38, then v53 with the harness): low rear pod, scan plane at 301 mm, an 18.6° software mask, mast deleted. The battery sled has a 14 mm nose for the XT60 blind-mate; the HC-SR04 sonar is dropped. The Pi 5 is in pose B (the model had been mirrored; USB and Ethernet face the right wall). The wiring harness is in the model (commit `f6f2c9b`). The parts list is final (commit `867e29e`), about EUR 1,071 net / EUR 1,347 incl. 27% VAT. Photoreal Cycles renders of that design finished on 20 Nov 2026 (commit `c9d6937`); see [Concept renders](#concept-renders).
 
 The live page shows two images: the finished model next to the target photo (same viewpoint), and an isometric render. In the repo those are [`cad/v2/review/v2-vs-target-photo.png`](../cad/v2/review/v2-vs-target-photo.png) and [`cad/v2/renders/v2-iso.png`](../cad/v2/renders/v2-iso.png). The smoked PETG renders darker than the real material and the photo.
 
@@ -429,6 +439,12 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 | Repo is public | github.com/Programcode/super-bot is public. Do not commit secrets or personal data. |
 | Mind reasoning effort is HIGH | The current setting for `qwen/qwen3.8-27b` is HIGH, replacing the earlier "at least low" wording on this page. The 15 Nov bench still stands as a reasoning-level comparison, where low scored 10/10. |
 
+**20 Nov 2026**
+
+| Decision | Why |
+| --- | --- |
+| Photoreal v2 Cycles renders finished | Commit `c9d6937`, [`cad/v2/renders/real/`](../cad/v2/renders/real/). 19 Blender Cycles shots from the post-wiring Fusion STEP (modules, no custom board, lidar option A, Pi 5 pose B, full 85-body harness). Vendor models for the Pi 5, Camera Module 3, CPX (NeoPixels lit), BNO085 and LD19; Active Cooler and AI HAT+ 2 keep Fusion shapes; mecanum rollers drawn as rubber barrels (CAD uses double cones). Shell rendered as smoked translucent PETG, a looks choice; the target photo has an opaque dark shell, and colours were not measured. Scripts in [`cad/v2/render/`](../cad/v2/render/). Open calls unchanged: tilt-loop head about 6 mm higher, and the three BOM buying calls. |
+
 **17 Nov 2026**
 
 | Decision | Why |
@@ -468,4 +484,4 @@ Condensed from the page. The shorter running log is also in [`decisions.md`](dec
 
 ## Sources
 
-Facts on the page come from Adam's decisions on 14–19 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in the public repo github.com/Programcode/super-bot (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, [`WIRING.md`](../cad/v2/WIRING.md), [`BOM.md`](../cad/v2/BOM.md), renders, and review checks; commits `3994b36`, `318a829`, `f0104be`, `f6f2c9b`, `867e29e`), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)), the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`), and the parked main board in [`hw/main-board/`](../hw/main-board/) (rev A finished 18 Nov 2026, 6:20 AM Europe/Budapest; quotes in [`QUOTES.md`](../hw/main-board/QUOTES.md); rev B polarity fix `c0d1343`; not in the robot totals).
+Facts on the page come from Adam's decisions on 14–19 Nov 2026, the Qwen runs in `/workspace/qwen-bench/`, hardware notes, model figures checked on 15 Nov 2026, onboard-compute research that day, the concept K v1 Fusion design and review in the public repo github.com/Programcode/super-bot (`cad/concept-k-v1/`, including `review/REVIEW.md` and the speed check in section 5 at commit `9b6bc6e`, with the condensed log in [`docs/decisions.md`](decisions.md)), the accepted v2 design in [`cad/v2/`](../cad/v2/) (README, [`WIRING.md`](../cad/v2/WIRING.md), [`BOM.md`](../cad/v2/BOM.md), renders, and review checks; commits `3994b36`, `318a829`, `f0104be`, `f6f2c9b`, `867e29e`), the photoreal Cycles renders in [`cad/v2/renders/real/`](../cad/v2/renders/real/) (commit `c9d6937`, scripts in [`cad/v2/render/`](../cad/v2/render/)), the Fusion Electronics test ([`hw/fusion-electronics-test/RESULT.md`](../hw/fusion-electronics-test/RESULT.md)), the KiCad setup and smoke test ([`docs/kicad-setup.md`](kicad-setup.md), `hw/kicad-smoketest/`, commit `c96ce9b`), and the parked main board in [`hw/main-board/`](../hw/main-board/) (rev A finished 18 Nov 2026, 6:20 AM Europe/Budapest; quotes in [`QUOTES.md`](../hw/main-board/QUOTES.md); rev B polarity fix `c0d1343`; not in the robot totals).
